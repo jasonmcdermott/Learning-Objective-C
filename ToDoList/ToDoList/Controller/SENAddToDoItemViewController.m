@@ -9,10 +9,17 @@
 #import "SENAddToDoItemViewController.h"
 
 @interface SENAddToDoItemViewController ()
-
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
 @end
 
 @implementation SENAddToDoItemViewController
+
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue
+{
+    
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +34,17 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if (sender != self.doneButton) return;
+    
+    if (self.textField.text.length > 0) {
+        self.toDoItem = [[SENToDoItem alloc] init];
+        self.toDoItem.itemName = self.textField.text;
+        self.toDoItem.completed = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning

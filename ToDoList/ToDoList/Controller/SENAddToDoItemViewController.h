@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SENToDoItem.h"
 
 @interface SENAddToDoItemViewController : UIViewController
-
+@property SENToDoItem *toDoItem;
 @end

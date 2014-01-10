@@ -21,6 +21,8 @@
 		0E75FDA6187D5E930045BD2D /* ToDoListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E75FDA5187D5E930045BD2D /* ToDoListTests.m */; };
 		0E75FDB2187D5F8A0045BD2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E75FDB1187D5F8A0045BD2D /* Main.storyboard */; };
 		0E75FDB8187D6FDD0045BD2D /* SENAddToDoItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E75FDB7187D6FDD0045BD2D /* SENAddToDoItemViewController.m */; };
+		0EAAC27F187E4A2A009437E9 /* SENToDoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EAAC27E187E4A2A009437E9 /* SENToDoItem.m */; };
+		0EDECED2187E2A5C0032EC3F /* SENTodoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EDECED1187E2A5C0032EC3F /* SENTodoListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		0E75FDB1187D5F8A0045BD2D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
 		0E75FDB6187D6FDD0045BD2D /* SENAddToDoItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENAddToDoItemViewController.h; path = Controller/SENAddToDoItemViewController.h; sourceTree = "<group>"; };
 		0E75FDB7187D6FDD0045BD2D /* SENAddToDoItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENAddToDoItemViewController.m; path = Controller/SENAddToDoItemViewController.m; sourceTree = "<group>"; };
+		0EAAC27D187E4A2A009437E9 /* SENToDoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENToDoItem.h; path = Model/SENToDoItem.h; sourceTree = "<group>"; };
+		0EAAC27E187E4A2A009437E9 /* SENToDoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENToDoItem.m; path = Model/SENToDoItem.m; sourceTree = "<group>"; };
+		0EDECED0187E2A5C0032EC3F /* SENTodoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENTodoListViewController.h; path = Controller/SENTodoListViewController.h; sourceTree = "<group>"; };
+		0EDECED1187E2A5C0032EC3F /* SENTodoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENTodoListViewController.m; path = Controller/SENTodoListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +118,9 @@
 		0E75FD86187D5E930045BD2D /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				0E75FDB6187D6FDD0045BD2D /* SENAddToDoItemViewController.h */,
-				0E75FDB7187D6FDD0045BD2D /* SENAddToDoItemViewController.m */,
+				0EAAC280187E4A2F009437E9 /* Model */,
+				0EC682A3187E280C006C7898 /* Controllers */,
 				0E75FDB1187D5F8A0045BD2D /* Main.storyboard */,
-				0E75FD8F187D5E930045BD2D /* SENAppDelegate.h */,
-				0E75FD90187D5E930045BD2D /* SENAppDelegate.m */,
 				0E75FD92187D5E930045BD2D /* Images.xcassets */,
 				0E75FD87187D5E930045BD2D /* Supporting Files */,
 			);
@@ -126,6 +130,8 @@
 		0E75FD87187D5E930045BD2D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0E75FD8F187D5E930045BD2D /* SENAppDelegate.h */,
+				0E75FD90187D5E930045BD2D /* SENAppDelegate.m */,
 				0E75FD88187D5E930045BD2D /* ToDoList-Info.plist */,
 				0E75FD89187D5E930045BD2D /* InfoPlist.strings */,
 				0E75FD8C187D5E930045BD2D /* main.m */,
@@ -150,6 +156,26 @@
 				0E75FDA2187D5E930045BD2D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0EAAC280187E4A2F009437E9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0EAAC27D187E4A2A009437E9 /* SENToDoItem.h */,
+				0EAAC27E187E4A2A009437E9 /* SENToDoItem.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		0EC682A3187E280C006C7898 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0EDECED0187E2A5C0032EC3F /* SENTodoListViewController.h */,
+				0EDECED1187E2A5C0032EC3F /* SENTodoListViewController.m */,
+				0E75FDB6187D6FDD0045BD2D /* SENAddToDoItemViewController.h */,
+				0E75FDB7187D6FDD0045BD2D /* SENAddToDoItemViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,7 +275,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EAAC27F187E4A2A009437E9 /* SENToDoItem.m in Sources */,
 				0E75FD8D187D5E930045BD2D /* main.m in Sources */,
+				0EDECED2187E2A5C0032EC3F /* SENTodoListViewController.m in Sources */,
 				0E75FDB8187D6FDD0045BD2D /* SENAddToDoItemViewController.m in Sources */,
 				0E75FD91187D5E930045BD2D /* SENAppDelegate.m in Sources */,
 			);
@@ -452,6 +480,7 @@
 				0E75FDAB187D5E930045BD2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E75FDAC187D5E930045BD2D /* Build configuration list for PBXNativeTarget "ToDoListTests" */ = {
 			isa = XCConfigurationList;
@@ -460,6 +489,7 @@
 				0E75FDAE187D5E930045BD2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
