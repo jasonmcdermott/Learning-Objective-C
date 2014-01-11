@@ -1,0 +1,290 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		873C2E861512B1BE00004900 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 873C2E851512B1BE00004900 /* UIKit.framework */; };
+		873C2E881512B1BE00004900 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 873C2E871512B1BE00004900 /* Foundation.framework */; };
+		873C2E8A1512B1BE00004900 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 873C2E891512B1BE00004900 /* CoreGraphics.framework */; };
+		873C2E901512B1BE00004900 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 873C2E8E1512B1BE00004900 /* InfoPlist.strings */; };
+		873C2E921512B1BE00004900 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C2E911512B1BE00004900 /* main.m */; };
+		873C2E961512B1BE00004900 /* APAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C2E951512B1BE00004900 /* APAppDelegate.m */; };
+		873C2E991512B1BE00004900 /* APSharingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C2E981512B1BE00004900 /* APSharingTableViewController.m */; };
+		873C2E9C1512B1BE00004900 /* APSharingTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 873C2E9A1512B1BE00004900 /* APSharingTableViewController.xib */; };
+		873C2EA41512B26500004900 /* APSharingEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C2EA31512B26500004900 /* APSharingEngine.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		873C2E811512B1BE00004900 /* APDynamicTableLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APDynamicTableLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		873C2E851512B1BE00004900 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		873C2E871512B1BE00004900 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		873C2E891512B1BE00004900 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		873C2E8D1512B1BE00004900 /* APDynamicTableLayout-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "APDynamicTableLayout-Info.plist"; sourceTree = "<group>"; };
+		873C2E8F1512B1BE00004900 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		873C2E911512B1BE00004900 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		873C2E931512B1BE00004900 /* APDynamicTableLayout-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "APDynamicTableLayout-Prefix.pch"; sourceTree = "<group>"; };
+		873C2E941512B1BE00004900 /* APAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APAppDelegate.h; sourceTree = "<group>"; };
+		873C2E951512B1BE00004900 /* APAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APAppDelegate.m; sourceTree = "<group>"; };
+		873C2E971512B1BE00004900 /* APSharingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APSharingTableViewController.h; sourceTree = "<group>"; };
+		873C2E981512B1BE00004900 /* APSharingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APSharingTableViewController.m; sourceTree = "<group>"; };
+		873C2E9B1512B1BE00004900 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/APSharingTableViewController.xib; sourceTree = "<group>"; };
+		873C2EA21512B26500004900 /* APSharingEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APSharingEngine.h; sourceTree = "<group>"; };
+		873C2EA31512B26500004900 /* APSharingEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APSharingEngine.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		873C2E7E1512B1BE00004900 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				873C2E861512B1BE00004900 /* UIKit.framework in Frameworks */,
+				873C2E881512B1BE00004900 /* Foundation.framework in Frameworks */,
+				873C2E8A1512B1BE00004900 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		873C2E761512B1BE00004900 = {
+			isa = PBXGroup;
+			children = (
+				873C2E8B1512B1BE00004900 /* APDynamicTableLayout */,
+				873C2E841512B1BE00004900 /* Frameworks */,
+				873C2E821512B1BE00004900 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		873C2E821512B1BE00004900 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				873C2E811512B1BE00004900 /* APDynamicTableLayout.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		873C2E841512B1BE00004900 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				873C2E851512B1BE00004900 /* UIKit.framework */,
+				873C2E871512B1BE00004900 /* Foundation.framework */,
+				873C2E891512B1BE00004900 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		873C2E8B1512B1BE00004900 /* APDynamicTableLayout */ = {
+			isa = PBXGroup;
+			children = (
+				873C2EA21512B26500004900 /* APSharingEngine.h */,
+				873C2EA31512B26500004900 /* APSharingEngine.m */,
+				873C2E971512B1BE00004900 /* APSharingTableViewController.h */,
+				873C2E981512B1BE00004900 /* APSharingTableViewController.m */,
+				873C2E9A1512B1BE00004900 /* APSharingTableViewController.xib */,
+				873C2E8C1512B1BE00004900 /* Supporting Files */,
+			);
+			path = APDynamicTableLayout;
+			sourceTree = "<group>";
+		};
+		873C2E8C1512B1BE00004900 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				873C2E941512B1BE00004900 /* APAppDelegate.h */,
+				873C2E951512B1BE00004900 /* APAppDelegate.m */,
+				873C2E8D1512B1BE00004900 /* APDynamicTableLayout-Info.plist */,
+				873C2E8E1512B1BE00004900 /* InfoPlist.strings */,
+				873C2E911512B1BE00004900 /* main.m */,
+				873C2E931512B1BE00004900 /* APDynamicTableLayout-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		873C2E801512B1BE00004900 /* APDynamicTableLayout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 873C2E9F1512B1BE00004900 /* Build configuration list for PBXNativeTarget "APDynamicTableLayout" */;
+			buildPhases = (
+				873C2E7D1512B1BE00004900 /* Sources */,
+				873C2E7E1512B1BE00004900 /* Frameworks */,
+				873C2E7F1512B1BE00004900 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = APDynamicTableLayout;
+			productName = APDynamicTableLayout;
+			productReference = 873C2E811512B1BE00004900 /* APDynamicTableLayout.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		873C2E781512B1BE00004900 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = AP;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Atomic Powered";
+			};
+			buildConfigurationList = 873C2E7B1512B1BE00004900 /* Build configuration list for PBXProject "APDynamicTableLayout" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 873C2E761512B1BE00004900;
+			productRefGroup = 873C2E821512B1BE00004900 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				873C2E801512B1BE00004900 /* APDynamicTableLayout */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		873C2E7F1512B1BE00004900 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				873C2E901512B1BE00004900 /* InfoPlist.strings in Resources */,
+				873C2E9C1512B1BE00004900 /* APSharingTableViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		873C2E7D1512B1BE00004900 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				873C2E921512B1BE00004900 /* main.m in Sources */,
+				873C2E961512B1BE00004900 /* APAppDelegate.m in Sources */,
+				873C2E991512B1BE00004900 /* APSharingTableViewController.m in Sources */,
+				873C2EA41512B26500004900 /* APSharingEngine.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		873C2E8E1512B1BE00004900 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				873C2E8F1512B1BE00004900 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		873C2E9A1512B1BE00004900 /* APSharingTableViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				873C2E9B1512B1BE00004900 /* en */,
+			);
+			name = APSharingTableViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		873C2E9D1512B1BE00004900 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		873C2E9E1512B1BE00004900 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		873C2EA01512B1BE00004900 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "APDynamicTableLayout/APDynamicTableLayout-Prefix.pch";
+				INFOPLIST_FILE = "APDynamicTableLayout/APDynamicTableLayout-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		873C2EA11512B1BE00004900 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "APDynamicTableLayout/APDynamicTableLayout-Prefix.pch";
+				INFOPLIST_FILE = "APDynamicTableLayout/APDynamicTableLayout-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		873C2E7B1512B1BE00004900 /* Build configuration list for PBXProject "APDynamicTableLayout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				873C2E9D1512B1BE00004900 /* Debug */,
+				873C2E9E1512B1BE00004900 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		873C2E9F1512B1BE00004900 /* Build configuration list for PBXNativeTarget "APDynamicTableLayout" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				873C2EA01512B1BE00004900 /* Debug */,
+				873C2EA11512B1BE00004900 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 873C2E781512B1BE00004900 /* Project object */;
+}
