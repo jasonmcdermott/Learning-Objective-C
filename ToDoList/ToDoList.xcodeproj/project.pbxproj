@@ -118,9 +118,9 @@
 		0E75FD86187D5E930045BD2D /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				0E75FDB1187D5F8A0045BD2D /* Main.storyboard */,
 				0EAAC280187E4A2F009437E9 /* Model */,
 				0EC682A3187E280C006C7898 /* Controllers */,
-				0E75FDB1187D5F8A0045BD2D /* Main.storyboard */,
 				0E75FD92187D5E930045BD2D /* Images.xcassets */,
 				0E75FD87187D5E930045BD2D /* Supporting Files */,
 			);
