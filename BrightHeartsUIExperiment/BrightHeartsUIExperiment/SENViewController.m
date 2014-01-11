@@ -9,21 +9,48 @@
 #import "SENViewController.h"
 
 @interface SENViewController ()
-
+@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @end
 
 @implementation SENViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+-(UIViewController *)viewControllerForUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
+    NSLog(@"I %@ will be asked for the destination", self);
+    UIViewController* vc = [super viewControllerForUnwindSegueAction:action fromViewController:fromViewController withSender:sender];
+    NSLog(@"I %@ was asked for the destination, and I am returning %@", self, vc);
+    return vc;
 }
 
-- (void)didReceiveMemoryWarning
+-(UIStoryboardSegue *)segueForUnwindingToViewController:(UIViewController *)toViewController fromViewController:(UIViewController *)fromViewController identifier:(NSString *)identifier {
+    NSLog(@"I %@ will be asked for the segue", self);
+    UIStoryboardSegue* seg = [super segueForUnwindingToViewController:toViewController fromViewController:fromViewController identifier:identifier];
+    NSLog(@"I %@ was asked for the segue, and I am returning %@ %@", self, seg, seg.identifier);
+    return seg;
+}
+
+- (IBAction)touchSettingsButton:(UIButton *)sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+}
+
+-(BOOL)canPerformUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
+    NSLog(@"I %@ am being asked can perform from %@, and my background is %@", self, fromViewController, self.view.backgroundColor);
+    return [super canPerformUnwindSegueAction:action fromViewController:fromViewController withSender:sender];
+}
+
+-(IBAction) doUnwind: (UIStoryboardSegue*) seg {
+    NSLog(@"I %@ was asked to unwind %@ %@", self, seg, seg.identifier);
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSLog(@"I %@ was asked to prepare for segue %@", self, segue);
+}
+
+-(BOOL)respondsToSelector:(SEL)aSelector {
+    BOOL ok = [super respondsToSelector:aSelector];
+    if (aSelector == @selector(doUnwind:))
+        NSLog(@"I %@ was asked responds to selector %@, responding %d", self, NSStringFromSelector(aSelector), ok);
+    return ok;
 }
 
 @end
