@@ -21,7 +21,7 @@
 		0E85DE0C187FD32D00D928C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E85DDEE187FD32D00D928C1 /* UIKit.framework */; };
 		0E85DE14187FD32D00D928C1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E85DE12187FD32D00D928C1 /* InfoPlist.strings */; };
 		0E85DE16187FD32D00D928C1 /* BrightHeartsUIExperimentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E85DE15187FD32D00D928C1 /* BrightHeartsUIExperimentTests.m */; };
-		0E85DE211880EA3400D928C1 /* SENSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E85DE201880EA3400D928C1 /* SENSettingsViewController.m */; };
+		0E85DE211880EA3400D928C1 /* SENSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E85DE201880EA3400D928C1 /* SENSettingsTableViewController.m */; };
 		0E85DE241880EB5200D928C1 /* SENSettingsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E85DE231880EB5200D928C1 /* SENSettingsItem.m */; };
 /* End PBXBuildFile section */
 
@@ -55,8 +55,8 @@
 		0E85DE11187FD32D00D928C1 /* BrightHeartsUIExperimentTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BrightHeartsUIExperimentTests-Info.plist"; sourceTree = "<group>"; };
 		0E85DE13187FD32D00D928C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0E85DE15187FD32D00D928C1 /* BrightHeartsUIExperimentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrightHeartsUIExperimentTests.m; sourceTree = "<group>"; };
-		0E85DE1F1880EA3400D928C1 /* SENSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENSettingsViewController.h; sourceTree = "<group>"; };
-		0E85DE201880EA3400D928C1 /* SENSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENSettingsViewController.m; sourceTree = "<group>"; };
+		0E85DE1F1880EA3400D928C1 /* SENSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENSettingsTableViewController.h; sourceTree = "<group>"; };
+		0E85DE201880EA3400D928C1 /* SENSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENSettingsTableViewController.m; sourceTree = "<group>"; };
 		0E85DE221880EB5200D928C1 /* SENSettingsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENSettingsItem.h; path = Model/SENSettingsItem.h; sourceTree = "<group>"; };
 		0E85DE231880EB5200D928C1 /* SENSettingsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENSettingsItem.m; path = Model/SENSettingsItem.m; sourceTree = "<group>"; };
 		0E85DE271880F8BE00D928C1 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -172,8 +172,8 @@
 		0E85DE261880EBEE00D928C1 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0E85DE1F1880EA3400D928C1 /* SENSettingsViewController.h */,
-				0E85DE201880EA3400D928C1 /* SENSettingsViewController.m */,
+				0E85DE1F1880EA3400D928C1 /* SENSettingsTableViewController.h */,
+				0E85DE201880EA3400D928C1 /* SENSettingsTableViewController.m */,
 				0E85DDFF187FD32D00D928C1 /* SENViewController.h */,
 				0E85DE00187FD32D00D928C1 /* SENViewController.m */,
 			);
@@ -278,7 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E85DE211880EA3400D928C1 /* SENSettingsViewController.m in Sources */,
+				0E85DE211880EA3400D928C1 /* SENSettingsTableViewController.m in Sources */,
 				0E85DE01187FD32D00D928C1 /* SENViewController.m in Sources */,
 				0E85DE241880EB5200D928C1 /* SENSettingsItem.m in Sources */,
 				0E85DDF7187FD32D00D928C1 /* main.m in Sources */,

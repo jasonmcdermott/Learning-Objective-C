@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SENSettingsViewController : UITableViewController
+@interface SENSettingsTableViewController : UITableViewController
 
 @end

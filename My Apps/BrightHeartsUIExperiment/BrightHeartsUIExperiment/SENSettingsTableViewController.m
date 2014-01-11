@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Sensorium Health. All rights reserved.
 //
 
-#import "SENSettingsViewController.h"
-#import "SENSettingsItem.h"
+#import "SENSettingsTableViewController.h"
 #import "Constants.h"
 
 #define kSliderHeight			7.0
@@ -30,13 +29,14 @@ static NSString *kSourceCellID = @"SourceCellID";
 
 #pragma mark -
 
-@interface SENSettingsViewController ()
+@interface SENSettingsTableViewController ()
 @property NSMutableArray *settingsItems;
 @property (nonatomic, strong) UISwitch *questionnaireSwitchCtl;
+@property (nonatomic, strong) UIStepper *timeOutStepper;
 @property (nonatomic, strong) NSArray *dataSourceArray;
 @end
 
-@implementation SENSettingsViewController
+@implementation SENSettingsTableViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,13 +51,13 @@ static NSString *kSourceCellID = @"SourceCellID";
 {
     [super viewDidLoad];
     
-	self.title = NSLocalizedString(@"Settings B", @"");
+//	self.title = NSLocalizedString(@"Settings B", @"");
     
 	self.dataSourceArray = @[
-                             @{  kSectionTitleKey:@"UISwitch",
-                                 kLabelKey:@"Standard Switch",
+                             @{  kSectionTitleKey:@"Permission",
+                                 kLabelKey:@"Questionnaire",
                                  kSourceKey:@"SENSettingsViewController.m:\r-(UISwitch *)switchCtl",
-                                 kViewKey:self.switchCtl },
+                                 kViewKey:self.switchCtl }
                              
                              //                            @{  kSectionTitleKey:@"UISlider",
                              //                                kLabelKey:@"Standard Slider",
@@ -103,28 +103,6 @@ static NSString *kSourceCellID = @"SourceCellID";
 }
 
 
-- (void)loadInitialData
-{
-    
-
-    
-    
-//    SENSettingsItem *item1 = [[SENSettingsItem alloc] init];
-//    item1.itemName = @"Questionnaire";
-//    [self.settingsItems addObject:item1];
-    
-//    SENToDoItem *item2 = [[SENToDoItem alloc] init];
-//    item2.itemName = @"Buy eggs";
-//    [self.toDoItems addObject:item2];
-//    
-//    SENToDoItem *item3 = [[SENToDoItem alloc] init];
-//    item3.itemName = @"Read a book";
-//    [self.toDoItems addObject:item3];
-
-    
-}
-
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -139,7 +117,7 @@ static NSString *kSourceCellID = @"SourceCellID";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return 2;
+    return 2;
 }
 
 // to determine specific row height for each cell, override this.
@@ -207,42 +185,6 @@ static NSString *kSourceCellID = @"SourceCellID";
 {
 	// NSLog(@"switchAction: value = %d", [sender isOn]);
 }
-
-
-
-//#pragma mark - Table view data source
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    return 1;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    return [self.settingsItems count];
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    static NSString *CellIdentifier = @"ListPrototypeCell";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-//    SENSettingsItem *settingItem = [self.settingsItems objectAtIndex:indexPath.row];
-//    cell.textLabel.text = settingItem.itemName;
-////    if (toDoItem.completed) {
-////        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-////    } else {
-////        cell.accessoryType = UITableViewCellAccessoryNone;
-////    }
-//    return cell;
-//}
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-////    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-////    SENSettingsItem *tappedItem = [self.toDoItems objectAtIndex:indexPath.row];
-////    tappedItem.completed = !tappedItem.completed;
-////    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//}
 
 #pragma mark - Lazy creation of controls
 
