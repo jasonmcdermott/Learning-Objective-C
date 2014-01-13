@@ -93,8 +93,6 @@
 				28E70E81171133A900CBC283 /* APLViewController.h */,
 				28E70E82171133A900CBC283 /* APLViewController.m */,
 				28E70E7E171133A900CBC283 /* MainStoryboard.storyboard */,
-				28E70E75171133A900CBC283 /* APLAppDelegate.h */,
-				28E70E76171133A900CBC283 /* APLAppDelegate.m */,
 				28E70E8F1711341500CBC283 /* Model Objects */,
 				28E70E6D171133A900CBC283 /* Supporting Files */,
 			);
@@ -104,6 +102,8 @@
 		28E70E6D171133A900CBC283 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				28E70E75171133A900CBC283 /* APLAppDelegate.h */,
+				28E70E76171133A900CBC283 /* APLAppDelegate.m */,
 				286F762D177DDEF60001B043 /* Images.xcassets */,
 				28E70E6E171133A900CBC283 /* SimpleSectionedTableView-Info.plist */,
 				28E70E6F171133A900CBC283 /* InfoPlist.strings */,
