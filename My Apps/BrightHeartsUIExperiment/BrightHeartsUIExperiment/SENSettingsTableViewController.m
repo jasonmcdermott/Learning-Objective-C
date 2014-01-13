@@ -7,33 +7,12 @@
 //
 
 #import "SENSettingsTableViewController.h"
-#import "Constants.h"
-
-#define kSliderHeight			7.0
-#define kProgressIndicatorSize	40.0
-
-#define kUIProgressBarWidth		160.0
-#define kUIProgressBarHeight	24.0
-
-#define kViewTag				1		// for tagging our embedded controls for removal at cell recycle time
-
-static NSString *kSectionTitleKey = @"sectionTitleKey";
-static NSString *kLabelKey = @"labelKey";
-static NSString *kSourceKey = @"sourceKey";
-static NSString *kViewKey = @"viewKey";
-
-// tableView cell id constants
-static NSString *kDisplayCellID = @"DisplayCellID";
-static NSString *kSourceCellID = @"SourceCellID";
-
 
 #pragma mark -
 
 @interface SENSettingsTableViewController ()
 @property NSMutableArray *settingsItems;
 @property (nonatomic, strong) UISwitch *questionnaireSwitchCtl;
-@property (nonatomic, strong) UIStepper *timeOutStepper;
-@property (nonatomic, strong) NSArray *dataSourceArray;
 @end
 
 @implementation SENSettingsTableViewController
