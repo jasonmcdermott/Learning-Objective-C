@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Marty Dill. All rights reserved.
 //
 
-#import "StaticTableViewController.h"
+#import "SENSettingsTableViewController.h"
 #import "SENBluetoothConnectionViewController.h"
 
-@interface StaticTableViewController()
+@interface SENSettingsTableViewController()
 @property (weak, nonatomic) IBOutlet UISwitch *showQuestionnaire;
 @property (nonatomic) BOOL showQuestionnaireTableSection;
 @property (nonatomic) BOOL showOtherProcedureType;
@@ -31,7 +31,7 @@
 - (IBAction)textFieldReturn:(UITextField *)sender;
 
 @end
-@implementation StaticTableViewController
+@implementation SENSettingsTableViewController
 
 @synthesize showQuestionnaireTableSection;
 @synthesize showOtherProcedureType;

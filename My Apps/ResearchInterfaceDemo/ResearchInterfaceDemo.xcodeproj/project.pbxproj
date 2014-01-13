@@ -22,7 +22,7 @@
 		0E918B9618837A5200CE518C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E918B9418837A5200CE518C /* InfoPlist.strings */; };
 		0E918B9818837A5200CE518C /* ResearchInterfaceDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E918B9718837A5200CE518C /* ResearchInterfaceDemoTests.m */; };
 		0E918BA418837A7100CE518C /* SENBluetoothConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E918BA318837A7100CE518C /* SENBluetoothConnectionViewController.m */; };
-		0E918BA718837A8200CE518C /* StaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E918BA618837A8200CE518C /* StaticTableViewController.m */; };
+		0E918BA718837A8200CE518C /* SENSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E918BA618837A8200CE518C /* SENSettingsTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,8 +58,8 @@
 		0E918B9718837A5200CE518C /* ResearchInterfaceDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResearchInterfaceDemoTests.m; sourceTree = "<group>"; };
 		0E918BA218837A7100CE518C /* SENBluetoothConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENBluetoothConnectionViewController.h; sourceTree = "<group>"; };
 		0E918BA318837A7100CE518C /* SENBluetoothConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENBluetoothConnectionViewController.m; sourceTree = "<group>"; };
-		0E918BA518837A8200CE518C /* StaticTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticTableViewController.h; sourceTree = "<group>"; };
-		0E918BA618837A8200CE518C /* StaticTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaticTableViewController.m; sourceTree = "<group>"; };
+		0E918BA518837A8200CE518C /* SENSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENSettingsTableViewController.h; sourceTree = "<group>"; };
+		0E918BA618837A8200CE518C /* SENSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENSettingsTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,8 +173,8 @@
 		0E918BA118837A7100CE518C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0E918BA518837A8200CE518C /* StaticTableViewController.h */,
-				0E918BA618837A8200CE518C /* StaticTableViewController.m */,
+				0E918BA518837A8200CE518C /* SENSettingsTableViewController.h */,
+				0E918BA618837A8200CE518C /* SENSettingsTableViewController.m */,
 				0E918BA218837A7100CE518C /* SENBluetoothConnectionViewController.h */,
 				0E918BA318837A7100CE518C /* SENBluetoothConnectionViewController.m */,
 			);
@@ -280,7 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E918BA418837A7100CE518C /* SENBluetoothConnectionViewController.m in Sources */,
-				0E918BA718837A8200CE518C /* StaticTableViewController.m in Sources */,
+				0E918BA718837A8200CE518C /* SENSettingsTableViewController.m in Sources */,
 				0E918B7918837A5200CE518C /* main.m in Sources */,
 				0E47D76A1883AE3100E8F15A /* BLE.m in Sources */,
 				0E918B7D18837A5200CE518C /* SENAppDelegate.m in Sources */,

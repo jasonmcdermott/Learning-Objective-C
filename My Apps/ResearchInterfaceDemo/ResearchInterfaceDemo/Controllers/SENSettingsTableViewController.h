@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import "SENSettingsPage.h"
 
-@interface StaticTableViewController : UITableViewController
+@interface SENSettingsTableViewController : UITableViewController
 
 //@property (strong, nonatomic) SENSettingsPage *settingsPage;
 //@property (nonatomic) NSArray *sections; // setSettings is the same as settings = [...];
