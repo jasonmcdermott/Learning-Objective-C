@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E47D76A1883AE3100E8F15A /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E47D7681883AE3100E8F15A /* BLE.m */; };
+		0E4FE7E818837C1100E98D5C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E4FE7E718837C1100E98D5C /* MainStoryboard.storyboard */; };
 		0E918B6D18837A5200CE518C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E918B6C18837A5200CE518C /* Foundation.framework */; };
 		0E918B6F18837A5200CE518C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E918B6E18837A5200CE518C /* CoreGraphics.framework */; };
 		0E918B7118837A5200CE518C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E918B7018837A5200CE518C /* UIKit.framework */; };
 		0E918B7718837A5200CE518C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E918B7518837A5200CE518C /* InfoPlist.strings */; };
 		0E918B7918837A5200CE518C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E918B7818837A5200CE518C /* main.m */; };
 		0E918B7D18837A5200CE518C /* SENAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E918B7C18837A5200CE518C /* SENAppDelegate.m */; };
-		0E918B8018837A5200CE518C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E918B7E18837A5200CE518C /* Main.storyboard */; };
 		0E918B8518837A5200CE518C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E918B8418837A5200CE518C /* Images.xcassets */; };
 		0E918B8C18837A5200CE518C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E918B8B18837A5200CE518C /* XCTest.framework */; };
 		0E918B8D18837A5200CE518C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E918B6C18837A5200CE518C /* Foundation.framework */; };
@@ -35,6 +36,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E47D7671883AE3100E8F15A /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
+		0E47D7681883AE3100E8F15A /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
+		0E47D7691883AE3100E8F15A /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		0E4FE7E718837C1100E98D5C /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		0E918B6918837A5200CE518C /* ResearchInterfaceDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResearchInterfaceDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E918B6C18837A5200CE518C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0E918B6E18837A5200CE518C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -45,7 +50,6 @@
 		0E918B7A18837A5200CE518C /* ResearchInterfaceDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ResearchInterfaceDemo-Prefix.pch"; sourceTree = "<group>"; };
 		0E918B7B18837A5200CE518C /* SENAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SENAppDelegate.h; sourceTree = "<group>"; };
 		0E918B7C18837A5200CE518C /* SENAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SENAppDelegate.m; sourceTree = "<group>"; };
-		0E918B7F18837A5200CE518C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0E918B8418837A5200CE518C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0E918B8A18837A5200CE518C /* ResearchInterfaceDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ResearchInterfaceDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E918B8B18837A5200CE518C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -82,6 +86,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E47D76B1883AE3700E8F15A /* BLE_Framework */ = {
+			isa = PBXGroup;
+			children = (
+				0E47D7671883AE3100E8F15A /* BLE.h */,
+				0E47D7681883AE3100E8F15A /* BLE.m */,
+				0E47D7691883AE3100E8F15A /* BLEDefines.h */,
+			);
+			name = BLE_Framework;
+			path = ResearchInterfaceDemo;
+			sourceTree = "<group>";
+		};
 		0E918B6018837A5200CE518C = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +119,7 @@
 		0E918B6B18837A5200CE518C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E47D76B1883AE3700E8F15A /* BLE_Framework */,
 				0E918B6C18837A5200CE518C /* Foundation.framework */,
 				0E918B6E18837A5200CE518C /* CoreGraphics.framework */,
 				0E918B7018837A5200CE518C /* UIKit.framework */,
@@ -115,8 +131,8 @@
 		0E918B7218837A5200CE518C /* ResearchInterfaceDemo */ = {
 			isa = PBXGroup;
 			children = (
+				0E4FE7E718837C1100E98D5C /* MainStoryboard.storyboard */,
 				0E918BA118837A7100CE518C /* Controllers */,
-				0E918B7E18837A5200CE518C /* Main.storyboard */,
 				0E918B8418837A5200CE518C /* Images.xcassets */,
 				0E918B7318837A5200CE518C /* Supporting Files */,
 			);
@@ -244,7 +260,7 @@
 			files = (
 				0E918B8518837A5200CE518C /* Images.xcassets in Resources */,
 				0E918B7718837A5200CE518C /* InfoPlist.strings in Resources */,
-				0E918B8018837A5200CE518C /* Main.storyboard in Resources */,
+				0E4FE7E818837C1100E98D5C /* MainStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +282,7 @@
 				0E918BA418837A7100CE518C /* SENBluetoothConnectionViewController.m in Sources */,
 				0E918BA718837A8200CE518C /* StaticTableViewController.m in Sources */,
 				0E918B7918837A5200CE518C /* main.m in Sources */,
+				0E47D76A1883AE3100E8F15A /* BLE.m in Sources */,
 				0E918B7D18837A5200CE518C /* SENAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,14 +312,6 @@
 				0E918B7618837A5200CE518C /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		0E918B7E18837A5200CE518C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0E918B7F18837A5200CE518C /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		0E918B9418837A5200CE518C /* InfoPlist.strings */ = {
@@ -475,6 +484,7 @@
 				0E918B9D18837A5200CE518C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E918B9E18837A5200CE518C /* Build configuration list for PBXNativeTarget "ResearchInterfaceDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -483,6 +493,7 @@
 				0E918BA018837A5200CE518C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
