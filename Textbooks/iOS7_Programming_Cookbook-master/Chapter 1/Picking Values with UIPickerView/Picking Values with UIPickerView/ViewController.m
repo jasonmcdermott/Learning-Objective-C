@@ -10,6 +10,8 @@
 
 @interface ViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (nonatomic, strong) UIPickerView *myPicker;
+@property (nonatomic, strong) NSArray *questionnaireBirthdayMonths;
+@property (nonatomic, strong) NSMutableArray *questionnaireBirthdayDays;
 @end
 
 @implementation ViewController
@@ -122,8 +124,14 @@
         
         /* Row is zero-based and we want the first row (with index 0)
          to be rendered as Row 1 so we have to +1 every row index */
-        return [NSString stringWithFormat:@"Row %ld", (long)row + 1];
         
+
+        if (component == 0) {
+            return self.questionnaireBirthdayMonths[row];
+        } else {
+            return [NSString stringWithFormat:@"%d", row+1];
+//            return self.questionnaireBirthdayDays[row];
+        }
     }
     
     return nil;
@@ -139,13 +147,15 @@
     self.myPicker.delegate = self;
     self.myPicker.center = self.view.center;
     [self.view addSubview:self.myPicker];
-    
+
+    self.questionnaireBirthdayMonths = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec"];
+
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
 
     if ([pickerView isEqual:self.myPicker]){
-        return 1;
+        return 2;
     }
     return 0;
 
@@ -155,7 +165,11 @@
    numberOfRowsInComponent:(NSInteger)component{
 
     if ([pickerView isEqual:self.myPicker]){
-        return 10;
+        if (component == 0){
+            return 12;
+        } else {
+            return 31;
+        }
     }
     return 0;
 
