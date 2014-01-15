@@ -1,0 +1,512 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E06A6C318863DB90018ECDB /* SENGraphicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E06A6C218863DB90018ECDB /* SENGraphicsViewController.m */; };
+		0E10AC39188609BB00765FA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E10AC38188609BB00765FA1 /* Foundation.framework */; };
+		0E10AC3B188609BB00765FA1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E10AC3A188609BB00765FA1 /* CoreGraphics.framework */; };
+		0E10AC3D188609BB00765FA1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E10AC3C188609BB00765FA1 /* UIKit.framework */; };
+		0E10AC43188609BB00765FA1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC41188609BB00765FA1 /* InfoPlist.strings */; };
+		0E10AC45188609BB00765FA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10AC44188609BB00765FA1 /* main.m */; };
+		0E10AC49188609BB00765FA1 /* SENAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10AC48188609BB00765FA1 /* SENAppDelegate.m */; };
+		0E10AC4C188609BB00765FA1 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC4A188609BB00765FA1 /* Main_iPhone.storyboard */; };
+		0E10AC4F188609BB00765FA1 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC4D188609BB00765FA1 /* Main_iPad.storyboard */; };
+		0E10AC52188609BB00765FA1 /* SENViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10AC51188609BB00765FA1 /* SENViewController.m */; };
+		0E10AC54188609BB00765FA1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC53188609BB00765FA1 /* Images.xcassets */; };
+		0E10AC5B188609BB00765FA1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E10AC5A188609BB00765FA1 /* XCTest.framework */; };
+		0E10AC5C188609BB00765FA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E10AC38188609BB00765FA1 /* Foundation.framework */; };
+		0E10AC5D188609BB00765FA1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E10AC3C188609BB00765FA1 /* UIKit.framework */; };
+		0E10AC65188609BB00765FA1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC63188609BB00765FA1 /* InfoPlist.strings */; };
+		0E10AC67188609BB00765FA1 /* SchoolInterfaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10AC66188609BB00765FA1 /* SchoolInterfaceTests.m */; };
+		0E10ACB618861DFA00765FA1 /* SENiPadSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10ACB518861DFA00765FA1 /* SENiPadSettingsViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0E10AC5E188609BB00765FA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E10AC2D188609BB00765FA1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E10AC34188609BB00765FA1;
+			remoteInfo = SchoolInterface;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0E06A6C118863DB90018ECDB /* SENGraphicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENGraphicsViewController.h; path = Controllers/SENGraphicsViewController.h; sourceTree = "<group>"; };
+		0E06A6C218863DB90018ECDB /* SENGraphicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENGraphicsViewController.m; path = Controllers/SENGraphicsViewController.m; sourceTree = "<group>"; };
+		0E10AC35188609BB00765FA1 /* SchoolInterface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SchoolInterface.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E10AC38188609BB00765FA1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0E10AC3A188609BB00765FA1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0E10AC3C188609BB00765FA1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0E10AC40188609BB00765FA1 /* SchoolInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SchoolInterface-Info.plist"; sourceTree = "<group>"; };
+		0E10AC42188609BB00765FA1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E10AC44188609BB00765FA1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0E10AC46188609BB00765FA1 /* SchoolInterface-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SchoolInterface-Prefix.pch"; sourceTree = "<group>"; };
+		0E10AC47188609BB00765FA1 /* SENAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SENAppDelegate.h; sourceTree = "<group>"; };
+		0E10AC48188609BB00765FA1 /* SENAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SENAppDelegate.m; sourceTree = "<group>"; };
+		0E10AC4B188609BB00765FA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		0E10AC4E188609BB00765FA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		0E10AC50188609BB00765FA1 /* SENViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SENViewController.h; sourceTree = "<group>"; };
+		0E10AC51188609BB00765FA1 /* SENViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SENViewController.m; sourceTree = "<group>"; };
+		0E10AC53188609BB00765FA1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0E10AC59188609BB00765FA1 /* SchoolInterfaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SchoolInterfaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E10AC5A188609BB00765FA1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		0E10AC62188609BB00765FA1 /* SchoolInterfaceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SchoolInterfaceTests-Info.plist"; sourceTree = "<group>"; };
+		0E10AC64188609BB00765FA1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E10AC66188609BB00765FA1 /* SchoolInterfaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SchoolInterfaceTests.m; sourceTree = "<group>"; };
+		0E10ACB418861DFA00765FA1 /* SENiPadSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENiPadSettingsViewController.h; path = Controllers/SENiPadSettingsViewController.h; sourceTree = "<group>"; };
+		0E10ACB518861DFA00765FA1 /* SENiPadSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENiPadSettingsViewController.m; path = Controllers/SENiPadSettingsViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0E10AC32188609BB00765FA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E10AC3B188609BB00765FA1 /* CoreGraphics.framework in Frameworks */,
+				0E10AC3D188609BB00765FA1 /* UIKit.framework in Frameworks */,
+				0E10AC39188609BB00765FA1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E10AC56188609BB00765FA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E10AC5B188609BB00765FA1 /* XCTest.framework in Frameworks */,
+				0E10AC5D188609BB00765FA1 /* UIKit.framework in Frameworks */,
+				0E10AC5C188609BB00765FA1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E10AC2C188609BB00765FA1 = {
+			isa = PBXGroup;
+			children = (
+				0E10AC3E188609BB00765FA1 /* SchoolInterface */,
+				0E10AC60188609BB00765FA1 /* SchoolInterfaceTests */,
+				0E10AC37188609BB00765FA1 /* Frameworks */,
+				0E10AC36188609BB00765FA1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0E10AC36188609BB00765FA1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E10AC35188609BB00765FA1 /* SchoolInterface.app */,
+				0E10AC59188609BB00765FA1 /* SchoolInterfaceTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0E10AC37188609BB00765FA1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E10AC38188609BB00765FA1 /* Foundation.framework */,
+				0E10AC3A188609BB00765FA1 /* CoreGraphics.framework */,
+				0E10AC3C188609BB00765FA1 /* UIKit.framework */,
+				0E10AC5A188609BB00765FA1 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0E10AC3E188609BB00765FA1 /* SchoolInterface */ = {
+			isa = PBXGroup;
+			children = (
+				0E10AC4A188609BB00765FA1 /* Main_iPhone.storyboard */,
+				0E10AC4D188609BB00765FA1 /* Main_iPad.storyboard */,
+				0E10ACB718861DFD00765FA1 /* Controllers */,
+				0E10AC50188609BB00765FA1 /* SENViewController.h */,
+				0E10AC51188609BB00765FA1 /* SENViewController.m */,
+				0E10AC53188609BB00765FA1 /* Images.xcassets */,
+				0E10AC3F188609BB00765FA1 /* Supporting Files */,
+			);
+			path = SchoolInterface;
+			sourceTree = "<group>";
+		};
+		0E10AC3F188609BB00765FA1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E10AC47188609BB00765FA1 /* SENAppDelegate.h */,
+				0E10AC48188609BB00765FA1 /* SENAppDelegate.m */,
+				0E10AC40188609BB00765FA1 /* SchoolInterface-Info.plist */,
+				0E10AC41188609BB00765FA1 /* InfoPlist.strings */,
+				0E10AC44188609BB00765FA1 /* main.m */,
+				0E10AC46188609BB00765FA1 /* SchoolInterface-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0E10AC60188609BB00765FA1 /* SchoolInterfaceTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E10AC66188609BB00765FA1 /* SchoolInterfaceTests.m */,
+				0E10AC61188609BB00765FA1 /* Supporting Files */,
+			);
+			path = SchoolInterfaceTests;
+			sourceTree = "<group>";
+		};
+		0E10AC61188609BB00765FA1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E10AC62188609BB00765FA1 /* SchoolInterfaceTests-Info.plist */,
+				0E10AC63188609BB00765FA1 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0E10ACB718861DFD00765FA1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0E06A6C118863DB90018ECDB /* SENGraphicsViewController.h */,
+				0E06A6C218863DB90018ECDB /* SENGraphicsViewController.m */,
+				0E10ACB418861DFA00765FA1 /* SENiPadSettingsViewController.h */,
+				0E10ACB518861DFA00765FA1 /* SENiPadSettingsViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0E10AC34188609BB00765FA1 /* SchoolInterface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E10AC6A188609BB00765FA1 /* Build configuration list for PBXNativeTarget "SchoolInterface" */;
+			buildPhases = (
+				0E10AC31188609BB00765FA1 /* Sources */,
+				0E10AC32188609BB00765FA1 /* Frameworks */,
+				0E10AC33188609BB00765FA1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SchoolInterface;
+			productName = SchoolInterface;
+			productReference = 0E10AC35188609BB00765FA1 /* SchoolInterface.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0E10AC58188609BB00765FA1 /* SchoolInterfaceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E10AC6D188609BB00765FA1 /* Build configuration list for PBXNativeTarget "SchoolInterfaceTests" */;
+			buildPhases = (
+				0E10AC55188609BB00765FA1 /* Sources */,
+				0E10AC56188609BB00765FA1 /* Frameworks */,
+				0E10AC57188609BB00765FA1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E10AC5F188609BB00765FA1 /* PBXTargetDependency */,
+			);
+			name = SchoolInterfaceTests;
+			productName = SchoolInterfaceTests;
+			productReference = 0E10AC59188609BB00765FA1 /* SchoolInterfaceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0E10AC2D188609BB00765FA1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SEN;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Sensorium Health";
+				TargetAttributes = {
+					0E10AC58188609BB00765FA1 = {
+						TestTargetID = 0E10AC34188609BB00765FA1;
+					};
+				};
+			};
+			buildConfigurationList = 0E10AC30188609BB00765FA1 /* Build configuration list for PBXProject "SchoolInterface" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0E10AC2C188609BB00765FA1;
+			productRefGroup = 0E10AC36188609BB00765FA1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0E10AC34188609BB00765FA1 /* SchoolInterface */,
+				0E10AC58188609BB00765FA1 /* SchoolInterfaceTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0E10AC33188609BB00765FA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E10AC4F188609BB00765FA1 /* Main_iPad.storyboard in Resources */,
+				0E10AC54188609BB00765FA1 /* Images.xcassets in Resources */,
+				0E10AC4C188609BB00765FA1 /* Main_iPhone.storyboard in Resources */,
+				0E10AC43188609BB00765FA1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E10AC57188609BB00765FA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E10AC65188609BB00765FA1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0E10AC31188609BB00765FA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E06A6C318863DB90018ECDB /* SENGraphicsViewController.m in Sources */,
+				0E10AC52188609BB00765FA1 /* SENViewController.m in Sources */,
+				0E10AC45188609BB00765FA1 /* main.m in Sources */,
+				0E10ACB618861DFA00765FA1 /* SENiPadSettingsViewController.m in Sources */,
+				0E10AC49188609BB00765FA1 /* SENAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E10AC55188609BB00765FA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E10AC67188609BB00765FA1 /* SchoolInterfaceTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0E10AC5F188609BB00765FA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E10AC34188609BB00765FA1 /* SchoolInterface */;
+			targetProxy = 0E10AC5E188609BB00765FA1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0E10AC41188609BB00765FA1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E10AC42188609BB00765FA1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0E10AC4A188609BB00765FA1 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E10AC4B188609BB00765FA1 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		0E10AC4D188609BB00765FA1 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E10AC4E188609BB00765FA1 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		0E10AC63188609BB00765FA1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E10AC64188609BB00765FA1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0E10AC68188609BB00765FA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0E10AC69188609BB00765FA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0E10AC6B188609BB00765FA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SchoolInterface/SchoolInterface-Prefix.pch";
+				INFOPLIST_FILE = "SchoolInterface/SchoolInterface-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0E10AC6C188609BB00765FA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SchoolInterface/SchoolInterface-Prefix.pch";
+				INFOPLIST_FILE = "SchoolInterface/SchoolInterface-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		0E10AC6E188609BB00765FA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SchoolInterface.app/SchoolInterface";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SchoolInterface/SchoolInterface-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SchoolInterfaceTests/SchoolInterfaceTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		0E10AC6F188609BB00765FA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SchoolInterface.app/SchoolInterface";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SchoolInterface/SchoolInterface-Prefix.pch";
+				INFOPLIST_FILE = "SchoolInterfaceTests/SchoolInterfaceTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0E10AC30188609BB00765FA1 /* Build configuration list for PBXProject "SchoolInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E10AC68188609BB00765FA1 /* Debug */,
+				0E10AC69188609BB00765FA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E10AC6A188609BB00765FA1 /* Build configuration list for PBXNativeTarget "SchoolInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E10AC6B188609BB00765FA1 /* Debug */,
+				0E10AC6C188609BB00765FA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E10AC6D188609BB00765FA1 /* Build configuration list for PBXNativeTarget "SchoolInterfaceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E10AC6E188609BB00765FA1 /* Debug */,
+				0E10AC6F188609BB00765FA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0E10AC2D188609BB00765FA1 /* Project object */;
+}
