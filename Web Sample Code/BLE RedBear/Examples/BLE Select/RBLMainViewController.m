@@ -10,7 +10,7 @@
 #import "RBLDetailViewController.h"
 
 @interface RBLMainViewController ()
- 
+
 @property (weak, nonatomic) IBOutlet UIButton *scanButton;
 - (IBAction)scanClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *lastButton;

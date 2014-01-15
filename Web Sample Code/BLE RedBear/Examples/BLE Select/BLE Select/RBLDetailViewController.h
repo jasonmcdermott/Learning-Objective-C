@@ -10,7 +10,6 @@
 
 @protocol RBLDetailViewControllerDelegate <NSObject>
 
-// recipe == nil on cancel
 - (void) didSelected:(NSInteger)selected;
 
 @end

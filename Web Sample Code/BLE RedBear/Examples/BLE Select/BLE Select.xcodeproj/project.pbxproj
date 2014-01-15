@@ -63,6 +63,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E8190A91883E6CD009A6EDF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C2EFAFC01727D6BF00ED5A4F /* RBLMainViewController.h */,
+				C2EFAFC11727D6BF00ED5A4F /* RBLMainViewController.m */,
+				C2EFAF871727D22000ED5A4F /* RBLDetailViewController.h */,
+				C2EFAF881727D22000ED5A4F /* RBLDetailViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		29B0A1C517292B9100BCA5EB /* BLE_Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,13 +117,8 @@
 		C2EFAF721727D22000ED5A4F /* BLE Select */ = {
 			isa = PBXGroup;
 			children = (
-				C2EFAF7B1727D22000ED5A4F /* RBLAppDelegate.h */,
-				C2EFAF7C1727D22000ED5A4F /* RBLAppDelegate.m */,
 				C2EFAF841727D22000ED5A4F /* MainStoryboard.storyboard */,
-				C2EFAFC01727D6BF00ED5A4F /* RBLMainViewController.h */,
-				C2EFAFC11727D6BF00ED5A4F /* RBLMainViewController.m */,
-				C2EFAF871727D22000ED5A4F /* RBLDetailViewController.h */,
-				C2EFAF881727D22000ED5A4F /* RBLDetailViewController.m */,
+				0E8190A91883E6CD009A6EDF /* Controllers */,
 				C2EFAF731727D22000ED5A4F /* Supporting Files */,
 			);
 			path = "BLE Select";
@@ -121,6 +127,8 @@
 		C2EFAF731727D22000ED5A4F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C2EFAF7B1727D22000ED5A4F /* RBLAppDelegate.h */,
+				C2EFAF7C1727D22000ED5A4F /* RBLAppDelegate.m */,
 				C2EFAF741727D22000ED5A4F /* BLE Select-Info.plist */,
 				C2EFAF751727D22000ED5A4F /* InfoPlist.strings */,
 				C2EFAF781727D22000ED5A4F /* main.m */,
