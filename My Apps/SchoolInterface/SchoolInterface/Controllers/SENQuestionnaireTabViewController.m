@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Sensorium Health. All rights reserved.
 //
 
-#import "SENiPadSettingsViewController.h"
+#import "SENQuestionnaireTabViewController.h"
 
-@interface SENiPadSettingsViewController ()
+@interface SENQuestionnaireTabViewController ()
 
 #pragma mark Variables
 @property (strong, nonatomic) NSDate *birthDate;
@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *showHideQuestionnaireSwitch;
 @property (weak, nonatomic) IBOutlet UIView *questionnaireView;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneTabBarButton;
 
 #pragma mark Data Arrays
 @property (strong, nonatomic) NSArray *questionnaireAges;
@@ -44,7 +45,7 @@
 
 
 
-@implementation SENiPadSettingsViewController
+@implementation SENQuestionnaireTabViewController
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -193,8 +194,10 @@ numberOfRowsInComponent:(NSInteger)component
     NSLog(@"%@, %@, %@, %@, %@, %@, %@",_birthDate, _age, _vaccineTakenToday, _otherVaccineTakenToday, _gender, _uniqueID, _schoolName);
     if (_birthDate != nil && _age != nil && _vaccineTakenToday != nil && _otherVaccineTakenToday != nil && _gender != nil && _uniqueID != nil && _schoolName != nil) {
         self.doneButton.enabled = YES;
+        self.doneTabBarButton.enabled = YES;
     } else {
         self.doneButton.enabled = NO;
+        self.doneTabBarButton.enabled = NO;
     }
 }
 

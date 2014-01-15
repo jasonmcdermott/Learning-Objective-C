@@ -14,16 +14,18 @@
 		0E10AC43188609BB00765FA1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC41188609BB00765FA1 /* InfoPlist.strings */; };
 		0E10AC45188609BB00765FA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10AC44188609BB00765FA1 /* main.m */; };
 		0E10AC49188609BB00765FA1 /* SENAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10AC48188609BB00765FA1 /* SENAppDelegate.m */; };
-		0E10AC4C188609BB00765FA1 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC4A188609BB00765FA1 /* Main_iPhone.storyboard */; };
 		0E10AC4F188609BB00765FA1 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC4D188609BB00765FA1 /* Main_iPad.storyboard */; };
-		0E10AC52188609BB00765FA1 /* SENViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10AC51188609BB00765FA1 /* SENViewController.m */; };
 		0E10AC54188609BB00765FA1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC53188609BB00765FA1 /* Images.xcassets */; };
 		0E10AC5B188609BB00765FA1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E10AC5A188609BB00765FA1 /* XCTest.framework */; };
 		0E10AC5C188609BB00765FA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E10AC38188609BB00765FA1 /* Foundation.framework */; };
 		0E10AC5D188609BB00765FA1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E10AC3C188609BB00765FA1 /* UIKit.framework */; };
 		0E10AC65188609BB00765FA1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC63188609BB00765FA1 /* InfoPlist.strings */; };
 		0E10AC67188609BB00765FA1 /* SchoolInterfaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10AC66188609BB00765FA1 /* SchoolInterfaceTests.m */; };
-		0E10ACB618861DFA00765FA1 /* SENiPadSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10ACB518861DFA00765FA1 /* SENiPadSettingsViewController.m */; };
+		0E10ACB618861DFA00765FA1 /* SENQuestionnaireTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */; };
+		0ED29EA21886C62C0020D478 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED29EA01886C62C0020D478 /* BLE.m */; };
+		0ED29EA41886C8140020D478 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED29EA31886C8140020D478 /* CoreBluetooth.framework */; };
+		0ED29EA81886CB140020D478 /* RBLDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED29EA71886CB140020D478 /* RBLDetailViewController.m */; };
+		0ED29EAC1886CB310020D478 /* RBLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED29EAB1886CB310020D478 /* RBLMainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,18 +51,23 @@
 		0E10AC46188609BB00765FA1 /* SchoolInterface-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SchoolInterface-Prefix.pch"; sourceTree = "<group>"; };
 		0E10AC47188609BB00765FA1 /* SENAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SENAppDelegate.h; sourceTree = "<group>"; };
 		0E10AC48188609BB00765FA1 /* SENAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SENAppDelegate.m; sourceTree = "<group>"; };
-		0E10AC4B188609BB00765FA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		0E10AC4E188609BB00765FA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		0E10AC50188609BB00765FA1 /* SENViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SENViewController.h; sourceTree = "<group>"; };
-		0E10AC51188609BB00765FA1 /* SENViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SENViewController.m; sourceTree = "<group>"; };
 		0E10AC53188609BB00765FA1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0E10AC59188609BB00765FA1 /* SchoolInterfaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SchoolInterfaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E10AC5A188609BB00765FA1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0E10AC62188609BB00765FA1 /* SchoolInterfaceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SchoolInterfaceTests-Info.plist"; sourceTree = "<group>"; };
 		0E10AC64188609BB00765FA1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0E10AC66188609BB00765FA1 /* SchoolInterfaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SchoolInterfaceTests.m; sourceTree = "<group>"; };
-		0E10ACB418861DFA00765FA1 /* SENiPadSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENiPadSettingsViewController.h; path = Controllers/SENiPadSettingsViewController.h; sourceTree = "<group>"; };
-		0E10ACB518861DFA00765FA1 /* SENiPadSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENiPadSettingsViewController.m; path = Controllers/SENiPadSettingsViewController.m; sourceTree = "<group>"; };
+		0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENQuestionnaireTabViewController.h; path = Controllers/SENQuestionnaireTabViewController.h; sourceTree = "<group>"; };
+		0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENQuestionnaireTabViewController.m; path = Controllers/SENQuestionnaireTabViewController.m; sourceTree = "<group>"; };
+		0ED29E9F1886C62C0020D478 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
+		0ED29EA01886C62C0020D478 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
+		0ED29EA11886C62C0020D478 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		0ED29EA31886C8140020D478 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		0ED29EA61886CB140020D478 /* RBLDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLDetailViewController.h; sourceTree = "<group>"; };
+		0ED29EA71886CB140020D478 /* RBLDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLDetailViewController.m; sourceTree = "<group>"; };
+		0ED29EAA1886CB310020D478 /* RBLMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLMainViewController.h; sourceTree = "<group>"; };
+		0ED29EAB1886CB310020D478 /* RBLMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLMainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ED29EA41886C8140020D478 /* CoreBluetooth.framework in Frameworks */,
 				0E10AC3B188609BB00765FA1 /* CoreGraphics.framework in Frameworks */,
 				0E10AC3D188609BB00765FA1 /* UIKit.framework in Frameworks */,
 				0E10AC39188609BB00765FA1 /* Foundation.framework in Frameworks */,
@@ -109,6 +117,8 @@
 		0E10AC37188609BB00765FA1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0ED29EA31886C8140020D478 /* CoreBluetooth.framework */,
+				0ED29E9E1886C60D0020D478 /* BLE_Framework */,
 				0E10AC38188609BB00765FA1 /* Foundation.framework */,
 				0E10AC3A188609BB00765FA1 /* CoreGraphics.framework */,
 				0E10AC3C188609BB00765FA1 /* UIKit.framework */,
@@ -120,11 +130,8 @@
 		0E10AC3E188609BB00765FA1 /* SchoolInterface */ = {
 			isa = PBXGroup;
 			children = (
-				0E10AC4A188609BB00765FA1 /* Main_iPhone.storyboard */,
 				0E10AC4D188609BB00765FA1 /* Main_iPad.storyboard */,
 				0E10ACB718861DFD00765FA1 /* Controllers */,
-				0E10AC50188609BB00765FA1 /* SENViewController.h */,
-				0E10AC51188609BB00765FA1 /* SENViewController.m */,
 				0E10AC53188609BB00765FA1 /* Images.xcassets */,
 				0E10AC3F188609BB00765FA1 /* Supporting Files */,
 			);
@@ -165,12 +172,34 @@
 		0E10ACB718861DFD00765FA1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0ED29EA91886CB1A0020D478 /* RBL */,
 				0E06A6C118863DB90018ECDB /* SENGraphicsViewController.h */,
 				0E06A6C218863DB90018ECDB /* SENGraphicsViewController.m */,
-				0E10ACB418861DFA00765FA1 /* SENiPadSettingsViewController.h */,
-				0E10ACB518861DFA00765FA1 /* SENiPadSettingsViewController.m */,
+				0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */,
+				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0ED29E9E1886C60D0020D478 /* BLE_Framework */ = {
+			isa = PBXGroup;
+			children = (
+				0ED29E9F1886C62C0020D478 /* BLE.h */,
+				0ED29EA01886C62C0020D478 /* BLE.m */,
+				0ED29EA11886C62C0020D478 /* BLEDefines.h */,
+			);
+			name = BLE_Framework;
+			sourceTree = "<group>";
+		};
+		0ED29EA91886CB1A0020D478 /* RBL */ = {
+			isa = PBXGroup;
+			children = (
+				0ED29EAA1886CB310020D478 /* RBLMainViewController.h */,
+				0ED29EAB1886CB310020D478 /* RBLMainViewController.m */,
+				0ED29EA61886CB140020D478 /* RBLDetailViewController.h */,
+				0ED29EA71886CB140020D478 /* RBLDetailViewController.m */,
+			);
+			name = RBL;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,7 +281,6 @@
 			files = (
 				0E10AC4F188609BB00765FA1 /* Main_iPad.storyboard in Resources */,
 				0E10AC54188609BB00765FA1 /* Images.xcassets in Resources */,
-				0E10AC4C188609BB00765FA1 /* Main_iPhone.storyboard in Resources */,
 				0E10AC43188609BB00765FA1 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,10 +301,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E06A6C318863DB90018ECDB /* SENGraphicsViewController.m in Sources */,
-				0E10AC52188609BB00765FA1 /* SENViewController.m in Sources */,
 				0E10AC45188609BB00765FA1 /* main.m in Sources */,
-				0E10ACB618861DFA00765FA1 /* SENiPadSettingsViewController.m in Sources */,
+				0E10ACB618861DFA00765FA1 /* SENQuestionnaireTabViewController.m in Sources */,
+				0ED29EA21886C62C0020D478 /* BLE.m in Sources */,
 				0E10AC49188609BB00765FA1 /* SENAppDelegate.m in Sources */,
+				0ED29EA81886CB140020D478 /* RBLDetailViewController.m in Sources */,
+				0ED29EAC1886CB310020D478 /* RBLMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,14 +335,6 @@
 				0E10AC42188609BB00765FA1 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		0E10AC4A188609BB00765FA1 /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0E10AC4B188609BB00765FA1 /* Base */,
-			);
-			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 		0E10AC4D188609BB00765FA1 /* Main_iPad.storyboard */ = {
@@ -417,6 +439,7 @@
 				GCC_PREFIX_HEADER = "SchoolInterface/SchoolInterface-Prefix.pch";
 				INFOPLIST_FILE = "SchoolInterface/SchoolInterface-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -430,6 +453,7 @@
 				GCC_PREFIX_HEADER = "SchoolInterface/SchoolInterface-Prefix.pch";
 				INFOPLIST_FILE = "SchoolInterface/SchoolInterface-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

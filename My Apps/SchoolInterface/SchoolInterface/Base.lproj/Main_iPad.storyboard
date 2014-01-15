@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Ni Pad Settings View Controller - Questionnaire-->
+        <!--Questionnaire Tab View Controller - Student Questionnaire-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SENiPadSettingsViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SENQuestionnaireTabViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zcP-S1-pRL"/>
                         <viewControllerLayoutGuide type="bottom" id="1DN-ic-Rhb"/>
@@ -208,50 +208,31 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="mkO-YI-rhz">
-                                <rect key="frame" x="286" y="95" width="51" height="31"/>
+                                <rect key="frame" x="183" y="95" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="showHideQuestionnaire:" destination="BYZ-38-t0r" eventType="valueChanged" id="Mtd-Z5-nym"/>
                                 </connections>
                             </switch>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSF-Xl-geT">
-                                <rect key="frame" x="700" y="40" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="8b8-P5-07G" kind="unwind" unwindAction="doUnwind:" id="HJt-6j-ryB"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wgT-4n-vrV">
-                                <rect key="frame" x="20" y="40" width="56" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="8b8-P5-07G" kind="unwind" unwindAction="doUnwind:" id="PO5-1R-Q3v"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Student Questionnaire" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="88i-ZT-Wlj">
-                                <rect key="frame" x="278" y="44" width="212" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Questionnaire" image="Favorites TabBar" id="tp0-2u-Sbb"/>
-                    <navigationItem key="navigationItem" id="0lt-zU-LHz"/>
+                    <navigationItem key="navigationItem" title="Student Questionnaire" id="0lt-zU-LHz">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="1zB-zA-2tG">
+                            <connections>
+                                <segue destination="7H1-oc-8bP" kind="unwind" unwindAction="doUnwind:" id="rCu-M0-phS"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="3da-I9-vDJ">
+                            <connections>
+                                <segue destination="7H1-oc-8bP" kind="unwind" unwindAction="doUnwind:" id="PIY-kL-F2R"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="agePicker" destination="40e-XH-Hh2" id="LFX-sS-ikU"/>
                         <outlet property="birthDatePicker" destination="Fvr-9X-T26" id="fhz-BV-ReZ"/>
-                        <outlet property="doneButton" destination="mSF-Xl-geT" id="XG8-aF-wgu"/>
+                        <outlet property="doneTabBarButton" destination="3da-I9-vDJ" id="XWv-g8-w4T"/>
                         <outlet property="genderControl" destination="XdZ-hy-98I" id="qak-HO-v8K"/>
                         <outlet property="otherVaccineControl" destination="9Bs-6Z-7dT" id="fOe-Nq-slp"/>
                         <outlet property="questionnaireView" destination="5TR-YI-H56" id="fs9-cY-LcR"/>
@@ -262,14 +243,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <exit id="8b8-P5-07G" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3114" y="-248"/>
+            <point key="canvasLocation" x="4257" y="-1446"/>
         </scene>
-        <!--View Controller - Bluetooth-->
+        <!--Main View Controller - RedBearLab-->
         <scene sceneID="NtL-S2-7zy">
             <objects>
-                <viewController id="Gtl-hJ-URF" sceneMemberID="viewController">
+                <viewController id="Gtl-hJ-URF" customClass="RBLMainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GXS-C6-xLQ"/>
                         <viewControllerLayoutGuide type="bottom" id="5pA-O5-8gh"/>
@@ -278,12 +258,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bluetooth!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hV0-ta-RpT">
-                                <rect key="frame" x="292" y="507" width="79" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhI-xs-zFP">
                                 <rect key="frame" x="700" y="40" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -291,9 +265,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="bTB-By-P7a" kind="unwind" unwindAction="doUnwind:" id="ONa-fi-mle"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6SU-8i-3b6">
                                 <rect key="frame" x="20" y="40" width="56" height="30"/>
@@ -302,19 +273,109 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQY-g5-sHy">
+                                <rect key="frame" x="264" y="322" width="240" height="30"/>
+                                <state key="normal" title="Scan All">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <segue destination="bTB-By-P7a" kind="unwind" unwindAction="doUnwind:" id="SKA-Hb-Por"/>
+                                    <action selector="scanClick:" destination="Gtl-hJ-URF" eventType="touchUpInside" id="Jvk-xz-6LJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6j-Kg-UMo">
+                                <rect key="frame" x="313" y="205" width="143" height="30"/>
+                                <state key="normal" title="Connect Last Device">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="lastClick:" destination="Gtl-hJ-URF" eventType="touchUpInside" id="Jlj-cU-Ddv"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="None" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoW-4S-BZO">
+                                <rect key="frame" x="218" y="162" width="333" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Connected Device (UUID)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSm-UF-CVb">
+                                <rect key="frame" x="267" y="121" width="234" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="f1P-Eg-4Pu">
+                                <rect key="frame" x="374" y="453" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Bluetooth" image="Bluetooth TabBar" id="3gH-Bd-QGB"/>
+                    <navigationItem key="navigationItem" title="RedBearLab" id="BNE-RN-er5">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="a84-0J-K6u">
+                            <connections>
+                                <segue destination="bTB-By-P7a" kind="unwind" unwindAction="doUnwind:" id="bwB-VL-Pk6"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="IhX-I4-0II">
+                            <connections>
+                                <segue destination="bTB-By-P7a" kind="unwind" unwindAction="doUnwind:" id="OHB-B6-ZpV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="IhX-I4-0II" id="PvZ-i2-wXl"/>
+                        <outlet property="lastButton" destination="f6j-Kg-UMo" id="IGu-e8-HMb"/>
+                        <outlet property="scanButton" destination="FQY-g5-sHy" id="LDf-RR-3Kx"/>
+                        <outlet property="spinner" destination="f1P-Eg-4Pu" id="bpe-3R-MYc"/>
+                        <outlet property="uuidLabel" destination="hoW-4S-BZO" id="S0G-lA-E70"/>
+                        <segue destination="KX2-D4-q7w" kind="push" identifier="showDevice" id="eLT-3r-h9c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V3Q-Um-RNb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bTB-By-P7a" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2309" y="-248"/>
+            <point key="canvasLocation" x="5173" y="-248"/>
+        </scene>
+        <!--Detail View Controller - Device-->
+        <scene sceneID="d7q-sm-7B6">
+            <objects>
+                <tableViewController id="KX2-D4-q7w" customClass="RBLDetailViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gcL-gR-zNh">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="gAp-TL-Vq5">
+                                <rect key="frame" x="0.0" y="86" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gAp-TL-Vq5" id="Wss-WB-hOj">
+                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCA-5q-4Mi">
+                                            <rect key="frame" x="20" y="11" width="33" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KX2-D4-q7w" id="vLg-Eb-DT2"/>
+                            <outlet property="delegate" destination="KX2-D4-q7w" id="aOU-b5-kCZ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Device" id="pcz-B7-Ydp"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fW1-px-VZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6067" y="-248"/>
         </scene>
         <!--Graphics View Controller-->
         <scene sceneID="Sah-ma-FV4">
@@ -348,7 +409,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZ4-Ti-5dK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1374" y="-1446"/>
+            <point key="canvasLocation" x="1998" y="-1446"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="YuH-N1-Y6b">
@@ -362,13 +423,52 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Gtl-hJ-URF" kind="relationship" relationship="viewControllers" id="3bA-3k-0SL"/>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="ccW-LQ-xc6"/>
+                        <segue destination="An7-Xt-um2" kind="relationship" relationship="viewControllers" id="ccW-LQ-xc6"/>
+                        <segue destination="s5r-BQ-tRI" kind="relationship" relationship="viewControllers" id="bLt-4e-io2"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mf4-5J-GZA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1374" y="-248"/>
+            <point key="canvasLocation" x="1998" y="-248"/>
+        </scene>
+        <!--Navigation Controller - Questionnaire-->
+        <scene sceneID="2P4-K8-QYI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="An7-Xt-um2" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Questionnaire" image="Favorites TabBar" id="tp0-2u-Sbb"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="P3p-Al-aWN">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="xXS-FQ-749"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NKY-vG-R1W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="7H1-oc-8bP" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3283" y="-1446"/>
+        </scene>
+        <!--Navigation Controller - Bluetooth-->
+        <scene sceneID="35d-Pb-dmu">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="s5r-BQ-tRI" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Bluetooth" image="Bluetooth TabBar" id="1Jp-ua-bHV"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Ei-C5-18p">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Gtl-hJ-URF" kind="relationship" relationship="rootViewController" id="xQ8-ua-zhY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lhQ-nJ-soL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4257" y="-248"/>
         </scene>
     </scenes>
     <resources>

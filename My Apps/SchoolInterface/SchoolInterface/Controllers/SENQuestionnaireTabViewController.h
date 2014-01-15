@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SENiPadSettingsViewController : UIViewController
+@interface SENQuestionnaireTabViewController : UIViewController
 
 @end
