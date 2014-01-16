@@ -7,17 +7,42 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "BLE.h"
 #import "RBLDetailViewController.h"
+#import "SENPDDriver.h"
+
+#include "SENPDDriver.h"
+
+typedef struct
+{
+    unsigned char data [4];
+}charbuff;
+
 
 @interface RBLMainViewController : UIViewController <BLEDelegate, RBLDetailViewControllerDelegate>
 {
+    SENPDDriver *mPDDRiver;
     BLE *bleShield;
     bool isFindingLast;
+    volatile unsigned _bufferIndex;
+    charbuff _oemBuffer;
+    volatile unsigned _inactivityCount;
+    unsigned _max_inactivity;
+    volatile bool _started;
+    volatile bool _reliable;
 }
+
+@property (strong,nonatomic) NSString *username;
 
 @property (strong,nonatomic) NSMutableArray *mDevices;
 @property (strong,nonatomic) NSString *lastUUID;
 
+@property (retain, nonatomic) IBOutlet UITextField *sessionStatusLabel;
+@property (retain, nonatomic) IBOutlet UILabel *sessionStartLabel;
+@property (retain, nonatomic) IBOutlet UITextField *usernameLabel;
+@property (retain, nonatomic) IBOutlet UITextField *intervalLabel;
+
+@property (retain, nonatomic) IBOutlet UIButton *generateButton;
 
 @end

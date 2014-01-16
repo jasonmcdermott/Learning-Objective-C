@@ -28,6 +28,10 @@
 		0ED0FAF4188802DF003B3136 /* RBLDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAF1188802DF003B3136 /* RBLDetailViewController.m */; };
 		0ED0FAF5188802DF003B3136 /* RBLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAF3188802DF003B3136 /* RBLMainViewController.m */; };
 		0ED0FAF9188802FB003B3136 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAF7188802FB003B3136 /* BLE.m */; };
+		0ED0FB00188804C8003B3136 /* SENPDDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAFF188804C8003B3136 /* SENPDDriver.m */; };
+		0ED0FB061888081C003B3136 /* SENBLESessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FB051888081C003B3136 /* SENBLESessionData.m */; };
+		0ED0FB091888089E003B3136 /* SENPulseReliability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FB081888089E003B3136 /* SENPulseReliability.m */; };
+		0ED0FB0C18880917003B3136 /* SENIBIData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FB0B18880917003B3136 /* SENIBIData.m */; };
 		0ED29EA41886C8140020D478 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED29EA31886C8140020D478 /* CoreBluetooth.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +98,15 @@
 		0ED0FAF6188802FB003B3136 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLE.h; path = SchoolInterface/Frameworks/BLE_framework/BLE.h; sourceTree = "<group>"; };
 		0ED0FAF7188802FB003B3136 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLE.m; path = SchoolInterface/Frameworks/BLE_framework/BLE.m; sourceTree = "<group>"; };
 		0ED0FAF8188802FB003B3136 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDefines.h; path = SchoolInterface/Frameworks/BLE_framework/BLEDefines.h; sourceTree = "<group>"; };
+		0ED0FAFE188804C8003B3136 /* SENPDDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENPDDriver.h; path = Controllers/SENPDDriver.h; sourceTree = "<group>"; };
+		0ED0FAFF188804C8003B3136 /* SENPDDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENPDDriver.m; path = Controllers/SENPDDriver.m; sourceTree = "<group>"; };
+		0ED0FB03188805A1003B3136 /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = constants.h; path = Model/constants.h; sourceTree = "<group>"; };
+		0ED0FB041888081C003B3136 /* SENBLESessionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENBLESessionData.h; path = Model/SENBLESessionData.h; sourceTree = "<group>"; };
+		0ED0FB051888081C003B3136 /* SENBLESessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENBLESessionData.m; path = Model/SENBLESessionData.m; sourceTree = "<group>"; };
+		0ED0FB071888089E003B3136 /* SENPulseReliability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENPulseReliability.h; path = Model/SENPulseReliability.h; sourceTree = "<group>"; };
+		0ED0FB081888089E003B3136 /* SENPulseReliability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENPulseReliability.m; path = Model/SENPulseReliability.m; sourceTree = "<group>"; };
+		0ED0FB0A18880917003B3136 /* SENIBIData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENIBIData.h; path = Model/SENIBIData.h; sourceTree = "<group>"; };
+		0ED0FB0B18880917003B3136 /* SENIBIData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENIBIData.m; path = Model/SENIBIData.m; sourceTree = "<group>"; };
 		0ED29EA31886C8140020D478 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -163,6 +176,7 @@
 		0E10AC3E188609BB00765FA1 /* SchoolInterface */ = {
 			isa = PBXGroup;
 			children = (
+				0ED0FB021888057C003B3136 /* Model */,
 				0E10AC4D188609BB00765FA1 /* Main_iPad.storyboard */,
 				0E10ACB718861DFD00765FA1 /* Controllers */,
 				0E10AC53188609BB00765FA1 /* Images.xcassets */,
@@ -205,11 +219,10 @@
 		0E10ACB718861DFD00765FA1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0ED29EA91886CB1A0020D478 /* RBL */,
-				0E06A6C118863DB90018ECDB /* SENGraphicsViewController.h */,
-				0E06A6C218863DB90018ECDB /* SENGraphicsViewController.m */,
-				0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */,
-				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
+				0ED0FAFE188804C8003B3136 /* SENPDDriver.h */,
+				0ED0FAFF188804C8003B3136 /* SENPDDriver.m */,
+				0ED29EA91886CB1A0020D478 /* RedBear_Bluetooth */,
+				0ED0FB01188804D5003B3136 /* New Group */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -223,6 +236,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		0ED0FB01188804D5003B3136 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				0E06A6C118863DB90018ECDB /* SENGraphicsViewController.h */,
+				0E06A6C218863DB90018ECDB /* SENGraphicsViewController.m */,
+				0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */,
+				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
+		0ED0FB021888057C003B3136 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0ED0FB03188805A1003B3136 /* constants.h */,
+				0ED0FB071888089E003B3136 /* SENPulseReliability.h */,
+				0ED0FB081888089E003B3136 /* SENPulseReliability.m */,
+				0ED0FB041888081C003B3136 /* SENBLESessionData.h */,
+				0ED0FB051888081C003B3136 /* SENBLESessionData.m */,
+				0ED0FB0A18880917003B3136 /* SENIBIData.h */,
+				0ED0FB0B18880917003B3136 /* SENIBIData.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		0ED29E9E1886C60D0020D478 /* BLE_Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,15 +271,15 @@
 			name = BLE_Framework;
 			sourceTree = "<group>";
 		};
-		0ED29EA91886CB1A0020D478 /* RBL */ = {
+		0ED29EA91886CB1A0020D478 /* RedBear_Bluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				0ED0FAF0188802DF003B3136 /* RBLDetailViewController.h */,
-				0ED0FAF1188802DF003B3136 /* RBLDetailViewController.m */,
 				0ED0FAF2188802DF003B3136 /* RBLMainViewController.h */,
 				0ED0FAF3188802DF003B3136 /* RBLMainViewController.m */,
+				0ED0FAF0188802DF003B3136 /* RBLDetailViewController.h */,
+				0ED0FAF1188802DF003B3136 /* RBLDetailViewController.m */,
 			);
-			name = RBL;
+			name = RedBear_Bluetooth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -371,8 +409,12 @@
 				0E10AC45188609BB00765FA1 /* main.m in Sources */,
 				0ED0FAF9188802FB003B3136 /* BLE.m in Sources */,
 				0E10ACB618861DFA00765FA1 /* SENQuestionnaireTabViewController.m in Sources */,
+				0ED0FB061888081C003B3136 /* SENBLESessionData.m in Sources */,
 				0ED0FAF4188802DF003B3136 /* RBLDetailViewController.m in Sources */,
+				0ED0FB00188804C8003B3136 /* SENPDDriver.m in Sources */,
 				0E10AC49188609BB00765FA1 /* SENAppDelegate.m in Sources */,
+				0ED0FB0C18880917003B3136 /* SENIBIData.m in Sources */,
+				0ED0FB091888089E003B3136 /* SENPulseReliability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

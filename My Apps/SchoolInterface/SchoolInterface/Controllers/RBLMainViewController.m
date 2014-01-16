@@ -8,6 +8,18 @@
 
 #import "RBLMainViewController.h"
 #import "RBLDetailViewController.h"
+#import "SENBLESessionData.h"
+
+unsigned char const OEM_RELIABLE = 0xA0;
+unsigned char const OEM_UNRELIABLE = 0xA1;
+unsigned char const OEM_PULSE = 0xB0;
+unsigned char const SYNC_CHAR = 0xF9;
+unsigned const NUM_PULSE_BYTES = 3;
+unsigned const DEF_MAX_INACTIVITY = 8;
+NSString * const  UUIDPrefKey = @"UUIDPrefKey";
+NSString * const  INACTIVITY_KEY = @"BrightheartsInactivity";
+NSString * const  USERNAME_KEY = @"BrightheartsUsername";
+
 
 @interface RBLMainViewController ()
 
@@ -23,9 +35,10 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
+@property (strong, nonatomic)SENBLESessionData * mSesionData;
+
 @end
 
-NSString * const  UUIDPrefKey = @"UUIDPrefKey";
 
 @implementation RBLMainViewController
 
@@ -38,6 +51,7 @@ NSString * const  UUIDPrefKey = @"UUIDPrefKey";
     bleShield = [[BLE alloc] init];
     [bleShield controlSetup];
     bleShield.delegate = self;
+    _max_inactivity = DEF_MAX_INACTIVITY;
     
     //Retrieve saved UUID from system
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:UUIDPrefKey];
@@ -62,7 +76,8 @@ NSString * const  UUIDPrefKey = @"UUIDPrefKey";
 }
 
 
-- (IBAction)scanClick:(id)sender {
+- (IBAction)scanClick:(id)sender
+{
 
     if (bleShield.activePeripheral)
     {
@@ -89,8 +104,8 @@ NSString * const  UUIDPrefKey = @"UUIDPrefKey";
 }
 
 
-- (IBAction)lastClick:(id)sender {
-    
+- (IBAction)lastClick:(id)sender
+{
     [bleShield findBLEPeripherals:3];
     
     [NSTimer scheduledTimerWithTimeInterval:(float)3.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
@@ -185,10 +200,139 @@ NSString * const  UUIDPrefKey = @"UUIDPrefKey";
     [bleShield connectPeripheral:[bleShield.peripherals objectAtIndex:index]];
 }
 
+// Merge two bytes to integre value
+unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
+{
+    unsigned int ret = msb & 0xFF;
+    ret = ret << 7;
+    
+    ret = ret + lsb;
+    
+    return ret;
+}
+
 
 -(void) bleDidReceiveData:(unsigned char *)data length:(int)length
 {
+    for (int i = 0; i < length && _bufferIndex < 4; i++)
+    {
+        unsigned char b = data[i];
+        
+        // we will force resynchronisation
+        if (b == OEM_PULSE || b == SYNC_CHAR || b == OEM_RELIABLE || b == OEM_UNRELIABLE)
+        {
+            _bufferIndex = 0;
+        }
+        
+        _oemBuffer.data[_bufferIndex] = b;
+        _bufferIndex++;
+        
+        
+        
+        
+        switch (_oemBuffer.data[0]) {
+            case OEM_PULSE:
+                if (_bufferIndex == NUM_PULSE_BYTES)
+                {
+                    unsigned char lsb = _oemBuffer.data[1];
+                    unsigned char msb = _oemBuffer.data[2];
+                    
+                    unsigned interval = mergeBytes(lsb, msb);
+                    
+                    
+                    if (!_started)
+                        
+                    {
+                        [self.mSesionData clearSesionLists];
+                        [self.mSesionData setStartSesion];
+                        self.mSesionData.mUsername = self.username;
+                        self.mSesionData.mDeviceID = self.lastUUID;
+                        
+                        [self displaySesionStart];
+                        
+                        self.sessionStatusLabel.text = @"Sesion Started";
+                        _started = true;
+                        [mPDDRiver startSession];
+                        self.generateButton.hidden = true;
+                    }
 
+                    self.intervalLabel.text = [NSString stringWithFormat:@"Interval %d", interval];
+                    [mPDDRiver sendIBI:interval];
+                    _bufferIndex = 0;
+                    _inactivityCount = 0;
+                    
+                    [self.mSesionData addIbi:interval];
+                }
+                
+                break;
+                
+            case SYNC_CHAR:
+                _bufferIndex = 0;
+                
+                
+                break;
+                
+            case OEM_RELIABLE:
+                _bufferIndex = 0;
+                _reliable = true;
+                [mPDDRiver sendtoPDBaseReliability:1];
+                self.sessionStatusLabel.text = @"Reliable";
+                _inactivityCount = 0;
+                
+                [self.mSesionData addReliability:true];
+                
+                break;
+                
+            case OEM_UNRELIABLE:
+                _bufferIndex = 0;
+                _reliable = false;
+                [mPDDRiver sendtoPDBaseReliability:0];
+                self.sessionStatusLabel.text = @"Unreliable";
+                _inactivityCount = 0;
+                
+                [self.mSesionData addReliability:false];
+                
+                
+                break;
+                
+            default:
+                _bufferIndex = 0; // we are not going to accept other values
+                break;
+        }
+    }
+    _inactivityCount++;
+    
+    if (_inactivityCount >= _max_inactivity)
+    {
+        self.intervalLabel.text = @"";
+        self.sessionStatusLabel.text = @"session Ended";
+        if (_started)
+        {
+            _started = false;
+            [mPDDRiver endSession];
+            self.generateButton.hidden = true; // JASON
+            
+            [self.mSesionData setSessionEnd];
+            self.sessionStatusLabel.text = @"Uploaded";
+            
+//            XMLDataGenerator* xml = [[XMLDataGenerator alloc]init];
+//            NSString *uuid = [[NSProcessInfo processInfo] globallyUniqueString];
+            
+//            [xml generateXML:self.mSesionData filename: [NSString stringWithFormat:@"%@.xml", uuid]];
+//            [xml release];
+        }
+    }
+}
+
+-(void) displaySesionStart
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    [formatter setTimeZone:[NSTimeZone localTimeZone]];
+    
+    NSString *stringFromDate = [formatter stringFromDate:self.mSesionData.mSesionStart];
+    [self.sessionStartLabel setText:stringFromDate];
+//    [formatter release];
 }
 
 - (void) bleDidDisconnect
@@ -223,7 +367,8 @@ NSString * const  UUIDPrefKey = @"UUIDPrefKey";
 }
 
 
--(NSString*)getUUIDString:(CFUUIDRef)ref {
+-(NSString*)getUUIDString:(CFUUIDRef)ref
+{
     NSString *str = [NSString stringWithFormat:@"%@",ref];
     return [[NSString stringWithFormat:@"%@",str] substringWithRange:NSMakeRange(str.length - 36, 36)];
 }
