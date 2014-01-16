@@ -22,6 +22,9 @@
 		0E10AC65188609BB00765FA1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC63188609BB00765FA1 /* InfoPlist.strings */; };
 		0E10AC67188609BB00765FA1 /* SchoolInterfaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10AC66188609BB00765FA1 /* SchoolInterfaceTests.m */; };
 		0E10ACB618861DFA00765FA1 /* SENQuestionnaireTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */; };
+		0ED0FAE91888018E003B3136 /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAE41888017D003B3136 /* libpd-ios.a */; };
+		0ED0FAEC18880197003B3136 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAEA18880197003B3136 /* AudioToolbox.framework */; };
+		0ED0FAED18880197003B3136 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAEB18880197003B3136 /* AVFoundation.framework */; };
 		0ED29EA21886C62C0020D478 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED29EA01886C62C0020D478 /* BLE.m */; };
 		0ED29EA41886C8140020D478 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED29EA31886C8140020D478 /* CoreBluetooth.framework */; };
 		0ED29EA81886CB140020D478 /* RBLDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED29EA71886CB140020D478 /* RBLDetailViewController.m */; };
@@ -35,6 +38,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0E10AC34188609BB00765FA1;
 			remoteInfo = SchoolInterface;
+		};
+		0ED0FAE31888017D003B3136 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ED0FADE1888017C003B3136 /* libpd.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = "libpd-ios";
+		};
+		0ED0FAE51888017D003B3136 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ED0FADE1888017C003B3136 /* libpd.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 119013AB1486450C00086F19;
+			remoteInfo = "libpd-osx";
+		};
+		0ED0FAE718880189003B3136 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0ED0FADE1888017C003B3136 /* libpd.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "libpd-ios";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -60,6 +84,9 @@
 		0E10AC66188609BB00765FA1 /* SchoolInterfaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SchoolInterfaceTests.m; sourceTree = "<group>"; };
 		0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENQuestionnaireTabViewController.h; path = Controllers/SENQuestionnaireTabViewController.h; sourceTree = "<group>"; };
 		0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENQuestionnaireTabViewController.m; path = Controllers/SENQuestionnaireTabViewController.m; sourceTree = "<group>"; };
+		0ED0FADE1888017C003B3136 /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = ../libpd/libpd.xcodeproj; sourceTree = "<group>"; };
+		0ED0FAEA18880197003B3136 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0ED0FAEB18880197003B3136 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0ED29E9F1886C62C0020D478 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
 		0ED29EA01886C62C0020D478 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 		0ED29EA11886C62C0020D478 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
@@ -75,6 +102,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ED0FAEC18880197003B3136 /* AudioToolbox.framework in Frameworks */,
+				0ED0FAED18880197003B3136 /* AVFoundation.framework in Frameworks */,
+				0ED0FAE91888018E003B3136 /* libpd-ios.a in Frameworks */,
 				0ED29EA41886C8140020D478 /* CoreBluetooth.framework in Frameworks */,
 				0E10AC3B188609BB00765FA1 /* CoreGraphics.framework in Frameworks */,
 				0E10AC3D188609BB00765FA1 /* UIKit.framework in Frameworks */,
@@ -98,6 +128,7 @@
 		0E10AC2C188609BB00765FA1 = {
 			isa = PBXGroup;
 			children = (
+				0ED0FADE1888017C003B3136 /* libpd.xcodeproj */,
 				0E10AC3E188609BB00765FA1 /* SchoolInterface */,
 				0E10AC60188609BB00765FA1 /* SchoolInterfaceTests */,
 				0E10AC37188609BB00765FA1 /* Frameworks */,
@@ -117,6 +148,8 @@
 		0E10AC37188609BB00765FA1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0ED0FAEA18880197003B3136 /* AudioToolbox.framework */,
+				0ED0FAEB18880197003B3136 /* AVFoundation.framework */,
 				0ED29EA31886C8140020D478 /* CoreBluetooth.framework */,
 				0ED29E9E1886C60D0020D478 /* BLE_Framework */,
 				0E10AC38188609BB00765FA1 /* Foundation.framework */,
@@ -181,6 +214,15 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		0ED0FADF1888017C003B3136 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0ED0FAE41888017D003B3136 /* libpd-ios.a */,
+				0ED0FAE61888017D003B3136 /* libpd-osx.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		0ED29E9E1886C60D0020D478 /* BLE_Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +258,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0ED0FAE818880189003B3136 /* PBXTargetDependency */,
 			);
 			name = SchoolInterface;
 			productName = SchoolInterface;
@@ -266,6 +309,12 @@
 			mainGroup = 0E10AC2C188609BB00765FA1;
 			productRefGroup = 0E10AC36188609BB00765FA1 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0ED0FADF1888017C003B3136 /* Products */;
+					ProjectRef = 0ED0FADE1888017C003B3136 /* libpd.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0E10AC34188609BB00765FA1 /* SchoolInterface */,
@@ -273,6 +322,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0ED0FAE41888017D003B3136 /* libpd-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libpd-ios.a";
+			remoteRef = 0ED0FAE31888017D003B3136 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0ED0FAE61888017D003B3136 /* libpd-osx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libpd-osx.a";
+			remoteRef = 0ED0FAE51888017D003B3136 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0E10AC33188609BB00765FA1 /* Resources */ = {
@@ -325,6 +391,11 @@
 			isa = PBXTargetDependency;
 			target = 0E10AC34188609BB00765FA1 /* SchoolInterface */;
 			targetProxy = 0E10AC5E188609BB00765FA1 /* PBXContainerItemProxy */;
+		};
+		0ED0FAE818880189003B3136 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libpd-ios";
+			targetProxy = 0ED0FAE718880189003B3136 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -440,6 +511,7 @@
 				INFOPLIST_FILE = "SchoolInterface/SchoolInterface-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "../libpd/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -454,6 +526,7 @@
 				INFOPLIST_FILE = "SchoolInterface/SchoolInterface-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "../libpd/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

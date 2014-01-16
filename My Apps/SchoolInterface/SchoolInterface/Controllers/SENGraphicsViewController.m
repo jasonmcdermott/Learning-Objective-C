@@ -30,6 +30,9 @@
 	// Do any additional setup after loading the view.
 }
 
+#pragma mark -
+#pragma mark Navigation Interface
+
 -(UIViewController *)viewControllerForUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
     NSLog(@"I %@ will be asked for the destination", self);
     UIViewController* vc = [super viewControllerForUnwindSegueAction:action fromViewController:fromViewController withSender:sender];
@@ -56,19 +59,6 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSLog(@"I %@ was asked to prepare for segue %@", self, segue);
-}
-
-#pragma mark -
-#pragma mark Navigation Interface
-
-- (IBAction)unwindToList:(UIStoryboardSegue *)segue
-{
-//    SENBluetoothConnectionViewController *source = [segue sourceViewController];
-    //    SENToDoItem *item = source.toDoItem;
-    //    if (item != nil) {
-    //        [self.toDoItems addObject:item];
-    //        [self.tableView reloadData];
-    //    }
 }
 
 @end
