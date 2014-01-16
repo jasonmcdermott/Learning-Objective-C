@@ -25,10 +25,10 @@
 		0ED0FAE91888018E003B3136 /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAE41888017D003B3136 /* libpd-ios.a */; };
 		0ED0FAEC18880197003B3136 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAEA18880197003B3136 /* AudioToolbox.framework */; };
 		0ED0FAED18880197003B3136 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAEB18880197003B3136 /* AVFoundation.framework */; };
-		0ED29EA21886C62C0020D478 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED29EA01886C62C0020D478 /* BLE.m */; };
+		0ED0FAF4188802DF003B3136 /* RBLDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAF1188802DF003B3136 /* RBLDetailViewController.m */; };
+		0ED0FAF5188802DF003B3136 /* RBLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAF3188802DF003B3136 /* RBLMainViewController.m */; };
+		0ED0FAF9188802FB003B3136 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAF7188802FB003B3136 /* BLE.m */; };
 		0ED29EA41886C8140020D478 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED29EA31886C8140020D478 /* CoreBluetooth.framework */; };
-		0ED29EA81886CB140020D478 /* RBLDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED29EA71886CB140020D478 /* RBLDetailViewController.m */; };
-		0ED29EAC1886CB310020D478 /* RBLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED29EAB1886CB310020D478 /* RBLMainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,14 +87,14 @@
 		0ED0FADE1888017C003B3136 /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = ../libpd/libpd.xcodeproj; sourceTree = "<group>"; };
 		0ED0FAEA18880197003B3136 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0ED0FAEB18880197003B3136 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		0ED29E9F1886C62C0020D478 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
-		0ED29EA01886C62C0020D478 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
-		0ED29EA11886C62C0020D478 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		0ED0FAF0188802DF003B3136 /* RBLDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RBLDetailViewController.h; path = Controllers/RBLDetailViewController.h; sourceTree = "<group>"; };
+		0ED0FAF1188802DF003B3136 /* RBLDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RBLDetailViewController.m; path = Controllers/RBLDetailViewController.m; sourceTree = "<group>"; };
+		0ED0FAF2188802DF003B3136 /* RBLMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RBLMainViewController.h; path = Controllers/RBLMainViewController.h; sourceTree = "<group>"; };
+		0ED0FAF3188802DF003B3136 /* RBLMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RBLMainViewController.m; path = Controllers/RBLMainViewController.m; sourceTree = "<group>"; };
+		0ED0FAF6188802FB003B3136 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLE.h; path = SchoolInterface/Frameworks/BLE_framework/BLE.h; sourceTree = "<group>"; };
+		0ED0FAF7188802FB003B3136 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLE.m; path = SchoolInterface/Frameworks/BLE_framework/BLE.m; sourceTree = "<group>"; };
+		0ED0FAF8188802FB003B3136 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDefines.h; path = SchoolInterface/Frameworks/BLE_framework/BLEDefines.h; sourceTree = "<group>"; };
 		0ED29EA31886C8140020D478 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		0ED29EA61886CB140020D478 /* RBLDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLDetailViewController.h; sourceTree = "<group>"; };
-		0ED29EA71886CB140020D478 /* RBLDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLDetailViewController.m; sourceTree = "<group>"; };
-		0ED29EAA1886CB310020D478 /* RBLMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLMainViewController.h; sourceTree = "<group>"; };
-		0ED29EAB1886CB310020D478 /* RBLMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLMainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,9 +226,9 @@
 		0ED29E9E1886C60D0020D478 /* BLE_Framework */ = {
 			isa = PBXGroup;
 			children = (
-				0ED29E9F1886C62C0020D478 /* BLE.h */,
-				0ED29EA01886C62C0020D478 /* BLE.m */,
-				0ED29EA11886C62C0020D478 /* BLEDefines.h */,
+				0ED0FAF6188802FB003B3136 /* BLE.h */,
+				0ED0FAF7188802FB003B3136 /* BLE.m */,
+				0ED0FAF8188802FB003B3136 /* BLEDefines.h */,
 			);
 			name = BLE_Framework;
 			sourceTree = "<group>";
@@ -236,10 +236,10 @@
 		0ED29EA91886CB1A0020D478 /* RBL */ = {
 			isa = PBXGroup;
 			children = (
-				0ED29EAA1886CB310020D478 /* RBLMainViewController.h */,
-				0ED29EAB1886CB310020D478 /* RBLMainViewController.m */,
-				0ED29EA61886CB140020D478 /* RBLDetailViewController.h */,
-				0ED29EA71886CB140020D478 /* RBLDetailViewController.m */,
+				0ED0FAF0188802DF003B3136 /* RBLDetailViewController.h */,
+				0ED0FAF1188802DF003B3136 /* RBLDetailViewController.m */,
+				0ED0FAF2188802DF003B3136 /* RBLMainViewController.h */,
+				0ED0FAF3188802DF003B3136 /* RBLMainViewController.m */,
 			);
 			name = RBL;
 			sourceTree = "<group>";
@@ -366,13 +366,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ED0FAF5188802DF003B3136 /* RBLMainViewController.m in Sources */,
 				0E06A6C318863DB90018ECDB /* SENGraphicsViewController.m in Sources */,
 				0E10AC45188609BB00765FA1 /* main.m in Sources */,
+				0ED0FAF9188802FB003B3136 /* BLE.m in Sources */,
 				0E10ACB618861DFA00765FA1 /* SENQuestionnaireTabViewController.m in Sources */,
-				0ED29EA21886C62C0020D478 /* BLE.m in Sources */,
+				0ED0FAF4188802DF003B3136 /* RBLDetailViewController.m in Sources */,
 				0E10AC49188609BB00765FA1 /* SENAppDelegate.m in Sources */,
-				0ED29EA81886CB140020D478 /* RBLDetailViewController.m in Sources */,
-				0ED29EAC1886CB310020D478 /* RBLMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
