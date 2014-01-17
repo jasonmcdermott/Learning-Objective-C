@@ -33,6 +33,8 @@ typedef struct
     volatile bool _reliable;
 }
 
+//- (void)showAll;
+
 @property (nonatomic) BOOL passedToParent;
 @property (strong, nonatomic) BLE *bleShield;
 @property (strong,nonatomic) NSString *username;

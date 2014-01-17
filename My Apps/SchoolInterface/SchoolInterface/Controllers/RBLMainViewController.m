@@ -23,6 +23,9 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 @interface RBLMainViewController ()
 
+@property (nonatomic) BOOL showTable;
+@property (weak, nonatomic) IBOutlet UITableView *deviceList;
+
 @property (weak, nonatomic) IBOutlet UIButton *scanButton;
 - (IBAction)scanClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *lastButton;
@@ -37,6 +40,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 @property (strong, nonatomic)SENBLESessionData * mSesionData;
 
+@property (strong, nonatomic) NSMutableArray *tempDevices;
 @end
 
 
@@ -76,13 +80,43 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     }
     
     self.mDevices = [[NSMutableArray alloc] init];
-
+    self.tempDevices = [[NSMutableArray alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+#pragma mark TableView
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.mDevices.count;
+    NSLog(@"%d",self.mDevices.count);
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	return @"Available Devices";
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *tableIdentifier = @"BLEDeviceList";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier forIndexPath:indexPath];
+    
+    cell.textLabel.text = [self.mDevices objectAtIndex:indexPath.row];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self didSelected:indexPath.row];
 }
 
 
@@ -120,7 +154,6 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     
     [NSTimer scheduledTimerWithTimeInterval:(float)3.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
    
-    
     isFindingLast = true;
     self.lastButton.hidden = true;
     self.scanButton.hidden = true;
@@ -173,7 +206,10 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
                 }
                 
                 //Show the list for user selection
-                [self performSegueWithIdentifier:@"showDevice" sender:self];
+                _showTable = YES;
+                self.deviceList.hidden = NO;
+                [self.deviceList reloadData];
+//                [self performSegueWithIdentifier:@"showDevice" sender:self];
             }
         }
         else
@@ -386,21 +422,26 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     return [[NSString stringWithFormat:@"%@",str] substringWithRange:NSMakeRange(str.length - 36, 36)];
 }
 
-- (IBAction)clickDoneButton:(UIBarButtonItem *)sender {
+- (void)hideAll
+{
+    NSLog(@"hiding");
+    self.navigationController.view.hidden = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.view.hidden = YES;
-    // write code to show/hide nav bar here
-    // check if the Navigation Bar is shown
-    if (self.navigationController.navigationBar.hidden == NO)
-    {
-        // hide the Navigation Bar
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    }
-    // if Navigation Bar is already hidden
-    else if (self.navigationController.navigationBar.hidden == YES)
-    {
-        // Show the Navigation Bar
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
+    NSLog(@"%hhd",self.navigationController.navigationBarHidden);
+}
+
+//- (void)showAll
+//{
+//    self.navigationController.view.hidden = NO;
+////    self.view.hidden = NO;
+////    self.navigationController.view.hidden = NO;
+////    [self.navigationController setNavigationBarHidden:NO animated:NO];
+////    self.view.hidden = NO;
+//}
+
+- (IBAction)clickDoneButton:(UIBarButtonItem *)sender {
+    [self hideAll];
 }
 
 @end

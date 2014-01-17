@@ -275,8 +275,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQY-g5-sHy">
-                                <rect key="frame" x="264" y="339" width="240" height="30"/>
-                                <state key="normal" title="Scan All">
+                                <rect key="frame" x="264" y="254" width="240" height="30"/>
+                                <state key="normal" title="Scan For Devices">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -284,8 +284,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6j-Kg-UMo">
-                                <rect key="frame" x="313" y="216" width="143" height="30"/>
-                                <state key="normal" title="Connect Last Device">
+                                <rect key="frame" x="295" y="208" width="179" height="30"/>
+                                <state key="normal" title="Connect to Last Device">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -307,20 +307,49 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="f1P-Eg-4Pu">
-                                <rect key="frame" x="374" y="453" width="20" height="20"/>
+                                <rect key="frame" x="374" y="308" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="6Ep-gT-TaH">
+                                <rect key="frame" x="224" y="377" width="320" height="460"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BLEDeviceList" id="0Yu-90-enu">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Yu-90-enu" id="Kn7-DC-zlJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAp-GQ-6WP">
+                                                    <rect key="frame" x="20" y="11" width="33" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Gtl-hJ-URF" id="71y-YM-EP9"/>
+                                    <outlet property="delegate" destination="Gtl-hJ-URF" id="bKg-oe-FmS"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="RedBearLab" id="BNE-RN-er5">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="IhX-I4-0II">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="IhX-I4-0II">
                             <connections>
                                 <action selector="clickDoneButton:" destination="Gtl-hJ-URF" id="rim-IA-L3z"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="deviceList" destination="6Ep-gT-TaH" id="536-Fg-lGg"/>
                         <outlet property="doneButton" destination="IhX-I4-0II" id="PvZ-i2-wXl"/>
                         <outlet property="lastButton" destination="f6j-Kg-UMo" id="IGu-e8-HMb"/>
                         <outlet property="scanButton" destination="FQY-g5-sHy" id="LDf-RR-3Kx"/>
@@ -336,6 +365,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <!--Detail View Controller - Device-->
         <scene sceneID="d7q-sm-7B6">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fW1-px-VZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="KX2-D4-q7w" customClass="RBLDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gcL-gR-zNh">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -367,7 +397,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     </tableView>
                     <navigationItem key="navigationItem" title="Device" id="pcz-B7-Ydp"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fW1-px-VZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6067" y="-248"/>
         </scene>
@@ -394,7 +423,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="EX1-XW-glM" kind="push" id="lMi-s2-S2P"/>
+                                    <segue destination="EX1-XW-glM" kind="modal" id="lMi-s2-S2P"/>
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.30000001192092896" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeB-p8-mzv">
@@ -407,18 +436,30 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <action selector="clickBluetoothButton:" destination="GZg-0Z-hXa" eventType="touchUpInside" id="dZh-Jc-nAJ"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bnw-ci-fsX">
-                                <rect key="frame" x="127" y="256" width="384" height="512"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cr-51-pm5">
+                                <rect key="frame" x="360" y="481" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressedUselessButton:" destination="GZg-0Z-hXa" eventType="touchUpInside" id="Nsm-3m-VXQ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXI-Lf-2wi">
+                                <rect key="frame" x="363" y="533" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="baseView" destination="6OS-zr-HIE" id="kRv-Bu-R1l"/>
                         <outlet property="bluetoothButton" destination="DeB-p8-mzv" id="sd0-XA-of5"/>
-                        <outlet property="redView" destination="Bnw-ci-fsX" id="W8V-sZ-8JS"/>
+                        <outlet property="uselessButton" destination="8cr-51-pm5" id="ZFU-MQ-md5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZ4-Ti-5dK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -467,6 +508,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <!--Navigation Controller - Bluetooth-->
         <scene sceneID="35d-Pb-dmu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lhQ-nJ-soL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="blueNav" automaticallyAdjustsScrollViewInsets="NO" id="s5r-BQ-tRI" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Bluetooth" image="Bluetooth TabBar" id="1Jp-ua-bHV"/>
                     <toolbarItems/>
@@ -479,7 +521,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <segue destination="Gtl-hJ-URF" kind="relationship" relationship="rootViewController" id="xQ8-ua-zhY"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lhQ-nJ-soL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4257" y="-248"/>
         </scene>

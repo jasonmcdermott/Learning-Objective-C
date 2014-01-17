@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *bluetoothButton;
 @property (strong, nonatomic) IBOutlet UIView *baseView;
 @property (weak, nonatomic) IBOutlet UIView *redView;
+@property (weak, nonatomic) IBOutlet UIButton *uselessButton;
 
 @end
 
@@ -46,8 +47,10 @@
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle mainBundle]];
     self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"blueNav"];
-    [self.view addSubview:self.RBLMainViewController.view];
+    self.RBLMainViewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
     self.RBLMainViewController.view.hidden = YES;
+    [self.view addSubview:self.RBLMainViewController.view];
+
     
 //    self.RBLMainViewController = [[RBLMainViewController alloc] init];
 //    self.RBLMainViewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
@@ -62,7 +65,10 @@
 - (IBAction)clickBluetoothButton:(UIButton *)sender
 {
     NSLog(@"pressed into service");
+    self.RBLMainViewController.navigationController.view.hidden = NO;
+    self.RBLMainViewController.navigationController.navigationBar.hidden = NO;
     self.RBLMainViewController.view.hidden = NO;
+    NSLog(@"showing Bluetooth interface %hhd",self.RBLMainViewController.navigationController.navigationBarHidden);
 }
 
 
@@ -93,6 +99,10 @@
     return seg;
 }
 
+- (IBAction)pressedUselessButton:(UIButton *)sender
+{
+    NSLog(@"here's a useless button");
+}
 
 -(BOOL)canPerformUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
     NSLog(@"I %@ am being asked can perform from %@, and my background is %@", self, fromViewController, self.view.backgroundColor);
