@@ -387,7 +387,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 }
 
 - (IBAction)clickDoneButton:(UIBarButtonItem *)sender {
-    self.view.hidden = TRUE;
+    self.view.hidden = YES;
     // write code to show/hide nav bar here
     // check if the Navigation Bar is shown
     if (self.navigationController.navigationBar.hidden == NO)

@@ -47,24 +47,24 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle mainBundle]];
     self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"blueNav"];
     [self.view addSubview:self.RBLMainViewController.view];
-//    self.RBLMainViewController.view.hidden = TRUE;
+    self.RBLMainViewController.view.hidden = YES;
     
 //    self.RBLMainViewController = [[RBLMainViewController alloc] init];
 //    self.RBLMainViewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
 //    [self.view addSubview:self.RBLMainViewController.view];
 //    self.RBLMainViewController.view.hidden = FALSE;
 
-    //    self.bleShield = [[BLE alloc] init];
-    //    [self.bleShield controlSetup];
-    //    self.bleShield.delegate = self;
 }
 
 #pragma mark -
 #pragma mark Navigation Interface
 
-- (IBAction)clickBluetoothButton:(id)sender {
-    self.RBLMainViewController.view.hidden = FALSE;
+- (IBAction)clickBluetoothButton:(UIButton *)sender
+{
+    NSLog(@"pressed into service");
+    self.RBLMainViewController.view.hidden = NO;
 }
+
 
 //- (IBAction)backToViewControllerOne:(UIStoryboardSegue *)segue
 //{
