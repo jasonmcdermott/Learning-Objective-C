@@ -30,8 +30,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 - (IBAction)scanClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *lastButton;
 - (IBAction)lastClick:(id)sender;
-
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
@@ -389,7 +388,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     self.lastButton.hidden = false;
     self.rssiLabel.hidden = true;
     [self.scanButton setTitle:@"Scan All" forState:UIControlStateNormal];
-    self.doneButton.enabled = NO;
+
 }
 
 -(void) bleDidConnect
@@ -407,7 +406,6 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     self.rssiLabel.hidden = false;
     [self.scanButton setTitle:@"Disconnect" forState:UIControlStateNormal];
     
-    self.doneButton.enabled = YES;
 }
 
 -(void) bleDidUpdateRSSI:(NSNumber *)rssi
@@ -440,8 +438,10 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 ////    self.view.hidden = NO;
 //}
 
-- (IBAction)clickDoneButton:(UIBarButtonItem *)sender {
+- (IBAction)touchCloseButton:(UIButton *)sender
+{
     [self hideAll];
 }
+
 
 @end

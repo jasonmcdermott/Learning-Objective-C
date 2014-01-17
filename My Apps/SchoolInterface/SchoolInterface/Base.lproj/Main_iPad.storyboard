@@ -246,7 +246,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="4257" y="-1446"/>
         </scene>
-        <!--Main View Controller - RedBearLab-->
+        <!--Main View Controller-->
         <scene sceneID="NtL-S2-7zy">
             <objects>
                 <viewController storyboardIdentifier="Redbear" id="Gtl-hJ-URF" customClass="RBLMainViewController" sceneMemberID="viewController">
@@ -258,22 +258,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhI-xs-zFP">
-                                <rect key="frame" x="700" y="40" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6SU-8i-3b6">
-                                <rect key="frame" x="20" y="40" width="56" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQY-g5-sHy">
                                 <rect key="frame" x="264" y="254" width="240" height="30"/>
                                 <state key="normal" title="Scan For Devices">
@@ -338,19 +322,22 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <outlet property="delegate" destination="Gtl-hJ-URF" id="bKg-oe-FmS"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2M-4z-yhw">
+                                <rect key="frame" x="708" y="20" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchCloseButton:" destination="Gtl-hJ-URF" eventType="touchUpInside" id="fgR-29-jfr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="RedBearLab" id="BNE-RN-er5">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="IhX-I4-0II">
-                            <connections>
-                                <action selector="clickDoneButton:" destination="Gtl-hJ-URF" id="rim-IA-L3z"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
+                        <outlet property="closeButton" destination="O2M-4z-yhw" id="e1U-GA-Hn7"/>
                         <outlet property="deviceList" destination="6Ep-gT-TaH" id="536-Fg-lGg"/>
-                        <outlet property="doneButton" destination="IhX-I4-0II" id="PvZ-i2-wXl"/>
                         <outlet property="lastButton" destination="f6j-Kg-UMo" id="IGu-e8-HMb"/>
                         <outlet property="scanButton" destination="FQY-g5-sHy" id="LDf-RR-3Kx"/>
                         <outlet property="spinner" destination="f1P-Eg-4Pu" id="bpe-3R-MYc"/>
@@ -365,7 +352,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <!--Detail View Controller - Device-->
         <scene sceneID="d7q-sm-7B6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fW1-px-VZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="KX2-D4-q7w" customClass="RBLDetailViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gcL-gR-zNh">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
@@ -373,7 +359,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="gAp-TL-Vq5">
-                                <rect key="frame" x="0.0" y="86" width="768" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gAp-TL-Vq5" id="Wss-WB-hOj">
                                     <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
@@ -397,6 +383,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     </tableView>
                     <navigationItem key="navigationItem" title="Device" id="pcz-B7-Ydp"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fW1-px-VZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6067" y="-248"/>
         </scene>
@@ -505,28 +492,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="3283" y="-1446"/>
         </scene>
-        <!--Navigation Controller - Bluetooth-->
-        <scene sceneID="35d-Pb-dmu">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lhQ-nJ-soL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController storyboardIdentifier="blueNav" automaticallyAdjustsScrollViewInsets="NO" id="s5r-BQ-tRI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Bluetooth" image="Bluetooth TabBar" id="1Jp-ua-bHV"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Ei-C5-18p">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Gtl-hJ-URF" kind="relationship" relationship="rootViewController" id="xQ8-ua-zhY"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="4257" y="-248"/>
-        </scene>
     </scenes>
     <resources>
-        <image name="Bluetooth TabBar" width="30" height="30"/>
         <image name="Bluetooth-Light" width="128" height="128"/>
         <image name="Favorites TabBar" width="30" height="30"/>
         <image name="Gear" width="128" height="128"/>

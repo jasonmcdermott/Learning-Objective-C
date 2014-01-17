@@ -35,6 +35,14 @@
 	// Do any additional setup after loading the view.
     
     
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:
+                                @"Main_iPad" bundle:[NSBundle mainBundle]];
+    
+    self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
+    
+    [self.view addSubview:self.RBLMainViewController.view];
+    self.RBLMainViewController.view.hidden = YES;
+    
 
 //    // this method works, i.e. loads a tabbar view, but doesn't do much more than that (returns error regarding view hierarchy)
 //    UITabBarController *tbc = [self.storyboard instantiateViewControllerWithIdentifier:@"tabBar"];
@@ -45,11 +53,11 @@
 //    [self presentViewController:tbc animated:YES completion:nil];
     
 
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle mainBundle]];
-    self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"blueNav"];
-    self.RBLMainViewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
-    self.RBLMainViewController.view.hidden = YES;
-    [self.view addSubview:self.RBLMainViewController.view];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle mainBundle]];
+//    self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"blueNav"];
+//    self.RBLMainViewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
+//    self.RBLMainViewController.view.hidden = YES;
+//    [self.view addSubview:self.RBLMainViewController.view];
 
     
 //    self.RBLMainViewController = [[RBLMainViewController alloc] init];
@@ -65,10 +73,10 @@
 - (IBAction)clickBluetoothButton:(UIButton *)sender
 {
     NSLog(@"pressed into service");
-    self.RBLMainViewController.navigationController.view.hidden = NO;
-    self.RBLMainViewController.navigationController.navigationBar.hidden = NO;
+//    self.RBLMainViewController.navigationController.view.hidden = NO;
+//    self.RBLMainViewController.navigationController.navigationBar.hidden = NO;
     self.RBLMainViewController.view.hidden = NO;
-    NSLog(@"showing Bluetooth interface %hhd",self.RBLMainViewController.navigationController.navigationBarHidden);
+//    NSLog(@"showing Bluetooth interface %hhd",self.RBLMainViewController.navigationController.navigationBarHidden);
 }
 
 
