@@ -138,6 +138,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E04A9651888C8B5006C8CF8 /* PD */ = {
+			isa = PBXGroup;
+			children = (
+				0ED0FAFE188804C8003B3136 /* SENPDDriver.h */,
+				0ED0FAFF188804C8003B3136 /* SENPDDriver.m */,
+			);
+			name = PD;
+			sourceTree = "<group>";
+		};
 		0E10AC2C188609BB00765FA1 = {
 			isa = PBXGroup;
 			children = (
@@ -219,9 +228,9 @@
 		0E10ACB718861DFD00765FA1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0ED0FAFE188804C8003B3136 /* SENPDDriver.h */,
-				0ED0FAFF188804C8003B3136 /* SENPDDriver.m */,
-				0ED0FB01188804D5003B3136 /* Biofeedback */,
+				0E06A6C118863DB90018ECDB /* SENGraphicsViewController.h */,
+				0E06A6C218863DB90018ECDB /* SENGraphicsViewController.m */,
+				0E04A9651888C8B5006C8CF8 /* PD */,
 				0ED29EA91886CB1A0020D478 /* Settings */,
 			);
 			name = Controllers;
@@ -234,15 +243,6 @@
 				0ED0FAE61888017D003B3136 /* libpd-osx.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		0ED0FB01188804D5003B3136 /* Biofeedback */ = {
-			isa = PBXGroup;
-			children = (
-				0E06A6C118863DB90018ECDB /* SENGraphicsViewController.h */,
-				0E06A6C218863DB90018ECDB /* SENGraphicsViewController.m */,
-			);
-			name = Biofeedback;
 			sourceTree = "<group>";
 		};
 		0ED0FB021888057C003B3136 /* Model */ = {

@@ -56,7 +56,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     [super viewDidLoad];
 
 	// Do any additional setup after loading the view.
-    
+    NSLog(@"RBLMainViewController didLoad");
     self.passedToParent = NO;
     self.bleShield = [[BLE alloc] init];
     [self.bleShield controlSetup];
@@ -377,6 +377,10 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 -(void) bleDidUpdateRSSI:(NSNumber *)rssi
 {
     self.rssiLabel.text = [NSString stringWithFormat:@"RSSI: %@", rssi.stringValue];
+}
+
+- (IBAction)clickDoneButton:(UIBarButtonItem *)sender {
+    self.view.hidden = TRUE;
 }
 
 

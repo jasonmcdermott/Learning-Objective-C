@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loadSettingsButton;
 @property (weak, nonatomic) IBOutlet UIButton *bluetoothButton;
 @property (strong, nonatomic) IBOutlet UIView *baseView;
+@property (weak, nonatomic) IBOutlet UIView *redView;
 
 @end
 
@@ -30,18 +31,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  
-    self.RBLMainViewController = [[RBLMainViewController alloc] init];
-    self.RBLMainViewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
-    [self addChildViewController:self.RBLMainViewController];
+	// Do any additional setup after loading the view.
+    
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:
+                                @"Main_iPad" bundle:[NSBundle mainBundle]];
+    
+    self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
     
     [self.view addSubview:self.RBLMainViewController.view];
     self.RBLMainViewController.view.hidden = TRUE;
+    
+//    self.RBLMainViewController = [[RBLMainViewController alloc] init];
+//    self.RBLMainViewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
+//    [self.view addSubview:self.RBLMainViewController.view];
+//    self.RBLMainViewController.view.hidden = FALSE;
 
     //    self.bleShield = [[BLE alloc] init];
     //    [self.bleShield controlSetup];
     //    self.bleShield.delegate = self;
-	// Do any additional setup after loading the view.
 }
 
 #pragma mark -

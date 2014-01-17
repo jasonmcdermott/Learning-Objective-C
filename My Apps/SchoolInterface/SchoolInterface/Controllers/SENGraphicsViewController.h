@@ -24,4 +24,6 @@
 
 @property (strong, nonatomic) RBLMainViewController *RBLMainViewController;
 
+//@property (strong, nonatomic) UIViewController *RBLMainViewController;
+
 @end
