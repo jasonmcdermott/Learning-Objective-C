@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "BLE.h"
-#import "RBLDetailViewController.h"
+//#import "RBLDetailViewController.h"
 #import "SENPDDriver.h"
 
 #include "SENPDDriver.h"
@@ -19,8 +19,13 @@ typedef struct
     unsigned char data [4];
 }charbuff;
 
+@class RBLMainViewController;
 
-@interface RBLMainViewController : UIViewController <BLEDelegate, RBLDetailViewControllerDelegate>
+@protocol RBLMainViewControllerDelegate <NSObject>
+- (void)addItemViewController:(RBLMainViewController*)controller didFinishEnteringItem:(NSString *)item;
+@end
+
+@interface RBLMainViewController : UIViewController <BLEDelegate>
 {
     SENPDDriver *mPDDRiver;
 //    BLE *bleShield;
@@ -33,7 +38,7 @@ typedef struct
     volatile bool _reliable;
 }
 
-//- (void)showAll;
+@property (nonatomic, weak) id <RBLMainViewControllerDelegate> delegate;
 
 @property (nonatomic) BOOL passedToParent;
 @property (strong, nonatomic) BLE *bleShield;

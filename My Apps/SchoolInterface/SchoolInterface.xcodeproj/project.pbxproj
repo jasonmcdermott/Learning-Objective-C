@@ -25,7 +25,6 @@
 		0ED0FAE91888018E003B3136 /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAE41888017D003B3136 /* libpd-ios.a */; };
 		0ED0FAEC18880197003B3136 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAEA18880197003B3136 /* AudioToolbox.framework */; };
 		0ED0FAED18880197003B3136 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAEB18880197003B3136 /* AVFoundation.framework */; };
-		0ED0FAF4188802DF003B3136 /* RBLDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAF1188802DF003B3136 /* RBLDetailViewController.m */; };
 		0ED0FAF5188802DF003B3136 /* RBLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAF3188802DF003B3136 /* RBLMainViewController.m */; };
 		0ED0FAF9188802FB003B3136 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAF7188802FB003B3136 /* BLE.m */; };
 		0ED0FB00188804C8003B3136 /* SENPDDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAFF188804C8003B3136 /* SENPDDriver.m */; };
@@ -91,8 +90,6 @@
 		0ED0FADE1888017C003B3136 /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = ../libpd/libpd.xcodeproj; sourceTree = "<group>"; };
 		0ED0FAEA18880197003B3136 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0ED0FAEB18880197003B3136 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		0ED0FAF0188802DF003B3136 /* RBLDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RBLDetailViewController.h; path = Controllers/RBLDetailViewController.h; sourceTree = "<group>"; };
-		0ED0FAF1188802DF003B3136 /* RBLDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RBLDetailViewController.m; path = Controllers/RBLDetailViewController.m; sourceTree = "<group>"; };
 		0ED0FAF2188802DF003B3136 /* RBLMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RBLMainViewController.h; path = Controllers/RBLMainViewController.h; sourceTree = "<group>"; };
 		0ED0FAF3188802DF003B3136 /* RBLMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RBLMainViewController.m; path = Controllers/RBLMainViewController.m; sourceTree = "<group>"; };
 		0ED0FAF6188802FB003B3136 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLE.h; path = SchoolInterface/Frameworks/BLE_framework/BLE.h; sourceTree = "<group>"; };
@@ -274,8 +271,6 @@
 			children = (
 				0ED0FAF2188802DF003B3136 /* RBLMainViewController.h */,
 				0ED0FAF3188802DF003B3136 /* RBLMainViewController.m */,
-				0ED0FAF0188802DF003B3136 /* RBLDetailViewController.h */,
-				0ED0FAF1188802DF003B3136 /* RBLDetailViewController.m */,
 				0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */,
 				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
 			);
@@ -410,7 +405,6 @@
 				0ED0FAF9188802FB003B3136 /* BLE.m in Sources */,
 				0E10ACB618861DFA00765FA1 /* SENQuestionnaireTabViewController.m in Sources */,
 				0ED0FB061888081C003B3136 /* SENBLESessionData.m in Sources */,
-				0ED0FAF4188802DF003B3136 /* RBLDetailViewController.m in Sources */,
 				0ED0FB00188804C8003B3136 /* SENPDDriver.m in Sources */,
 				0E10AC49188609BB00765FA1 /* SENAppDelegate.m in Sources */,
 				0ED0FB0C18880917003B3136 /* SENIBIData.m in Sources */,

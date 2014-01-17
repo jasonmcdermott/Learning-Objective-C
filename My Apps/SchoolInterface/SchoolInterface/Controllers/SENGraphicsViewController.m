@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIView *baseView;
 @property (weak, nonatomic) IBOutlet UIView *redView;
 @property (weak, nonatomic) IBOutlet UIButton *uselessButton;
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 
 @end
 
@@ -41,6 +42,7 @@
     self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
     
     [self.view addSubview:self.RBLMainViewController.view];
+    self.RBLMainViewController.delegate = self;
     self.RBLMainViewController.view.hidden = YES;
     
 
@@ -92,6 +94,12 @@
 //        rbl.passedToParent = YES;
 //    }
 //}
+
+- (void)addItemViewController:(RBLMainViewController *)controller didFinishEnteringItem:(NSString *)item
+{
+    NSLog(@"This was returned from ViewControllerB %@",item);
+    self.messageLabel.text = item;
+}
 
 -(UIViewController *)viewControllerForUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
     NSLog(@"I %@ will be asked for the destination", self);

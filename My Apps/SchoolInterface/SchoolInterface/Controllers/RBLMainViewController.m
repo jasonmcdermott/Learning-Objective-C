@@ -7,7 +7,7 @@
 //
 
 #import "RBLMainViewController.h"
-#import "RBLDetailViewController.h"
+//#import "RBLDetailViewController.h"
 #import "SENBLESessionData.h"
 
 unsigned char const OEM_RELIABLE = 0xA0;
@@ -79,7 +79,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     }
     
     self.mDevices = [[NSMutableArray alloc] init];
-    self.tempDevices = [[NSMutableArray alloc] init];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -230,15 +230,15 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 }
 
 //Show device list for user selection
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDevice"])
-    {
-        RBLDetailViewController *vc =[segue destinationViewController] ;
-        vc.BLEDevices = self.mDevices;
-        vc.delegate = self;
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"showDevice"])
+//    {
+//        RBLDetailViewController *vc =[segue destinationViewController] ;
+//        vc.BLEDevices = self.mDevices;
+//        vc.delegate = self;
+//    }
+//}
 
 - (void)didSelected:(NSInteger)index
 {
@@ -307,6 +307,9 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
                         [mPDDRiver sendIBI:interval];
                         _bufferIndex = 0;
                         _inactivityCount = 0;
+                        
+                        NSString *itemToPassBack = [NSString stringWithFormat:@"Interval %d", interval];
+                        [self.delegate addItemViewController:self didFinishEnteringItem:itemToPassBack];
                         
                         [self.mSesionData addIbi:interval];
                     }
