@@ -34,13 +34,20 @@
 	// Do any additional setup after loading the view.
     
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:
-                                @"Main_iPad" bundle:[NSBundle mainBundle]];
+
+//    // this method works, i.e. loads a tabbar view, but doesn't do much more than that (returns error regarding view hierarchy)
+//    UITabBarController *tbc = [self.storyboard instantiateViewControllerWithIdentifier:@"tabBar"];
+//    tbc.selectedIndex=1;
+//    [self.view addSubview:tbc.view];
+//    tbc.selectedIndex = 0;
+//    [self.view addSubview:tbc.view];
+//    [self presentViewController:tbc animated:YES completion:nil];
     
-    self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
-    
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle mainBundle]];
+    self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"blueNav"];
     [self.view addSubview:self.RBLMainViewController.view];
-    self.RBLMainViewController.view.hidden = TRUE;
+//    self.RBLMainViewController.view.hidden = TRUE;
     
 //    self.RBLMainViewController = [[RBLMainViewController alloc] init];
 //    self.RBLMainViewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);

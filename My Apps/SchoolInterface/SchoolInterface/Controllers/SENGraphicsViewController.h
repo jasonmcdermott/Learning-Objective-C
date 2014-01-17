@@ -23,6 +23,7 @@
 @property (strong, nonatomic) BLE *bleShield;
 
 @property (strong, nonatomic) RBLMainViewController *RBLMainViewController;
+@property (strong, nonatomic) UITabBarController *tabBar;
 
 //@property (strong, nonatomic) UIViewController *RBLMainViewController;
 

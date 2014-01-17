@@ -379,10 +379,6 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     self.rssiLabel.text = [NSString stringWithFormat:@"RSSI: %@", rssi.stringValue];
 }
 
-- (IBAction)clickDoneButton:(UIBarButtonItem *)sender {
-    self.view.hidden = TRUE;
-}
-
 
 -(NSString*)getUUIDString:(CFUUIDRef)ref
 {
@@ -390,5 +386,21 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     return [[NSString stringWithFormat:@"%@",str] substringWithRange:NSMakeRange(str.length - 36, 36)];
 }
 
+- (IBAction)clickDoneButton:(UIBarButtonItem *)sender {
+    self.view.hidden = TRUE;
+    // write code to show/hide nav bar here
+    // check if the Navigation Bar is shown
+    if (self.navigationController.navigationBar.hidden == NO)
+    {
+        // hide the Navigation Bar
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+    // if Navigation Bar is already hidden
+    else if (self.navigationController.navigationBar.hidden == YES)
+    {
+        // Show the Navigation Bar
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+}
 
 @end
