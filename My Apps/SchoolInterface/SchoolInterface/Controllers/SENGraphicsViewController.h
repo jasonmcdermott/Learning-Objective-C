@@ -7,7 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BLE.h"
+#import "RBLDetailViewController.h"
+#import "SENPDDriver.h"
+#import "RBLMainViewController.h"
 
-@interface SENGraphicsViewController : UIViewController
+#include "SENPDDriver.h"
+
+@interface SENGraphicsViewController : UIViewController <BLEDelegate>
+{
+    
+    
+}
+
+@property (strong, nonatomic) BLE *bleShield;
+
+@property (strong, nonatomic) RBLMainViewController *RBLMainViewController;
 
 @end

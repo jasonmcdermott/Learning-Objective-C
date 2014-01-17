@@ -221,8 +221,8 @@
 			children = (
 				0ED0FAFE188804C8003B3136 /* SENPDDriver.h */,
 				0ED0FAFF188804C8003B3136 /* SENPDDriver.m */,
-				0ED29EA91886CB1A0020D478 /* RedBear_Bluetooth */,
-				0ED0FB01188804D5003B3136 /* New Group */,
+				0ED0FB01188804D5003B3136 /* Biofeedback */,
+				0ED29EA91886CB1A0020D478 /* Settings */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -236,15 +236,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0ED0FB01188804D5003B3136 /* New Group */ = {
+		0ED0FB01188804D5003B3136 /* Biofeedback */ = {
 			isa = PBXGroup;
 			children = (
 				0E06A6C118863DB90018ECDB /* SENGraphicsViewController.h */,
 				0E06A6C218863DB90018ECDB /* SENGraphicsViewController.m */,
-				0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */,
-				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
 			);
-			name = "New Group";
+			name = Biofeedback;
 			sourceTree = "<group>";
 		};
 		0ED0FB021888057C003B3136 /* Model */ = {
@@ -271,15 +269,17 @@
 			name = BLE_Framework;
 			sourceTree = "<group>";
 		};
-		0ED29EA91886CB1A0020D478 /* RedBear_Bluetooth */ = {
+		0ED29EA91886CB1A0020D478 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				0ED0FAF2188802DF003B3136 /* RBLMainViewController.h */,
 				0ED0FAF3188802DF003B3136 /* RBLMainViewController.m */,
 				0ED0FAF0188802DF003B3136 /* RBLDetailViewController.h */,
 				0ED0FAF1188802DF003B3136 /* RBLDetailViewController.m */,
+				0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */,
+				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
 			);
-			name = RedBear_Bluetooth;
+			name = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -42,15 +42,25 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 @implementation RBLMainViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
 	// Do any additional setup after loading the view.
     
-    bleShield = [[BLE alloc] init];
-    [bleShield controlSetup];
-    bleShield.delegate = self;
+    self.passedToParent = NO;
+    self.bleShield = [[BLE alloc] init];
+    [self.bleShield controlSetup];
+    self.bleShield.delegate = self;
     _max_inactivity = DEF_MAX_INACTIVITY;
     
     //Retrieve saved UUID from system
@@ -79,19 +89,19 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 - (IBAction)scanClick:(id)sender
 {
 
-    if (bleShield.activePeripheral)
+    if (self.bleShield.activePeripheral)
     {
-        if(bleShield.activePeripheral.isConnected)
+        if(self.bleShield.activePeripheral.isConnected)
         {
-            [[bleShield CM] cancelPeripheralConnection:[bleShield activePeripheral]];
+            [[self.bleShield CM] cancelPeripheralConnection:[self.bleShield activePeripheral]];
             return;
         }
     }
     
-    if (bleShield.peripherals)
-        bleShield.peripherals = nil;
+    if (self.bleShield.peripherals)
+        self.bleShield.peripherals = nil;
     
-    [bleShield findBLEPeripherals:3];
+    [self.bleShield findBLEPeripherals:3];
     
     [NSTimer scheduledTimerWithTimeInterval:(float)3.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
 
@@ -106,7 +116,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 - (IBAction)lastClick:(id)sender
 {
-    [bleShield findBLEPeripherals:3];
+    [self.bleShield findBLEPeripherals:3];
     
     [NSTimer scheduledTimerWithTimeInterval:(float)3.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
    
@@ -121,66 +131,67 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 // Called when scan period is over 
 -(void) connectionTimer:(NSTimer *)timer
 {
-    if(bleShield.peripherals.count > 0)
-    {
-        //to connect to the peripheral with a particular UUID
-        if(isFindingLast)
+    if (self.passedToParent == NO) {
+        if(self.bleShield.peripherals.count > 0)
         {
-            int i;
-            for (i = 0; i < bleShield.peripherals.count; i++)
+            //to connect to the peripheral with a particular UUID
+            if(isFindingLast)
             {
-                CBPeripheral *p = [bleShield.peripherals objectAtIndex:i];
-                
-                if (p.UUID != NULL)
+                int i;
+                for (i = 0; i < self.bleShield.peripherals.count; i++)
                 {
-                    //Comparing UUIDs and call connectPeripheral is matched
-                    if([self.lastUUID isEqualToString:[self getUUIDString:p.UUID]])
+                    CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
+                    
+                    if (p.UUID != NULL)
                     {
-                        [bleShield connectPeripheral:p];
+                        //Comparing UUIDs and call connectPeripheral is matched
+                        if([self.lastUUID isEqualToString:[self getUUIDString:p.UUID]])
+                        {
+                            [self.bleShield connectPeripheral:p];
+                        }
                     }
                 }
             }
+            //Scan for all BLE in range and prepare a list
+            else
+            {
+                [self.mDevices removeAllObjects];
+                
+                int i;
+                for (i = 0; i < self.bleShield.peripherals.count; i++)
+                {
+                    CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
+                    
+                    if (p.UUID != NULL)
+                    {
+                        [self.mDevices insertObject:[self getUUIDString:p.UUID] atIndex:i];
+                    }
+                    else
+                    {
+                        [self.mDevices insertObject:@"NULL" atIndex:i];
+                    }
+                }
+                
+                //Show the list for user selection
+                [self performSegueWithIdentifier:@"showDevice" sender:self];
+            }
         }
-        //Scan for all BLE in range and prepare a list
         else
         {
-            [self.mDevices removeAllObjects];
+            [self.spinner stopAnimating];
             
-            int i;
-            for (i = 0; i < bleShield.peripherals.count; i++)
+            if (self.lastUUID.length == 0)
             {
-                CBPeripheral *p = [bleShield.peripherals objectAtIndex:i];
-                
-                if (p.UUID != NULL)
-                {
-                    [self.mDevices insertObject:[self getUUIDString:p.UUID] atIndex:i];
-                }
-                else
-                {
-                    [self.mDevices insertObject:@"NULL" atIndex:i];
-                }
+                self.lastButton.hidden = true;
+            }
+            else
+            {
+                self.lastButton.hidden = false;
             }
             
-            //Show the list for user selection
-            [self performSegueWithIdentifier:@"showDevice" sender:self];
+            self.scanButton.hidden = false;
         }
     }
-    else
-    {
-        [self.spinner stopAnimating];
-        
-        if (self.lastUUID.length == 0)
-        {
-            self.lastButton.hidden = true;
-        }
-        else
-        {
-            self.lastButton.hidden = false;
-        }
-        
-        self.scanButton.hidden = false;
-    }
-
 }
 
 //Show device list for user selection
@@ -197,7 +208,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 - (void)didSelected:(NSInteger)index
 {
     self.scanButton.hidden = true;
-    [bleShield connectPeripheral:[bleShield.peripherals objectAtIndex:index]];
+    [self.bleShield connectPeripheral:[self.bleShield.peripherals objectAtIndex:index]];
 }
 
 // Merge two bytes to integre value
@@ -214,112 +225,114 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 
 -(void) bleDidReceiveData:(unsigned char *)data length:(int)length
 {
-    for (int i = 0; i < length && _bufferIndex < 4; i++)
-    {
-        unsigned char b = data[i];
-        
-        // we will force resynchronisation
-        if (b == OEM_PULSE || b == SYNC_CHAR || b == OEM_RELIABLE || b == OEM_UNRELIABLE)
+    if (self.passedToParent == NO) {
+        for (int i = 0; i < length && _bufferIndex < 4; i++)
         {
-            _bufferIndex = 0;
-        }
-        
-        _oemBuffer.data[_bufferIndex] = b;
-        _bufferIndex++;
-        
-        
-        
-        
-        switch (_oemBuffer.data[0]) {
-            case OEM_PULSE:
-                if (_bufferIndex == NUM_PULSE_BYTES)
-                {
-                    unsigned char lsb = _oemBuffer.data[1];
-                    unsigned char msb = _oemBuffer.data[2];
-                    
-                    unsigned interval = mergeBytes(lsb, msb);
-                    
-                    
-                    if (!_started)
-                        
+            unsigned char b = data[i];
+            
+            // we will force resynchronisation
+            if (b == OEM_PULSE || b == SYNC_CHAR || b == OEM_RELIABLE || b == OEM_UNRELIABLE)
+            {
+                _bufferIndex = 0;
+            }
+            
+            _oemBuffer.data[_bufferIndex] = b;
+            _bufferIndex++;
+            
+            
+            
+            
+            switch (_oemBuffer.data[0]) {
+                case OEM_PULSE:
+                    if (_bufferIndex == NUM_PULSE_BYTES)
                     {
-                        [self.mSesionData clearSesionLists];
-                        [self.mSesionData setStartSesion];
-                        self.mSesionData.mUsername = self.username;
-                        self.mSesionData.mDeviceID = self.lastUUID;
+                        unsigned char lsb = _oemBuffer.data[1];
+                        unsigned char msb = _oemBuffer.data[2];
                         
-                        [self displaySesionStart];
+                        unsigned interval = mergeBytes(lsb, msb);
                         
-                        self.sessionStatusLabel.text = @"Sesion Started";
-                        _started = true;
-                        [mPDDRiver startSession];
-                        self.generateButton.hidden = true;
-                    }
+                        
+                        if (!_started)
+                            
+                        {
+                            [self.mSesionData clearSesionLists];
+                            [self.mSesionData setStartSesion];
+                            self.mSesionData.mUsername = self.username;
+                            self.mSesionData.mDeviceID = self.lastUUID;
+                            
+                            [self displaySesionStart];
+                            
+                            self.sessionStatusLabel.text = @"Sesion Started";
+                            _started = true;
+                            [mPDDRiver startSession];
+                            self.generateButton.hidden = true;
+                        }
 
-                    self.intervalLabel.text = [NSString stringWithFormat:@"Interval %d", interval];
-                    [mPDDRiver sendIBI:interval];
+                        self.intervalLabel.text = [NSString stringWithFormat:@"Interval %d", interval];
+                        [mPDDRiver sendIBI:interval];
+                        _bufferIndex = 0;
+                        _inactivityCount = 0;
+                        
+                        [self.mSesionData addIbi:interval];
+                    }
+                    
+                    break;
+                    
+                case SYNC_CHAR:
                     _bufferIndex = 0;
+                    
+                    
+                    break;
+                    
+                case OEM_RELIABLE:
+                    _bufferIndex = 0;
+                    _reliable = true;
+                    [mPDDRiver sendtoPDBaseReliability:1];
+                    self.sessionStatusLabel.text = @"Reliable";
                     _inactivityCount = 0;
                     
-                    [self.mSesionData addIbi:interval];
-                }
-                
-                break;
-                
-            case SYNC_CHAR:
-                _bufferIndex = 0;
-                
-                
-                break;
-                
-            case OEM_RELIABLE:
-                _bufferIndex = 0;
-                _reliable = true;
-                [mPDDRiver sendtoPDBaseReliability:1];
-                self.sessionStatusLabel.text = @"Reliable";
-                _inactivityCount = 0;
-                
-                [self.mSesionData addReliability:true];
-                
-                break;
-                
-            case OEM_UNRELIABLE:
-                _bufferIndex = 0;
-                _reliable = false;
-                [mPDDRiver sendtoPDBaseReliability:0];
-                self.sessionStatusLabel.text = @"Unreliable";
-                _inactivityCount = 0;
-                
-                [self.mSesionData addReliability:false];
-                
-                
-                break;
-                
-            default:
-                _bufferIndex = 0; // we are not going to accept other values
-                break;
+                    [self.mSesionData addReliability:true];
+                    
+                    break;
+                    
+                case OEM_UNRELIABLE:
+                    _bufferIndex = 0;
+                    _reliable = false;
+                    [mPDDRiver sendtoPDBaseReliability:0];
+                    self.sessionStatusLabel.text = @"Unreliable";
+                    _inactivityCount = 0;
+                    
+                    [self.mSesionData addReliability:false];
+                    
+                    
+                    break;
+                    
+                default:
+                    _bufferIndex = 0; // we are not going to accept other values
+                    break;
+            }
         }
-    }
-    _inactivityCount++;
-    
-    if (_inactivityCount >= _max_inactivity)
-    {
-        self.intervalLabel.text = @"";
-        self.sessionStatusLabel.text = @"session Ended";
-        if (_started)
+        _inactivityCount++;
+        
+        if (_inactivityCount >= _max_inactivity)
         {
-            _started = false;
-            [mPDDRiver endSession];
-            self.generateButton.hidden = true; // JASON
-            
-            [self.mSesionData setSessionEnd];
-            self.sessionStatusLabel.text = @"Uploaded";
-            
-//            XMLDataGenerator* xml = [[XMLDataGenerator alloc]init];
-//            NSString *uuid = [[NSProcessInfo processInfo] globallyUniqueString];
-            
-//            [xml generateXML:self.mSesionData filename: [NSString stringWithFormat:@"%@.xml", uuid]];
-//            [xml release];
+            self.intervalLabel.text = @"";
+            self.sessionStatusLabel.text = @"session Ended";
+            if (_started)
+            {
+                _started = false;
+                [mPDDRiver endSession];
+                self.generateButton.hidden = true; // JASON
+                
+                [self.mSesionData setSessionEnd];
+                self.sessionStatusLabel.text = @"Uploaded";
+                
+    //            XMLDataGenerator* xml = [[XMLDataGenerator alloc]init];
+    //            NSString *uuid = [[NSProcessInfo processInfo] globallyUniqueString];
+                
+    //            [xml generateXML:self.mSesionData filename: [NSString stringWithFormat:@"%@.xml", uuid]];
+    //            [xml release];
+            }
         }
     }
 }
@@ -346,7 +359,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 -(void) bleDidConnect
 {
     //Save UUID into system
-    self.lastUUID = [self getUUIDString:bleShield.activePeripheral.UUID];
+    self.lastUUID = [self getUUIDString:self.bleShield.activePeripheral.UUID];
     [[NSUserDefaults standardUserDefaults] setObject:self.lastUUID forKey:UUIDPrefKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     

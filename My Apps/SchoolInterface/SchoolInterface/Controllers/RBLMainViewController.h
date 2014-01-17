@@ -23,7 +23,7 @@ typedef struct
 @interface RBLMainViewController : UIViewController <BLEDelegate, RBLDetailViewControllerDelegate>
 {
     SENPDDriver *mPDDRiver;
-    BLE *bleShield;
+//    BLE *bleShield;
     bool isFindingLast;
     volatile unsigned _bufferIndex;
     charbuff _oemBuffer;
@@ -33,6 +33,8 @@ typedef struct
     volatile bool _reliable;
 }
 
+@property (nonatomic) BOOL passedToParent;
+@property (strong, nonatomic) BLE *bleShield;
 @property (strong,nonatomic) NSString *username;
 
 @property (strong,nonatomic) NSMutableArray *mDevices;

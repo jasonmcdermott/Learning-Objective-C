@@ -7,9 +7,12 @@
 //
 
 #import "SENGraphicsViewController.h"
+#import "RBLMainViewController.h"
 
 @interface SENGraphicsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *loadSettingsButton;
+@property (weak, nonatomic) IBOutlet UIButton *bluetoothButton;
+@property (strong, nonatomic) IBOutlet UIView *baseView;
 
 @end
 
@@ -27,11 +30,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+  
+    self.RBLMainViewController = [[RBLMainViewController alloc] init];
+    self.RBLMainViewController.view.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
+    [self addChildViewController:self.RBLMainViewController];
+    
+    [self.view addSubview:self.RBLMainViewController.view];
+    self.RBLMainViewController.view.hidden = TRUE;
+
+    //    self.bleShield = [[BLE alloc] init];
+    //    [self.bleShield controlSetup];
+    //    self.bleShield.delegate = self;
 	// Do any additional setup after loading the view.
 }
 
 #pragma mark -
 #pragma mark Navigation Interface
+
+- (IBAction)clickBluetoothButton:(id)sender {
+    self.RBLMainViewController.view.hidden = FALSE;
+}
+
+//- (IBAction)backToViewControllerOne:(UIStoryboardSegue *)segue
+//{
+//    NSLog(@"from segue id: %@", segue.identifier);
+//    if ([segue.sourceViewController isKindOfClass:[RBLMainViewController class]]) {
+//
+//        
+//        RBLMainViewController *rbl = segue.sourceViewController;
+//        self.bleShield = rbl.bleShield;
+//        NSLog(@"from RBL main view controller");
+//        rbl.passedToParent = YES;
+//    }
+//}
 
 -(UIViewController *)viewControllerForUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
     NSLog(@"I %@ will be asked for the destination", self);
