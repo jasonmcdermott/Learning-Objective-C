@@ -18,5 +18,9 @@
 
 @property (nonatomic, readonly) NSInteger score;
 @property (strong, nonatomic) SENLayering *layering;
+@property (strong, nonatomic) NSDate *startPoint;
+@property (strong, nonatomic) NSDate *endPoint;
+
+- (void)keepScore;
 
 @end

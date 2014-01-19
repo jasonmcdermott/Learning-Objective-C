@@ -10,5 +10,6 @@
 #define SchoolInterface_constants_h
 
 #define NUM_LAYERS 50
+#define PI 3.14159265359
 
 #endif

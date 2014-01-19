@@ -21,8 +21,18 @@ typedef struct Point3D {
 @property (nonatomic) NSInteger posY;
 @property (nonatomic) NSInteger posZ;
 
+@property (nonatomic) NSInteger diameter;
+@property (nonatomic) NSInteger blur;
+@property (nonatomic) NSInteger thickness;
+
 @property (nonatomic) BOOL active;
 @property (nonatomic) NSInteger ID;
+
+@property (nonatomic) NSInteger Red;
+@property (nonatomic) NSInteger Green;
+@property (nonatomic) NSInteger Blue;
+@property (nonatomic) NSInteger Alpha;
+
 @property (strong, nonatomic) UIColor *color;
 
 @property (nonatomic) NSInteger ringVertexCount;

@@ -9,18 +9,27 @@
 #import "SENHeartGame.h"
 
 @interface SENHeartGame()
-@property (nonatomic, readwrite) NSInteger score;
 
-@property (strong, nonatomic) NSMutableArray *rings;
-@property (weak, nonatomic) NSString *state;
 @end
 
 @implementation SENHeartGame
 
-- (SENLayering *)layering
+- (id)init
 {
-    if (!_layering) _layering = [[SENLayering alloc] initWithRingCount:NUM_LAYERS];
-    return _layering;
+    self = [super init];
+    if (self) {
+        
+        // Initialization code here.
+        _startPoint = [[NSDate alloc] init];
+        _layering = [[SENLayering alloc] initWithRingCount:NUM_LAYERS];
+        _score = 0;
+    }
+    return self;
+}
+
+- (void)keepScore
+{
+    
 }
 
 @end
