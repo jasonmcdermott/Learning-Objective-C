@@ -1,0 +1,685 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E164C92188A57ED00749533 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164C91188A57ED00749533 /* Foundation.framework */; };
+		0E164C94188A57ED00749533 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164C93188A57ED00749533 /* CoreGraphics.framework */; };
+		0E164C96188A57ED00749533 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164C95188A57ED00749533 /* UIKit.framework */; };
+		0E164C98188A57ED00749533 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164C97188A57ED00749533 /* GLKit.framework */; };
+		0E164C9A188A57ED00749533 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164C99188A57ED00749533 /* OpenGLES.framework */; };
+		0E164CA0188A57ED00749533 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E164C9E188A57ED00749533 /* InfoPlist.strings */; };
+		0E164CA2188A57ED00749533 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CA1188A57ED00749533 /* main.m */; };
+		0E164CA6188A57ED00749533 /* SENAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CA5188A57ED00749533 /* SENAppDelegate.m */; };
+		0E164CAB188A57ED00749533 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 0E164CAA188A57ED00749533 /* Shader.fsh */; };
+		0E164CAD188A57ED00749533 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 0E164CAC188A57ED00749533 /* Shader.vsh */; };
+		0E164CB0188A57ED00749533 /* SENViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CAF188A57ED00749533 /* SENViewController.m */; };
+		0E164CB9188A57ED00749533 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164CB8188A57ED00749533 /* XCTest.framework */; };
+		0E164CBA188A57ED00749533 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164C91188A57ED00749533 /* Foundation.framework */; };
+		0E164CBB188A57ED00749533 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164C95188A57ED00749533 /* UIKit.framework */; };
+		0E164CC3188A57ED00749533 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E164CC1188A57ED00749533 /* InfoPlist.strings */; };
+		0E164CC5188A57ED00749533 /* openGLSchoolInterfaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CC4188A57ED00749533 /* openGLSchoolInterfaceTests.m */; };
+		0E164CD9188A585200749533 /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164CD4188A584100749533 /* libpd-ios.a */; };
+		0E164CDC188A585200749533 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164CDA188A585200749533 /* AudioToolbox.framework */; };
+		0E164CDD188A585200749533 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E164CDB188A585200749533 /* AVFoundation.framework */; };
+		0E164CE2188A587F00749533 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CE0188A587F00749533 /* BLE.m */; };
+		0E164CEA188A589800749533 /* RBLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CE5188A589800749533 /* RBLMainViewController.m */; };
+		0E164CEB188A589800749533 /* SENPDDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CE7188A589800749533 /* SENPDDriver.m */; };
+		0E164CEC188A589800749533 /* SENQuestionnaireTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CE9188A589800749533 /* SENQuestionnaireTabViewController.m */; };
+		0E164CF5188A58A500749533 /* SENBLESessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CF0188A58A500749533 /* SENBLESessionData.m */; };
+		0E164CF6188A58A500749533 /* SENIBIData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CF2188A58A500749533 /* SENIBIData.m */; };
+		0E164CF7188A58A500749533 /* SENPulseReliability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E164CF4188A58A500749533 /* SENPulseReliability.m */; };
+		0E164CFC188A595600749533 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E164CFA188A595600749533 /* Main.storyboard */; };
+		0E9630DF188A5AD00034BCF8 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E9630DD188A5AD00034BCF8 /* Main_iPad.storyboard */; };
+		0E9630E4188A5C8A0034BCF8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E9630E3188A5C8A0034BCF8 /* Images.xcassets */; };
+		0E9630EA188A5F6E0034BCF8 /* SENHeartGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9630E9188A5F6E0034BCF8 /* SENHeartGame.m */; };
+		0E9630ED188A5FE70034BCF8 /* SENRing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9630EC188A5FE70034BCF8 /* SENRing.m */; };
+		0E9630F0188A61A90034BCF8 /* SENLayering.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9630EF188A61A90034BCF8 /* SENLayering.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0E164CBC188A57ED00749533 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E164C86188A57ED00749533 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E164C8D188A57ED00749533;
+			remoteInfo = openGLSchoolInterface;
+		};
+		0E164CD3188A584100749533 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E164CCE188A584100749533 /* libpd.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = "libpd-ios";
+		};
+		0E164CD5188A584100749533 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E164CCE188A584100749533 /* libpd.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 119013AB1486450C00086F19;
+			remoteInfo = "libpd-osx";
+		};
+		0E164CD7188A584A00749533 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E164CCE188A584100749533 /* libpd.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "libpd-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0E164C8E188A57ED00749533 /* openGLSchoolInterface.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openGLSchoolInterface.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E164C91188A57ED00749533 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0E164C93188A57ED00749533 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0E164C95188A57ED00749533 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0E164C97188A57ED00749533 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		0E164C99188A57ED00749533 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		0E164C9D188A57ED00749533 /* openGLSchoolInterface-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "openGLSchoolInterface-Info.plist"; sourceTree = "<group>"; };
+		0E164C9F188A57ED00749533 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E164CA1188A57ED00749533 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0E164CA3188A57ED00749533 /* openGLSchoolInterface-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "openGLSchoolInterface-Prefix.pch"; sourceTree = "<group>"; };
+		0E164CA4188A57ED00749533 /* SENAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SENAppDelegate.h; sourceTree = "<group>"; };
+		0E164CA5188A57ED00749533 /* SENAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SENAppDelegate.m; sourceTree = "<group>"; };
+		0E164CAA188A57ED00749533 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		0E164CAC188A57ED00749533 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		0E164CAE188A57ED00749533 /* SENViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SENViewController.h; sourceTree = "<group>"; };
+		0E164CAF188A57ED00749533 /* SENViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SENViewController.m; sourceTree = "<group>"; };
+		0E164CB7188A57ED00749533 /* openGLSchoolInterfaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openGLSchoolInterfaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E164CB8188A57ED00749533 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		0E164CC0188A57ED00749533 /* openGLSchoolInterfaceTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "openGLSchoolInterfaceTests-Info.plist"; sourceTree = "<group>"; };
+		0E164CC2188A57ED00749533 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E164CC4188A57ED00749533 /* openGLSchoolInterfaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = openGLSchoolInterfaceTests.m; sourceTree = "<group>"; };
+		0E164CCE188A584100749533 /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = ../libpd/libpd.xcodeproj; sourceTree = "<group>"; };
+		0E164CDA188A585200749533 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0E164CDB188A585200749533 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		0E164CDF188A587F00749533 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
+		0E164CE0188A587F00749533 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
+		0E164CE1188A587F00749533 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		0E164CE4188A589800749533 /* RBLMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLMainViewController.h; sourceTree = "<group>"; };
+		0E164CE5188A589800749533 /* RBLMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLMainViewController.m; sourceTree = "<group>"; };
+		0E164CE6188A589800749533 /* SENPDDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENPDDriver.h; sourceTree = "<group>"; };
+		0E164CE7188A589800749533 /* SENPDDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENPDDriver.m; sourceTree = "<group>"; };
+		0E164CE8188A589800749533 /* SENQuestionnaireTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENQuestionnaireTabViewController.h; sourceTree = "<group>"; };
+		0E164CE9188A589800749533 /* SENQuestionnaireTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENQuestionnaireTabViewController.m; sourceTree = "<group>"; };
+		0E164CEE188A58A500749533 /* constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		0E164CEF188A58A500749533 /* SENBLESessionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENBLESessionData.h; sourceTree = "<group>"; };
+		0E164CF0188A58A500749533 /* SENBLESessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENBLESessionData.m; sourceTree = "<group>"; };
+		0E164CF1188A58A500749533 /* SENIBIData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENIBIData.h; sourceTree = "<group>"; };
+		0E164CF2188A58A500749533 /* SENIBIData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENIBIData.m; sourceTree = "<group>"; };
+		0E164CF3188A58A500749533 /* SENPulseReliability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENPulseReliability.h; sourceTree = "<group>"; };
+		0E164CF4188A58A500749533 /* SENPulseReliability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENPulseReliability.m; sourceTree = "<group>"; };
+		0E164CFB188A595600749533 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0E9630DE188A5AD00034BCF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		0E9630E3188A5C8A0034BCF8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0E9630E8188A5F6E0034BCF8 /* SENHeartGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENHeartGame.h; sourceTree = "<group>"; };
+		0E9630E9188A5F6E0034BCF8 /* SENHeartGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENHeartGame.m; sourceTree = "<group>"; };
+		0E9630EB188A5FE70034BCF8 /* SENRing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENRing.h; sourceTree = "<group>"; };
+		0E9630EC188A5FE70034BCF8 /* SENRing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENRing.m; sourceTree = "<group>"; };
+		0E9630EE188A61A90034BCF8 /* SENLayering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENLayering.h; sourceTree = "<group>"; };
+		0E9630EF188A61A90034BCF8 /* SENLayering.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENLayering.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0E164C8B188A57ED00749533 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E164CDC188A585200749533 /* AudioToolbox.framework in Frameworks */,
+				0E164CDD188A585200749533 /* AVFoundation.framework in Frameworks */,
+				0E164CD9188A585200749533 /* libpd-ios.a in Frameworks */,
+				0E164C9A188A57ED00749533 /* OpenGLES.framework in Frameworks */,
+				0E164C94188A57ED00749533 /* CoreGraphics.framework in Frameworks */,
+				0E164C96188A57ED00749533 /* UIKit.framework in Frameworks */,
+				0E164C98188A57ED00749533 /* GLKit.framework in Frameworks */,
+				0E164C92188A57ED00749533 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E164CB4188A57ED00749533 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E164CB9188A57ED00749533 /* XCTest.framework in Frameworks */,
+				0E164CBB188A57ED00749533 /* UIKit.framework in Frameworks */,
+				0E164CBA188A57ED00749533 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E164C85188A57ED00749533 = {
+			isa = PBXGroup;
+			children = (
+				0E164CCE188A584100749533 /* libpd.xcodeproj */,
+				0E164C9B188A57ED00749533 /* openGLSchoolInterface */,
+				0E164CBE188A57ED00749533 /* openGLSchoolInterfaceTests */,
+				0E164C90188A57ED00749533 /* Frameworks */,
+				0E164C8F188A57ED00749533 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0E164C8F188A57ED00749533 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E164C8E188A57ED00749533 /* openGLSchoolInterface.app */,
+				0E164CB7188A57ED00749533 /* openGLSchoolInterfaceTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0E164C90188A57ED00749533 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E164CDE188A587F00749533 /* BLE_framework */,
+				0E164CDA188A585200749533 /* AudioToolbox.framework */,
+				0E164CDB188A585200749533 /* AVFoundation.framework */,
+				0E164C91188A57ED00749533 /* Foundation.framework */,
+				0E164C93188A57ED00749533 /* CoreGraphics.framework */,
+				0E164C95188A57ED00749533 /* UIKit.framework */,
+				0E164C97188A57ED00749533 /* GLKit.framework */,
+				0E164C99188A57ED00749533 /* OpenGLES.framework */,
+				0E164CB8188A57ED00749533 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0E164C9B188A57ED00749533 /* openGLSchoolInterface */ = {
+			isa = PBXGroup;
+			children = (
+				0E9630E3188A5C8A0034BCF8 /* Images.xcassets */,
+				0E164CFA188A595600749533 /* Main.storyboard */,
+				0E9630DD188A5AD00034BCF8 /* Main_iPad.storyboard */,
+				0E164CAE188A57ED00749533 /* SENViewController.h */,
+				0E164CAF188A57ED00749533 /* SENViewController.m */,
+				0E164CED188A58A500749533 /* Model */,
+				0E164CE3188A589800749533 /* Controllers */,
+				0E164C9C188A57ED00749533 /* Supporting Files */,
+			);
+			path = openGLSchoolInterface;
+			sourceTree = "<group>";
+		};
+		0E164C9C188A57ED00749533 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E164CAA188A57ED00749533 /* Shader.fsh */,
+				0E164CAC188A57ED00749533 /* Shader.vsh */,
+				0E164CA4188A57ED00749533 /* SENAppDelegate.h */,
+				0E164CA5188A57ED00749533 /* SENAppDelegate.m */,
+				0E164C9D188A57ED00749533 /* openGLSchoolInterface-Info.plist */,
+				0E164C9E188A57ED00749533 /* InfoPlist.strings */,
+				0E164CA1188A57ED00749533 /* main.m */,
+				0E164CA3188A57ED00749533 /* openGLSchoolInterface-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0E164CBE188A57ED00749533 /* openGLSchoolInterfaceTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E164CC4188A57ED00749533 /* openGLSchoolInterfaceTests.m */,
+				0E164CBF188A57ED00749533 /* Supporting Files */,
+			);
+			path = openGLSchoolInterfaceTests;
+			sourceTree = "<group>";
+		};
+		0E164CBF188A57ED00749533 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E164CC0188A57ED00749533 /* openGLSchoolInterfaceTests-Info.plist */,
+				0E164CC1188A57ED00749533 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0E164CCF188A584100749533 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E164CD4188A584100749533 /* libpd-ios.a */,
+				0E164CD6188A584100749533 /* libpd-osx.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0E164CDE188A587F00749533 /* BLE_framework */ = {
+			isa = PBXGroup;
+			children = (
+				0E164CDF188A587F00749533 /* BLE.h */,
+				0E164CE0188A587F00749533 /* BLE.m */,
+				0E164CE1188A587F00749533 /* BLEDefines.h */,
+			);
+			path = BLE_framework;
+			sourceTree = "<group>";
+		};
+		0E164CE3188A589800749533 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0E164CE4188A589800749533 /* RBLMainViewController.h */,
+				0E164CE5188A589800749533 /* RBLMainViewController.m */,
+				0E164CE6188A589800749533 /* SENPDDriver.h */,
+				0E164CE7188A589800749533 /* SENPDDriver.m */,
+				0E164CE8188A589800749533 /* SENQuestionnaireTabViewController.h */,
+				0E164CE9188A589800749533 /* SENQuestionnaireTabViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0E164CED188A58A500749533 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0EDA6FAC188A85B20058B142 /* Heart Game */,
+				0E164CEE188A58A500749533 /* constants.h */,
+				0E9630E7188A5F530034BCF8 /* Hardware */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0E9630E7188A5F530034BCF8 /* Hardware */ = {
+			isa = PBXGroup;
+			children = (
+				0E164CEF188A58A500749533 /* SENBLESessionData.h */,
+				0E164CF0188A58A500749533 /* SENBLESessionData.m */,
+				0E164CF1188A58A500749533 /* SENIBIData.h */,
+				0E164CF2188A58A500749533 /* SENIBIData.m */,
+				0E164CF3188A58A500749533 /* SENPulseReliability.h */,
+				0E164CF4188A58A500749533 /* SENPulseReliability.m */,
+			);
+			name = Hardware;
+			sourceTree = "<group>";
+		};
+		0EDA6FAC188A85B20058B142 /* Heart Game */ = {
+			isa = PBXGroup;
+			children = (
+				0E9630E8188A5F6E0034BCF8 /* SENHeartGame.h */,
+				0E9630E9188A5F6E0034BCF8 /* SENHeartGame.m */,
+				0E9630EE188A61A90034BCF8 /* SENLayering.h */,
+				0E9630EF188A61A90034BCF8 /* SENLayering.m */,
+				0E9630EB188A5FE70034BCF8 /* SENRing.h */,
+				0E9630EC188A5FE70034BCF8 /* SENRing.m */,
+			);
+			name = "Heart Game";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0E164C8D188A57ED00749533 /* openGLSchoolInterface */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E164CC8188A57ED00749533 /* Build configuration list for PBXNativeTarget "openGLSchoolInterface" */;
+			buildPhases = (
+				0E164C8A188A57ED00749533 /* Sources */,
+				0E164C8B188A57ED00749533 /* Frameworks */,
+				0E164C8C188A57ED00749533 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E164CD8188A584A00749533 /* PBXTargetDependency */,
+			);
+			name = openGLSchoolInterface;
+			productName = openGLSchoolInterface;
+			productReference = 0E164C8E188A57ED00749533 /* openGLSchoolInterface.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0E164CB6188A57ED00749533 /* openGLSchoolInterfaceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E164CCB188A57ED00749533 /* Build configuration list for PBXNativeTarget "openGLSchoolInterfaceTests" */;
+			buildPhases = (
+				0E164CB3188A57ED00749533 /* Sources */,
+				0E164CB4188A57ED00749533 /* Frameworks */,
+				0E164CB5188A57ED00749533 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E164CBD188A57ED00749533 /* PBXTargetDependency */,
+			);
+			name = openGLSchoolInterfaceTests;
+			productName = openGLSchoolInterfaceTests;
+			productReference = 0E164CB7188A57ED00749533 /* openGLSchoolInterfaceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0E164C86188A57ED00749533 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SEN;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Sensorium Health";
+				TargetAttributes = {
+					0E164CB6188A57ED00749533 = {
+						TestTargetID = 0E164C8D188A57ED00749533;
+					};
+				};
+			};
+			buildConfigurationList = 0E164C89188A57ED00749533 /* Build configuration list for PBXProject "openGLSchoolInterface" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0E164C85188A57ED00749533;
+			productRefGroup = 0E164C8F188A57ED00749533 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 0E164CCF188A584100749533 /* Products */;
+					ProjectRef = 0E164CCE188A584100749533 /* libpd.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				0E164C8D188A57ED00749533 /* openGLSchoolInterface */,
+				0E164CB6188A57ED00749533 /* openGLSchoolInterfaceTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		0E164CD4188A584100749533 /* libpd-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libpd-ios.a";
+			remoteRef = 0E164CD3188A584100749533 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0E164CD6188A584100749533 /* libpd-osx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libpd-osx.a";
+			remoteRef = 0E164CD5188A584100749533 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0E164C8C188A57ED00749533 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E164CAD188A57ED00749533 /* Shader.vsh in Resources */,
+				0E164CFC188A595600749533 /* Main.storyboard in Resources */,
+				0E9630DF188A5AD00034BCF8 /* Main_iPad.storyboard in Resources */,
+				0E9630E4188A5C8A0034BCF8 /* Images.xcassets in Resources */,
+				0E164CAB188A57ED00749533 /* Shader.fsh in Resources */,
+				0E164CA0188A57ED00749533 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E164CB5188A57ED00749533 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E164CC3188A57ED00749533 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0E164C8A188A57ED00749533 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E164CEC188A589800749533 /* SENQuestionnaireTabViewController.m in Sources */,
+				0E164CEA188A589800749533 /* RBLMainViewController.m in Sources */,
+				0E164CB0188A57ED00749533 /* SENViewController.m in Sources */,
+				0E9630F0188A61A90034BCF8 /* SENLayering.m in Sources */,
+				0E164CA2188A57ED00749533 /* main.m in Sources */,
+				0E9630EA188A5F6E0034BCF8 /* SENHeartGame.m in Sources */,
+				0E164CA6188A57ED00749533 /* SENAppDelegate.m in Sources */,
+				0E164CF5188A58A500749533 /* SENBLESessionData.m in Sources */,
+				0E164CEB188A589800749533 /* SENPDDriver.m in Sources */,
+				0E164CE2188A587F00749533 /* BLE.m in Sources */,
+				0E164CF6188A58A500749533 /* SENIBIData.m in Sources */,
+				0E164CF7188A58A500749533 /* SENPulseReliability.m in Sources */,
+				0E9630ED188A5FE70034BCF8 /* SENRing.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E164CB3188A57ED00749533 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E164CC5188A57ED00749533 /* openGLSchoolInterfaceTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0E164CBD188A57ED00749533 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E164C8D188A57ED00749533 /* openGLSchoolInterface */;
+			targetProxy = 0E164CBC188A57ED00749533 /* PBXContainerItemProxy */;
+		};
+		0E164CD8188A584A00749533 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libpd-ios";
+			targetProxy = 0E164CD7188A584A00749533 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0E164C9E188A57ED00749533 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E164C9F188A57ED00749533 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0E164CC1188A57ED00749533 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E164CC2188A57ED00749533 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0E164CFA188A595600749533 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E164CFB188A595600749533 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0E9630DD188A5AD00034BCF8 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E9630DE188A5AD00034BCF8 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0E164CC6188A57ED00749533 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		0E164CC7188A57ED00749533 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0E164CC9188A57ED00749533 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "openGLSchoolInterface/openGLSchoolInterface-Prefix.pch";
+				INFOPLIST_FILE = "openGLSchoolInterface/openGLSchoolInterface-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "../libpd/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0E164CCA188A57ED00749533 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "openGLSchoolInterface/openGLSchoolInterface-Prefix.pch";
+				INFOPLIST_FILE = "openGLSchoolInterface/openGLSchoolInterface-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "../libpd/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		0E164CCC188A57ED00749533 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/openGLSchoolInterface.app/openGLSchoolInterface";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "openGLSchoolInterface/openGLSchoolInterface-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "openGLSchoolInterfaceTests/openGLSchoolInterfaceTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		0E164CCD188A57ED00749533 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/openGLSchoolInterface.app/openGLSchoolInterface";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "openGLSchoolInterface/openGLSchoolInterface-Prefix.pch";
+				INFOPLIST_FILE = "openGLSchoolInterfaceTests/openGLSchoolInterfaceTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0E164C89188A57ED00749533 /* Build configuration list for PBXProject "openGLSchoolInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E164CC6188A57ED00749533 /* Debug */,
+				0E164CC7188A57ED00749533 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E164CC8188A57ED00749533 /* Build configuration list for PBXNativeTarget "openGLSchoolInterface" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E164CC9188A57ED00749533 /* Debug */,
+				0E164CCA188A57ED00749533 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E164CCB188A57ED00749533 /* Build configuration list for PBXNativeTarget "openGLSchoolInterfaceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E164CCC188A57ED00749533 /* Debug */,
+				0E164CCD188A57ED00749533 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0E164C86188A57ED00749533 /* Project object */;
+}
