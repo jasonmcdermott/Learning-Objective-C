@@ -7,7 +7,6 @@
 //
 
 #import "SENGraphicsViewController.h"
-#import "RBLMainViewController.h"
 
 @interface SENGraphicsViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *loadSettingsButton;
