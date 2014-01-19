@@ -223,7 +223,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <segue destination="7H1-oc-8bP" kind="unwind" unwindAction="doUnwind:" id="rCu-M0-phS"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="3da-I9-vDJ">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Submit" id="3da-I9-vDJ">
                             <connections>
                                 <segue destination="7H1-oc-8bP" kind="unwind" unwindAction="doUnwind:" id="PIY-kL-F2R"/>
                             </connections>
