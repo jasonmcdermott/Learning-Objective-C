@@ -70,15 +70,18 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     _max_inactivity = DEF_MAX_INACTIVITY;
     
     
+    
     //Retrieve saved UUID from system
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:UUIDPrefKey];
     
     if (self.lastUUID.length > 0)
     {
         self.uuidLabel.text = self.lastUUID;
+        self.scanButton.hidden = true;
     }
     else
     {
+        self.scanButton.hidden = false;
         self.lastButton.hidden = true;
     }
     
@@ -131,7 +134,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
     if (self.bleShield.activePeripheral)
     {
-        if(self.bleShield.activePeripheral.isConnected)
+        if (self.bleShield.activePeripheral.state == CBPeripheralStateConnected)
         {
             [[self.bleShield CM] cancelPeripheralConnection:[self.bleShield activePeripheral]];
             return;
@@ -211,69 +214,64 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 // Called when scan period is over 
 -(void) connectionTimer:(NSTimer *)timer
 {
-    if (self.passedToParent == NO) {
-        if(self.bleShield.peripherals.count > 0)
+    if(self.bleShield.peripherals.count > 0) {
+        //to connect to the peripheral with a particular UUID
+        if(isFindingLast)
         {
-            //to connect to the peripheral with a particular UUID
-            if(isFindingLast)
+            int i;
+            for (i = 0; i < self.bleShield.peripherals.count; i++)
             {
-                int i;
-                for (i = 0; i < self.bleShield.peripherals.count; i++)
+                CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
+                
+                if (p.identifier != NULL)
                 {
-                    CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
-                    
-                    if (p.UUID != NULL)
+                    //Comparing UUIDs and call connectPeripheral is matched
+                    if([self.lastUUID isEqualToString:[self getUUIDString:CFBridgingRetain(p.identifier)]])
                     {
-                        //Comparing UUIDs and call connectPeripheral is matched
-                        if([self.lastUUID isEqualToString:[self getUUIDString:p.UUID]])
-                        {
-                            [self.bleShield connectPeripheral:p];
-                        }
+                        [self.bleShield connectPeripheral:p];
                     }
                 }
             }
-            //Scan for all BLE in range and prepare a list
-            else
+        }
+        //Scan for all BLE in range and prepare a list
+        else
+        {
+            [self.mDevices removeAllObjects];
+            
+            int i;
+            for (i = 0; i < self.bleShield.peripherals.count; i++)
             {
-                [self.mDevices removeAllObjects];
+                CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
                 
-                int i;
-                for (i = 0; i < self.bleShield.peripherals.count; i++)
+                if (p.identifier != NULL)
                 {
-                    CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
-                    
-                    if (p.UUID != NULL)
-                    {
-                        [self.mDevices insertObject:[self getUUIDString:p.UUID] atIndex:i];
-                    }
-                    else
-                    {
-                        [self.mDevices insertObject:@"NULL" atIndex:i];
-                    }
+                    [self.mDevices insertObject:[self getUUIDString:CFBridgingRetain(p.identifier)] atIndex:i];
                 }
-                
-                //Show the list for user selection
-                _showTable = YES;
-                self.deviceList.hidden = NO;
-                [self.deviceList reloadData];
+                else
+                {
+                    [self.mDevices insertObject:@"NULL" atIndex:i];
+                }
+            }
+            
+            //Show the list for user selection
+            _showTable = YES;
+            self.deviceList.hidden = NO;
+            [self.deviceList reloadData];
 //                [self performSegueWithIdentifier:@"showDevice" sender:self];
-            }
+        }
+    } else {
+        [self.spinner stopAnimating];
+        
+        if (self.lastUUID.length == 0)
+        {
+            self.lastButton.hidden = true;
         }
         else
         {
-            [self.spinner stopAnimating];
-            
-            if (self.lastUUID.length == 0)
-            {
-                self.lastButton.hidden = true;
-            }
-            else
-            {
-                self.lastButton.hidden = false;
-            }
-            
-            self.scanButton.hidden = false;
+            self.lastButton.hidden = false;
         }
+        
+        self.scanButton.hidden = false;
     }
 }
 
@@ -413,7 +411,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 -(void) bleDidConnect
 {
     //Save UUID into system
-    self.lastUUID = [self getUUIDString:self.bleShield.activePeripheral.UUID];
+    self.lastUUID = [self getUUIDString:CFBridgingRetain(self.bleShield.activePeripheral.identifier)];
     [[NSUserDefaults standardUserDefaults] setObject:self.lastUUID forKey:UUIDPrefKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     

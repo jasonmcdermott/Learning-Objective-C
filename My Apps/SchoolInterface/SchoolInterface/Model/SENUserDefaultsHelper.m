@@ -10,7 +10,25 @@
 
 @implementation SENUserDefaultsHelper
 
-+(NSString*)getStringForKey:(NSString*)key
+@synthesize appMode = _appMode;
+
++(id)sharedManager{
+    static SENUserDefaultsHelper *manager;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        manager = [[self alloc] init];
+    });
+    return manager;
+}
+
+-(NSString *)appMode
+{
+    NSString *appMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"appMode"];
+    return appMode;
+}
+
+
+- (NSString*)getStringForKey:(NSString*)key
 {
     NSString* val = @"";
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -19,7 +37,7 @@
     return val;
 }
 
-+(NSInteger)getIntForkey:(NSString *)key
+- (NSInteger)getIntForkey:(NSString *)key
 {
     NSInteger val = 0;
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -27,7 +45,7 @@
     return val;
 }
 
-+(NSDictionary*)getDictForKey:(NSString*)key
+-(NSDictionary*)getDictForKey:(NSString*)key
 {
     NSDictionary* val = nil;
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -35,7 +53,7 @@
     return val;
 }
 
-+(NSArray*)getArrayForKey:(NSString*)key
+-(NSArray*)getArrayForKey:(NSString*)key
 {
     NSArray* val = nil;
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -51,7 +69,7 @@
     return val;
 }
 
-+(void)setStringForKey:(NSString*)value :(NSString*)key
+- (void)setStringForKey:(NSString*)value :(NSString*)key
 {
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	if (standardUserDefaults)
@@ -61,7 +79,7 @@
 	}
 }
 
-+(void)setIntForKey:(NSInteger)value :(NSString*)key
+-(void)setIntForKey:(NSInteger)value :(NSString*)key
 {
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	if (standardUserDefaults)
@@ -71,7 +89,7 @@
 	}
 }
 
-+(void)setDictForKey:(NSDictionary*)value :(NSString*)key
+- (void)setDictForKey:(NSDictionary*)value :(NSString*)key
 {
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	if (standardUserDefaults)
@@ -81,7 +99,7 @@
 	}
 }
 
-+(void)setArrayForKey:(NSArray*)value :(NSString*)key
+-(void)setArrayForKey:(NSArray*)value :(NSString*)key
 {
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	if (standardUserDefaults)
@@ -91,7 +109,7 @@
 	}
 }
 
-+(void)setBoolForKey:(BOOL)value :(NSString*)key
+-(void)setBoolForKey:(BOOL)value :(NSString*)key
 {
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	if (standardUserDefaults)

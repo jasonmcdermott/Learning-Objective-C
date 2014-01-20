@@ -15,17 +15,18 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 @property (weak, nonatomic) IBOutlet UILabel *dateTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
 
 #pragma mark User Data Entry
 @property (weak, nonatomic) IBOutlet UIDatePicker *birthDatePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *agePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *vaccinePicker;
+@property (weak, nonatomic) IBOutlet UILabel *hpvVaccineLabel;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *vaccineQuestion;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *otherVaccineQuestion;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderControl;
-@property (weak, nonatomic) IBOutlet UITextField *uniqueIDTextString;
 @property (weak, nonatomic) IBOutlet UITextField *schoolTextString;
 
 @end
@@ -52,6 +53,7 @@
 
 - (void)initialSetup
 {
+    
     self.date = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
@@ -59,18 +61,23 @@
     self.dateTimeLabel.text = [dateFormatter stringFromDate:self.date];
     
     self.submitButton.enabled = NO;
-    
+    self.schoolName = @"";
     self.schoolTextString.text = [self getStringForKey:@"schoolName"];
 
     self.questionnaireAges = @[@"10 years old", @"11 years old", @"12 years old", @"13 years old", @"14 years old", @"15 years old", @"16 years old", @"17 years old", @"18 years old"];
-    self.questionnaireVaccines = @[@"my 1st vaccine", @"my 2nd vaccine", @"my 3rd vaccine"];
+    self.questionnaireVaccines = @[@"please select one", @"my 1st vaccine", @"my 2nd vaccine", @"my 3rd vaccine"];
     
     self.questionnaireBirthdayMonths = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec"];
     self.questionnaireBirthdayDays = @[@"31",@"29",@"31",@"30",@"31",@"30",@"31",@"31",@"30",@"31",@"30",@"31"];
     
+    _uniqueID = [self GetUUID];
+    _uuidLabel.text = _uniqueID;
+    
     [_birthDatePicker addTarget:self
                    action:@selector(selectBirthDate:)
          forControlEvents:UIControlEventValueChanged];
+    
+    
     
     [self.genderControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
     [self.vaccineQuestion setSelectedSegmentIndex:UISegmentedControlNoSegment];
@@ -89,6 +96,16 @@
     return val;
 }
 
+#pragma mark UUID
+#pragma mark -
+
+- (NSString *)GetUUID
+{
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+    CFRelease(theUUID);
+    return (__bridge NSString *)string;
+}
 
 #pragma mark -
 #pragma mark PickerView
@@ -155,23 +172,23 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (void)checkCompleted
 {
-    NSLog(@"%@, %@, %@, %@, %@, %@, %@, %@",_birthDate, _age, _vaccineTakenTodayAnswer, _otherVaccineTakenTodayAnswer, _gender, _uniqueID, _schoolName, _whichVaccineTakenToday);
-    if (_whichVaccineTakenToday != nil && _vaccineTakenTodayAnswer != nil && _otherVaccineTakenTodayAnswer != nil && _gender != nil && _uniqueID != nil && _schoolName != nil) {
-        if (_birthDate != nil || _age != nil) {
-            
-            if ([_schoolName isEqualToString:@""] || [_uniqueID isEqualToString:@""]) {
-               self.submitButton.enabled = NO;
-            } else if ([_schoolName isEqualToString:[self getStringForKey:@"schoolName"]]) {
-                self.submitButton.enabled = YES;
-            } else {
-                self.submitButton.enabled = YES;
-            }
-        } else {
-            self.submitButton.enabled = NO;
-        }
+    float completionScore = 0;
+    
+    if (_gender != nil) completionScore++;
+    if (_birthDate != nil) completionScore++;
+    if (_vaccineTakenTodayAnswer != nil) completionScore++;
+    if (_otherVaccineTakenTodayAnswer != nil) completionScore++;
+    if ([_vaccineTakenTodayAnswer isEqualToString:@"Yes"] && ![_whichVaccineTakenToday isEqualToString:@"please select one"]) completionScore++;
+    if (![self.schoolTextString.text isEqualToString:@""]) completionScore++;
+
+    if ([_vaccineTakenTodayAnswer isEqualToString:@"No"] && completionScore == 5) {
+        self.submitButton.enabled = YES;
+    } else if ([_vaccineTakenTodayAnswer isEqualToString:@"Yes"] && completionScore == 6) {
+        self.submitButton.enabled = YES;
     } else {
         self.submitButton.enabled = NO;
     }
+//    NSLog(@"%@, %@, %@, %@, %@, %@, %@",_birthDate, _age, _vaccineTakenTodayAnswer, _otherVaccineTakenTodayAnswer, _gender, _schoolName, _whichVaccineTakenToday);
 }
 
 #pragma mark -
@@ -206,8 +223,12 @@ numberOfRowsInComponent:(NSInteger)component
 {
     if (sender.selectedSegmentIndex == 0) {
         self.vaccineTakenTodayAnswer = @"No";
+        self.hpvVaccineLabel.hidden = YES;
+        self.vaccinePicker.hidden = YES;
     } else {
         self.vaccineTakenTodayAnswer = @"Yes";
+        self.hpvVaccineLabel.hidden = NO;
+        self.vaccinePicker.hidden = NO;
     }
     [self checkCompleted];
 }

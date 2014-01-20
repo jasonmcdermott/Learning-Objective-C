@@ -13,6 +13,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    NSDictionary* defaults = @{@"appMode": @"1"};
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
     return YES;
 }
 							

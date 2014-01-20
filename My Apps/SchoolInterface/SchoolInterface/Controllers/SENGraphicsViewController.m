@@ -14,7 +14,9 @@
 @property (strong, nonatomic) IBOutlet UIView *baseView;
 @property (weak, nonatomic) IBOutlet UILabel *ibiLabel;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
-
+@property (nonatomic) NSInteger mode;
+@property (nonatomic) NSNumber* num;
+@property (strong, nonatomic) NSString *chosenMode;
 @end
 
 @implementation SENGraphicsViewController
@@ -30,18 +32,27 @@
     return self;
 }
 
+-(void)viewWillActive:(id)sender{
+    _chosenMode = [[SENUserDefaultsHelper sharedManager] appMode];
+    NSLog(@"num: %@",_chosenMode);
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    showQuestionnaire ? (self.settingsButton.hidden = NO) : (self.settingsButton.hidden = YES);
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+
     self.SENUserDefaultsHelper = [[SENUserDefaultsHelper alloc] init];
     self.showQuestionnaire = [self.SENUserDefaultsHelper getBoolForKey:@"questionnaire_enabled_preference"];
-
+    
+    self.chosenMode = [self.SENUserDefaultsHelper getStringForKey:@"appMode"];
+    NSLog(@"mode: %ld", (long)self.mode);
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:
                                 @"Main_iPad" bundle:[NSBundle mainBundle]];
     
-    if (self.showQuestionnaire) {
+    if ([self.chosenMode isEqualToString:@"Questionnaire"] || [self.chosenMode isEqualToString:@"Both"]) {
         self.settingsButton.hidden = NO;
         self.questionnaireViewController = [storyboard instantiateViewControllerWithIdentifier:@"questionnaire"];
         [self.view addSubview:self.questionnaireViewController.view];
@@ -51,10 +62,14 @@
         self.settingsButton.hidden = YES;
     }
 
-    self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
-    [self.view addSubview:self.RBLMainViewController.view];
-    self.RBLMainViewController.view.hidden = YES;
-    self.RBLMainViewController.delegate = self;
+    if ([self.chosenMode isEqualToString:@"Sensor"] || [self.chosenMode isEqualToString:@"Both"]) {
+        self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
+        [self.view addSubview:self.RBLMainViewController.view];
+        self.RBLMainViewController.view.hidden = YES;
+        self.RBLMainViewController.delegate = self;
+    } else {
+        self.bluetoothButton.hidden = YES;
+    }
 
 }
 
