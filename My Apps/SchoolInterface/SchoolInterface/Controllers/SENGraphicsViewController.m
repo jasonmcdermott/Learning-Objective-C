@@ -44,6 +44,7 @@
     
     [self.view addSubview:self.RBLMainViewController.view];
     self.RBLMainViewController.view.hidden = YES;
+    self.RBLMainViewController.delegate = self;
     
 
 //    // this method works, i.e. loads a tabbar view, but doesn't do much more than that (returns error regarding view hierarchy)

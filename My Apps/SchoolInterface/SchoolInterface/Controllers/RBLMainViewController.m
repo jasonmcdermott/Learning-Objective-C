@@ -70,6 +70,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     self.bleShield.delegate = self;
     _max_inactivity = DEF_MAX_INACTIVITY;
     
+    
     //Retrieve saved UUID from system
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:UUIDPrefKey];
     
@@ -306,9 +307,6 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
             _oemBuffer.data[_bufferIndex] = b;
             _bufferIndex++;
             
-            
-            
-            
             switch (_oemBuffer.data[0]) {
                 case OEM_PULSE:
                     if (_bufferIndex == NUM_PULSE_BYTES)
@@ -335,7 +333,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
                             self.generateButton.hidden = true;
                         }
 
-                        self.intervalLabel.text = [NSString stringWithFormat:@"Interval %d", interval];
+                        [self.delegate setLabel:[NSString stringWithFormat:@"Interval %d", interval]];
                         [mPDDRiver sendIBI:interval];
                         _bufferIndex = 0;
                         _inactivityCount = 0;

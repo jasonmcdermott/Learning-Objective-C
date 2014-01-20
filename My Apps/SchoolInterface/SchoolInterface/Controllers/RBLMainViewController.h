@@ -40,6 +40,8 @@ typedef struct
     volatile bool _reliable;
 }
 
+@property (nonatomic, weak) id <RBLMainViewControllerDelegate> delegate;
+
 //- (void)showAll;
 
 @property (nonatomic) BOOL passedToParent;
