@@ -7,6 +7,7 @@
 //
 
 #import "SENAppDelegate.h"
+#import <HockeySDK/HockeySDK.h>
 
 @implementation SENAppDelegate
 
@@ -15,6 +16,10 @@
     // Override point for customization after application launch.
     NSDictionary* defaults = @{@"appMode": @"1"};
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+
+//    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:@"APP_ID"];
+//    [[BITHockeyManager sharedHockeyManager] startManager];
+//    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     return YES;
 }
 							
