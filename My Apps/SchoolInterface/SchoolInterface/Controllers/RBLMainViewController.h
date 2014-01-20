@@ -19,6 +19,13 @@ typedef struct
     unsigned char data [4];
 }charbuff;
 
+@protocol RBLMainViewControllerDelegate <NSObject>
+
+- (void) setLabel:(NSString *)label;
+
+@end
+
+
 
 @interface RBLMainViewController : UIViewController <BLEDelegate, RBLDetailViewControllerDelegate>
 {

@@ -43,7 +43,11 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 @end
 
 
+
 @implementation RBLMainViewController
+
+#pragma mark Init
+#pragma mark -
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -88,8 +92,9 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark -
 #pragma mark TableView
+#pragma mark -
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -118,6 +123,8 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     [self didSelected:indexPath.row];
 }
 
+#pragma mark Interface Elements
+#pragma mark -
 
 - (IBAction)scanClick:(id)sender
 {
@@ -159,6 +166,47 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     [self.spinner startAnimating];
 }
 
+//Show device list for user selection
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showDevice"])
+    {
+        //        RBLDetailViewController *vc =[segue destinationViewController] ;
+        //        vc.BLEDevices = self.mDevices;
+        //        vc.delegate = self;
+    }
+}
+
+- (void)didSelected:(NSInteger)index
+{
+    self.scanButton.hidden = true;
+    [self.bleShield connectPeripheral:[self.bleShield.peripherals objectAtIndex:index]];
+}
+
+-(void) displaySesionStart
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    [formatter setTimeZone:[NSTimeZone localTimeZone]];
+    
+    NSString *stringFromDate = [formatter stringFromDate:self.mSesionData.mSesionStart];
+    [self.sessionStartLabel setText:stringFromDate];
+    //    [formatter release];
+}
+
+- (void)hideAll
+{
+    NSLog(@"hiding");
+    self.view.hidden = YES;
+}
+
+- (IBAction)touchCloseButton:(UIButton *)sender
+{
+    [self hideAll];
+}
+
+#pragma mark Bluetooth Periphery
+#pragma mark -
 
 // Called when scan period is over 
 -(void) connectionTimer:(NSTimer *)timer
@@ -229,22 +277,6 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     }
 }
 
-//Show device list for user selection
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDevice"])
-    {
-        RBLDetailViewController *vc =[segue destinationViewController] ;
-        vc.BLEDevices = self.mDevices;
-        vc.delegate = self;
-    }
-}
-
-- (void)didSelected:(NSInteger)index
-{
-    self.scanButton.hidden = true;
-    [self.bleShield connectPeripheral:[self.bleShield.peripherals objectAtIndex:index]];
-}
 
 // Merge two bytes to integre value
 unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
@@ -372,16 +404,6 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     }
 }
 
--(void) displaySesionStart
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss"];
-    [formatter setTimeZone:[NSTimeZone localTimeZone]];
-    
-    NSString *stringFromDate = [formatter stringFromDate:self.mSesionData.mSesionStart];
-    [self.sessionStartLabel setText:stringFromDate];
-//    [formatter release];
-}
 
 - (void) bleDidDisconnect
 {
@@ -420,28 +442,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     return [[NSString stringWithFormat:@"%@",str] substringWithRange:NSMakeRange(str.length - 36, 36)];
 }
 
-- (void)hideAll
-{
-    NSLog(@"hiding");
-    self.navigationController.view.hidden = YES;
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    self.view.hidden = YES;
-    NSLog(@"%hhd",self.navigationController.navigationBarHidden);
-}
 
-//- (void)showAll
-//{
-//    self.navigationController.view.hidden = NO;
-////    self.view.hidden = NO;
-////    self.navigationController.view.hidden = NO;
-////    [self.navigationController setNavigationBarHidden:NO animated:NO];
-////    self.view.hidden = NO;
-//}
-
-- (IBAction)touchCloseButton:(UIButton *)sender
-{
-    [self hideAll];
-}
 
 
 @end

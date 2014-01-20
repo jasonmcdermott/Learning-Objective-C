@@ -14,11 +14,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *bluetoothButton;
 @property (strong, nonatomic) IBOutlet UIView *baseView;
 @property (weak, nonatomic) IBOutlet UIView *redView;
-@property (weak, nonatomic) IBOutlet UIButton *uselessButton;
+@property (weak, nonatomic) IBOutlet UILabel *ibiLabel;
 
 @end
 
 @implementation SENGraphicsViewController
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,28 +72,16 @@
 #pragma mark -
 #pragma mark Navigation Interface
 
+- (void)setLabel:(NSString *)label
+{
+    self.ibiLabel.text = label;
+}
+
 - (IBAction)clickBluetoothButton:(UIButton *)sender
 {
     NSLog(@"pressed into service");
-//    self.RBLMainViewController.navigationController.view.hidden = NO;
-//    self.RBLMainViewController.navigationController.navigationBar.hidden = NO;
     self.RBLMainViewController.view.hidden = NO;
-//    NSLog(@"showing Bluetooth interface %hhd",self.RBLMainViewController.navigationController.navigationBarHidden);
 }
-
-
-//- (IBAction)backToViewControllerOne:(UIStoryboardSegue *)segue
-//{
-//    NSLog(@"from segue id: %@", segue.identifier);
-//    if ([segue.sourceViewController isKindOfClass:[RBLMainViewController class]]) {
-//
-//        
-//        RBLMainViewController *rbl = segue.sourceViewController;
-//        self.bleShield = rbl.bleShield;
-//        NSLog(@"from RBL main view controller");
-//        rbl.passedToParent = YES;
-//    }
-//}
 
 -(UIViewController *)viewControllerForUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
     NSLog(@"I %@ will be asked for the destination", self);
@@ -105,11 +95,6 @@
     UIStoryboardSegue* seg = [super segueForUnwindingToViewController:toViewController fromViewController:fromViewController identifier:identifier];
     NSLog(@"I %@ was asked for the segue, and I am returning %@ %@", self, seg, seg.identifier);
     return seg;
-}
-
-- (IBAction)pressedUselessButton:(UIButton *)sender
-{
-    NSLog(@"here's a useless button");
 }
 
 -(BOOL)canPerformUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
