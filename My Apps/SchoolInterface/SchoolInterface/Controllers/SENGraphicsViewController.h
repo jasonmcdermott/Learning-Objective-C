@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "BLE.h"
-//#import "RBLDetailViewController.h"
+#import "constants.h"
 #import "SENPDDriver.h"
 #import "RBLMainViewController.h"
+#import "SENQuestionnaireTabViewController.h"
+#import "SENUserDefaultsHelper.h"
 
 #include "SENPDDriver.h"
 
@@ -19,9 +21,12 @@
     
 }
 
+@property (strong, nonatomic) SENUserDefaultsHelper *SENUserDefaultsHelper;
 @property (strong, nonatomic) BLE *bleShield;
+@property (nonatomic) BOOL showQuestionnaire;
 
 @property (strong, nonatomic) RBLMainViewController *RBLMainViewController;
-@property (strong, nonatomic) UITabBarController *tabBar;
+@property (strong, nonatomic) SENQuestionnaireTabViewController *questionnaireViewController;
+
 
 @end

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 #import "BLE.h"
-#import "RBLDetailViewController.h"
+//#import "RBLDetailViewController.h"
 #import "SENPDDriver.h"
+#import "SENBLESessionData.h"
 
 #include "SENPDDriver.h"
 
@@ -27,7 +28,7 @@ typedef struct
 
 
 
-@interface RBLMainViewController : UIViewController <BLEDelegate, RBLDetailViewControllerDelegate>
+@interface RBLMainViewController : UIViewController <BLEDelegate>
 {
     SENPDDriver *mPDDRiver;
 //    BLE *bleShield;

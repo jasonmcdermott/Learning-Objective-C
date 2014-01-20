@@ -9,6 +9,6 @@
 #ifndef SchoolInterface_constants_h
 #define SchoolInterface_constants_h
 
-
+#define PI 3.14159265359
 
 #endif

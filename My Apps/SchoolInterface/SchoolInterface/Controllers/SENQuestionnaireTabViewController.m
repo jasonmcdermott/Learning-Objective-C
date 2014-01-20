@@ -9,44 +9,31 @@
 #import "SENQuestionnaireTabViewController.h"
 
 @interface SENQuestionnaireTabViewController ()
-
-#pragma mark Variables
-@property (strong, nonatomic) NSDate *birthDate;
-@property (strong, nonatomic) NSString *age;
-@property (strong, nonatomic) NSString *vaccineTakenToday;
-@property (strong, nonatomic) NSString *otherVaccineTakenToday;
-@property (strong, nonatomic) NSString *gender;
-@property (strong, nonatomic) NSString *uniqueID;
-@property (strong, nonatomic) NSString *schoolName;
-
 #pragma mark Interface Elements
 @property (weak, nonatomic) IBOutlet UISwitch *showHideQuestionnaireSwitch;
 @property (weak, nonatomic) IBOutlet UIView *questionnaireView;
-@property (weak, nonatomic) IBOutlet UIButton *doneButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneTabBarButton;
-
-#pragma mark Data Arrays
-@property (strong, nonatomic) NSArray *questionnaireAges;
-@property (strong, nonatomic) NSArray *questionnaireVaccines;
-@property (strong, nonatomic) NSArray *questionnaireSchools;
-@property (strong, nonatomic) NSArray *questionnaireBirthdayMonths;
-@property (strong, nonatomic) NSArray *questionnaireBirthdayDays;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet UILabel *dateTimeLabel;
 
 #pragma mark User Data Entry
 @property (weak, nonatomic) IBOutlet UIDatePicker *birthDatePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *agePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *vaccinePicker;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *otherVaccineControl;
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *vaccineQuestion;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *otherVaccineQuestion;
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderControl;
 @property (weak, nonatomic) IBOutlet UITextField *uniqueIDTextString;
 @property (weak, nonatomic) IBOutlet UITextField *schoolTextString;
 
 @end
 
-
-
 @implementation SENQuestionnaireTabViewController
 
+#pragma mark Initialise
+#pragma mark -
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,29 +52,46 @@
 
 - (void)initialSetup
 {
-    self.questionnaireView.hidden = YES;
+    self.date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    self.dateTimeLabel.text = [dateFormatter stringFromDate:self.date];
+    
+    self.submitButton.enabled = NO;
+    
+    self.schoolTextString.text = [self getStringForKey:@"schoolName"];
+
     self.questionnaireAges = @[@"10 years old", @"11 years old", @"12 years old", @"13 years old", @"14 years old", @"15 years old", @"16 years old", @"17 years old", @"18 years old"];
-    self.questionnaireVaccines = @[@"None", @"Intra Muscular Injection", @"Blood Collection / Venipuncture", @"Intravenous Canula Injection", @"Other"];
-    self.questionnaireSchools = @[@"Select One", @"Mt Carmel", @"St. Gregs", @"Cheltenham"];
+    self.questionnaireVaccines = @[@"my 1st vaccine", @"my 2nd vaccine", @"my 3rd vaccine"];
     
     self.questionnaireBirthdayMonths = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec"];
     self.questionnaireBirthdayDays = @[@"31",@"29",@"31",@"30",@"31",@"30",@"31",@"31",@"30",@"31",@"30",@"31"];
-    
     
     [_birthDatePicker addTarget:self
                    action:@selector(selectBirthDate:)
          forControlEvents:UIControlEventValueChanged];
     
+    [self.genderControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
+    [self.vaccineQuestion setSelectedSegmentIndex:UISegmentedControlNoSegment];
+    [self.otherVaccineQuestion setSelectedSegmentIndex:UISegmentedControlNoSegment];
+    
     [self setPickerHeight:_vaccinePicker];
     [self setPickerHeight:_agePicker];
-
-    
 }
+
+- (NSString*)getStringForKey:(NSString*)key
+{
+    NSString* val = @"";
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    if (standardUserDefaults) val = [standardUserDefaults stringForKey:key];
+    if (val == NULL) val = @"";
+    return val;
+}
+
 
 #pragma mark -
 #pragma mark PickerView
-
-
 
 - (void)setPickerHeight:(UIPickerView *)pickerView
 {
@@ -98,16 +102,7 @@
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
 {
-	CGFloat componentWidth = 0.0;
-//    if ([pickerView isEqual:_birthdaySelector]) {
-//        if (component == 0)
-//            componentWidth = 240.0;	// first column size is wider to hold names
-//        else
-//            componentWidth = 40.0;	// second column is narrower to show numbers
-//    } else {
-        componentWidth = 200;
-//    }
-    return componentWidth;
+    return 200.0;
 }
 
 
@@ -138,90 +133,44 @@ numberOfRowsInComponent:(NSInteger)component
     }
 }
 
-//- (UIView *)pickerView:(UIPickerView *)pickerView
-//            viewForRow:(NSInteger)row
-//          forComponent:(NSInteger)component
-//           reusingView:(UIView *)view
-//{
-//    
-//    UILabel *pickerLabel = (UILabel *)view;
-////    if (pickerLabel == nil) {
-//        //label size
-//        CGRect frame = CGRectMake(0.0, 0.0, 188, 20);
-//        pickerLabel = [[UILabel alloc] initWithFrame:frame];
-//        [pickerLabel setTextAlignment:NSTextAlignmentLeft];
-//        [pickerLabel setBackgroundColor:[UIColor clearColor]];
-//        //here you can play with fonts
-//        [pickerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-////    }
-//    if ([pickerView isEqual:_agePicker]) {
-//        [pickerLabel setText:[self.questionnaireAges objectAtIndex:row]];
-//    }
-//    if ([pickerView isEqual:_vaccinePicker]) {
-//        [pickerLabel setText:[self.questionnaireVaccines objectAtIndex:row]];
-//    }
-//    return pickerLabel;
-//}
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-//	if (pickerView == self.agePicker) {
-//		self.ageSelected = [NSString stringWithFormat:@"%@", [self.questionnaireAges objectAtIndex:[pickerView selectedRowInComponent:0]]];
-//	} else if (pickerView == self.procedurePicker) {
-//        self.procedureSelected = [NSString stringWithFormat:@"%@", [self.questionnaireProcedures objectAtIndex:[pickerView selectedRowInComponent:0]]];
-//        if ([self.procedureSelected isEqualToString:@"Other"]) {
-//            self.showOtherProcedureType = YES;
-//            [self.questionnaireOtherProcedureType becomeFirstResponder];
-//            [self reLoadTableData];
-//        } else {
-//            self.showOtherProcedureType = NO;
-//            [self reLoadTableData];
-//        }
-//    } else if (pickerView == self.locationPicker) {
-//        self.procedureSelected = [NSString stringWithFormat:@"%@", [self.questionnaireLocations objectAtIndex:[pickerView selectedRowInComponent:0]]];
-//        [self reLoadTableData];
-//    }
     if (pickerView == self.agePicker) {
         _age = self.questionnaireAges[row];
     } else if (pickerView == self.vaccinePicker) {
-        self.vaccineTakenToday = self.questionnaireVaccines[row];
+        self.whichVaccineTakenToday = self.questionnaireVaccines[row];
     }
     [self checkCompleted];
-}
-
-- (void)checkCompleted
-{
-    NSLog(@"%@, %@, %@, %@, %@, %@, %@",_birthDate, _age, _vaccineTakenToday, _otherVaccineTakenToday, _gender, _uniqueID, _schoolName);
-    if (_birthDate != nil && _age != nil && _vaccineTakenToday != nil && _otherVaccineTakenToday != nil && _gender != nil && _uniqueID != nil && _schoolName != nil) {
-        self.doneButton.enabled = YES;
-        self.doneTabBarButton.enabled = YES;
-    } else {
-        self.doneButton.enabled = NO;
-        self.doneTabBarButton.enabled = NO;
-    }
 }
 
 - (NSInteger)numberOfComponentsInPickerView:
 (UIPickerView *)pickerView
 {
-//    if ([pickerView isEqual:_agePicker]) { // works, but not necessary just right now
-//        return 2;
-//    } else {
-        return 1;
-//    }
+    return 1;
 }
 
-- (void)didReceiveMemoryWarning
+
+#pragma mark Submit Logic
+#pragma mark -
+
+- (void)checkCompleted
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)showHideQuestionnaire:(UISwitch *)sender {
-    if (sender.isOn) {
-        self.questionnaireView.hidden = NO;
+    NSLog(@"%@, %@, %@, %@, %@, %@, %@, %@",_birthDate, _age, _vaccineTakenTodayAnswer, _otherVaccineTakenTodayAnswer, _gender, _uniqueID, _schoolName, _whichVaccineTakenToday);
+    if (_whichVaccineTakenToday != nil && _vaccineTakenTodayAnswer != nil && _otherVaccineTakenTodayAnswer != nil && _gender != nil && _uniqueID != nil && _schoolName != nil) {
+        if (_birthDate != nil || _age != nil) {
+            
+            if ([_schoolName isEqualToString:@""] || [_uniqueID isEqualToString:@""]) {
+               self.submitButton.enabled = NO;
+            } else if ([_schoolName isEqualToString:[self getStringForKey:@"schoolName"]]) {
+                self.submitButton.enabled = YES;
+            } else {
+                self.submitButton.enabled = YES;
+            }
+        } else {
+            self.submitButton.enabled = NO;
+        }
     } else {
-        self.questionnaireView.hidden = YES;
+        self.submitButton.enabled = NO;
     }
 }
 
@@ -230,15 +179,6 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (IBAction)textFieldReturn:(UITextField *)sender {
     [sender resignFirstResponder];
-    [self checkCompleted];
-}
-
-- (IBAction)otherVaccinesToday:(UISegmentedControl *)sender {
-    if (sender.selectedSegmentIndex == 0) {
-        self.otherVaccineTakenToday = @"No";
-    } else {
-        self.otherVaccineTakenToday = @"Yes";
-    }
     [self checkCompleted];
 }
 
@@ -253,6 +193,7 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (IBAction)selectSchoolName:(UITextField *)sender {
     self.schoolName = sender.text;
+    [self setStringForKey:sender.text withKey:@"schoolName"];
     [self checkCompleted];
 }
 
@@ -260,6 +201,44 @@ numberOfRowsInComponent:(NSInteger)component
     self.uniqueID = sender.text;
     [self checkCompleted];
 }
+
+- (IBAction)answerVaccineQuestion:(UISegmentedControl *)sender
+{
+    if (sender.selectedSegmentIndex == 0) {
+        self.vaccineTakenTodayAnswer = @"No";
+    } else {
+        self.vaccineTakenTodayAnswer = @"Yes";
+    }
+    [self checkCompleted];
+}
+
+- (IBAction)answerOtherVaccineQuestion:(UISegmentedControl*)sender
+{
+    if (sender.selectedSegmentIndex == 0) {
+        self.otherVaccineTakenTodayAnswer = @"No";
+    } else {
+        self.otherVaccineTakenTodayAnswer = @"Yes";
+    }
+    [self checkCompleted];
+}
+
+
+- (void)hideAll
+{
+    NSLog(@"hiding");
+    self.view.hidden = YES;
+}
+
+- (IBAction)touchSubmitButton:(UIButton *)sender
+{
+    // create XML file. save and send.
+    [self hideAll];
+}
+- (IBAction)touchCancelButton:(UIButton *)sender
+{
+    [self hideAll];
+}
+
 
 #pragma mark -
 #pragma mark DatePicker
@@ -281,6 +260,29 @@ numberOfRowsInComponent:(NSInteger)component
                                        toDate:today
                                        options:1];
     return ageComponents.year;
+}
+
+#pragma mark Persistent Values
+#pragma mark -
+
+- (void)setStringForKey:(NSString*)value withKey:(NSString*)key
+{
+	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+	if (standardUserDefaults)
+    {
+		[standardUserDefaults setObject:value forKey:key];
+		[standardUserDefaults synchronize];
+	}
+}
+
+- (void)setIntForKey:(NSInteger)value withKey:(NSString*)key
+{
+	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+	if (standardUserDefaults)
+    {
+		[standardUserDefaults setInteger:value forKey:key];
+		[standardUserDefaults synchronize];
+	}
 }
 
 @end

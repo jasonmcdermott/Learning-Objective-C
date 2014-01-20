@@ -4,25 +4,18 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Questionnaire Tab View Controller - Student Questionnaire-->
+        <!--Questionnaire Tab View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SENQuestionnaireTabViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="questionnaire" id="BYZ-38-t0r" customClass="SENQuestionnaireTabViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zcP-S1-pRL"/>
                         <viewControllerLayoutGuide type="bottom" id="1DN-ic-Rhb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="975"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Allow Questionnaire?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ep2-0Z-TuA">
-                                <rect key="frame" x="20" y="100" width="212" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5TR-YI-H56">
                                 <rect key="frame" x="0.0" y="134" width="768" height="821"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -133,7 +126,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date/time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgn-Da-CDB">
-                                                <rect key="frame" x="673" y="49" width="75" height="21"/>
+                                                <rect key="frame" x="428" y="49" width="320" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <nil key="highlightedColor"/>
@@ -141,7 +134,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Please enter" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1fg-ct-2vg">
                                                 <rect key="frame" x="536" y="380" width="212" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
                                                     <action selector="selectSchoolName:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="3vr-N2-68E"/>
@@ -156,40 +149,29 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.050000000000000003" colorSpace="calibratedRGB"/>
                                     </view>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4d3-re-IZQ">
                                         <rect key="frame" x="0.0" y="486" width="768" height="315"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Which vaccine did you get today?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3K-aP-tEl">
-                                                <rect key="frame" x="20" y="49" width="299" height="50"/>
+                                                <rect key="frame" x="430" y="49" width="299" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nTa-Wo-mbw">
-                                                <rect key="frame" x="20" y="99" width="318" height="216"/>
+                                                <rect key="frame" x="411" y="62" width="337" height="216"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="36J-gb-yJb"/>
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="gRc-fp-crp"/>
                                                 </connections>
                                             </pickerView>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="9Bs-6Z-7dT">
-                                                <rect key="frame" x="391" y="99" width="150" height="29"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <segments>
-                                                    <segment title="No"/>
-                                                    <segment title="Yes"/>
-                                                </segments>
-                                                <connections>
-                                                    <action selector="otherVaccinesToday:" destination="BYZ-38-t0r" eventType="valueChanged" id="AAE-bd-OEf"/>
-                                                </connections>
-                                            </segmentedControl>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Did you have any other vaccines today?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcj-QJ-vJc">
-                                                <rect key="frame" x="391" y="57" width="315" height="34"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Did you have an HPV vaccine today?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcj-QJ-vJc">
+                                                <rect key="frame" x="20" y="57" width="315" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -201,50 +183,82 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Did you have any other vaccines today?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eld-v1-YBE">
+                                                <rect key="frame" x="20" y="153" width="315" height="34"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="QPx-Td-Wws">
+                                                <rect key="frame" x="34" y="91" width="150" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <segments>
+                                                    <segment title="No"/>
+                                                    <segment title="Yes"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="answerVaccineQuestion:" destination="BYZ-38-t0r" eventType="valueChanged" id="qXi-C2-OgR"/>
+                                                </connections>
+                                            </segmentedControl>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="jwO-w6-gaU">
+                                                <rect key="frame" x="34" y="195" width="150" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <segments>
+                                                    <segment title="No"/>
+                                                    <segment title="Yes"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="answerOtherVaccineQuestion:" destination="BYZ-38-t0r" eventType="valueChanged" id="eL5-wa-wib"/>
+                                                </connections>
+                                            </segmentedControl>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.050000000000000003" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="mkO-YI-rhz">
-                                <rect key="frame" x="183" y="95" width="51" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33Y-dR-7Ve">
+                                <rect key="frame" x="20" y="45" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <action selector="showHideQuestionnaire:" destination="BYZ-38-t0r" eventType="valueChanged" id="Mtd-Z5-nym"/>
+                                    <action selector="touchCancelButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f9s-P7-od1"/>
                                 </connections>
-                            </switch>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzJ-GC-uIM">
+                                <rect key="frame" x="702" y="45" width="49" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchSubmitButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gfi-g5-08u"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Student Questionnaire" id="0lt-zU-LHz">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="1zB-zA-2tG">
-                            <connections>
-                                <segue destination="7H1-oc-8bP" kind="unwind" unwindAction="doUnwind:" id="rCu-M0-phS"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="3da-I9-vDJ">
-                            <connections>
-                                <segue destination="7H1-oc-8bP" kind="unwind" unwindAction="doUnwind:" id="PIY-kL-F2R"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="agePicker" destination="40e-XH-Hh2" id="LFX-sS-ikU"/>
                         <outlet property="birthDatePicker" destination="Fvr-9X-T26" id="fhz-BV-ReZ"/>
-                        <outlet property="doneTabBarButton" destination="3da-I9-vDJ" id="XWv-g8-w4T"/>
+                        <outlet property="cancelButton" destination="33Y-dR-7Ve" id="1fz-qu-O4o"/>
+                        <outlet property="dateTimeLabel" destination="zgn-Da-CDB" id="KwA-kU-LJX"/>
                         <outlet property="genderControl" destination="XdZ-hy-98I" id="qak-HO-v8K"/>
-                        <outlet property="otherVaccineControl" destination="9Bs-6Z-7dT" id="fOe-Nq-slp"/>
+                        <outlet property="otherVaccineQuestion" destination="jwO-w6-gaU" id="Rdt-Ot-duA"/>
                         <outlet property="questionnaireView" destination="5TR-YI-H56" id="fs9-cY-LcR"/>
                         <outlet property="schoolTextString" destination="1fg-ct-2vg" id="zF7-h8-Js4"/>
-                        <outlet property="showHideQuestionnaireSwitch" destination="mkO-YI-rhz" id="s8h-NU-4vh"/>
+                        <outlet property="submitButton" destination="HzJ-GC-uIM" id="rYq-VQ-yuD"/>
                         <outlet property="uniqueIDTextString" destination="IJx-z4-u4t" id="KWV-r1-u41"/>
                         <outlet property="vaccinePicker" destination="nTa-Wo-mbw" id="rd9-aa-ssr"/>
+                        <outlet property="vaccineQuestion" destination="QPx-Td-Wws" id="P1o-7v-NI2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4257" y="-1446"/>
+            <point key="canvasLocation" x="3283" y="-1446"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="NtL-S2-7zy">
@@ -323,7 +337,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2M-4z-yhw">
-                                <rect key="frame" x="708" y="20" width="40" height="30"/>
+                                <rect key="frame" x="708" y="45" width="40" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Close">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -371,7 +385,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="EX1-XW-glM" kind="modal" id="lMi-s2-S2P"/>
+                                    <action selector="touchSettingsButton:" destination="GZg-0Z-hXa" eventType="touchUpInside" id="pgg-Q7-5ZF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.30000001192092896" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeB-p8-mzv">
@@ -398,55 +412,16 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="baseView" destination="6OS-zr-HIE" id="kRv-Bu-R1l"/>
                         <outlet property="bluetoothButton" destination="DeB-p8-mzv" id="sd0-XA-of5"/>
                         <outlet property="ibiLabel" destination="HXI-Lf-2wi" id="V4j-92-R0T"/>
+                        <outlet property="settingsButton" destination="niJ-Sx-AFI" id="j6a-4E-kDq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZ4-Ti-5dK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1998" y="-1446"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="YuH-N1-Y6b">
-            <objects>
-                <tabBarController storyboardIdentifier="tabBar" automaticallyAdjustsScrollViewInsets="NO" id="EX1-XW-glM" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="2gg-KG-8Ge"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="8Vm-G9-ZKt">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="An7-Xt-um2" kind="relationship" relationship="viewControllers" id="JzJ-Ec-nos"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mf4-5J-GZA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1998" y="-248"/>
-        </scene>
-        <!--Navigation Controller - Questionnaire-->
-        <scene sceneID="2P4-K8-QYI">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="An7-Xt-um2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Questionnaire" image="Favorites TabBar" id="tp0-2u-Sbb"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="P3p-Al-aWN">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="xXS-FQ-749"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NKY-vG-R1W" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="7H1-oc-8bP" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="3283" y="-1446"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Bluetooth-Light" width="128" height="128"/>
-        <image name="Favorites TabBar" width="30" height="30"/>
         <image name="Gear" width="128" height="128"/>
         <image name="ipad-screenshot-blue" width="768" height="1024"/>
     </resources>
