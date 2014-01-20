@@ -23,7 +23,7 @@
 
 @property (strong, nonatomic) SENUserDefaultsHelper *SENUserDefaultsHelper;
 @property (strong, nonatomic) BLE *bleShield;
-@property (nonatomic) BOOL showQuestionnaire;
+//@property (nonatomic) BOOL showQuestionnaire;
 
 @property (strong, nonatomic) RBLMainViewController *RBLMainViewController;
 @property (strong, nonatomic) SENQuestionnaireTabViewController *questionnaireViewController;

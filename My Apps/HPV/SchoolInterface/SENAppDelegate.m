@@ -43,6 +43,15 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"becoming active");
+//    self.SENUserDefaultsHelper = [[SENUserDefaultsHelper alloc] init];
+//    //    self.showQuestionnaire = [self.SENUserDefaultsHelper getBoolForKey:@"questionnaire_enabled_preference"];
+//    
+//    self.chosenMode = [self.SENUserDefaultsHelper getStringForKey:@"appMode"];
+
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

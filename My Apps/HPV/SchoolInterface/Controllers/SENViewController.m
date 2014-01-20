@@ -11,7 +11,6 @@
 @interface SENViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *bluetoothButton;
-@property (strong, nonatomic) IBOutlet UIView *baseView;
 @property (weak, nonatomic) IBOutlet UILabel *ibiLabel;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (nonatomic) NSInteger mode;
@@ -34,43 +33,73 @@
 
 -(void)viewWillActive:(id)sender{
     _chosenMode = [[SENUserDefaultsHelper sharedManager] appMode];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self setVisibility];
     NSLog(@"num: %@",_chosenMode);
 }
+
+- (void)checkAutoUpdateSettingsForNotificaiton:(NSNotification *)aNotification
+{
+    self.chosenMode = [self.SENUserDefaultsHelper getStringForKey:@"appMode"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"checked auto update");
+}
+
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(viewWillActive:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(checkAutoUpdateSettingsForNotificaiton:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
+    
     self.SENUserDefaultsHelper = [[SENUserDefaultsHelper alloc] init];
-    self.showQuestionnaire = [self.SENUserDefaultsHelper getBoolForKey:@"questionnaire_enabled_preference"];
+//    self.showQuestionnaire = [self.SENUserDefaultsHelper getBoolForKey:@"questionnaire_enabled_preference"];
     
     self.chosenMode = [self.SENUserDefaultsHelper getStringForKey:@"appMode"];
-    NSLog(@"mode: %ld", (long)self.mode);
+    NSLog(@"mode: %ld", (long)self.chosenMode);
+    self.ibiLabel.text = self.chosenMode;
     
+    [self createViewControllers];
+    [self setVisibility];
+}
+
+- (void)createViewControllers
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:
                                 @"Main_iPad" bundle:[NSBundle mainBundle]];
+    self.questionnaireViewController = [storyboard instantiateViewControllerWithIdentifier:@"questionnaire"];
+    [self.view addSubview:self.questionnaireViewController.view];
+    self.questionnaireViewController.view.hidden = YES;
     
+    self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
+    [self.view addSubview:self.RBLMainViewController.view];
+    self.RBLMainViewController.view.hidden = YES;
+    self.RBLMainViewController.delegate = self;
+
+}
+
+- (void)setVisibility
+{
     if ([self.chosenMode isEqualToString:@"Questionnaire"] || [self.chosenMode isEqualToString:@"Both"]) {
         self.settingsButton.hidden = NO;
-        self.questionnaireViewController = [storyboard instantiateViewControllerWithIdentifier:@"questionnaire"];
-        [self.view addSubview:self.questionnaireViewController.view];
-        self.questionnaireViewController.view.hidden = YES;
-        // likely we'll need to do some delegate method action for the questionnaire here.
     } else {
         self.settingsButton.hidden = YES;
     }
-
+    
     if ([self.chosenMode isEqualToString:@"Sensor"] || [self.chosenMode isEqualToString:@"Both"]) {
-        self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
-        [self.view addSubview:self.RBLMainViewController.view];
-        self.RBLMainViewController.view.hidden = YES;
-        self.RBLMainViewController.delegate = self;
+        self.bluetoothButton.hidden = NO;
     } else {
         self.bluetoothButton.hidden = YES;
     }
-
+    self.ibiLabel.text = _chosenMode;
 }
 
 #pragma mark -

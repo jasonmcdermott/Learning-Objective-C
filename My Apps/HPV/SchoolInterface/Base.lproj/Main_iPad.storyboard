@@ -360,10 +360,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="3283" y="-248"/>
         </scene>
-        <!--Graphics View Controller-->
+        <!--View Controller-->
         <scene sceneID="Sah-ma-FV4">
             <objects>
-                <viewController id="GZg-0Z-hXa" customClass="SENGraphicsViewController" sceneMemberID="viewController">
+                <viewController id="GZg-0Z-hXa" customClass="SENViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FVW-hM-bbP"/>
                         <viewControllerLayoutGuide type="bottom" id="j4i-9v-Oau"/>
@@ -396,8 +396,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <action selector="clickBluetoothButton:" destination="GZg-0Z-hXa" eventType="touchUpInside" id="dZh-Jc-nAJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ibi:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXI-Lf-2wi">
-                                <rect key="frame" x="336" y="532" width="96" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ibi:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXI-Lf-2wi">
+                                <rect key="frame" x="308" y="531" width="153" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -407,7 +407,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="baseView" destination="6OS-zr-HIE" id="kRv-Bu-R1l"/>
                         <outlet property="bluetoothButton" destination="DeB-p8-mzv" id="sd0-XA-of5"/>
                         <outlet property="ibiLabel" destination="HXI-Lf-2wi" id="V4j-92-R0T"/>
                         <outlet property="settingsButton" destination="niJ-Sx-AFI" id="j6a-4E-kDq"/>
