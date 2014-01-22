@@ -21,20 +21,6 @@
     return self;
 }
 
-
-//-(void)dealloc
-//{
-//    [self clearSesionLists];
-//    [_mSesionEnd release];
-//    [_mIBIList release];
-//    [_mReliabilityList release];
-//    [_mSesionStart release];
-//    [_mDeviceID release];
-//    [_mUsername release];
-//    
-//    [super dealloc];
-//}
-
 //Add the IBI intervl to our list
 -(void) addIbi:(int) interval
 {
@@ -58,14 +44,14 @@
 {
     for (int i = 0; i < _mIBIList.count; i++)
     {
-//        [[_mIBIList objectAtIndex:i] release];
+        [_mIBIList removeObjectAtIndex:i];
     }
     
     [_mIBIList removeAllObjects];
     
     for (int i = 0; i < _mReliabilityList.count; i++)
     {
-//        [[_mReliabilityList objectAtIndex:i] release];
+        [_mReliabilityList removeObjectAtIndex:i];
     }
     
     [_mReliabilityList removeAllObjects];
@@ -75,13 +61,11 @@
 
 -(void)setStartSesion
 {
-//    [_mSesionStart release];
     _mSesionStart = [[NSDate alloc]init];
 }
 
 -(void)setSessionEnd
 {
-//    [_mSesionEnd release];
     _mSesionEnd = [[NSDate alloc]init];
 }
 

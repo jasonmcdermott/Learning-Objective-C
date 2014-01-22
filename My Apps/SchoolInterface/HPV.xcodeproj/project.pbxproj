@@ -41,6 +41,23 @@
 		0ED0FB091888089E003B3136 /* SENPulseReliability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FB081888089E003B3136 /* SENPulseReliability.m */; };
 		0ED0FB0C18880917003B3136 /* SENIBIData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FB0B18880917003B3136 /* SENIBIData.m */; };
 		0ED29EA41886C8140020D478 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED29EA31886C8140020D478 /* CoreBluetooth.framework */; };
+		0ED3D23D188F982A00C28918 /* SENSessionEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D23C188F982A00C28918 /* SENSessionEntity.m */; };
+		0ED3D240188F986C00C28918 /* SENLoggingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D23F188F986C00C28918 /* SENLoggingUtils.m */; };
+		0ED3D243188F994B00C28918 /* SENDataSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D242188F994B00C28918 /* SENDataSession.m */; };
+		0ED3D247188F999C00C28918 /* SENOSCLogEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D246188F999C00C28918 /* SENOSCLogEntry.m */; };
+		0ED3D25E188F9AA900C28918 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D24B188F9AA900C28918 /* ASIAuthenticationDialog.m */; };
+		0ED3D25F188F9AA900C28918 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D24E188F9AA900C28918 /* ASIDataCompressor.m */; };
+		0ED3D260188F9AA900C28918 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D250188F9AA900C28918 /* ASIDataDecompressor.m */; };
+		0ED3D261188F9AA900C28918 /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D252188F9AA900C28918 /* ASIDownloadCache.m */; };
+		0ED3D262188F9AA900C28918 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D254188F9AA900C28918 /* ASIFormDataRequest.m */; };
+		0ED3D263188F9AA900C28918 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D256188F9AA900C28918 /* ASIHTTPRequest.m */; };
+		0ED3D264188F9AA900C28918 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D25A188F9AA900C28918 /* ASIInputStream.m */; };
+		0ED3D265188F9AA900C28918 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D25C188F9AA900C28918 /* ASINetworkQueue.m */; };
+		0ED3D268188F9AD000C28918 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D267188F9AD000C28918 /* Reachability.m */; };
+		0ED3D26B188F9B2B00C28918 /* SENOscTolibPDMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ED3D26A188F9B2B00C28918 /* SENOscTolibPDMap.mm */; };
+		0ED5E3AA188F6E6800C7799F /* SENGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5E3A9188F6E6800C7799F /* SENGame.m */; };
+		0ED5E3AD188F6EE500C7799F /* SENPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5E3AC188F6EE500C7799F /* SENPlayer.m */; };
+		0ED5E3B2188F71D900C7799F /* SENRuleSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED5E3B1188F71D900C7799F /* SENRuleSet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +142,44 @@
 		0ED0FB0A18880917003B3136 /* SENIBIData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENIBIData.h; path = Model/SENIBIData.h; sourceTree = "<group>"; };
 		0ED0FB0B18880917003B3136 /* SENIBIData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENIBIData.m; path = Model/SENIBIData.m; sourceTree = "<group>"; };
 		0ED29EA31886C8140020D478 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		0ED3D23B188F982A00C28918 /* SENSessionEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENSessionEntity.h; path = Model/SENSessionEntity.h; sourceTree = "<group>"; };
+		0ED3D23C188F982A00C28918 /* SENSessionEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENSessionEntity.m; path = Model/SENSessionEntity.m; sourceTree = "<group>"; };
+		0ED3D23E188F986C00C28918 /* SENLoggingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENLoggingUtils.h; path = Model/SENLoggingUtils.h; sourceTree = "<group>"; };
+		0ED3D23F188F986C00C28918 /* SENLoggingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENLoggingUtils.m; path = Model/SENLoggingUtils.m; sourceTree = "<group>"; };
+		0ED3D241188F994B00C28918 /* SENDataSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENDataSession.h; path = Model/SENDataSession.h; sourceTree = "<group>"; };
+		0ED3D242188F994B00C28918 /* SENDataSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENDataSession.m; path = Model/SENDataSession.m; sourceTree = "<group>"; };
+		0ED3D245188F999C00C28918 /* SENOSCLogEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENOSCLogEntry.h; path = Model/SENOSCLogEntry.h; sourceTree = "<group>"; };
+		0ED3D246188F999C00C28918 /* SENOSCLogEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENOSCLogEntry.m; path = Model/SENOSCLogEntry.m; sourceTree = "<group>"; };
+		0ED3D24A188F9AA900C28918 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
+		0ED3D24B188F9AA900C28918 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
+		0ED3D24C188F9AA900C28918 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
+		0ED3D24D188F9AA900C28918 /* ASIDataCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataCompressor.h; sourceTree = "<group>"; };
+		0ED3D24E188F9AA900C28918 /* ASIDataCompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataCompressor.m; sourceTree = "<group>"; };
+		0ED3D24F188F9AA900C28918 /* ASIDataDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataDecompressor.h; sourceTree = "<group>"; };
+		0ED3D250188F9AA900C28918 /* ASIDataDecompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataDecompressor.m; sourceTree = "<group>"; };
+		0ED3D251188F9AA900C28918 /* ASIDownloadCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDownloadCache.h; sourceTree = "<group>"; };
+		0ED3D252188F9AA900C28918 /* ASIDownloadCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDownloadCache.m; sourceTree = "<group>"; };
+		0ED3D253188F9AA900C28918 /* ASIFormDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIFormDataRequest.h; sourceTree = "<group>"; };
+		0ED3D254188F9AA900C28918 /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIFormDataRequest.m; sourceTree = "<group>"; };
+		0ED3D255188F9AA900C28918 /* ASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequest.h; sourceTree = "<group>"; };
+		0ED3D256188F9AA900C28918 /* ASIHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIHTTPRequest.m; sourceTree = "<group>"; };
+		0ED3D257188F9AA900C28918 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestConfig.h; sourceTree = "<group>"; };
+		0ED3D258188F9AA900C28918 /* ASIHTTPRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestDelegate.h; sourceTree = "<group>"; };
+		0ED3D259188F9AA900C28918 /* ASIInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIInputStream.h; sourceTree = "<group>"; };
+		0ED3D25A188F9AA900C28918 /* ASIInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIInputStream.m; sourceTree = "<group>"; };
+		0ED3D25B188F9AA900C28918 /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINetworkQueue.h; sourceTree = "<group>"; };
+		0ED3D25C188F9AA900C28918 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
+		0ED3D25D188F9AA900C28918 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
+		0ED3D266188F9AD000C28918 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		0ED3D267188F9AD000C28918 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		0ED3D269188F9B2B00C28918 /* SENOscTolibPDMap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SENOscTolibPDMap.hpp; sourceTree = "<group>"; };
+		0ED3D26A188F9B2B00C28918 /* SENOscTolibPDMap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SENOscTolibPDMap.mm; sourceTree = "<group>"; };
+		0ED5E3A8188F6E6800C7799F /* SENGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENGame.h; path = Model/Game/SENGame.h; sourceTree = "<group>"; };
+		0ED5E3A9188F6E6800C7799F /* SENGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENGame.m; path = Model/Game/SENGame.m; sourceTree = "<group>"; };
+		0ED5E3AB188F6EE500C7799F /* SENPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENPlayer.h; path = Model/Game/SENPlayer.h; sourceTree = "<group>"; };
+		0ED5E3AC188F6EE500C7799F /* SENPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENPlayer.m; path = Model/Game/SENPlayer.m; sourceTree = "<group>"; };
+		0ED5E3B0188F71D900C7799F /* SENRuleSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENRuleSet.h; path = Model/Game/SENRuleSet.h; sourceTree = "<group>"; };
+		0ED5E3B1188F71D900C7799F /* SENRuleSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENRuleSet.m; path = Model/Game/SENRuleSet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,7 +269,6 @@
 		0E10AC3E188609BB00765FA1 /* HPV */ = {
 			isa = PBXGroup;
 			children = (
-				0EC0F164188D715A00D4C7E7 /* LibPD */,
 				0E10ACB718861DFD00765FA1 /* Controllers */,
 				0ED0FB021888057C003B3136 /* Model */,
 				0E10AC53188609BB00765FA1 /* Images.xcassets */,
@@ -227,8 +281,6 @@
 		0E10AC3F188609BB00765FA1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				0E10AC47188609BB00765FA1 /* SENAppDelegate.h */,
-				0E10AC48188609BB00765FA1 /* SENAppDelegate.m */,
 				0E10AC40188609BB00765FA1 /* HPV-Info.plist */,
 				0E10AC41188609BB00765FA1 /* InfoPlist.strings */,
 				0E10AC44188609BB00765FA1 /* main.m */,
@@ -258,9 +310,10 @@
 		0E10ACB718861DFD00765FA1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0E10AC47188609BB00765FA1 /* SENAppDelegate.h */,
+				0E10AC48188609BB00765FA1 /* SENAppDelegate.m */,
 				0E06A6C118863DB90018ECDB /* SENViewController.h */,
 				0E06A6C218863DB90018ECDB /* SENViewController.m */,
-				0E04A9651888C8B5006C8CF8 /* PD */,
 				0ED29EA91886CB1A0020D478 /* Settings */,
 			);
 			name = Controllers;
@@ -336,6 +389,11 @@
 		0ED0FB021888057C003B3136 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0ED3D249188F9A9E00C28918 /* ASIHTTP */,
+				0ED3D244188F995500C28918 /* Data Session */,
+				0EC0F164188D715A00D4C7E7 /* LibPD */,
+				0E04A9651888C8B5006C8CF8 /* PD */,
+				0ED5E3A6188F6E5200C7799F /* Game */,
 				0E823EF4188CC0390028D65B /* App Settings Data */,
 				0E823EF5188CC0460028D65B /* Pulse Data */,
 			);
@@ -361,6 +419,65 @@
 				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		0ED3D244188F995500C28918 /* Data Session */ = {
+			isa = PBXGroup;
+			children = (
+				0ED3D26A188F9B2B00C28918 /* SENOscTolibPDMap.mm */,
+				0ED3D269188F9B2B00C28918 /* SENOscTolibPDMap.hpp */,
+				0ED3D23B188F982A00C28918 /* SENSessionEntity.h */,
+				0ED3D23C188F982A00C28918 /* SENSessionEntity.m */,
+				0ED3D23E188F986C00C28918 /* SENLoggingUtils.h */,
+				0ED3D23F188F986C00C28918 /* SENLoggingUtils.m */,
+				0ED3D241188F994B00C28918 /* SENDataSession.h */,
+				0ED3D242188F994B00C28918 /* SENDataSession.m */,
+				0ED3D245188F999C00C28918 /* SENOSCLogEntry.h */,
+				0ED3D246188F999C00C28918 /* SENOSCLogEntry.m */,
+			);
+			name = "Data Session";
+			sourceTree = "<group>";
+		};
+		0ED3D249188F9A9E00C28918 /* ASIHTTP */ = {
+			isa = PBXGroup;
+			children = (
+				0ED3D266188F9AD000C28918 /* Reachability.h */,
+				0ED3D267188F9AD000C28918 /* Reachability.m */,
+				0ED3D24A188F9AA900C28918 /* ASIAuthenticationDialog.h */,
+				0ED3D24B188F9AA900C28918 /* ASIAuthenticationDialog.m */,
+				0ED3D24C188F9AA900C28918 /* ASICacheDelegate.h */,
+				0ED3D24D188F9AA900C28918 /* ASIDataCompressor.h */,
+				0ED3D24E188F9AA900C28918 /* ASIDataCompressor.m */,
+				0ED3D24F188F9AA900C28918 /* ASIDataDecompressor.h */,
+				0ED3D250188F9AA900C28918 /* ASIDataDecompressor.m */,
+				0ED3D251188F9AA900C28918 /* ASIDownloadCache.h */,
+				0ED3D252188F9AA900C28918 /* ASIDownloadCache.m */,
+				0ED3D253188F9AA900C28918 /* ASIFormDataRequest.h */,
+				0ED3D254188F9AA900C28918 /* ASIFormDataRequest.m */,
+				0ED3D255188F9AA900C28918 /* ASIHTTPRequest.h */,
+				0ED3D256188F9AA900C28918 /* ASIHTTPRequest.m */,
+				0ED3D257188F9AA900C28918 /* ASIHTTPRequestConfig.h */,
+				0ED3D258188F9AA900C28918 /* ASIHTTPRequestDelegate.h */,
+				0ED3D259188F9AA900C28918 /* ASIInputStream.h */,
+				0ED3D25A188F9AA900C28918 /* ASIInputStream.m */,
+				0ED3D25B188F9AA900C28918 /* ASINetworkQueue.h */,
+				0ED3D25C188F9AA900C28918 /* ASINetworkQueue.m */,
+				0ED3D25D188F9AA900C28918 /* ASIProgressDelegate.h */,
+			);
+			name = ASIHTTP;
+			sourceTree = "<group>";
+		};
+		0ED5E3A6188F6E5200C7799F /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				0ED5E3A8188F6E6800C7799F /* SENGame.h */,
+				0ED5E3A9188F6E6800C7799F /* SENGame.m */,
+				0ED5E3B0188F71D900C7799F /* SENRuleSet.h */,
+				0ED5E3B1188F71D900C7799F /* SENRuleSet.m */,
+				0ED5E3AB188F6EE500C7799F /* SENPlayer.h */,
+				0ED5E3AC188F6EE500C7799F /* SENPlayer.m */,
+			);
+			name = Game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -496,16 +613,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ED5E3AA188F6E6800C7799F /* SENGame.m in Sources */,
+				0ED3D262188F9AA900C28918 /* ASIFormDataRequest.m in Sources */,
+				0ED5E3B2188F71D900C7799F /* SENRuleSet.m in Sources */,
 				0ED0FAF5188802DF003B3136 /* RBLMainViewController.m in Sources */,
+				0ED5E3AD188F6EE500C7799F /* SENPlayer.m in Sources */,
 				0E06A6C318863DB90018ECDB /* SENViewController.m in Sources */,
 				0E10AC45188609BB00765FA1 /* main.m in Sources */,
 				0E823EF3188CB8FB0028D65B /* SENUserDefaultsHelper.m in Sources */,
 				0ED0FAF9188802FB003B3136 /* BLE.m in Sources */,
+				0ED3D26B188F9B2B00C28918 /* SENOscTolibPDMap.mm in Sources */,
+				0ED3D247188F999C00C28918 /* SENOSCLogEntry.m in Sources */,
+				0ED3D265188F9AA900C28918 /* ASINetworkQueue.m in Sources */,
 				0E10ACB618861DFA00765FA1 /* SENQuestionnaireTabViewController.m in Sources */,
+				0ED3D264188F9AA900C28918 /* ASIInputStream.m in Sources */,
+				0ED3D25F188F9AA900C28918 /* ASIDataCompressor.m in Sources */,
+				0ED3D260188F9AA900C28918 /* ASIDataDecompressor.m in Sources */,
 				0ED0FB061888081C003B3136 /* SENBLESessionData.m in Sources */,
+				0ED3D240188F986C00C28918 /* SENLoggingUtils.m in Sources */,
 				0ED0FB00188804C8003B3136 /* SENPDDriver.m in Sources */,
+				0ED3D23D188F982A00C28918 /* SENSessionEntity.m in Sources */,
+				0ED3D263188F9AA900C28918 /* ASIHTTPRequest.m in Sources */,
 				0E10AC49188609BB00765FA1 /* SENAppDelegate.m in Sources */,
+				0ED3D25E188F9AA900C28918 /* ASIAuthenticationDialog.m in Sources */,
+				0ED3D261188F9AA900C28918 /* ASIDownloadCache.m in Sources */,
+				0ED3D243188F994B00C28918 /* SENDataSession.m in Sources */,
 				0ED0FB0C18880917003B3136 /* SENIBIData.m in Sources */,
+				0ED3D268188F9AD000C28918 /* Reachability.m in Sources */,
 				0ED0FB091888089E003B3136 /* SENPulseReliability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,7 +14,11 @@
 #import "SENQuestionnaireTabViewController.h"
 #import "SENUserDefaultsHelper.h"
 
+#import "SENGame.h"
+//#import "SENPlayer.h"
+
 #include "SENPDDriver.h"
+
 
 @interface SENViewController : UIViewController <BLEDelegate, RBLMainViewControllerDelegate>
 {
@@ -23,7 +27,9 @@
 
 @property (strong, nonatomic) SENUserDefaultsHelper *SENUserDefaultsHelper;
 @property (strong, nonatomic) BLE *bleShield;
-//@property (nonatomic) BOOL showQuestionnaire;
+
+@property (strong, nonatomic) SENGame *game;
+@property (strong, nonatomic) SENPlayer *player;
 
 @property (strong, nonatomic) RBLMainViewController *RBLMainViewController;
 @property (strong, nonatomic) SENQuestionnaireTabViewController *questionnaireViewController;
