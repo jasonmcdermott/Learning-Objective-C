@@ -100,7 +100,7 @@
 //    self.showQuestionnaire = [self.SENUserDefaultsHelper getBoolForKey:@"questionnaire_enabled_preference"];
     
     self.chosenMode = [self.SENUserDefaultsHelper getStringForKey:@"appMode"];
-    NSLog(@"mode: %ld", (long)self.chosenMode);
+//    NSLog(@"mode: %ld", (long)self.chosenMode);
     self.ibiLabel.text = self.chosenMode;
     
     [self createViewControllers];

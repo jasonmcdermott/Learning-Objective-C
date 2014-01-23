@@ -14,14 +14,19 @@
 
 @property (strong, nonatomic) NSDate *date;
 #pragma mark Variables
+
 @property (strong, nonatomic) NSDate *birthDate;
-@property (nonatomic) NSInteger age;
-@property (strong, nonatomic) NSString *vaccineTakenTodayAnswer;
-@property (strong, nonatomic) NSString *whichVaccineTakenToday;
-@property (strong, nonatomic) NSString *otherVaccineTakenTodayAnswer;
+@property (strong, nonatomic) NSDate *submittedDateTime;
+
+@property (strong, nonatomic) NSNumber *age;
+
+@property (nonatomic) NSString *didTakeVaccine;
+@property (nonatomic) NSString *didTakeOtherVaccine;
+
+@property (strong, nonatomic) NSString *vaccineTaken;
 @property (strong, nonatomic) NSString *gender;
 @property (strong, nonatomic) NSString *uniqueID;
-@property (strong, nonatomic) NSString *schoolName;
+@property (strong, nonatomic) NSString *school;
 
 #pragma mark Data Arrays
 @property (strong, nonatomic) NSArray *questionnaireAges;

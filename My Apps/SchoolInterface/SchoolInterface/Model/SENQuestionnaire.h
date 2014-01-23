@@ -11,12 +11,17 @@
 
 @interface SENQuestionnaire : NSManagedObject
 
-@property (nonatomic, retain) NSNumber *questionnaireAge;
 @property (nonatomic, retain) NSString *school;
 @property (nonatomic, retain) NSString *uniqueID;
-@property (nonatomic, retain) NSString *vaccineTakenToday;
-@property (nonatomic) NSInteger age;
-@property (nonatomic) BOOL didTakeVaccineToday;
-@property (nonatomic) BOOL didTakeOtherVaccinesToday;
+@property (nonatomic, retain) NSString *vaccineTaken;
+@property (strong, nonatomic) NSString *gender;
+
+@property (strong, nonatomic) NSNumber *age;
+
+@property (nonatomic) NSString *didTakeVaccine;
+@property (nonatomic) NSString *didTakeOtherVaccine;
+
+@property (strong, nonatomic) NSDate *birthDate;
+@property (strong, nonatomic) NSDate *submittedDateTime;
 
 @end

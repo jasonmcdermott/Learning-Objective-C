@@ -80,13 +80,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="How old are you?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bE-ll-og7">
-                                                <rect key="frame" x="391" y="105" width="135" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Which are you?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQq-re-QeW">
                                                 <rect key="frame" x="20" y="384" width="150" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -243,15 +236,15 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="birthDatePicker" destination="Fvr-9X-T26" id="fhz-BV-ReZ"/>
                         <outlet property="cancelButton" destination="33Y-dR-7Ve" id="1fz-qu-O4o"/>
                         <outlet property="dateTimeLabel" destination="zgn-Da-CDB" id="KwA-kU-LJX"/>
-                        <outlet property="genderControl" destination="XdZ-hy-98I" id="qak-HO-v8K"/>
+                        <outlet property="didTakeOtherVaccineControl" destination="jwO-w6-gaU" id="BmQ-e3-N58"/>
+                        <outlet property="didTakeVaccineControl" destination="QPx-Td-Wws" id="pSq-qG-Obn"/>
+                        <outlet property="genderControl" destination="XdZ-hy-98I" id="N9V-5W-rds"/>
                         <outlet property="hpvVaccineLabel" destination="U3K-aP-tEl" id="Fjg-MY-WPq"/>
-                        <outlet property="otherVaccineQuestion" destination="jwO-w6-gaU" id="Rdt-Ot-duA"/>
                         <outlet property="questionnaireView" destination="5TR-YI-H56" id="fs9-cY-LcR"/>
                         <outlet property="schoolTextString" destination="1fg-ct-2vg" id="zF7-h8-Js4"/>
                         <outlet property="submitButton" destination="HzJ-GC-uIM" id="rYq-VQ-yuD"/>
                         <outlet property="uuidLabel" destination="TUx-fQ-VT3" id="hvQ-Ac-2pF"/>
                         <outlet property="vaccinePicker" destination="nTa-Wo-mbw" id="rd9-aa-ssr"/>
-                        <outlet property="vaccineQuestion" destination="QPx-Td-Wws" id="P1o-7v-NI2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

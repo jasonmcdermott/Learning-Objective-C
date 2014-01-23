@@ -3,13 +3,13 @@
     <entity name="SENQuestionnaire" syncable="YES">
         <attribute name="age" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="birthDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="didTakeOtherVaccinesToday" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="didTakeVaccineToday" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="didTakeOtherVaccine" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="didTakeVaccine" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="school" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="submittedDateTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="uniqueID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="vaccineTakenToday" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vaccineTaken" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="SENQuestionnaire" positionX="0" positionY="0" width="0" height="0"/>
