@@ -115,10 +115,10 @@
     [self.view addSubview:self.questionnaireViewController.view];
     self.questionnaireViewController.view.hidden = YES;
     
-    self.RBLMainViewController = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
-    [self.view addSubview:self.RBLMainViewController.view];
-    self.RBLMainViewController.view.hidden = YES;
-    self.RBLMainViewController.delegate = self;
+    self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
+    [self.view addSubview:self.BLEDevice.view];
+    self.BLEDevice.view.hidden = YES;
+    self.BLEDevice.delegate = self;
 
 }
 
@@ -156,7 +156,7 @@
 - (IBAction)clickBluetoothButton:(UIButton *)sender
 {
     NSLog(@"pressed into service");
-    self.RBLMainViewController.view.hidden = NO;
+    self.BLEDevice.view.hidden = NO;
 }
 
 @end

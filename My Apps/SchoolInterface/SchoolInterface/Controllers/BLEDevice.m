@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 RedBearlab. All rights reserved.
 //
 
-#import "RBLMainViewController.h"
+#import "BLEDevice.h"
 
 
 unsigned char const OEM_RELIABLE = 0xA0;
@@ -20,7 +20,7 @@ NSString * const  INACTIVITY_KEY = @"BrightheartsInactivity";
 NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 
-@interface RBLMainViewController ()
+@interface BLEDevice()
 
 @property (nonatomic) BOOL showTable;
 @property (weak, nonatomic) IBOutlet UITableView *deviceList;
@@ -36,14 +36,14 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
-@property (strong, nonatomic)SENBLESessionData * mSesionData;
+//@property (strong, nonatomic) SENSessionData * mSesionData;
 
 @property (strong, nonatomic) NSMutableArray *tempDevices;
 @end
 
 
 
-@implementation RBLMainViewController
+@implementation BLEDevice
 
 #pragma mark Init
 #pragma mark -
@@ -64,12 +64,16 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 	// Do any additional setup after loading the view.
     NSLog(@"RBLMainViewController didLoad");
     self.passedToParent = NO;
+    
     self.bleShield = [[BLE alloc] init];
+    self.mPDDRiver = [[SENPDDriver alloc] init];
+    self.mSesionData = [[SENSessionData alloc] init];
+    self.mDevices = [[NSMutableArray alloc] init];
+    self.tempDevices = [[NSMutableArray alloc] init];
+    
     [self.bleShield controlSetup];
     self.bleShield.delegate = self;
     _max_inactivity = DEF_MAX_INACTIVITY;
-    
-    
     
     //Retrieve saved UUID from system
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:UUIDPrefKey];
@@ -84,9 +88,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
         self.scanButton.hidden = false;
         self.lastButton.hidden = true;
     }
-    
-    self.mDevices = [[NSMutableArray alloc] init];
-    self.tempDevices = [[NSMutableArray alloc] init];
+    [self sendUnsentSesions];
 }
 
 - (void)didReceiveMemoryWarning
@@ -438,6 +440,13 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 }
 
 
+#pragma mark -
+#pragma mark XML
 
+-(void) sendUnsentSesions
+{
+    SENXmlDataGenerator* xmlDataGenerator = [[SENXmlDataGenerator alloc]init];
+    [xmlDataGenerator sendUnsentSesions];
+}
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SENBLESessionData : NSObject
+@interface SENSessionData : NSObject
 {
     int ibi_index;
 }

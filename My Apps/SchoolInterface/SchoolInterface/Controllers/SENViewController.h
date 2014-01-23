@@ -10,22 +10,21 @@
 #import "BLE.h"
 #import "constants.h"
 #import "SENPDDriver.h"
-#import "RBLMainViewController.h"
+#import "BLEDevice.h"
 #import "SENQuestionnaireTabViewController.h"
 #import "SENUserDefaultsHelper.h"
 
 #include "SENPDDriver.h"
 
-@interface SENViewController : UIViewController <BLEDelegate, RBLMainViewControllerDelegate>
+@interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate>
 {
     
 }
 
 @property (strong, nonatomic) SENUserDefaultsHelper *SENUserDefaultsHelper;
 @property (strong, nonatomic) BLE *bleShield;
-//@property (nonatomic) BOOL showQuestionnaire;
 
-@property (strong, nonatomic) RBLMainViewController *RBLMainViewController;
+@property (strong, nonatomic) BLEDevice *BLEDevice;
 @property (strong, nonatomic) SENQuestionnaireTabViewController *questionnaireViewController;
 
 

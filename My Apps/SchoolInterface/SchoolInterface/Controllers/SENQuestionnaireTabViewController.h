@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "constants.h"
+#import "SENQuestionnaire.h"
 
 @interface SENQuestionnaireTabViewController : UIViewController
 
 @property (strong, nonatomic) NSDate *date;
 #pragma mark Variables
 @property (strong, nonatomic) NSDate *birthDate;
-@property (strong, nonatomic) NSString *age;
+@property (nonatomic) NSInteger age;
 @property (strong, nonatomic) NSString *vaccineTakenTodayAnswer;
 @property (strong, nonatomic) NSString *whichVaccineTakenToday;
 @property (strong, nonatomic) NSString *otherVaccineTakenTodayAnswer;
@@ -29,6 +30,14 @@
 @property (strong, nonatomic) NSArray *questionnaireBirthdayMonths;
 @property (strong, nonatomic) NSArray *questionnaireBirthdayDays;
 
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+@property (strong, nonatomic) SENQuestionnaire *questionnaire;
+
+- (void)saveContext;
+- (NSURL *)applicationDocumentsDirectory;
 
 
 @end

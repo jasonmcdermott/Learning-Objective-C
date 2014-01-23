@@ -139,7 +139,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Which are you?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUx-fQ-VT3">
-                                                <rect key="frame" x="127" y="49" width="433" height="21"/>
+                                                <rect key="frame" x="106" y="49" width="433" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -258,10 +258,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="3283" y="-1446"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Device-->
         <scene sceneID="NtL-S2-7zy">
             <objects>
-                <viewController storyboardIdentifier="Redbear" id="Gtl-hJ-URF" customClass="RBLMainViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Redbear" id="Gtl-hJ-URF" customClass="BLEDevice" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GXS-C6-xLQ"/>
                         <viewControllerLayoutGuide type="bottom" id="5pA-O5-8gh"/>

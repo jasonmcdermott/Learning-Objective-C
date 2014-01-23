@@ -9,17 +9,16 @@
 #import <UIKit/UIKit.h>
 
 #import "BLE.h"
-//#import "SENPDDriver.h"
-#import "SENBLESessionData.h"
-
-//#include "SENPDDriver.h"
+#import "SENSessionData.h"
+#import "SENPDDriver.h"
+#import "SENXmlDataGenerator.h"
 
 typedef struct
 {
     unsigned char data [4];
 }charbuff;
 
-@protocol RBLMainViewControllerDelegate <NSObject>
+@protocol BLEDeviceDelegate <NSObject>
 
 - (void) setLabel:(NSString *)label;
 
@@ -27,7 +26,7 @@ typedef struct
 
 
 
-@interface RBLMainViewController : UIViewController <BLEDelegate>
+@interface BLEDevice : UIViewController <BLEDelegate>
 {
 //    SENPDDriver *mPDDRiver;
 //    BLE *bleShield;
@@ -40,9 +39,11 @@ typedef struct
     volatile bool _reliable;
 }
 
-@property (nonatomic, weak) id <RBLMainViewControllerDelegate> delegate;
+@property (nonatomic, weak) id <BLEDeviceDelegate> delegate;
 
 //- (void)showAll;
+
+@property (strong, nonatomic) SENPDDriver *mPDDRiver;
 
 @property (nonatomic) BOOL passedToParent;
 @property (strong, nonatomic) BLE *bleShield;
@@ -50,6 +51,7 @@ typedef struct
 
 @property (strong,nonatomic) NSMutableArray *mDevices;
 @property (strong,nonatomic) NSString *lastUUID;
+@property (strong, nonatomic) SENSessionData * mSesionData;
 
 @property (retain, nonatomic) IBOutlet UITextField *sessionStatusLabel;
 @property (retain, nonatomic) IBOutlet UILabel *sessionStartLabel;

@@ -10,4 +10,12 @@
 
 @implementation SENQuestionnaire
 
+@dynamic questionnaireAge;
+@dynamic school;
+@dynamic uniqueID;
+@dynamic vaccineTakenToday;
+@dynamic didTakeVaccineToday;
+@dynamic didTakeOtherVaccinesToday;
+@dynamic age;
+
 @end
