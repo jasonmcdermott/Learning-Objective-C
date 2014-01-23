@@ -8,6 +8,12 @@
 
 #import "SENQuestionnaireTabViewController.h"
 
+/* 
+I might want to implement this as a segue rather than a window that can be shown and hidden.
+Might make creating, refreshing and what-not data points faster. 
+Or perhaps not.
+*/
+
 @interface SENQuestionnaireTabViewController ()
 #pragma mark Interface Elements
 
@@ -24,13 +30,11 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *agePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *vaccinePicker;
 
-
 @property (weak, nonatomic) IBOutlet UISegmentedControl *didTakeVaccineControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *didTakeOtherVaccineControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderControl;
 
 @property (weak, nonatomic) IBOutlet UITextField *schoolTextString;
-
 
 @end
 
@@ -40,9 +44,8 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-
-#pragma mark Initialise
 #pragma mark -
+#pragma mark Initialise
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -109,8 +112,9 @@
     return val;
 }
 
-#pragma mark UUID
 #pragma mark -
+#pragma mark UUID
+
 
 - (NSString *)GetUUID
 {
@@ -120,21 +124,8 @@
     return (__bridge NSString *)string;
 }
 
-//#pragma mark -
-//#pragma mark PickerView
-//
-//- (void)setPickerHeight:(UIPickerView *)pickerView
-//{
-//    pickerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-//    CGSize ps = [pickerView sizeThatFits: CGSizeZero];
-//    pickerView.frame = CGRectMake(0.0, 0.0, ps.width, 162.0);
-//}
-
-//- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-//{
-//    return 200.0;
-//}
-
+#pragma mark -
+#pragma mark PickerView
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView
 numberOfRowsInComponent:(NSInteger)component
@@ -176,8 +167,6 @@ numberOfRowsInComponent:(NSInteger)component
 {
     return 1;
 }
-
-
 
 #pragma mark -
 #pragma mark UI Utilities
@@ -242,9 +231,11 @@ numberOfRowsInComponent:(NSInteger)component
     self.submittedDateTime = [[NSDate alloc] init];
     if ([self setCoreDataValues]) [self saveContext];
     [self hideAll];
-    [self newQuestionnaire];
     [self resetValues];
+    [self readCoreDataStore];
     NSLog(@"saved");
+    [self uploadDataToURL];
+    [self newQuestionnaire];
 }
 
 - (void)resetValues
@@ -256,6 +247,35 @@ numberOfRowsInComponent:(NSInteger)component
     self.submitButton.enabled = NO;
     self.hpvVaccineLabel.hidden = YES;
     self.vaccinePicker.hidden = YES;
+    [self.birthDatePicker setDate:[[NSDate alloc] init] animated:NO];
+}
+
+- (void)checkCompleted
+{
+    int completionScore = 0;
+    
+    if (_birthDate != nil) completionScore++;
+    if (_gender != nil) completionScore++;
+    if (![self.schoolTextString.text isEqualToString:@""]) completionScore++;
+    
+    if (self.didTakeVaccine != nil) completionScore++;
+    if (self.didTakeOtherVaccine != nil) completionScore++;
+    if ([self.didTakeVaccine isEqualToString:@"YES"]) {
+        if ([self.vaccineTaken isEqualToString:@"please select one"] || self.vaccineTaken == nil || [self.vaccineTaken isEqualToString:@""]) {
+            // nothing
+        } else {
+            completionScore++;
+        }
+    }
+    
+    if ([self.didTakeVaccine isEqualToString:@"NO"] && completionScore == 5) {
+        self.submitButton.enabled = YES;
+    } else if ([self.didTakeVaccine isEqualToString:@"YES"] && completionScore == 6) {
+        self.submitButton.enabled = YES;
+    } else {
+        self.submitButton.enabled = NO;
+    }
+    NSLog(@"%@, %@, %@, %@, %@, %@, %@, %d", self.birthDate, self.age, self.didTakeVaccine, self.didTakeOtherVaccine, self.gender, self.school, self.vaccineTaken, completionScore);
 }
 
 - (IBAction)touchCancelButton:(UIButton *)sender
@@ -316,33 +336,6 @@ numberOfRowsInComponent:(NSInteger)component
 #pragma mark -
 #pragma mark Core Data
 
-- (void)checkCompleted
-{
-    int completionScore = 0;
-    
-    if (_birthDate != nil) completionScore++;
-    if (_gender != nil) completionScore++;
-    if (![self.schoolTextString.text isEqualToString:@""]) completionScore++;
-    
-    if (self.didTakeVaccine != nil) completionScore++;
-    if (self.didTakeOtherVaccine != nil) completionScore++;
-    if ([self.didTakeVaccine isEqualToString:@"YES"]) {
-        if ([self.vaccineTaken isEqualToString:@"please select one"] || self.vaccineTaken == nil || [self.vaccineTaken isEqualToString:@""]) {
-            // nothing
-        } else {
-            completionScore++;
-        }
-    }
-    
-    if ([self.didTakeVaccine isEqualToString:@"NO"] && completionScore == 5) {
-        self.submitButton.enabled = YES;
-    } else if ([self.didTakeVaccine isEqualToString:@"YES"] && completionScore == 6) {
-        self.submitButton.enabled = YES;
-    } else {
-        self.submitButton.enabled = NO;
-    }
-    NSLog(@"%@, %@, %@, %@, %@, %@, %@, %d", self.birthDate, self.age, self.didTakeVaccine, self.didTakeOtherVaccine, self.gender, self.school, self.vaccineTaken, completionScore);
-}
 
 - (BOOL)setCoreDataValues
 {
@@ -354,12 +347,14 @@ numberOfRowsInComponent:(NSInteger)component
         self.questionnaire.gender = self.gender;
         self.questionnaire.school = self.school;
         self.questionnaire.uniqueID = self.uniqueID;
-        self.questionnaire.vaccineTaken = self.vaccineTaken;
+        if ([self.vaccineTaken isEqualToString:@"please select one"] || self.vaccineTaken == nil || [self.vaccineTaken isEqualToString:@""]) {
+            self.questionnaire.vaccineTaken = @"none";
+        } else {
+            self.questionnaire.vaccineTaken = self.vaccineTaken;
+        }
         
-        [self.questionnaire setDidTakeVaccine:self.didTakeVaccine];
-        [self.questionnaire setDidTakeOtherVaccine:self.didTakeOtherVaccine]; // weird.
-        //        self.questionnaire.didTakeVaccine = self.didTakeVaccine;
-        //        self.questionnaire.didTakeOtherVaccine = self.didTakeOtherVaccine;
+        self.questionnaire.didTakeOtherVaccine = self.didTakeOtherVaccine;
+        self.questionnaire.didTakeVaccine = self.didTakeVaccine;
         
         self.questionnaire.submittedDateTime = self.submittedDateTime;
         
@@ -391,17 +386,12 @@ numberOfRowsInComponent:(NSInteger)component
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
 }
 
-
-// Returns the managed object context for the application.
-// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
 - (NSManagedObjectContext *)managedObjectContext
 {
     if (_managedObjectContext != nil) {
@@ -416,8 +406,6 @@ numberOfRowsInComponent:(NSInteger)component
     return _managedObjectContext;
 }
 
-// Returns the managed object model for the application.
-// If the model doesn't already exist, it is created from the application's model.
 - (NSManagedObjectModel *)managedObjectModel
 {
     if (_managedObjectModel != nil) {
@@ -428,8 +416,6 @@ numberOfRowsInComponent:(NSInteger)component
     return _managedObjectModel;
 }
 
-// Returns the persistent store coordinator for the application.
-// If the coordinator doesn't already exist, it is created and the application's store added to it.
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
     if (_persistentStoreCoordinator != nil) {
@@ -439,36 +425,135 @@ numberOfRowsInComponent:(NSInteger)component
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Model.sqlite"];
     
     NSError *error = nil;
+    
+    // for performing minor changes to the coredata database
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
+                             NSMigratePersistentStoresAutomaticallyOption,
+                             [NSNumber numberWithBool:YES],
+                             NSInferMappingModelAutomaticallyOption, nil];
+
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-         
-         Typical reasons for an error here include:
-         * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
-         Check the error message to determine what the actual problem was.
-         
-         
-         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-         
-         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-         * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
-         
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+          NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    
     return _persistentStoreCoordinator;
+}
+
+- (void)readCoreDataStore
+{
+    /* Tell the request that we want to read the
+     contents of the Person entity */
+    /* Create the fetch request first */
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]
+                                    initWithEntityName:@"SENQuestionnaire"];
+    NSError *requestError = nil;
+    
+    /* And execute the fetch request on the context */
+    NSArray *questionnaires =
+    [self.managedObjectContext executeFetchRequest:fetchRequest
+                                             error:&requestError];
+    
+    /* Make sure we get the array */
+    if ([questionnaires count] > 0){
+        
+        /* Go through the persons array one by one */
+        NSUInteger counter = 1;
+        for (SENQuestionnaire *q in questionnaires) {
+            if ([q.writtenToDisk isEqualToString:@"YES"]){
+                // do nothing
+            } else {
+                NSLog(@"%lu age = %@",(unsigned long)counter,q.age);
+                NSLog(@"%lu birthDate = %@",(unsigned long)counter,q.birthDate);
+                NSLog(@"%lu gender = %@",(unsigned long)counter,q.gender);
+                NSLog(@"%lu school = %@",(unsigned long)counter,q.school);
+                NSLog(@"%lu uniqueID = %@",(unsigned long)counter,q.uniqueID);
+                NSLog(@"%lu vaccineTaken = %@",(unsigned long)counter,q.vaccineTaken);
+                NSLog(@"%lu didTakeVaccine = %@",(unsigned long)counter,q.didTakeVaccine);
+                NSLog(@"%lu didTakeOtherVaccine = %@",(unsigned long)counter,q.didTakeOtherVaccine);
+                NSLog(@"%lu submittedDateTime = %@",(unsigned long)counter,q.submittedDateTime);
+                
+                [self writeDictionaryToDisk:q];
+                q.writtenToDisk = @"YES";
+                NSLog(@"logged");
+            }
+            counter++;
+        }
+    } else {
+        NSLog(@"Could not find any Person entities in the context.");
+    }
+}
+
+- (void)writeDictionaryToDisk:(SENQuestionnaire *)q
+{
+    NSDictionary *questionnaireDictionary =
+    @{
+      @"uniqueID" : q.uniqueID,
+      @"age" : q.age,
+      @"birthDate" : q.birthDate,
+      @"didTakeOtherVaccine" : q.didTakeOtherVaccine,
+      @"didTakeVaccine" : q.didTakeVaccine,
+      @"vaccineTaken" : q.vaccineTaken,
+      @"gender" : q.gender,
+      @"school" : q.school,
+      @"submittedDateTime" : q.submittedDateTime,
+      };
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    
+    NSString *doc = [basePath stringByAppendingString:@"/"];
+    NSString *file = [doc stringByAppendingString:q.uniqueID];
+    NSString *filePath = [file stringByAppendingString:@".plist"];
+    
+    // plistDict is a NSDictionary
+    NSString *error;
+    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:questionnaireDictionary
+                                                                   format:NSPropertyListXMLFormat_v1_0
+                                                         errorDescription:&error];
+    if(plistData) {
+        [plistData writeToFile:filePath atomically:YES];
+    } else {
+        NSLog(@"%@",error);
+    }
+}
+
+- (void)uploadDataToURL
+{
+    NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:
+                          [@"Documents/2AED2573-9CB0-43B1-9649-F5196560D1A8" stringByAppendingString:@".plist"]];
+    NSDictionary *plist = [[NSDictionary alloc] initWithContentsOfFile:filePath];
+    NSData *data = [NSPropertyListSerialization dataFromPropertyList:plist format:NSPropertyListXMLFormat_v1_0 errorDescription:nil];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://alpha.sensoriumhealth.com/upload.php"]];
+    
+    [request addData:data withFileName:@"2AED2573-9CB0-43B1-9649-F5196560D1A8.plist" andContentType:@"propertylist/plist" forKey:@"file"];
+    [request setDelegate:self];
+    [request startAsynchronous];
+    
+}
+
+- (void)convertDictionaryToJSON:(NSDictionary *)dict
+{
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization
+                        dataWithJSONObject:dict
+                        options:NSJSONWritingPrettyPrinted
+                        error:&error];
+    
+    if ([jsonData length] > 0 && error == nil){
+        
+        NSLog(@"Successfully serialized the dictionary into data.");
+        NSString *jsonString =
+        [[NSString alloc] initWithData:jsonData
+                              encoding:NSUTF8StringEncoding];
+        NSLog(@"JSON String = %@", jsonString);
+    }
+    else if ([jsonData length] == 0 && error == nil){
+        NSLog(@"No data was returned after serialization.");
+    }
+    else if (error != nil){
+        NSLog(@"An error happened = %@", error);
+    }
 }
 
 @end

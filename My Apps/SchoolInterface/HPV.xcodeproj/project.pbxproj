@@ -105,6 +105,8 @@
 		0E823F0B188D537C0028D65B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0E823F0D188D53840028D65B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0E823F0F188D538E0028D65B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0EAB03191891367D0076E906 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
+		0EAB031B189155B60076E906 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		0EC0F150188D64E900D4C7E7 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		0EC0F152188D64E900D4C7E7 /* HockeySDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HockeySDK.xcconfig; sourceTree = "<group>"; };
 		0EC0F153188D64E900D4C7E7 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
@@ -776,9 +778,11 @@
 		0EDFB9B91890AD83002909F4 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0EAB03191891367D0076E906 /* Model 2.xcdatamodel */,
+				0EAB031B189155B60076E906 /* Model 3.xcdatamodel */,
 				0EDFB9BA1890AD83002909F4 /* Model.xcdatamodel */,
 			);
-			currentVersion = 0EDFB9BA1890AD83002909F4 /* Model.xcdatamodel */;
+			currentVersion = 0EAB031B189155B60076E906 /* Model 3.xcdatamodel */;
 			name = Model.xcdatamodeld;
 			path = SchoolInterface/Model.xcdatamodeld;
 			sourceTree = "<group>";

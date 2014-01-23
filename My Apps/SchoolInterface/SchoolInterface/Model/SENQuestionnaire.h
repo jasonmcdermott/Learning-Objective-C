@@ -24,4 +24,5 @@
 @property (strong, nonatomic) NSDate *birthDate;
 @property (strong, nonatomic) NSDate *submittedDateTime;
 
+@property (strong, nonatomic) NSString *writtenToDisk;
 @end

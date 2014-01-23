@@ -20,4 +20,5 @@
 @dynamic birthDate;
 @dynamic submittedDateTime;
 
+@dynamic writtenToDisk;
 @end
