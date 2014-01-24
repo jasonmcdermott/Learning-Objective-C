@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "constants.h"
 #import "SENQuestionnaire.h"
-#import "SENXmlDataGenerator.h"
-#import "ASIFormDataRequest.h"
+//#import "SENXmlDataGenerator.h"
+#import "AFNetworking.h"
 
 @interface SENQuestionnaireTabViewController : UIViewController
 
@@ -42,7 +42,8 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (strong, nonatomic) SENQuestionnaire *questionnaire;
-@property (strong, nonatomic) SENXmlDataGenerator *xmlDataGenerator;
+//@property (strong, nonatomic) SENXmlDataGenerator *xmlDataGenerator;
+@property (strong, nonatomic) NSString *filePath;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

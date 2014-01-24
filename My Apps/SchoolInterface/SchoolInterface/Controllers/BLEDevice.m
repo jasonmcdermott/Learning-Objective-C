@@ -445,8 +445,8 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 
 -(void) sendUnsentSesions
 {
-    SENXmlDataGenerator* xmlDataGenerator = [[SENXmlDataGenerator alloc]init];
-    [xmlDataGenerator sendUnsentSesions];
+//    SENXmlDataGenerator* xmlDataGenerator = [[SENXmlDataGenerator alloc]init];
+//    [xmlDataGenerator sendUnsentSesions];
 }
 
 @end

@@ -64,6 +64,7 @@ Or perhaps not.
 
 - (void)initialSetup
 {
+//    self.filePath = [[NSString alloc] initWithString:[directory stringByAppendingPathComponent:@"Sensorium"]];
     self.submitButton.enabled = NO;
     self.school = @"";
     self.schoolTextString.text = [self getStringForKey:@"school"];
@@ -518,18 +519,161 @@ numberOfRowsInComponent:(NSInteger)component
     }
 }
 
+
+//-(NSString*)readXMLFile:(NSString *)file
+//{
+//    NSString *docFile = file;
+    
+//    NSFileManager *filemgr;
+//    NSData *databuffer;
+    
+//    filemgr = [NSFileManager defaultManager];
+    
+//    databuffer = [filemgr contentsAtPath: docFile];
+    
+//    return [[NSString alloc] initWithData:databuffer encoding:NSUTF16StringEncoding];
+//    NSString *a = @"";
+//    return a;
+//}
+
+
 - (void)uploadDataToURL
 {
-    NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:
-                          [@"Documents/2AED2573-9CB0-43B1-9649-F5196560D1A8" stringByAppendingString:@".plist"]];
-    NSDictionary *plist = [[NSDictionary alloc] initWithContentsOfFile:filePath];
-    NSData *data = [NSPropertyListSerialization dataFromPropertyList:plist format:NSPropertyListXMLFormat_v1_0 errorDescription:nil];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://alpha.sensoriumhealth.com/upload.php"]];
+
+
     
-    [request addData:data withFileName:@"2AED2573-9CB0-43B1-9649-F5196560D1A8.plist" andContentType:@"propertylist/plist" forKey:@"file"];
-    [request setDelegate:self];
-    [request startAsynchronous];
+    // working, sort of.
     
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    
+    NSString *doc = [basePath stringByAppendingString:@"/"];
+    NSString *fileName = [doc stringByAppendingString:@"2AED2573-9CB0-43B1-9649-F5196560D1A8"];
+    NSString *file = [fileName stringByAppendingString:@".plist"];
+    
+    
+    NSString *docFile = file;
+    
+    NSFileManager *filemgr;
+    NSData *databuffer;
+
+    filemgr = [NSFileManager defaultManager];
+
+    databuffer = [filemgr contentsAtPath: docFile];
+
+    NSString *text = [[NSString alloc] initWithData:databuffer encoding:NSUTF16StringEncoding];
+//    return [[NSString alloc] initWithData:databuffer encoding:NSUTF16StringEncoding];
+
+    
+    
+//    NSString *text = [self readXMLFile:file];
+    
+
+    NSMutableString* xml_text = [[NSMutableString alloc] initWithCapacity:0x1000000] ;
+    [xml_text setString:text];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *params = @{@"uuid": @"2AED2573-9CB0-43B1-9649-F5196560D1A8",
+                             @"datalog": text,
+                             @"fieldSubject" : @"hello",
+                             @"fieldDescription" :@"file upload",
+                             @"fieldFormName" : @"12345678",
+                             @"fieldFormEmail" : @"research@sensoriumhealth.com",
+                             @"attachment" : file
+                             ,};
+    
+    [manager POST:@"http://alpha.sensoriumhealth.com/attachment.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+    
+    ////////
+    
+    
+    
+    
+//    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"wav"];
+//    
+//    // NSLog(@"filePath : %@", filePath);
+//    
+//    
+//    
+//    NSData *postData = [[NSData alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filePath]];
+//    
+//    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+//    
+//    NSLog(@"postLength : %@", postLength);
+//    
+//    
+//    
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    
+//    [request setHTTPMethod:@"POST"];
+//    
+//    [request setURL:[NSURL URLWithString:@"http://exampleserver.com/upload.php"]];
+//    
+//    
+//    
+//    NSString *boundary = @"---------------------------14737809831466499882746641449";
+//    
+//    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+//    
+//    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+//    
+//    
+//    
+//    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+//    
+//    
+//    
+//    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+//    
+//    [request setHTTPBody:postData];
+//    
+//    [request setTimeoutInterval:30.0];
+//    
+//    
+//    
+//    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+//    
+//    
+//    
+//    if (conn)
+//        
+//    {
+//        
+//        receivedData = [[NSMutableData data] retain];
+//        
+//    } else {
+//        
+//        NSLog(@"Connection Failed");
+//        
+//    }
+//
+//    
+//    
+//    NSMutableData *postData = [NSMutableData data];
+//    NSString *header = [NSString stringWithFormat:@"--%@\r\n", boundary]
+//    [postData appendData:[header dataUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    //add your filename entry
+//    NSString *contentDisposition = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", @"filename", @"your file name"];
+//    
+//    [postData appendData:[contentDisposition dataUsingEncoding:NSUTF8StringEncoding]];
+//    
+//    [postData appendData:[NSData dataWithContentsOfFile:@"your file path"];
+//     NSString *endItemBoundary = [NSString stringWithFormat:@"\r\n--%@\r\n",stringBoundary];
+//     
+//     [postData appendData:[endItemBoundary dataUsingEncoding:NSUTF8StringEncoding]];
+//     [request setHTTPBody:postData];
+    
+    
+  
 }
 
 - (void)convertDictionaryToJSON:(NSDictionary *)dict
