@@ -21,4 +21,5 @@
 @dynamic submittedDateTime;
 
 @dynamic writtenToDisk;
+@dynamic uploaded;
 @end

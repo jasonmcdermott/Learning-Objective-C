@@ -1,0 +1,22 @@
+//
+//  SENUtilities.h
+//  HPV
+//
+//  Created by Jason McDermott on 24/01/2014.
+//  Copyright (c) 2014 Sensorium Health. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "AFNetworking.h"
+
+@interface SENUtilities : NSObject
+
+- (NSString *)getUUID;
+
+- (NSString*)getStringForKey:(NSString*)key;
+- (void)setStringForKey:(NSString*)value withKey:(NSString*)key;
+- (void)setIntForKey:(NSInteger)value withKey:(NSString*)key;
+
+@property (strong, nonatomic) NSString *school;
+
+@end

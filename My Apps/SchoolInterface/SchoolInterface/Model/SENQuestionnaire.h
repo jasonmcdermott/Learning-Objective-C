@@ -25,4 +25,5 @@
 @property (strong, nonatomic) NSDate *submittedDateTime;
 
 @property (strong, nonatomic) NSString *writtenToDisk;
+@property (strong, nonatomic) NSString *uploaded;
 @end

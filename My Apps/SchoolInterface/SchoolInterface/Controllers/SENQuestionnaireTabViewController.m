@@ -67,21 +67,25 @@ Or perhaps not.
 //    self.filePath = [[NSString alloc] initWithString:[directory stringByAppendingPathComponent:@"Sensorium"]];
     self.submitButton.enabled = NO;
     self.school = @"";
-    self.schoolTextString.text = [self getStringForKey:@"school"];
+    
+    self.schoolTextString.text = [self.utilities getStringForKey:@"school"];
+    NSLog(@"checking on load: %@",[self.utilities getStringForKey:@"school"]);
 
     self.questionnaireAges = @[@"10 years old", @"11 years old", @"12 years old", @"13 years old", @"14 years old", @"15 years old", @"16 years old", @"17 years old", @"18 years old"];
     self.questionnaireVaccines = @[@"please select one", @"my 1st vaccine", @"my 2nd vaccine", @"my 3rd vaccine"];
     
     self.questionnaireBirthdayMonths = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec"];
     self.questionnaireBirthdayDays = @[@"31",@"29",@"31",@"30",@"31",@"30",@"31",@"31",@"30",@"31",@"30",@"31"];
-    
+
+    self.utilities = [[SENUtilities alloc] init];
     
     [_birthDatePicker addTarget:self
                    action:@selector(selectBirthDate:)
          forControlEvents:UIControlEventValueChanged];
     
+    // send any old data to the web service.
+    [self uploadDataToURL];
     [self newQuestionnaire];
-    
 }
 
 - (void)newQuestionnaire
@@ -95,34 +99,13 @@ Or perhaps not.
                           insertNewObjectForEntityForName:@"SENQuestionnaire"
                           inManagedObjectContext:self.managedObjectContext];
     
-    _uniqueID = [self GetUUID];
-    _uuidLabel.text = _uniqueID;
+    self.questionnaireID = [self.utilities getUUID];
+    self.uuidLabel.text = self.questionnaireID;
     self.date = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
     self.dateTimeLabel.text = [dateFormatter stringFromDate:self.date];
-}
-
-- (NSString*)getStringForKey:(NSString*)key
-{
-    NSString* val = @"";
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    if (standardUserDefaults) val = [standardUserDefaults stringForKey:key];
-    if (val == NULL) val = @"";
-    return val;
-}
-
-#pragma mark -
-#pragma mark UUID
-
-
-- (NSString *)GetUUID
-{
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    CFRelease(theUUID);
-    return (__bridge NSString *)string;
 }
 
 #pragma mark -
@@ -188,7 +171,9 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (IBAction)selectSchoolName:(UITextField *)sender {
     self.school = sender.text;
-    [self setStringForKey:sender.text withKey:@"school"];
+    [self.utilities setStringForKey:sender.text withKey:@"school"];
+    NSLog(@"checking after it's set: %@",[self.utilities getStringForKey:@"school"]);
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self checkCompleted];
 }
 
@@ -233,7 +218,7 @@ numberOfRowsInComponent:(NSInteger)component
     if ([self setCoreDataValues]) [self saveContext];
     [self hideAll];
     [self resetValues];
-    [self readCoreDataStore];
+//    [self readCoreDataStore];
     NSLog(@"saved");
     [self uploadDataToURL];
     [self newQuestionnaire];
@@ -245,6 +230,7 @@ numberOfRowsInComponent:(NSInteger)component
     self.gender = @"";
     self.didTakeOtherVaccine = @"";
     self.didTakeVaccine = @"";
+    self.birthDateString = @"";
     self.submitButton.enabled = NO;
     self.hpvVaccineLabel.hidden = YES;
     self.vaccinePicker.hidden = YES;
@@ -255,12 +241,13 @@ numberOfRowsInComponent:(NSInteger)component
 {
     int completionScore = 0;
     
-    if (_birthDate != nil) completionScore++;
+    if (![self.birthDateString isEqualToString:@""]) completionScore++;
     if (_gender != nil) completionScore++;
     if (![self.schoolTextString.text isEqualToString:@""]) completionScore++;
     
     if (self.didTakeVaccine != nil) completionScore++;
     if (self.didTakeOtherVaccine != nil) completionScore++;
+    
     if ([self.didTakeVaccine isEqualToString:@"YES"]) {
         if ([self.vaccineTaken isEqualToString:@"please select one"] || self.vaccineTaken == nil || [self.vaccineTaken isEqualToString:@""]) {
             // nothing
@@ -293,6 +280,9 @@ numberOfRowsInComponent:(NSInteger)component
     [_agePicker selectRow:age-10 inComponent:0 animated:YES];
     self.birthDate = datePicker.date;
     
+    self.birthDateString = [NSDateFormatter localizedStringFromDate:self.birthDate
+                                                               dateStyle:NSDateFormatterShortStyle
+                                                               timeStyle:NSDateFormatterFullStyle];
     
     NSArray *_array = [self.questionnaireAges[age-10] componentsSeparatedByString:@" "];
     NSString *first = [_array firstObject];
@@ -311,29 +301,6 @@ numberOfRowsInComponent:(NSInteger)component
     return ageComponents.year;
 }
 
-#pragma mark Persistent Values
-#pragma mark -
-
-- (void)setStringForKey:(NSString*)value withKey:(NSString*)key
-{
-	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-	if (standardUserDefaults)
-    {
-		[standardUserDefaults setObject:value forKey:key];
-		[standardUserDefaults synchronize];
-	}
-}
-
-- (void)setIntForKey:(NSInteger)value withKey:(NSString*)key
-{
-	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-	if (standardUserDefaults)
-    {
-		[standardUserDefaults setInteger:value forKey:key];
-		[standardUserDefaults synchronize];
-	}
-}
-
 #pragma mark -
 #pragma mark Core Data
 
@@ -347,7 +314,7 @@ numberOfRowsInComponent:(NSInteger)component
         self.questionnaire.birthDate = self.birthDate;
         self.questionnaire.gender = self.gender;
         self.questionnaire.school = self.school;
-        self.questionnaire.uniqueID = self.uniqueID;
+        self.questionnaire.uniqueID = self.questionnaireID;
         if ([self.vaccineTaken isEqualToString:@"please select one"] || self.vaccineTaken == nil || [self.vaccineTaken isEqualToString:@""]) {
             self.questionnaire.vaccineTaken = @"none";
         } else {
@@ -441,11 +408,8 @@ numberOfRowsInComponent:(NSInteger)component
     return _persistentStoreCoordinator;
 }
 
-- (void)readCoreDataStore
+- (void)uploadDataToURL
 {
-    /* Tell the request that we want to read the
-     contents of the Person entity */
-    /* Create the fetch request first */
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]
                                     initWithEntityName:@"SENQuestionnaire"];
     NSError *requestError = nil;
@@ -461,242 +425,45 @@ numberOfRowsInComponent:(NSInteger)component
         /* Go through the persons array one by one */
         NSUInteger counter = 1;
         for (SENQuestionnaire *q in questionnaires) {
-            if ([q.writtenToDisk isEqualToString:@"YES"]){
-                // do nothing
+            if ([q.uploaded isEqualToString:@"YES"]){
+                //  NSLog(@"already uploaded questionnaire with ID: %@",q.uniqueID);
             } else {
-                NSLog(@"%lu age = %@",(unsigned long)counter,q.age);
-                NSLog(@"%lu birthDate = %@",(unsigned long)counter,q.birthDate);
-                NSLog(@"%lu gender = %@",(unsigned long)counter,q.gender);
-                NSLog(@"%lu school = %@",(unsigned long)counter,q.school);
-                NSLog(@"%lu uniqueID = %@",(unsigned long)counter,q.uniqueID);
-                NSLog(@"%lu vaccineTaken = %@",(unsigned long)counter,q.vaccineTaken);
-                NSLog(@"%lu didTakeVaccine = %@",(unsigned long)counter,q.didTakeVaccine);
-                NSLog(@"%lu didTakeOtherVaccine = %@",(unsigned long)counter,q.didTakeOtherVaccine);
-                NSLog(@"%lu submittedDateTime = %@",(unsigned long)counter,q.submittedDateTime);
                 
-                [self writeDictionaryToDisk:q];
-                q.writtenToDisk = @"YES";
-                NSLog(@"logged");
+                NSLog(@"uploading questionnaire with ID: %@",q.uniqueID);
+                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+                
+                NSString *birthDateString = [NSDateFormatter localizedStringFromDate:q.birthDate
+                                                                      dateStyle:NSDateFormatterShortStyle
+                                                                      timeStyle:NSDateFormatterFullStyle];
+                
+                NSString *submittedDateString = [NSDateFormatter localizedStringFromDate:q.submittedDateTime
+                                                                           dateStyle:NSDateFormatterShortStyle
+                                                                           timeStyle:NSDateFormatterFullStyle];
+                
+                NSDictionary *params = @{@"appID" : self.appID,
+                                         @"questionnaireID" : q.uniqueID,
+                                         @"school" : q.school,
+                                         @"vaccineTaken" : q.vaccineTaken,
+                                         @"didTakeVaccine" : q.didTakeVaccine,
+                                         @"didTakeOtherVaccine" : q.didTakeOtherVaccine,
+                                         @"gender" : q.gender,
+                                         @"birthDate" : birthDateString,
+                                         @"submittedDateTime" : submittedDateString
+                                         ,};
+                
+                [manager POST:@"http://alpha.sensoriumhealth.com/HPVUpload.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSLog(@"JSON: %@", responseObject);
+                    q.uploaded = @"YES";
+                    NSLog(@"logged");
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                }];
             }
             counter++;
         }
     } else {
-        NSLog(@"Could not find any Person entities in the context.");
-    }
-}
-
-- (void)writeDictionaryToDisk:(SENQuestionnaire *)q
-{
-    NSDictionary *questionnaireDictionary =
-    @{
-      @"uniqueID" : q.uniqueID,
-      @"age" : q.age,
-      @"birthDate" : q.birthDate,
-      @"didTakeOtherVaccine" : q.didTakeOtherVaccine,
-      @"didTakeVaccine" : q.didTakeVaccine,
-      @"vaccineTaken" : q.vaccineTaken,
-      @"gender" : q.gender,
-      @"school" : q.school,
-      @"submittedDateTime" : q.submittedDateTime,
-      };
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    
-    NSString *doc = [basePath stringByAppendingString:@"/"];
-    NSString *file = [doc stringByAppendingString:q.uniqueID];
-    NSString *filePath = [file stringByAppendingString:@".plist"];
-    
-    // plistDict is a NSDictionary
-    NSString *error;
-    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:questionnaireDictionary
-                                                                   format:NSPropertyListXMLFormat_v1_0
-                                                         errorDescription:&error];
-    if(plistData) {
-        [plistData writeToFile:filePath atomically:YES];
-    } else {
-        NSLog(@"%@",error);
-    }
-}
-
-
-//-(NSString*)readXMLFile:(NSString *)file
-//{
-//    NSString *docFile = file;
-    
-//    NSFileManager *filemgr;
-//    NSData *databuffer;
-    
-//    filemgr = [NSFileManager defaultManager];
-    
-//    databuffer = [filemgr contentsAtPath: docFile];
-    
-//    return [[NSString alloc] initWithData:databuffer encoding:NSUTF16StringEncoding];
-//    NSString *a = @"";
-//    return a;
-//}
-
-
-- (void)uploadDataToURL
-{
-
-
-    
-    // working, sort of.
-    
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    
-    NSString *doc = [basePath stringByAppendingString:@"/"];
-    NSString *fileName = [doc stringByAppendingString:@"2AED2573-9CB0-43B1-9649-F5196560D1A8"];
-    NSString *file = [fileName stringByAppendingString:@".plist"];
-    
-    
-    NSString *docFile = file;
-    
-    NSFileManager *filemgr;
-    NSData *databuffer;
-
-    filemgr = [NSFileManager defaultManager];
-
-    databuffer = [filemgr contentsAtPath: docFile];
-
-    NSString *text = [[NSString alloc] initWithData:databuffer encoding:NSUTF16StringEncoding];
-//    return [[NSString alloc] initWithData:databuffer encoding:NSUTF16StringEncoding];
-
-    
-    
-//    NSString *text = [self readXMLFile:file];
-    
-
-    NSMutableString* xml_text = [[NSMutableString alloc] initWithCapacity:0x1000000] ;
-    [xml_text setString:text];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    NSDictionary *params = @{@"uuid": @"2AED2573-9CB0-43B1-9649-F5196560D1A8",
-                             @"datalog": text,
-                             @"fieldSubject" : @"hello",
-                             @"fieldDescription" :@"file upload",
-                             @"fieldFormName" : @"12345678",
-                             @"fieldFormEmail" : @"research@sensoriumhealth.com",
-                             @"attachment" : file
-                             ,};
-    
-    [manager POST:@"http://alpha.sensoriumhealth.com/attachment.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-    
-    
-    ////////
-    
-    
-    
-    
-//    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"wav"];
-//    
-//    // NSLog(@"filePath : %@", filePath);
-//    
-//    
-//    
-//    NSData *postData = [[NSData alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filePath]];
-//    
-//    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
-//    
-//    NSLog(@"postLength : %@", postLength);
-//    
-//    
-//    
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-//    
-//    [request setHTTPMethod:@"POST"];
-//    
-//    [request setURL:[NSURL URLWithString:@"http://exampleserver.com/upload.php"]];
-//    
-//    
-//    
-//    NSString *boundary = @"---------------------------14737809831466499882746641449";
-//    
-//    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
-//    
-//    [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
-//    
-//    
-//    
-//    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-//    
-//    
-//    
-//    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-//    
-//    [request setHTTPBody:postData];
-//    
-//    [request setTimeoutInterval:30.0];
-//    
-//    
-//    
-//    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-//    
-//    
-//    
-//    if (conn)
-//        
-//    {
-//        
-//        receivedData = [[NSMutableData data] retain];
-//        
-//    } else {
-//        
-//        NSLog(@"Connection Failed");
-//        
-//    }
-//
-//    
-//    
-//    NSMutableData *postData = [NSMutableData data];
-//    NSString *header = [NSString stringWithFormat:@"--%@\r\n", boundary]
-//    [postData appendData:[header dataUsingEncoding:NSUTF8StringEncoding]];
-//    
-//    //add your filename entry
-//    NSString *contentDisposition = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", @"filename", @"your file name"];
-//    
-//    [postData appendData:[contentDisposition dataUsingEncoding:NSUTF8StringEncoding]];
-//    
-//    [postData appendData:[NSData dataWithContentsOfFile:@"your file path"];
-//     NSString *endItemBoundary = [NSString stringWithFormat:@"\r\n--%@\r\n",stringBoundary];
-//     
-//     [postData appendData:[endItemBoundary dataUsingEncoding:NSUTF8StringEncoding]];
-//     [request setHTTPBody:postData];
-    
-    
-  
-}
-
-- (void)convertDictionaryToJSON:(NSDictionary *)dict
-{
-    NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization
-                        dataWithJSONObject:dict
-                        options:NSJSONWritingPrettyPrinted
-                        error:&error];
-    
-    if ([jsonData length] > 0 && error == nil){
-        
-        NSLog(@"Successfully serialized the dictionary into data.");
-        NSString *jsonString =
-        [[NSString alloc] initWithData:jsonData
-                              encoding:NSUTF8StringEncoding];
-        NSLog(@"JSON String = %@", jsonString);
-    }
-    else if ([jsonData length] == 0 && error == nil){
-        NSLog(@"No data was returned after serialization.");
-    }
-    else if (error != nil){
-        NSLog(@"An error happened = %@", error);
+        NSLog(@"Could not find any Questionnaire entities in the context.");
     }
 }
 

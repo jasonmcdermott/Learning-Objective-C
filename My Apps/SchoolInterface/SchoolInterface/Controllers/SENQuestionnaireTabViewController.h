@@ -11,6 +11,7 @@
 #import "SENQuestionnaire.h"
 //#import "SENXmlDataGenerator.h"
 #import "AFNetworking.h"
+#import "SENUtilities.h"
 
 @interface SENQuestionnaireTabViewController : UIViewController
 
@@ -19,6 +20,7 @@
 
 @property (strong, nonatomic) NSDate *birthDate;
 @property (strong, nonatomic) NSDate *submittedDateTime;
+@property (strong, nonatomic) NSString *birthDateString;
 
 @property (strong, nonatomic) NSNumber *age;
 
@@ -27,7 +29,7 @@
 
 @property (strong, nonatomic) NSString *vaccineTaken;
 @property (strong, nonatomic) NSString *gender;
-@property (strong, nonatomic) NSString *uniqueID;
+@property (strong, nonatomic) NSString *questionnaireID;
 @property (strong, nonatomic) NSString *school;
 
 #pragma mark Data Arrays
@@ -42,11 +44,14 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @property (strong, nonatomic) SENQuestionnaire *questionnaire;
-//@property (strong, nonatomic) SENXmlDataGenerator *xmlDataGenerator;
+
 @property (strong, nonatomic) NSString *filePath;
+@property (strong, nonatomic) SENUtilities *utilities;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+
+@property (strong, nonatomic) NSString *appID;
 
 
 @end

@@ -14,6 +14,7 @@
 #import "SENQuestionnaireTabViewController.h"
 #import "SENUserDefaultsHelper.h"
 
+
 #include "SENPDDriver.h"
 
 @interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate>
@@ -26,6 +27,7 @@
 
 @property (strong, nonatomic) BLEDevice *BLEDevice;
 @property (strong, nonatomic) SENQuestionnaireTabViewController *questionnaireViewController;
-
+@property (strong, nonatomic) NSString *appID;
+@property (strong, nonatomic) SENUtilities *utilities;
 
 @end

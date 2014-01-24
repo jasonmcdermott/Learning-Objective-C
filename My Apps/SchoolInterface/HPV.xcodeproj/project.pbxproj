@@ -36,6 +36,7 @@
 		0E82B3751891E91A00FE5B9C /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E82B36A1891E91A00FE5B9C /* AFURLRequestSerialization.m */; };
 		0E82B3761891E91A00FE5B9C /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E82B36C1891E91A00FE5B9C /* AFURLResponseSerialization.m */; };
 		0E82B3771891E91A00FE5B9C /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E82B36E1891E91A00FE5B9C /* AFURLSessionManager.m */; };
+		0E9849681892969A0037E6B5 /* SENUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9849671892969A0037E6B5 /* SENUtilities.m */; };
 		0EC0F154188D64E900D4C7E7 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC0F150188D64E900D4C7E7 /* HockeySDK.framework */; };
 		0EC0F155188D64E900D4C7E7 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0EC0F152188D64E900D4C7E7 /* HockeySDK.xcconfig */; };
 		0EC0F156188D64E900D4C7E7 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0EC0F153188D64E900D4C7E7 /* HockeySDKResources.bundle */; };
@@ -133,6 +134,9 @@
 		0E82B36C1891E91A00FE5B9C /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		0E82B36D1891E91A00FE5B9C /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		0E82B36E1891E91A00FE5B9C /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		0E984963189286100037E6B5 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
+		0E9849661892969A0037E6B5 /* SENUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENUtilities.h; path = Model/SENUtilities.h; sourceTree = "<group>"; };
+		0E9849671892969A0037E6B5 /* SENUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENUtilities.m; path = Model/SENUtilities.m; sourceTree = "<group>"; };
 		0EAB03191891367D0076E906 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		0EAB031B189155B60076E906 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		0EC0F150188D64E900D4C7E7 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
@@ -321,6 +325,8 @@
 				0ED0FB03188805A1003B3136 /* constants.h */,
 				0E823EF1188CB8FB0028D65B /* SENUserDefaultsHelper.h */,
 				0E823EF2188CB8FB0028D65B /* SENUserDefaultsHelper.m */,
+				0E9849661892969A0037E6B5 /* SENUtilities.h */,
+				0E9849671892969A0037E6B5 /* SENUtilities.m */,
 			);
 			name = "App Settings Data";
 			sourceTree = "<group>";
@@ -569,6 +575,7 @@
 				0ED0FAF5188802DF003B3136 /* BLEDevice.m in Sources */,
 				0E06A6C318863DB90018ECDB /* SENViewController.m in Sources */,
 				0E10AC45188609BB00765FA1 /* main.m in Sources */,
+				0E9849681892969A0037E6B5 /* SENUtilities.m in Sources */,
 				0E823EF3188CB8FB0028D65B /* SENUserDefaultsHelper.m in Sources */,
 				0E82B3761891E91A00FE5B9C /* AFURLResponseSerialization.m in Sources */,
 				0E82B3741891E91A00FE5B9C /* AFURLConnectionOperation.m in Sources */,
@@ -844,9 +851,10 @@
 			children = (
 				0EAB03191891367D0076E906 /* Model 2.xcdatamodel */,
 				0EAB031B189155B60076E906 /* Model 3.xcdatamodel */,
+				0E984963189286100037E6B5 /* Model 4.xcdatamodel */,
 				0EDFB9BA1890AD83002909F4 /* Model.xcdatamodel */,
 			);
-			currentVersion = 0EAB031B189155B60076E906 /* Model 3.xcdatamodel */;
+			currentVersion = 0E984963189286100037E6B5 /* Model 4.xcdatamodel */;
 			name = Model.xcdatamodeld;
 			path = SchoolInterface/Model.xcdatamodeld;
 			sourceTree = "<group>";
