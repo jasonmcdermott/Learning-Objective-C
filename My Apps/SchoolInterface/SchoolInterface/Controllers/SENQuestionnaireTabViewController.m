@@ -218,7 +218,7 @@ numberOfRowsInComponent:(NSInteger)component
     if ([self setCoreDataValues]) [self saveContext];
     [self hideAll];
     [self resetValues];
-//    [self readCoreDataStore];
+    [self readCoreDataAndWriteToDisk];
     NSLog(@"saved");
     [self uploadDataToURL];
     [self newQuestionnaire];
@@ -464,6 +464,82 @@ numberOfRowsInComponent:(NSInteger)component
         }
     } else {
         NSLog(@"Could not find any Questionnaire entities in the context.");
+    }
+}
+
+- (void)readCoreDataAndWriteToDisk
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]
+                                    initWithEntityName:@"SENQuestionnaire"];
+    NSError *requestError = nil;
+
+    /* And execute the fetch request on the context */
+    NSArray *questionnaires =
+    [self.managedObjectContext executeFetchRequest:fetchRequest
+                                             error:&requestError];
+
+    /* Make sure we get the array */
+    if ([questionnaires count] > 0){
+
+        /* Go through the persons array one by one */
+        NSUInteger counter = 1;
+        for (SENQuestionnaire *q in questionnaires) {
+            if ([q.writtenToDisk isEqualToString:@"YES"]){
+                // do nothing
+            } else {
+                NSLog(@"%lu age = %@",(unsigned long)counter,q.age);
+                NSLog(@"%lu birthDate = %@",(unsigned long)counter,q.birthDate);
+                NSLog(@"%lu gender = %@",(unsigned long)counter,q.gender);
+                NSLog(@"%lu school = %@",(unsigned long)counter,q.school);
+                NSLog(@"%lu uniqueID = %@",(unsigned long)counter,q.uniqueID);
+                NSLog(@"%lu vaccineTaken = %@",(unsigned long)counter,q.vaccineTaken);
+                NSLog(@"%lu didTakeVaccine = %@",(unsigned long)counter,q.didTakeVaccine);
+                NSLog(@"%lu didTakeOtherVaccine = %@",(unsigned long)counter,q.didTakeOtherVaccine);
+                NSLog(@"%lu submittedDateTime = %@",(unsigned long)counter,q.submittedDateTime);
+
+                [self writeDictionaryToDisk:q];
+                q.writtenToDisk = @"YES";
+                NSLog(@"logged");
+            }
+            counter++;
+        }
+    } else {
+        NSLog(@"Could not find any Person entities in the context.");
+    }
+}
+
+- (void)writeDictionaryToDisk:(SENQuestionnaire *)q
+{
+
+    NSDictionary *questionnaireDictionary =
+    @{
+      @"uniqueID" : q.uniqueID,
+      @"age" : q.age,
+      @"birthDate" : q.birthDate,
+      @"didTakeOtherVaccine" : q.didTakeOtherVaccine,
+      @"didTakeVaccine" : q.didTakeVaccine,
+      @"vaccineTaken" : q.vaccineTaken,
+      @"gender" : q.gender,
+      @"school" : q.school,
+      @"submittedDateTime" : q.submittedDateTime,
+      };
+
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+
+    NSString *doc = [basePath stringByAppendingString:@"/"];
+    NSString *file = [doc stringByAppendingString:q.uniqueID];
+    NSString *filePath = [file stringByAppendingString:@".plist"];
+
+    // plistDict is a NSDictionary
+    NSString *error;
+    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:questionnaireDictionary
+                                                                   format:NSPropertyListXMLFormat_v1_0
+                                                         errorDescription:&error];
+    if(plistData) {
+        [plistData writeToFile:filePath atomically:YES];
+    } else {
+        NSLog(@"%@",error);
     }
 }
 
