@@ -84,7 +84,7 @@ Or perhaps not.
          forControlEvents:UIControlEventValueChanged];
     
     // send any old data to the web service.
-    [self uploadDataToURL];
+//    [self uploadDataToURL];
     [self newQuestionnaire];
 }
 
