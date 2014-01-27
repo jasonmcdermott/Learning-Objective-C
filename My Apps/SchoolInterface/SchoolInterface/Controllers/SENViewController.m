@@ -38,6 +38,9 @@
     
     self.chosenMode = [self.SENUserDefaultsHelper getStringForKey:@"appMode"];
     self.ibiLabel.text = self.chosenMode;
+    self.appVersion = [self getVersion];
+    NSLog(@"%@",self.appVersion);
+    [self setSettingsValues];
     
     [self createViewControllers];
     [self setVisibility];
@@ -167,4 +170,38 @@
     NSLog(@"checked auto update");
 }
 
+- (NSString*) getVersion {
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    return [NSString stringWithFormat:@"%@ build %@", version, build];
+}
+
+- (void)setSettingsValues
+{
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    
+    //Get the bundle file
+    NSString *bPath = [[NSBundle mainBundle] bundlePath];
+    NSString *settingsPath = [bPath stringByAppendingPathComponent:@"Settings.bundle"];
+    NSString *plistFile = [settingsPath stringByAppendingPathComponent:@"Root.plist"];
+
+    //Get the Preferences Array from the dictionary
+    NSDictionary *settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistFile];
+    NSArray *preferencesArray = [settingsDictionary objectForKey:@"Preference Items"];
+
+    //Save default value of "version_number" in preference to NSUserDefaults
+    for(NSDictionary * item in preferencesArray) {
+        if([[item objectForKey:@"key"] isEqualToString:@"version_number"]) {
+            NSString * defaultValue = [item objectForKey:@"DefaultValue"];
+            [[NSUserDefaults standardUserDefaults] setObject:defaultValue forKey:@"version_number"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+
+    //Save your real version number to NSUserDefaults
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    [[NSUserDefaults standardUserDefaults] setValue:version forKey:@"version_number"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"version %@",version);
+}
 @end

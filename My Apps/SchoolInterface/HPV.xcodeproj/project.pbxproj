@@ -134,7 +134,7 @@
 		0E82B36C1891E91A00FE5B9C /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		0E82B36D1891E91A00FE5B9C /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		0E82B36E1891E91A00FE5B9C /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		0E984963189286100037E6B5 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
+		0E984963189286100037E6B5 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
 		0E9849661892969A0037E6B5 /* SENUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENUtilities.h; path = Model/SENUtilities.h; sourceTree = "<group>"; };
 		0E9849671892969A0037E6B5 /* SENUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENUtilities.m; path = Model/SENUtilities.m; sourceTree = "<group>"; };
 		0EAB03191891367D0076E906 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -448,6 +448,7 @@
 			buildPhases = (
 				0E10AC31188609BB00765FA1 /* Sources */,
 				0E10AC32188609BB00765FA1 /* Frameworks */,
+				0E361042189601F900FA8772 /* ShellScript */,
 				0E10AC33188609BB00765FA1 /* Resources */,
 			);
 			buildRules = (
@@ -566,6 +567,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0E361042189601F900FA8772 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=`echo $buildNumber +1|bc`\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0E10AC31188609BB00765FA1 /* Sources */ = {
