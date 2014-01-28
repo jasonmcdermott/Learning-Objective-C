@@ -24,7 +24,6 @@
     self.viewGL = [[GLKView alloc] initWithFrame:self.viewGL.frame context:context];
     
     self.rings = [[NSMutableArray alloc] init];
-    
     for (int i=0;i<NUM_RINGS;i++) {
         SENRing *ring = [[SENRing alloc] init];
         [self.rings addObject:ring];

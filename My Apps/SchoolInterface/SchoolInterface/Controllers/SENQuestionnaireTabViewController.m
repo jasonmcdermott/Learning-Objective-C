@@ -86,6 +86,7 @@ Or perhaps not.
     // send any old data to the web service.
 //    [self uploadDataToURL];
     [self newQuestionnaire];
+    [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(uploadDataToURL) userInfo:nil repeats:YES];
 }
 
 - (void)newQuestionnaire
@@ -425,9 +426,12 @@ numberOfRowsInComponent:(NSInteger)component
         /* Go through the persons array one by one */
         NSUInteger counter = 1;
         for (SENQuestionnaire *q in questionnaires) {
-            if ([q.uploaded isEqualToString:@"YES"]){
-                //  NSLog(@"already uploaded questionnaire with ID: %@",q.uniqueID);
-            } else {
+
+//            if ([q.uploaded isEqualToString:@"YES"]){
+//                //  NSLog(@"already uploaded questionnaire with ID: %@",q.uniqueID);
+//            }
+            
+            if ([q.writtenToDisk isEqualToString:@"YES"] && ![q.uploaded isEqualToString:@"YES"]) {
                 
                 NSLog(@"uploading questionnaire with ID: %@",q.uniqueID);
                 AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -496,6 +500,7 @@ numberOfRowsInComponent:(NSInteger)component
                 NSLog(@"%lu didTakeVaccine = %@",(unsigned long)counter,q.didTakeVaccine);
                 NSLog(@"%lu didTakeOtherVaccine = %@",(unsigned long)counter,q.didTakeOtherVaccine);
                 NSLog(@"%lu submittedDateTime = %@",(unsigned long)counter,q.submittedDateTime);
+                NSLog(@"%lu uploaded = %@",(unsigned long)counter,q.uploaded);
 
                 [self writeDictionaryToDisk:q];
                 q.writtenToDisk = @"YES";

@@ -50,6 +50,27 @@
 	}
 }
 
+#pragma mark -
+#pragma mark Random Number Generators
+
++ (float)randomFloatInRange:(float)Min :(float)Max;
+{
+    float rand = Min+(Max-Min)*((float)arc4random())/ULONG_MAX;
+    return rand;
+}
+
++ (CGFloat)randomCGFloatInRange:(float)Min :(float)Max;
+{
+    CGFloat rand = Min+(Max-Min)*((CGFloat)arc4random())/ULONG_MAX;
+    return rand;
+}
+
++ (int)randomIntInRange:(int)Min :(int)Max;
+{
+    //    int rand = Min+(Max-Min)*((int)arc4random())/ULONG_MAX;
+    int rand = (arc4random() % Max) + 1;
+    return rand;
+}
 
 #pragma mark -
 #pragma mark Methods Not Currently In Use

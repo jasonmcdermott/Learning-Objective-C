@@ -260,11 +260,11 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     } else {
         [self.spinner stopAnimating];
         
-        if (self.lastUUID.length == 0) {
-            self.lastButton.hidden = true;
-        } else {
-            self.lastButton.hidden = false;
-        }
+//        if (self.lastUUID.length == 0) {
+//            self.lastButton.hidden = true;
+//        } else {
+//            self.lastButton.hidden = false;
+//        }
         
         self.scanButton.hidden = false;
     }

@@ -365,44 +365,60 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ipad-screenshot-blue" translatesAutoresizingMaskIntoConstraints="NO" id="jfP-8s-rzx">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="niJ-Sx-AFI">
-                                <rect key="frame" x="20" y="954" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="Gear">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="touchSettingsButton:" destination="GZg-0Z-hXa" eventType="touchUpInside" id="pgg-Q7-5ZF"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" alpha="0.30000001192092896" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeB-p8-mzv">
-                                <rect key="frame" x="708" y="964" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="Bluetooth-Light">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="clickBluetoothButton:" destination="GZg-0Z-hXa" eventType="touchUpInside" id="dZh-Jc-nAJ"/>
-                                </connections>
-                            </button>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ibi:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXI-Lf-2wi">
-                                <rect key="frame" x="308" y="531" width="153" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <glkView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="center" enableSetNeedsDisplay="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o21-bO-kOJ">
+                                <rect key="frame" x="-128" y="0.0" width="1024" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeB-p8-mzv">
+                                        <rect key="frame" x="831" y="959" width="35" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" backgroundImage="Bluetooth-35x35">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickBluetoothButton:" destination="GZg-0Z-hXa" eventType="touchUpInside" id="dZh-Jc-nAJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="niJ-Sx-AFI">
+                                        <rect key="frame" x="147" y="954" width="45" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" backgroundImage="Gear-45x45">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="touchSettingsButton:" destination="GZg-0Z-hXa" eventType="touchUpInside" id="pgg-Q7-5ZF"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ibi:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXI-Lf-2wi">
+                                        <rect key="frame" x="436" y="587" width="153" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="niJ-Sx-AFI" secondAttribute="bottom" constant="25" id="02q-qR-7b9"/>
+                                    <constraint firstAttribute="bottom" secondItem="DeB-p8-mzv" secondAttribute="bottom" constant="30" id="cPN-o4-RLn"/>
+                                    <constraint firstItem="niJ-Sx-AFI" firstAttribute="leading" secondItem="o21-bO-kOJ" secondAttribute="leading" constant="147" id="opn-aB-j1j"/>
+                                    <constraint firstAttribute="trailing" secondItem="DeB-p8-mzv" secondAttribute="trailing" constant="158" id="z5x-RG-M00"/>
+                                </constraints>
+                            </glkView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="o21-bO-kOJ" firstAttribute="top" secondItem="6OS-zr-HIE" secondAttribute="top" id="QAp-9S-zEG"/>
+                            <constraint firstItem="o21-bO-kOJ" firstAttribute="centerX" secondItem="6OS-zr-HIE" secondAttribute="centerX" id="Yqa-vM-uHX"/>
+                            <constraint firstAttribute="bottom" secondItem="o21-bO-kOJ" secondAttribute="bottom" id="bI8-87-l6r"/>
+                            <constraint firstItem="o21-bO-kOJ" firstAttribute="leading" secondItem="6OS-zr-HIE" secondAttribute="leading" constant="-128" id="jyK-jd-Xw7"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="bluetoothButton" destination="DeB-p8-mzv" id="sd0-XA-of5"/>
                         <outlet property="ibiLabel" destination="HXI-Lf-2wi" id="V4j-92-R0T"/>
                         <outlet property="settingsButton" destination="niJ-Sx-AFI" id="j6a-4E-kDq"/>
+                        <outlet property="viewGL" destination="o21-bO-kOJ" id="Xgh-FJ-eOM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aZ4-Ti-5dK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -411,9 +427,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         </scene>
     </scenes>
     <resources>
-        <image name="Bluetooth-Light" width="128" height="128"/>
-        <image name="Gear" width="128" height="128"/>
-        <image name="ipad-screenshot-blue" width="768" height="1024"/>
+        <image name="Bluetooth-35x35" width="35" height="35"/>
+        <image name="Gear-45x45" width="45" height="45"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>

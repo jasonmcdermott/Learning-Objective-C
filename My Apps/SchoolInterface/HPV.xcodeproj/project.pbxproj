@@ -21,6 +21,9 @@
 		0E10AC65188609BB00765FA1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E10AC63188609BB00765FA1 /* InfoPlist.strings */; };
 		0E10AC67188609BB00765FA1 /* SchoolInterfaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10AC66188609BB00765FA1 /* SchoolInterfaceTests.m */; };
 		0E10ACB618861DFA00765FA1 /* SENQuestionnaireTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */; };
+		0E1136411897B53400873032 /* SENRing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1136401897B53400873032 /* SENRing.m */; };
+		0E1136441897B59300873032 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1136421897B59300873032 /* GLKit.framework */; };
+		0E1136451897B59300873032 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1136431897B59300873032 /* OpenGLES.framework */; };
 		0E823EE9188CA5FB0028D65B /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E823EE6188CA5F60028D65B /* libpd-ios.a */; };
 		0E823EF3188CB8FB0028D65B /* SENUserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E823EF2188CB8FB0028D65B /* SENUserDefaultsHelper.m */; };
 		0E823F0A188D53700028D65B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E823F09188D53700028D65B /* CoreText.framework */; };
@@ -100,7 +103,7 @@
 		0E10AC46188609BB00765FA1 /* HPV-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HPV-Prefix.pch"; sourceTree = "<group>"; };
 		0E10AC47188609BB00765FA1 /* SENAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SENAppDelegate.h; sourceTree = "<group>"; };
 		0E10AC48188609BB00765FA1 /* SENAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SENAppDelegate.m; sourceTree = "<group>"; };
-		0E10AC53188609BB00765FA1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0E10AC53188609BB00765FA1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SchoolInterface/Images.xcassets; sourceTree = "<group>"; };
 		0E10AC59188609BB00765FA1 /* HPVTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HPVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E10AC5A188609BB00765FA1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0E10AC62188609BB00765FA1 /* HPVTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HPVTests-Info.plist"; sourceTree = "<group>"; };
@@ -108,6 +111,10 @@
 		0E10AC66188609BB00765FA1 /* SchoolInterfaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SchoolInterfaceTests.m; sourceTree = "<group>"; };
 		0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENQuestionnaireTabViewController.h; path = Controllers/SENQuestionnaireTabViewController.h; sourceTree = "<group>"; };
 		0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENQuestionnaireTabViewController.m; path = Controllers/SENQuestionnaireTabViewController.m; sourceTree = "<group>"; };
+		0E11363F1897B53400873032 /* SENRing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SENRing.h; sourceTree = "<group>"; };
+		0E1136401897B53400873032 /* SENRing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENRing.m; sourceTree = "<group>"; };
+		0E1136421897B59300873032 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		0E1136431897B59300873032 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		0E823EE0188CA5F50028D65B /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = "../../../C-Libraries/libpd/libpd.xcodeproj"; sourceTree = "<group>"; };
 		0E823EF1188CB8FB0028D65B /* SENUserDefaultsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENUserDefaultsHelper.h; path = Model/SENUserDefaultsHelper.h; sourceTree = "<group>"; };
 		0E823EF2188CB8FB0028D65B /* SENUserDefaultsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENUserDefaultsHelper.m; path = Model/SENUserDefaultsHelper.m; sourceTree = "<group>"; };
@@ -174,6 +181,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E1136441897B59300873032 /* GLKit.framework in Frameworks */,
+				0E1136451897B59300873032 /* OpenGLES.framework in Frameworks */,
 				0E823F10188D538E0028D65B /* SystemConfiguration.framework in Frameworks */,
 				0E823F0E188D53840028D65B /* Security.framework in Frameworks */,
 				0E823F0C188D537C0028D65B /* QuartzCore.framework in Frameworks */,
@@ -214,6 +223,7 @@
 		0E10AC2C188609BB00765FA1 = {
 			isa = PBXGroup;
 			children = (
+				0E10AC53188609BB00765FA1 /* Images.xcassets */,
 				0EDFB9B91890AD83002909F4 /* Model.xcdatamodeld */,
 				0EC0F15D188D6A8600D4C7E7 /* Main_iPad.storyboard */,
 				0EC0F15B188D6A6100D4C7E7 /* Settings.bundle */,
@@ -238,6 +248,8 @@
 		0E10AC37188609BB00765FA1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E1136421897B59300873032 /* GLKit.framework */,
+				0E1136431897B59300873032 /* OpenGLES.framework */,
 				0E823F0F188D538E0028D65B /* SystemConfiguration.framework */,
 				0E823F0D188D53840028D65B /* Security.framework */,
 				0E823F0B188D537C0028D65B /* QuartzCore.framework */,
@@ -261,7 +273,6 @@
 				0EC0F164188D715A00D4C7E7 /* LibPD */,
 				0E10ACB718861DFD00765FA1 /* Controllers */,
 				0ED0FB021888057C003B3136 /* Model */,
-				0E10AC53188609BB00765FA1 /* Images.xcassets */,
 				0E10AC3F188609BB00765FA1 /* Supporting Files */,
 			);
 			name = HPV;
@@ -308,6 +319,15 @@
 				0ED29EA91886CB1A0020D478 /* Settings */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0E11363D1897B51000873032 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				0E11363F1897B53400873032 /* SENRing.h */,
+				0E1136401897B53400873032 /* SENRing.m */,
+			);
+			name = Game;
 			sourceTree = "<group>";
 		};
 		0E823EE1188CA5F50028D65B /* Products */ = {
@@ -412,6 +432,7 @@
 		0ED0FB021888057C003B3136 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0E11363D1897B51000873032 /* Game */,
 				0E823EF4188CC0390028D65B /* App Settings Data */,
 				0E823EF5188CC0460028D65B /* Session Data */,
 			);
@@ -598,6 +619,7 @@
 				0E82B3741891E91A00FE5B9C /* AFURLConnectionOperation.m in Sources */,
 				0EDFB9AD1890A3B7002909F4 /* SENXmlDataGenerator.m in Sources */,
 				0ED0FAF9188802FB003B3136 /* BLE.m in Sources */,
+				0E1136411897B53400873032 /* SENRing.m in Sources */,
 				0E82B3701891E91A00FE5B9C /* AFHTTPRequestOperationManager.m in Sources */,
 				0E10ACB618861DFA00765FA1 /* SENQuestionnaireTabViewController.m in Sources */,
 				0E82B3731891E91A00FE5B9C /* AFSecurityPolicy.m in Sources */,

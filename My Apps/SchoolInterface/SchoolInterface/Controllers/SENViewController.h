@@ -7,17 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GLKit/GLKit.h>
+#import <QuartzCore/QuartzCore.h>
+
 #import "BLE.h"
 #import "constants.h"
 #import "SENPDDriver.h"
 #import "BLEDevice.h"
 #import "SENQuestionnaireTabViewController.h"
 #import "SENUserDefaultsHelper.h"
-
+#import "SENRing.h"
 
 #include "SENPDDriver.h"
 
-@interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate>
+@interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate, GLKViewDelegate>
 {
     
 }
@@ -29,5 +32,7 @@
 @property (strong, nonatomic) SENQuestionnaireTabViewController *questionnaireViewController;
 @property (strong, nonatomic) NSString *appID;
 @property (strong, nonatomic) SENUtilities *utilities;
+
+@property (strong, nonatomic) NSMutableArray *rings;
 
 @end

@@ -17,6 +17,10 @@
 - (void)setStringForKey:(NSString*)value withKey:(NSString*)key;
 - (void)setIntForKey:(NSInteger)value withKey:(NSString*)key;
 
++ (float)randomFloatInRange:(float)Min :(float)Max;
++ (CGFloat)randomCGFloatInRange:(float)Min :(float)Max;
++ (int)randomIntInRange:(int)Min :(int)Max;
+
 @property (strong, nonatomic) NSString *school;
 
 @end
