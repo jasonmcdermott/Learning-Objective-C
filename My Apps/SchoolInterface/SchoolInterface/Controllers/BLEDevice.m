@@ -126,6 +126,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self didSelected:indexPath.row];
+    self.deviceList.hidden = YES;
 }
 
 #pragma mark Interface Elements
@@ -163,24 +164,25 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 {
     [self.bleShield findBLEPeripherals:3];
     
+    self.lastButton.hidden = true;
+    self.scanButton.hidden = true;
+
     [NSTimer scheduledTimerWithTimeInterval:(float)3.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
    
     isFindingLast = true;
-    self.lastButton.hidden = true;
-    self.scanButton.hidden = true;
     [self.spinner startAnimating];
 }
 
-//Show device list for user selection
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDevice"])
-    {
-        //        RBLDetailViewController *vc =[segue destinationViewController] ;
-        //        vc.BLEDevices = self.mDevices;
-        //        vc.delegate = self;
-    }
-}
+////Show device list for user selection
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"showDevice"])
+//    {
+//        //        RBLDetailViewController *vc =[segue destinationViewController] ;
+//        //        vc.BLEDevices = self.mDevices;
+//        //        vc.delegate = self;
+//    }
+//}
 
 - (void)didSelected:(NSInteger)index
 {
@@ -217,9 +219,8 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 -(void) connectionTimer:(NSTimer *)timer
 {
     if(self.bleShield.peripherals.count > 0) {
-        //to connect to the peripheral with a particular UUID
-        if(isFindingLast)
-        {
+        //to connect to last known peripheral
+        if(isFindingLast) {
             int i;
             for (i = 0; i < self.bleShield.peripherals.count; i++)
             {
@@ -234,10 +235,8 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
                     }
                 }
             }
-        }
-        //Scan for all BLE in range and prepare a list
-        else
-        {
+        //Otherwise, scan for all BLE in range and prepare a list
+        } else {
             [self.mDevices removeAllObjects];
             
             int i;
@@ -245,31 +244,25 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
             {
                 CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
                 
-                if (p.identifier != NULL)
-                {
+                if (p.identifier != NULL) {
                     [self.mDevices insertObject:[self getUUIDString:CFBridgingRetain(p.identifier)] atIndex:i];
-                }
-                else
-                {
+                } else {
                     [self.mDevices insertObject:@"NULL" atIndex:i];
                 }
             }
             
             //Show the list for user selection
+            [self.spinner stopAnimating];
             _showTable = YES;
             self.deviceList.hidden = NO;
             [self.deviceList reloadData];
-//                [self performSegueWithIdentifier:@"showDevice" sender:self];
         }
     } else {
         [self.spinner stopAnimating];
         
-        if (self.lastUUID.length == 0)
-        {
+        if (self.lastUUID.length == 0) {
             self.lastButton.hidden = true;
-        }
-        else
-        {
+        } else {
             self.lastButton.hidden = false;
         }
         
@@ -328,12 +321,17 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
                             
                             self.sessionStatusLabel.text = @"Sesion Started";
                             _started = true;
-//                            [mPDDRiver startSession]; // need to get this working.
+                            
+                            // need to get this working.
+                            // [mPDDRiver startSession];
                             self.generateButton.hidden = true;
                         }
 
                         [self.delegate setLabel:[NSString stringWithFormat:@"Interval %d", interval]];
-//                        [mPDDRiver sendIBI:interval]; // need to get this working.
+                        NSLog(@"%u",interval);
+
+                        // need to get this working.
+                        //  [mPDDRiver sendIBI:interval];
                         _bufferIndex = 0;
                         _inactivityCount = 0;
                         

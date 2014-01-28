@@ -29,6 +29,5 @@
 @property (strong, nonatomic) SENQuestionnaireTabViewController *questionnaireViewController;
 @property (strong, nonatomic) NSString *appID;
 @property (strong, nonatomic) SENUtilities *utilities;
-@property (strong, nonatomic) NSString *appVersion;
 
 @end

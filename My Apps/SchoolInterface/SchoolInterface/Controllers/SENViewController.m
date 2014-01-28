@@ -38,8 +38,8 @@
     
     self.chosenMode = [self.SENUserDefaultsHelper getStringForKey:@"appMode"];
     self.ibiLabel.text = self.chosenMode;
-    self.appVersion = [self getVersion];
-    NSLog(@"%@",self.appVersion);
+//    self.appVersion = [self getVersion];
+//    NSLog(@"%@",self.appVersion);
     [self setSettingsValues];
     
     [self createViewControllers];
@@ -178,7 +178,6 @@
 
 - (void)setSettingsValues
 {
-//    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     
     //Get the bundle file
     NSString *bPath = [[NSBundle mainBundle] bundlePath];
