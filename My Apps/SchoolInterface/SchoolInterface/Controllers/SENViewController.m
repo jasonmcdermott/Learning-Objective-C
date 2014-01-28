@@ -178,7 +178,7 @@
 
 - (void)setSettingsValues
 {
-    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+//    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     
     //Get the bundle file
     NSString *bPath = [[NSBundle mainBundle] bundlePath];
