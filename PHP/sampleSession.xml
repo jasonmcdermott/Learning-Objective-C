@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<devicesession>
+  <dev_id>B6F3384B-E816-4C4D-6FA8-465226DF6D1E</dev_id>
+  <username>CAC-20140106a</username>
+  <timezone>+1000</timezone>
+  <session_start>
+    <date>18-May-2013</date>
+    <time>06:43:15.20</time>
+  </session_start>
+  <session_end>
+    <date>18-May-2013</date>
+    <time>06:43:25.20</time>
+  </session_end>
+  <ibi>
+    <beat>
+      <count>1</count>
+      <value>1000</value>
+      <timestamp>06:43:16.20</timestamp>
+    </beat>
+    <beat>
+      <count>2</count>
+      <value>1000</value>
+      <timestamp>06:43:17.20</timestamp>
+    </beat>
+    <beat>
+      <count>3</count>
+      <value>1000</value>
+      <timestamp>06:43:18.20</timestamp>
+    </beat>
+    <beat>
+      <count>4</count>
+      <value>1000</value>
+      <timestamp>06:43:19.20</timestamp>
+    </beat>
+    <beat>
+      <count>5</count>
+      <value>1000</value>
+      <timestamp>06:43:20.20</timestamp>
+    </beat>
+    <beat>
+      <count>6</count>
+      <value>1000</value>
+      <timestamp>06:43:21.20</timestamp>
+    </beat>
+  </ibi>    
+  <status> 
+    <sensor_reliability>
+      <value>0</value>
+      <timestamp>06:43:21.20</timestamp>
+    </sensor_reliability>
+    <sensor_reliability>
+      <value>1</value>
+      <timestamp>06:43:21.20</timestamp>
+    </sensor_reliability>
+    <sensor_reliability>
+      <value>0</value>
+      <timestamp>06:43:23.20</timestamp>
+    </sensor_reliability>
+    <sensor_reliability>
+      <value>1</value>
+      <timestamp>06:43:24.20</timestamp>
+    </sensor_reliability>    
+  </status>
+</devicesession>
+·s

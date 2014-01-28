@@ -80,13 +80,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="How old are you?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bE-ll-og7">
-                                                <rect key="frame" x="391" y="105" width="135" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Which are you?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQq-re-QeW">
                                                 <rect key="frame" x="20" y="384" width="150" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -139,7 +132,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Which are you?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TUx-fQ-VT3">
-                                                <rect key="frame" x="127" y="49" width="433" height="21"/>
+                                                <rect key="frame" x="106" y="49" width="433" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -243,25 +236,25 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="birthDatePicker" destination="Fvr-9X-T26" id="fhz-BV-ReZ"/>
                         <outlet property="cancelButton" destination="33Y-dR-7Ve" id="1fz-qu-O4o"/>
                         <outlet property="dateTimeLabel" destination="zgn-Da-CDB" id="KwA-kU-LJX"/>
-                        <outlet property="genderControl" destination="XdZ-hy-98I" id="qak-HO-v8K"/>
+                        <outlet property="didTakeOtherVaccineControl" destination="jwO-w6-gaU" id="BmQ-e3-N58"/>
+                        <outlet property="didTakeVaccineControl" destination="QPx-Td-Wws" id="pSq-qG-Obn"/>
+                        <outlet property="genderControl" destination="XdZ-hy-98I" id="N9V-5W-rds"/>
                         <outlet property="hpvVaccineLabel" destination="U3K-aP-tEl" id="Fjg-MY-WPq"/>
-                        <outlet property="otherVaccineQuestion" destination="jwO-w6-gaU" id="Rdt-Ot-duA"/>
                         <outlet property="questionnaireView" destination="5TR-YI-H56" id="fs9-cY-LcR"/>
                         <outlet property="schoolTextString" destination="1fg-ct-2vg" id="zF7-h8-Js4"/>
                         <outlet property="submitButton" destination="HzJ-GC-uIM" id="rYq-VQ-yuD"/>
                         <outlet property="uuidLabel" destination="TUx-fQ-VT3" id="hvQ-Ac-2pF"/>
                         <outlet property="vaccinePicker" destination="nTa-Wo-mbw" id="rd9-aa-ssr"/>
-                        <outlet property="vaccineQuestion" destination="QPx-Td-Wws" id="P1o-7v-NI2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3283" y="-1446"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Device-->
         <scene sceneID="NtL-S2-7zy">
             <objects>
-                <viewController storyboardIdentifier="Redbear" id="Gtl-hJ-URF" customClass="RBLMainViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Redbear" id="Gtl-hJ-URF" customClass="BLEDevice" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GXS-C6-xLQ"/>
                         <viewControllerLayoutGuide type="bottom" id="5pA-O5-8gh"/>
@@ -307,15 +300,15 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="6Ep-gT-TaH">
-                                <rect key="frame" x="181" y="374" width="406" height="460"/>
+                                <rect key="frame" x="137" y="372" width="494" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BLEDeviceList" id="0Yu-90-enu">
-                                        <rect key="frame" x="0.0" y="22" width="406" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="494" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Yu-90-enu" id="Kn7-DC-zlJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="406" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="494" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAp-GQ-6WP">
@@ -396,7 +389,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <action selector="clickBluetoothButton:" destination="GZg-0Z-hXa" eventType="touchUpInside" id="dZh-Jc-nAJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ibi:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXI-Lf-2wi">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ibi:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXI-Lf-2wi">
                                 <rect key="frame" x="308" y="531" width="153" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>

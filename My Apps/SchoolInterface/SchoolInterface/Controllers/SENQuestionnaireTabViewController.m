@@ -8,33 +8,44 @@
 
 #import "SENQuestionnaireTabViewController.h"
 
+/* 
+I might want to implement this as a segue rather than a window that can be shown and hidden.
+Might make creating, refreshing and what-not data points faster. 
+Or perhaps not.
+*/
+
 @interface SENQuestionnaireTabViewController ()
 #pragma mark Interface Elements
-@property (weak, nonatomic) IBOutlet UISwitch *showHideQuestionnaireSwitch;
+
 @property (weak, nonatomic) IBOutlet UIView *questionnaireView;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
+
 @property (weak, nonatomic) IBOutlet UILabel *dateTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hpvVaccineLabel;
 
 #pragma mark User Data Entry
 @property (weak, nonatomic) IBOutlet UIDatePicker *birthDatePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *agePicker;
 @property (weak, nonatomic) IBOutlet UIPickerView *vaccinePicker;
-@property (weak, nonatomic) IBOutlet UILabel *hpvVaccineLabel;
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *vaccineQuestion;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *otherVaccineQuestion;
-
+@property (weak, nonatomic) IBOutlet UISegmentedControl *didTakeVaccineControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *didTakeOtherVaccineControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderControl;
+
 @property (weak, nonatomic) IBOutlet UITextField *schoolTextString;
 
 @end
 
 @implementation SENQuestionnaireTabViewController
 
-#pragma mark Initialise
+@synthesize managedObjectContext = _managedObjectContext;
+@synthesize managedObjectModel = _managedObjectModel;
+@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+
 #pragma mark -
+#pragma mark Initialise
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -53,75 +64,52 @@
 
 - (void)initialSetup
 {
-    
-    self.date = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
-    self.dateTimeLabel.text = [dateFormatter stringFromDate:self.date];
-    
+//    self.filePath = [[NSString alloc] initWithString:[directory stringByAppendingPathComponent:@"Sensorium"]];
     self.submitButton.enabled = NO;
-    self.schoolName = @"";
-    self.schoolTextString.text = [self getStringForKey:@"schoolName"];
+    self.school = @"";
+    
+    self.schoolTextString.text = [self.utilities getStringForKey:@"school"];
+    NSLog(@"checking on load: %@",[self.utilities getStringForKey:@"school"]);
 
     self.questionnaireAges = @[@"10 years old", @"11 years old", @"12 years old", @"13 years old", @"14 years old", @"15 years old", @"16 years old", @"17 years old", @"18 years old"];
     self.questionnaireVaccines = @[@"please select one", @"my 1st vaccine", @"my 2nd vaccine", @"my 3rd vaccine"];
     
     self.questionnaireBirthdayMonths = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec"];
     self.questionnaireBirthdayDays = @[@"31",@"29",@"31",@"30",@"31",@"30",@"31",@"31",@"30",@"31",@"30",@"31"];
-    
-    _uniqueID = [self GetUUID];
-    _uuidLabel.text = _uniqueID;
+
+    self.utilities = [[SENUtilities alloc] init];
     
     [_birthDatePicker addTarget:self
                    action:@selector(selectBirthDate:)
          forControlEvents:UIControlEventValueChanged];
     
-    
-    
+    // send any old data to the web service.
+//    [self uploadDataToURL];
+    [self newQuestionnaire];
+}
+
+- (void)newQuestionnaire
+{
     [self.genderControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
-    [self.vaccineQuestion setSelectedSegmentIndex:UISegmentedControlNoSegment];
-    [self.otherVaccineQuestion setSelectedSegmentIndex:UISegmentedControlNoSegment];
+    [self.didTakeVaccineControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
+    [self.didTakeOtherVaccineControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
+    [self.vaccinePicker selectRow:0 inComponent:0 animated:NO];
     
-    [self setPickerHeight:_vaccinePicker];
-    [self setPickerHeight:_agePicker];
-}
-
-- (NSString*)getStringForKey:(NSString*)key
-{
-    NSString* val = @"";
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    if (standardUserDefaults) val = [standardUserDefaults stringForKey:key];
-    if (val == NULL) val = @"";
-    return val;
-}
-
-#pragma mark UUID
-#pragma mark -
-
-- (NSString *)GetUUID
-{
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    CFRelease(theUUID);
-    return (__bridge NSString *)string;
+    self.questionnaire = [NSEntityDescription
+                          insertNewObjectForEntityForName:@"SENQuestionnaire"
+                          inManagedObjectContext:self.managedObjectContext];
+    
+    self.questionnaireID = [self.utilities getUUID];
+    self.uuidLabel.text = self.questionnaireID;
+    self.date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    self.dateTimeLabel.text = [dateFormatter stringFromDate:self.date];
 }
 
 #pragma mark -
 #pragma mark PickerView
-
-- (void)setPickerHeight:(UIPickerView *)pickerView
-{
-    pickerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    CGSize ps = [pickerView sizeThatFits: CGSizeZero];
-    pickerView.frame = CGRectMake(0.0, 0.0, ps.width, 162.0);
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-{
-    return 200.0;
-}
-
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView
 numberOfRowsInComponent:(NSInteger)component
@@ -152,10 +140,8 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    if (pickerView == self.agePicker) {
-        _age = self.questionnaireAges[row];
-    } else if (pickerView == self.vaccinePicker) {
-        self.whichVaccineTakenToday = self.questionnaireVaccines[row];
+    if (pickerView == self.vaccinePicker) {
+        self.vaccineTaken = self.questionnaireVaccines[row];
     }
     [self checkCompleted];
 }
@@ -164,31 +150,6 @@ numberOfRowsInComponent:(NSInteger)component
 (UIPickerView *)pickerView
 {
     return 1;
-}
-
-
-#pragma mark Submit Logic
-#pragma mark -
-
-- (void)checkCompleted
-{
-    float completionScore = 0;
-    
-    if (_gender != nil) completionScore++;
-    if (_birthDate != nil) completionScore++;
-    if (_vaccineTakenTodayAnswer != nil) completionScore++;
-    if (_otherVaccineTakenTodayAnswer != nil) completionScore++;
-    if ([_vaccineTakenTodayAnswer isEqualToString:@"Yes"] && ![_whichVaccineTakenToday isEqualToString:@"please select one"]) completionScore++;
-    if (![self.schoolTextString.text isEqualToString:@""]) completionScore++;
-
-    if ([_vaccineTakenTodayAnswer isEqualToString:@"No"] && completionScore == 5) {
-        self.submitButton.enabled = YES;
-    } else if ([_vaccineTakenTodayAnswer isEqualToString:@"Yes"] && completionScore == 6) {
-        self.submitButton.enabled = YES;
-    } else {
-        self.submitButton.enabled = NO;
-    }
-//    NSLog(@"%@, %@, %@, %@, %@, %@, %@",_birthDate, _age, _vaccineTakenTodayAnswer, _otherVaccineTakenTodayAnswer, _gender, _schoolName, _whichVaccineTakenToday);
 }
 
 #pragma mark -
@@ -209,24 +170,22 @@ numberOfRowsInComponent:(NSInteger)component
 }
 
 - (IBAction)selectSchoolName:(UITextField *)sender {
-    self.schoolName = sender.text;
-    [self setStringForKey:sender.text withKey:@"schoolName"];
-    [self checkCompleted];
-}
-
-- (IBAction)selectUniqueID:(UITextField *)sender {
-    self.uniqueID = sender.text;
+    self.school = sender.text;
+    [self.utilities setStringForKey:sender.text withKey:@"school"];
+    NSLog(@"checking after it's set: %@",[self.utilities getStringForKey:@"school"]);
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self checkCompleted];
 }
 
 - (IBAction)answerVaccineQuestion:(UISegmentedControl *)sender
 {
     if (sender.selectedSegmentIndex == 0) {
-        self.vaccineTakenTodayAnswer = @"No";
+        self.didTakeVaccine = @"NO";
         self.hpvVaccineLabel.hidden = YES;
         self.vaccinePicker.hidden = YES;
+
     } else {
-        self.vaccineTakenTodayAnswer = @"Yes";
+        self.didTakeVaccine = @"YES";
         self.hpvVaccineLabel.hidden = NO;
         self.vaccinePicker.hidden = NO;
     }
@@ -236,9 +195,9 @@ numberOfRowsInComponent:(NSInteger)component
 - (IBAction)answerOtherVaccineQuestion:(UISegmentedControl*)sender
 {
     if (sender.selectedSegmentIndex == 0) {
-        self.otherVaccineTakenTodayAnswer = @"No";
+        self.didTakeOtherVaccine = @"NO";
     } else {
-        self.otherVaccineTakenTodayAnswer = @"Yes";
+        self.didTakeOtherVaccine = @"YES";
     }
     [self checkCompleted];
 }
@@ -250,16 +209,67 @@ numberOfRowsInComponent:(NSInteger)component
     self.view.hidden = YES;
 }
 
+#pragma mark -
+#pragma mark Completion
+
 - (IBAction)touchSubmitButton:(UIButton *)sender
 {
-    // create XML file. save and send.
+    self.submittedDateTime = [[NSDate alloc] init];
+    if ([self setCoreDataValues]) [self saveContext];
     [self hideAll];
+    [self resetValues];
+    [self readCoreDataAndWriteToDisk];
+    NSLog(@"saved");
+    [self uploadDataToURL];
+    [self newQuestionnaire];
 }
+
+- (void)resetValues
+{
+    self.vaccineTaken = @"";
+    self.gender = @"";
+    self.didTakeOtherVaccine = @"";
+    self.didTakeVaccine = @"";
+    self.birthDateString = @"";
+    self.submitButton.enabled = NO;
+    self.hpvVaccineLabel.hidden = YES;
+    self.vaccinePicker.hidden = YES;
+    [self.birthDatePicker setDate:[[NSDate alloc] init] animated:NO];
+}
+
+- (void)checkCompleted
+{
+    int completionScore = 0;
+    
+    if (![self.birthDateString isEqualToString:@""]) completionScore++;
+    if (_gender != nil) completionScore++;
+    if (![self.schoolTextString.text isEqualToString:@""]) completionScore++;
+    
+    if (self.didTakeVaccine != nil) completionScore++;
+    if (self.didTakeOtherVaccine != nil) completionScore++;
+    
+    if ([self.didTakeVaccine isEqualToString:@"YES"]) {
+        if ([self.vaccineTaken isEqualToString:@"please select one"] || self.vaccineTaken == nil || [self.vaccineTaken isEqualToString:@""]) {
+            // nothing
+        } else {
+            completionScore++;
+        }
+    }
+    
+    if ([self.didTakeVaccine isEqualToString:@"NO"] && completionScore == 5) {
+        self.submitButton.enabled = YES;
+    } else if ([self.didTakeVaccine isEqualToString:@"YES"] && completionScore == 6) {
+        self.submitButton.enabled = YES;
+    } else {
+        self.submitButton.enabled = NO;
+    }
+    NSLog(@"%@, %@, %@, %@, %@, %@, %@, %d", self.birthDate, self.age, self.didTakeVaccine, self.didTakeOtherVaccine, self.gender, self.school, self.vaccineTaken, completionScore);
+}
+
 - (IBAction)touchCancelButton:(UIButton *)sender
 {
     [self hideAll];
 }
-
 
 #pragma mark -
 #pragma mark DatePicker
@@ -269,7 +279,15 @@ numberOfRowsInComponent:(NSInteger)component
     NSInteger age = [self ageFromBirthday:datePicker.date];
     [_agePicker selectRow:age-10 inComponent:0 animated:YES];
     self.birthDate = datePicker.date;
-    self.age = self.questionnaireAges[age-10];
+    
+    self.birthDateString = [NSDateFormatter localizedStringFromDate:self.birthDate
+                                                               dateStyle:NSDateFormatterShortStyle
+                                                               timeStyle:NSDateFormatterFullStyle];
+    
+    NSArray *_array = [self.questionnaireAges[age-10] componentsSeparatedByString:@" "];
+    NSString *first = [_array firstObject];
+    self.age = [[NSNumber alloc] initWithInt:first.intValue];
+    NSLog(@"%ld is the age chosen",(long)_age);
     [self checkCompleted];
 }
 
@@ -283,27 +301,246 @@ numberOfRowsInComponent:(NSInteger)component
     return ageComponents.year;
 }
 
-#pragma mark Persistent Values
 #pragma mark -
+#pragma mark Core Data
 
-- (void)setStringForKey:(NSString*)value withKey:(NSString*)key
+
+- (BOOL)setCoreDataValues
 {
-	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-	if (standardUserDefaults)
-    {
-		[standardUserDefaults setObject:value forKey:key];
-		[standardUserDefaults synchronize];
-	}
+    BOOL success;
+    if (self.questionnaire != nil) {
+        
+        self.questionnaire.age = self.age;
+        self.questionnaire.birthDate = self.birthDate;
+        self.questionnaire.gender = self.gender;
+        self.questionnaire.school = self.school;
+        self.questionnaire.uniqueID = self.questionnaireID;
+        if ([self.vaccineTaken isEqualToString:@"please select one"] || self.vaccineTaken == nil || [self.vaccineTaken isEqualToString:@""]) {
+            self.questionnaire.vaccineTaken = @"none";
+        } else {
+            self.questionnaire.vaccineTaken = self.vaccineTaken;
+        }
+        
+        self.questionnaire.didTakeOtherVaccine = self.didTakeOtherVaccine;
+        self.questionnaire.didTakeVaccine = self.didTakeVaccine;
+        
+        self.questionnaire.submittedDateTime = self.submittedDateTime;
+        
+        NSLog(@"the age is: %ld",(long)self.age);
+        NSLog(@"coreData is:%@",self.questionnaire.age);
+
+        NSError *savingError = nil;
+        if ([self.managedObjectContext save:&savingError]){
+            NSLog(@"Successfully saved the context.");
+        } else {
+            NSLog(@"Failed to save the context. Error = %@", savingError);
+        }
+    } else {
+        NSLog(@"Failed to create the new questionnaire.");
+    }
+    success = YES;
+    return success;
 }
 
-- (void)setIntForKey:(NSInteger)value withKey:(NSString*)key
+// Returns the URL to the application's Documents directory.
+- (NSURL *)applicationDocumentsDirectory
 {
-	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-	if (standardUserDefaults)
-    {
-		[standardUserDefaults setInteger:value forKey:key];
-		[standardUserDefaults synchronize];
-	}
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
+- (NSManagedObjectContext *)managedObjectContext
+{
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
+    }
+    
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
+    return _managedObjectContext;
+}
+
+- (NSManagedObjectModel *)managedObjectModel
+{
+    if (_managedObjectModel != nil) {
+        return _managedObjectModel;
+    }
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
+    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    return _managedObjectModel;
+}
+
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+{
+    if (_persistentStoreCoordinator != nil) {
+        return _persistentStoreCoordinator;
+    }
+    
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Model.sqlite"];
+    
+    NSError *error = nil;
+    
+    // for performing minor changes to the coredata database
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
+                             NSMigratePersistentStoresAutomaticallyOption,
+                             [NSNumber numberWithBool:YES],
+                             NSInferMappingModelAutomaticallyOption, nil];
+
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+          NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    return _persistentStoreCoordinator;
+}
+
+- (void)uploadDataToURL
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]
+                                    initWithEntityName:@"SENQuestionnaire"];
+    NSError *requestError = nil;
+    
+    /* And execute the fetch request on the context */
+    NSArray *questionnaires =
+    [self.managedObjectContext executeFetchRequest:fetchRequest
+                                             error:&requestError];
+    
+    /* Make sure we get the array */
+    if ([questionnaires count] > 0){
+        
+        /* Go through the persons array one by one */
+        NSUInteger counter = 1;
+        for (SENQuestionnaire *q in questionnaires) {
+            if ([q.uploaded isEqualToString:@"YES"]){
+                //  NSLog(@"already uploaded questionnaire with ID: %@",q.uniqueID);
+            } else {
+                
+                NSLog(@"uploading questionnaire with ID: %@",q.uniqueID);
+                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+                
+                NSString *birthDateString = [NSDateFormatter localizedStringFromDate:q.birthDate
+                                                                      dateStyle:NSDateFormatterShortStyle
+                                                                      timeStyle:NSDateFormatterFullStyle];
+                
+                NSString *submittedDateString = [NSDateFormatter localizedStringFromDate:q.submittedDateTime
+                                                                           dateStyle:NSDateFormatterShortStyle
+                                                                           timeStyle:NSDateFormatterFullStyle];
+                
+                NSDictionary *params = @{@"appID" : self.appID,
+                                         @"questionnaireID" : q.uniqueID,
+                                         @"school" : q.school,
+                                         @"vaccineTaken" : q.vaccineTaken,
+                                         @"didTakeVaccine" : q.didTakeVaccine,
+                                         @"didTakeOtherVaccine" : q.didTakeOtherVaccine,
+                                         @"gender" : q.gender,
+                                         @"birthDate" : birthDateString,
+                                         @"submittedDateTime" : submittedDateString
+                                         ,};
+                
+                [manager POST:@"http://alpha.sensoriumhealth.com/HPVUpload.php" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSLog(@"JSON: %@", responseObject);
+                    q.uploaded = @"YES";
+                    NSLog(@"logged");
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                }];
+            }
+            counter++;
+        }
+    } else {
+        NSLog(@"Could not find any Questionnaire entities in the context.");
+    }
+}
+
+- (void)readCoreDataAndWriteToDisk
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]
+                                    initWithEntityName:@"SENQuestionnaire"];
+    NSError *requestError = nil;
+
+    /* And execute the fetch request on the context */
+    NSArray *questionnaires =
+    [self.managedObjectContext executeFetchRequest:fetchRequest
+                                             error:&requestError];
+
+    /* Make sure we get the array */
+    if ([questionnaires count] > 0){
+
+        /* Go through the persons array one by one */
+        NSUInteger counter = 1;
+        for (SENQuestionnaire *q in questionnaires) {
+            if ([q.writtenToDisk isEqualToString:@"YES"]){
+                // do nothing
+            } else {
+                NSLog(@"%lu age = %@",(unsigned long)counter,q.age);
+                NSLog(@"%lu birthDate = %@",(unsigned long)counter,q.birthDate);
+                NSLog(@"%lu gender = %@",(unsigned long)counter,q.gender);
+                NSLog(@"%lu school = %@",(unsigned long)counter,q.school);
+                NSLog(@"%lu uniqueID = %@",(unsigned long)counter,q.uniqueID);
+                NSLog(@"%lu vaccineTaken = %@",(unsigned long)counter,q.vaccineTaken);
+                NSLog(@"%lu didTakeVaccine = %@",(unsigned long)counter,q.didTakeVaccine);
+                NSLog(@"%lu didTakeOtherVaccine = %@",(unsigned long)counter,q.didTakeOtherVaccine);
+                NSLog(@"%lu submittedDateTime = %@",(unsigned long)counter,q.submittedDateTime);
+
+                [self writeDictionaryToDisk:q];
+                q.writtenToDisk = @"YES";
+                NSLog(@"logged");
+            }
+            counter++;
+        }
+    } else {
+        NSLog(@"Could not find any Person entities in the context.");
+    }
+}
+
+- (void)writeDictionaryToDisk:(SENQuestionnaire *)q
+{
+
+    NSDictionary *questionnaireDictionary =
+    @{
+      @"uniqueID" : q.uniqueID,
+      @"age" : q.age,
+      @"birthDate" : q.birthDate,
+      @"didTakeOtherVaccine" : q.didTakeOtherVaccine,
+      @"didTakeVaccine" : q.didTakeVaccine,
+      @"vaccineTaken" : q.vaccineTaken,
+      @"gender" : q.gender,
+      @"school" : q.school,
+      @"submittedDateTime" : q.submittedDateTime,
+      };
+
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+
+    NSString *doc = [basePath stringByAppendingString:@"/"];
+    NSString *file = [doc stringByAppendingString:q.uniqueID];
+    NSString *filePath = [file stringByAppendingString:@".plist"];
+
+    // plistDict is a NSDictionary
+    NSString *error;
+    NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:questionnaireDictionary
+                                                                   format:NSPropertyListXMLFormat_v1_0
+                                                         errorDescription:&error];
+    if(plistData) {
+        [plistData writeToFile:filePath atomically:YES];
+    } else {
+        NSLog(@"%@",error);
+    }
 }
 
 @end
