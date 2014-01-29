@@ -231,9 +231,9 @@
     // NSLog(@"didDiscoverPeripheral");
 
     NSString *uuid = NULL;
-    if (peripheral.UUID) {
+    if (peripheral.identifier) {
         // only returned if you have connected to the device before
-        uuid = (__bridge_transfer NSString *)CFUUIDCreateString(NULL, peripheral.UUID);
+        uuid = (__bridge_transfer NSString *)CFUUIDCreateString(NULL, (__bridge CFUUIDRef)(peripheral.identifier));
     } else {
         uuid = @"";
     }

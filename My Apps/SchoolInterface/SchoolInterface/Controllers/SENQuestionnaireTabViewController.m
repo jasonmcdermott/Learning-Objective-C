@@ -68,8 +68,8 @@ Or perhaps not.
     self.submitButton.enabled = NO;
     self.school = @"";
     
-    self.schoolTextString.text = [self.utilities getStringForKey:@"school"];
-    NSLog(@"checking on load: %@",[self.utilities getStringForKey:@"school"]);
+    self.schoolTextString.text = [SENUtilities getStringForKey:@"school"];
+    NSLog(@"checking on load: %@",[SENUtilities getStringForKey:@"school"]);
 
     self.questionnaireAges = @[@"10 years old", @"11 years old", @"12 years old", @"13 years old", @"14 years old", @"15 years old", @"16 years old", @"17 years old", @"18 years old"];
     self.questionnaireVaccines = @[@"please select one", @"my 1st vaccine", @"my 2nd vaccine", @"my 3rd vaccine"];
@@ -100,7 +100,7 @@ Or perhaps not.
                           insertNewObjectForEntityForName:@"SENQuestionnaire"
                           inManagedObjectContext:self.managedObjectContext];
     
-    self.questionnaireID = [self.utilities getUUID];
+    self.questionnaireID = [SENUtilities getUUID];
     self.uuidLabel.text = self.questionnaireID;
     self.date = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -172,8 +172,8 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (IBAction)selectSchoolName:(UITextField *)sender {
     self.school = sender.text;
-    [self.utilities setStringForKey:sender.text withKey:@"school"];
-    NSLog(@"checking after it's set: %@",[self.utilities getStringForKey:@"school"]);
+    [SENUtilities setStringForKey:sender.text withKey:@"school"];
+    NSLog(@"checking after it's set: %@",[SENUtilities getStringForKey:@"school"]);
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self checkCompleted];
 }

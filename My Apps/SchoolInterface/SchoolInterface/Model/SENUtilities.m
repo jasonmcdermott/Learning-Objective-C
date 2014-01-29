@@ -20,6 +20,12 @@
     return (__bridge NSString *)string;
 }
 
++ (NSString*)getUUIDString:(CFUUIDRef)ref
+{
+    NSString *str = [NSString stringWithFormat:@"%@",ref];
+    return [[NSString stringWithFormat:@"%@",str] substringWithRange:NSMakeRange(str.length - 36, 36)];
+}
+
 + (NSString*)getStringForKey:(NSString*)key
 {
     NSString* val = @"";

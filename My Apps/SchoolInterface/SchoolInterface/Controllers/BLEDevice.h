@@ -16,6 +16,8 @@
 #import "RFduinoManager.h"
 #import "RFduino.h"
 
+#import "SENUtilities.h"
+
 @class RFduinoManager;
 @class RFduino;
 
@@ -49,6 +51,8 @@ typedef struct
 
 @property (strong, nonatomic) SENPDDriver *mPDDRiver;
 
+@property (strong, nonatomic) NSMutableDictionary *mDeviceDictionary;
+
 @property (nonatomic) BOOL passedToParent;
 @property (strong, nonatomic) BLE *bleShield;
 @property (strong,nonatomic) NSString *username;
@@ -56,6 +60,8 @@ typedef struct
 @property (strong, nonatomic) NSArray *deviceAliases;
 
 @property (strong,nonatomic) NSMutableArray *mDevices;
+@property (strong,nonatomic) NSMutableArray *mDeviceTypes;
+
 @property (strong,nonatomic) NSString *lastUUID;
 @property (strong, nonatomic) SENSessionData * mSesionData;
 

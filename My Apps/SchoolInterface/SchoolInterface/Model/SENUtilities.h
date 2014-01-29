@@ -12,6 +12,8 @@
 @interface SENUtilities : NSObject
 
 + (NSString *)getUUID;
++ (NSString*)getUUIDString:(CFUUIDRef)ref;
+
 + (NSString*)getStringForKey:(NSString*)key;
 + (void)setStringForKey:(NSString*)value withKey:(NSString*)key;
 + (void)setIntForKey:(NSInteger)value withKey:(NSString*)key;
@@ -20,6 +22,8 @@
 + (CGFloat)randomCGFloatInRange:(float)Min :(float)Max;
 + (int)randomIntInRange:(int)Min :(int)Max;
 + (BOOL)randomBool;
+
+
 
 @property (strong, nonatomic) NSString *school;
 

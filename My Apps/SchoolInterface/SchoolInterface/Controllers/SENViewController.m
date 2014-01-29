@@ -115,7 +115,7 @@
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    CFTimeInterval previousTimestamp = CFAbsoluteTimeGetCurrent();
+//    CFTimeInterval previousTimestamp = CFAbsoluteTimeGetCurrent();
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
@@ -136,7 +136,7 @@
     glDisableClientState(GL_COLOR_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
     
-    CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - previousTimestamp;
+//    CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - previousTimestamp;
 //    NSLog(@"Frame duration: %f ms", frameDuration * 1000.0);
 }
 
