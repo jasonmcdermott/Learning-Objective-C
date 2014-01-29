@@ -49,8 +49,12 @@
         [self.rings addObject:ring];
     }
     
-    [self setSettingsValues];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appHasGoneInBackground)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
     
+    [self setSettingsValues];
     [self createViewControllers];
     [self setVisibility];
 }
@@ -67,9 +71,10 @@
     
     [EAGLContext setCurrentContext: context];    // set the current context
     self.viewGL.drawableMultisample = GLKViewDrawableMultisample4X;
-    CADisplayLink *link = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawFrame)];
-    link.frameInterval = 1;
-    [link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+
+    self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(drawFrame)];
+    self.link.frameInterval = 1;
+    [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
     glDisable(GL_DEPTH_TEST);
@@ -95,44 +100,46 @@
         self.appID = [self.utilities getStringForKey:@"appUniqueID"];
     }
     self.questionnaireViewController.appID = self.appID;
+    self.questionnaireViewController.delegate = self;
     
     self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
     [self.view addSubview:self.BLEDevice.view];
     self.BLEDevice.view.hidden = YES;
     self.BLEDevice.delegate = self;
-
+    self.glviewIsDisplaying = YES;
 }
 
 - (void)drawFrame
 {
     // notify that we want to update the context
-    [self.viewGL setNeedsDisplay];
+    if (self.glviewIsDisplaying) [self.viewGL setNeedsDisplay];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    //    CFTimeInterval previousTimestamp = CFAbsoluteTimeGetCurrent();
-    
+    CFTimeInterval previousTimestamp = CFAbsoluteTimeGetCurrent();
     glClearColor(0, 0, 0, 0);
-//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_COLOR_ARRAY);
     
     for (int i=0;i<NUM_RINGS;i++) {
-        glPushMatrix();
         SENRing *ring = [self.rings objectAtIndex:i];
-        [ring updateVals];
-        glTranslatef(ring.x,ring.y,0);
-        [self renderRing:ring.shapeType withDiameter:ring.diameter withBlur:ring.blur withThickness:ring.thickness withNumSides:ring.numSides withColor:ring.color withOpacity:ring.opacity];
-        glPopMatrix();
+        if (ring.active == YES) {
+            glPushMatrix();
+            [ring updateVals];
+            glTranslatef(ring.x,ring.y,0);
+            [self renderRing:ring.shapeType withDiameter:ring.diameter withBlur:ring.blur withThickness:ring.thickness withNumSides:ring.numSides withColor:ring.color withOpacity:ring.opacity];
+            glPopMatrix();
+        }
     }
     
     glDisableClientState(GL_COLOR_ARRAY);
     glDisableClientState(GL_VERTEX_ARRAY);
     
-    //    CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - previousTimestamp;
-    //    NSLog(@"Frame duration: %f ms", frameDuration * 1000.0);
+    CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - previousTimestamp;
+//    NSLog(@"Frame duration: %f ms", frameDuration * 1000.0);
 }
 
 
@@ -225,6 +232,10 @@
 {
     NSLog(@"pressed into service");
     self.questionnaireViewController.view.hidden = NO;
+    self.glviewIsDisplaying = NO;
+    self.link.frameInterval = 3;
+    [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+
 }
 
 
@@ -232,6 +243,26 @@
 {
     NSLog(@"pressed into service");
     self.BLEDevice.view.hidden = NO;
+    self.glviewIsDisplaying = NO;
+    self.link.frameInterval = 3;
+    [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+
+}
+
+- (void)startGLView
+{
+    self.glviewIsDisplaying = YES;
+    self.link.frameInterval = 1;
+    [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+
+}
+
+- (void)appHasGoneInBackground
+{
+    self.glviewIsDisplaying = NO;
+    self.link.frameInterval = 3;
+    [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    NSLog(@"Entering background, is GL displaying? %hhd",self.glviewIsDisplaying);
 }
 
 #pragma mark -
@@ -285,7 +316,13 @@
     _chosenMode = [[SENUserDefaultsHelper sharedManager] appMode];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self setVisibility];
+    self.glviewIsDisplaying = YES;
     NSLog(@"num: %@",_chosenMode);
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    self.glviewIsDisplaying = NO;
 }
 
 - (void)checkAutoUpdateSettingsForNotificaiton:(NSNotification *)aNotification

@@ -17,9 +17,15 @@
     NSDictionary* defaults = @{@"appMode": @"1"};
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a34f08894c9a2cb5a85a62e7a914de63" delegate:self];
-    [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
+//    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a34f08894c9a2cb5a85a62e7a914de63" delegate:self];
+//    [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
+//    [[BITHockeyManager sharedHockeyManager] startManager];
+
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a34f08894c9a2cb5a85a62e7a914de63" delegate:nil];
+    [[BITHockeyManager sharedHockeyManager].authenticator setAuthenticationSecret:@"2638c1a5ab2da35580a1586d825919e8"];
+    [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeHockeyAppEmail];
     [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     return YES;
 }
 
@@ -37,13 +43,17 @@
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
+    
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -58,11 +68,6 @@
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     NSLog(@"becoming active");
-//    self.SENUserDefaultsHelper = [[SENUserDefaultsHelper alloc] init];
-//    //    self.showQuestionnaire = [self.SENUserDefaultsHelper getBoolForKey:@"questionnaire_enabled_preference"];
-//    
-//    self.chosenMode = [self.SENUserDefaultsHelper getStringForKey:@"appMode"];
-
     
 }
 

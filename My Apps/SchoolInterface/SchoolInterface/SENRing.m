@@ -30,12 +30,13 @@
         self.z = [SENUtilities randomFloatInRange:-1 :1];
         
         self.shapeType = [SENUtilities randomIntInRange:0 :3];
-        self.numSides = 3;
+        self.numSides = [SENUtilities randomIntInRange:3 :50];
         self.diameter = [SENUtilities randomFloatInRange:-0.15 :0.40];
-        self.thickness = 0.5;
-        self.blur = 0.5;
-        self.numSides = 50;
-        self.opacity = 0;
+        self.thickness = [SENUtilities randomFloatInRange:0 :self.diameter/2];
+        self.blur = [SENUtilities randomFloatInRange:0 :0.40];
+        self.opacity = [SENUtilities randomFloatInRange:0 :0.40];
+        self.active = [SENUtilities randomBool];
+//        NSLog(@"active: %hhd, opacity: %f, x: %f, y: %f, z: %f, blur: %f, thickness: %f, diameter: %f, numSides: %d", self.active, self.opacity, self.x, self.y, self.z, self.blur, self.thickness, self.diameter, self.numSides);
     }
     return self;
 }

@@ -10,6 +10,6 @@
 #define SchoolInterface_constants_h
 
 #define PI 3.14159265359
-#define NUM_RINGS 8
+#define NUM_RINGS 1
 
 #endif

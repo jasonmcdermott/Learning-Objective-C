@@ -20,6 +20,7 @@
 + (float)randomFloatInRange:(float)Min :(float)Max;
 + (CGFloat)randomCGFloatInRange:(float)Min :(float)Max;
 + (int)randomIntInRange:(int)Min :(int)Max;
++ (BOOL)randomBool;
 
 @property (strong, nonatomic) NSString *school;
 

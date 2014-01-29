@@ -75,6 +75,9 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     self.bleShield.delegate = self;
     _max_inactivity = DEF_MAX_INACTIVITY;
     
+    self.knownDevices = @[@"722D74FC-0359-F949-C771-36C04647C7C2"];
+    self.deviceAliases = @[@"Sensor X"];
+    
     //Retrieve saved UUID from system
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:UUIDPrefKey];
     
@@ -120,7 +123,12 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier forIndexPath:indexPath];
     
-    cell.textLabel.text = [self.mDevices objectAtIndex:indexPath.row];
+    for (int i=0;i<[self.knownDevices count];i++) {
+        if ([[self.mDevices objectAtIndex:indexPath.row] isEqualToString:[self.knownDevices objectAtIndex:i]]){
+            cell.textLabel.text = [self.deviceAliases objectAtIndex:i];
+        }
+    }
+//    cell.textLabel.text = [self.mDevices objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -173,17 +181,6 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     [self.spinner startAnimating];
 }
 
-////Show device list for user selection
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([[segue identifier] isEqualToString:@"showDevice"])
-//    {
-//        //        RBLDetailViewController *vc =[segue destinationViewController] ;
-//        //        vc.BLEDevices = self.mDevices;
-//        //        vc.delegate = self;
-//    }
-//}
-
 - (void)didSelected:(NSInteger)index
 {
     self.scanButton.hidden = true;
@@ -210,6 +207,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 - (IBAction)touchCloseButton:(UIButton *)sender
 {
     [self hideAll];
+    [self.delegate startGLView];
 }
 
 #pragma mark Bluetooth Periphery
@@ -245,6 +243,8 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
                 CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
                 
                 if (p.identifier != NULL) {
+                    NSString *device = [[NSString alloc] initWithString:[self getUUIDString:CFBridgingRetain(p.identifier)]];
+                    NSLog(@"%@",device);
                     [self.mDevices insertObject:[self getUUIDString:CFBridgingRetain(p.identifier)] atIndex:i];
                 } else {
                     [self.mDevices insertObject:@"NULL" atIndex:i];
@@ -260,11 +260,11 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     } else {
         [self.spinner stopAnimating];
         
-//        if (self.lastUUID.length == 0) {
-//            self.lastButton.hidden = true;
-//        } else {
-//            self.lastButton.hidden = false;
-//        }
+        if (self.lastUUID.length == 0) {
+            self.lastButton.hidden = true;
+        } else {
+            self.lastButton.hidden = false;
+        }
         
         self.scanButton.hidden = false;
     }

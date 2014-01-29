@@ -21,10 +21,9 @@ typedef struct
 @protocol BLEDeviceDelegate <NSObject>
 
 - (void) setLabel:(NSString *)label;
+- (void) startGLView;
 
 @end
-
-
 
 @interface BLEDevice : UIViewController <BLEDelegate>
 {
@@ -48,6 +47,8 @@ typedef struct
 @property (nonatomic) BOOL passedToParent;
 @property (strong, nonatomic) BLE *bleShield;
 @property (strong,nonatomic) NSString *username;
+@property (strong, nonatomic) NSArray *knownDevices;
+@property (strong, nonatomic) NSArray *deviceAliases;
 
 @property (strong,nonatomic) NSMutableArray *mDevices;
 @property (strong,nonatomic) NSString *lastUUID;

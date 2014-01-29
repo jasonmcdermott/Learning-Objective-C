@@ -56,6 +56,7 @@
 + (float)randomFloatInRange:(float)Min :(float)Max;
 {
     float rand = Min+(Max-Min)*((float)arc4random())/ULONG_MAX;
+//    NSLog(@"float %f",rand);
     return rand;
 }
 
@@ -63,13 +64,28 @@
 {
     CGFloat rand = Min+(Max-Min)*((CGFloat)arc4random())/ULONG_MAX;
     return rand;
+//    NSLog(@"CGFloat %f",rand);
 }
 
 + (int)randomIntInRange:(int)Min :(int)Max;
 {
     //    int rand = Min+(Max-Min)*((int)arc4random())/ULONG_MAX;
     int rand = (arc4random() % Max) + 1;
+//    NSLog(@"int %d",rand);
     return rand;
+}
+
++ (BOOL)randomBool
+{
+    int rand = (arc4random() % 2) - 1;
+    BOOL result;
+    if (rand == 0) {
+        result = NO;
+    } else {
+        result = YES;
+    }
+//    NSLog(@"bool %hhd",result);
+    return result;
 }
 
 #pragma mark -

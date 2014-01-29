@@ -20,7 +20,7 @@
 
 #include "SENPDDriver.h"
 
-@interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate, GLKViewDelegate>
+@interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate, GLKViewDelegate, QuestionnaireDelegate>
 {
     
 }
@@ -34,5 +34,7 @@
 @property (strong, nonatomic) SENUtilities *utilities;
 
 @property (strong, nonatomic) NSMutableArray *rings;
+@property (nonatomic) BOOL glviewIsDisplaying;
+@property (strong, nonatomic) CADisplayLink *link;
 
 @end

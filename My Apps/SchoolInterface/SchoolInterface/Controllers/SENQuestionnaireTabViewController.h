@@ -13,7 +13,17 @@
 #import "AFNetworking.h"
 #import "SENUtilities.h"
 
+
+@protocol QuestionnaireDelegate <NSObject>
+
+- (void) startGLView;
+
+@end
+
+
 @interface SENQuestionnaireTabViewController : UIViewController
+
+@property (nonatomic, weak) id <QuestionnaireDelegate> delegate;
 
 @property (strong, nonatomic) NSDate *date;
 #pragma mark Variables

@@ -16,7 +16,7 @@
 @property (nonatomic) float diameter, blur, thickness, opacity;
 @property (strong, nonatomic) UIColor *color;
 @property (nonatomic) float x, y, z;
-//@property (strong, nonatomic) PerlinNoise *perlin;
+@property (nonatomic) BOOL active;
 
 - (void)updateVals;
 

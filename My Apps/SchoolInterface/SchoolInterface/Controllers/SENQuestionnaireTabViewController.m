@@ -208,6 +208,7 @@ numberOfRowsInComponent:(NSInteger)component
 {
     NSLog(@"hiding");
     self.view.hidden = YES;
+    [self.delegate startGLView];    
 }
 
 #pragma mark -
