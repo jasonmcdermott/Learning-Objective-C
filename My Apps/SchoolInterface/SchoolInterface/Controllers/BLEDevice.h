@@ -13,6 +13,13 @@
 #import "SENPDDriver.h"
 #import "SENXmlDataGenerator.h"
 
+#import "RFduinoManager.h"
+#import "RFduino.h"
+
+@class RFduinoManager;
+@class RFduino;
+
+
 typedef struct
 {
     unsigned char data [4];
@@ -25,10 +32,8 @@ typedef struct
 
 @end
 
-@interface BLEDevice : UIViewController <BLEDelegate>
+@interface BLEDevice : UIViewController <BLEDelegate, RFduinoManagerDelegate, RFduinoDelegate>
 {
-//    SENPDDriver *mPDDRiver;
-//    BLE *bleShield;
     bool isFindingLast;
     volatile unsigned _bufferIndex;
     charbuff _oemBuffer;
@@ -39,8 +44,8 @@ typedef struct
 }
 
 @property (nonatomic, weak) id <BLEDeviceDelegate> delegate;
-
-//- (void)showAll;
+@property(strong, nonatomic) RFduino *connected_rfduino;
+@property (strong, nonatomic) RFduinoManager *rfduinoManager;
 
 @property (strong, nonatomic) SENPDDriver *mPDDRiver;
 

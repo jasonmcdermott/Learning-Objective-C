@@ -77,7 +77,7 @@ Or perhaps not.
     self.questionnaireBirthdayMonths = @[@"Jan", @"Feb", @"Mar", @"Apr", @"May", @"Jun", @"Jul", @"Aug", @"Sep", @"Oct", @"Nov", @"Dec"];
     self.questionnaireBirthdayDays = @[@"31",@"29",@"31",@"30",@"31",@"30",@"31",@"31",@"30",@"31",@"30",@"31"];
 
-    self.utilities = [[SENUtilities alloc] init];
+//    self.utilities = [[SENUtilities alloc] init];
     
     [_birthDatePicker addTarget:self
                    action:@selector(selectBirthDate:)

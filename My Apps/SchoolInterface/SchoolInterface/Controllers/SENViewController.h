@@ -17,7 +17,7 @@
 #import "SENQuestionnaireTabViewController.h"
 #import "SENUserDefaultsHelper.h"
 #import "SENRing.h"
-
+#import "SENUtilities.h"
 #include "SENPDDriver.h"
 
 @interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate, GLKViewDelegate, QuestionnaireDelegate>
@@ -31,7 +31,6 @@
 @property (strong, nonatomic) BLEDevice *BLEDevice;
 @property (strong, nonatomic) SENQuestionnaireTabViewController *questionnaireViewController;
 @property (strong, nonatomic) NSString *appID;
-@property (strong, nonatomic) SENUtilities *utilities;
 
 @property (strong, nonatomic) NSMutableArray *rings;
 @property (nonatomic) BOOL glviewIsDisplaying;

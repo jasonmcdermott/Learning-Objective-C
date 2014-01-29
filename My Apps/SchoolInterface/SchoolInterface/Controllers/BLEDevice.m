@@ -22,6 +22,8 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 @interface BLEDevice()
 
+//@synthesize connected_rfduino;
+
 @property (nonatomic) BOOL showTable;
 @property (weak, nonatomic) IBOutlet UITableView *deviceList;
 
@@ -41,8 +43,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 @implementation BLEDevice
 
-#pragma mark Init
-#pragma mark -
+#pragma mark - Init
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,13 +63,18 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     self.passedToParent = NO;
     
     self.bleShield = [[BLE alloc] init];
+    [self.bleShield controlSetup];
+    self.bleShield.delegate = self;
+    
+    self.rfduinoManager = [RFduinoManager sharedRFduinoManager];
+    self.rfduinoManager.delegate = self;
+    
     self.mPDDRiver = [[SENPDDriver alloc] init];
     self.mSesionData = [[SENSessionData alloc] init];
     self.mDevices = [[NSMutableArray alloc] init];
     self.tempDevices = [[NSMutableArray alloc] init];
     
-    [self.bleShield controlSetup];
-    self.bleShield.delegate = self;
+
     _max_inactivity = DEF_MAX_INACTIVITY;
     
     self.knownDevices = @[@"722D74FC-0359-F949-C771-36C04647C7C2"];
@@ -96,8 +102,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark TableView
-#pragma mark -
+#pragma mark - TableView
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -134,8 +139,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     self.deviceList.hidden = YES;
 }
 
-#pragma mark Interface Elements
-#pragma mark -
+#pragma mark - Interface Elements
 
 - (IBAction)scanClick:(id)sender
 {
@@ -207,8 +211,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     [self.delegate startGLView];
 }
 
-#pragma mark Bluetooth Periphery
-#pragma mark -
+#pragma mark - Bluetooth Periphery
 
 // Called when scan period is over 
 -(void) connectionTimer:(NSTimer *)timer
@@ -434,6 +437,134 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     return [[NSString stringWithFormat:@"%@",str] substringWithRange:NSMakeRange(str.length - 36, 36)];
 }
 
+#pragma mark - RFDUINO
+
+-(void)connectLasteviceRfduino
+{
+    int value = [[self.rfduinoManager rfduinos] count];
+    for(int i = 0; i < value; i++)
+    {
+        RFduino *rfduino = [self.rfduinoManager.rfduinos objectAtIndex:i];
+        NSString *text = [[NSString alloc] initWithFormat:@"%@", rfduino.name];
+        
+        NSString *uuid = rfduino.UUID;
+        if([self.lastUUID isEqualToString:uuid]) {
+            [self didSelectRFDuino:i];
+        }
+        
+    }
+}
+
+-(void)didSelectRFDuino:(NSInteger)index
+{
+    RFduino *rfduino = [[self.rfduinoManager rfduinos] objectAtIndex:index];
+    
+    if (!rfduino.outOfRange) {
+        [self.rfduinoManager connectRFduino:rfduino];
+    }
+}
+
+- (void)didDiscoverRFduino:(RFduino *)rfduino
+{
+    NSLog(@"didDiscoverRFduino");
+}
+
+- (void)didUpdateDiscoveredRFduino:(RFduino *)rfduino
+{
+    if (self.connected_rfduino != NULL) return;
+    
+    NSLog(@"didUpdateRFduino");
+    int value = [[self.rfduinoManager rfduinos] count];
+    
+    for(int i = 0; i < value; i++)
+    {
+        RFduino *rfduino = [self.rfduinoManager.rfduinos objectAtIndex:i];
+        NSString *text = [[NSString alloc] initWithFormat:@"%@", rfduino.name];
+        
+        NSString *uuid = rfduino.UUID;
+        
+        int rssi = rfduino.advertisementRSSI.intValue;
+        
+        NSString *advertising = @"";
+        if (rfduino.advertisementData) {
+            advertising = [[NSString alloc] initWithData:rfduino.advertisementData encoding:NSUTF8StringEncoding];
+        }
+        [self displayRfduinoUUIDLabel:i :uuid];
+    }
+}
+
+- (void)didConnectRFduino:(RFduino *)rfduino
+{
+    NSLog(@"didConnectRFduino");
+    
+    self.connected_rfduino = rfduino;
+    
+    [self.rfduinoManager stopScan];
+    [self.connected_rfduino setDelegate:self];
+    NSString *uuid = rfduino.UUID;
+    
+    self.lastUUID = uuid;
+    [[NSUserDefaults standardUserDefaults] setObject:self.lastUUID forKey:UUIDPrefKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self.spinner stopAnimating];
+    self.lastButton.hidden = true;
+    self.scanButton.hidden = false;
+    self.uuidLabel.text = self.lastUUID;
+    self.sessionStatusLabel.text = @"Device Connected";
+    [self.scanButton setTitle:@"Disconnect" forState:UIControlStateNormal];
+    
+    //loadService = false;
+}
+
+- (void)didLoadServiceRFduino:(RFduino *)rfduino
+{
+    //AppViewController *viewController = [[AppViewController alloc] init];
+    //viewController.rfduino = rfduino;
+    
+    //loadService = true;
+    //[[self navigationController] pushViewController:viewController animated:YES];
+}
+
+- (void)didDisconnectRFduino:(RFduino *)rfduino
+{
+    self.connected_rfduino = NULL;
+    
+    NSLog(@"didDisconnectRFduino");
+    /*
+     if (loadService) {
+     [[self navigationController] popViewControllerAnimated:YES];
+     }
+     */
+    self.intervalLabel.text = @"";
+    [self displayLastButton];
+    //self.rssiLabel.hidden = true;
+    //self.rssiLabel.text = @"";
+    self.sessionStatusLabel.text = @"Disconected";
+    [self.scanButton setTitle:@"Scan All" forState:UIControlStateNormal];
+    
+    [rfduinoManager startScan];
+    //[self.tableView reloadData];
+}
+- (void)didReceive:(NSData *)data
+{
+    NSLog(@"RecievedData");
+    
+    unsigned char *value = [data bytes];
+    
+    int length = [data length];
+    
+    [self processBluetoothData:value length:length];
+    
+    // int len = [data length];
+    
+    //NSLog(@"value = %x", value[0]);
+    
+    // if (value[0])
+    //[image1 setImage:on];
+    //else
+    //[image1 setImage:off];
+}
 
 #pragma mark -
 #pragma mark XML

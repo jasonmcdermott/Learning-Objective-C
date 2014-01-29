@@ -12,7 +12,7 @@
 
 @synthesize school = _school;
 
-- (NSString *)getUUID
++ (NSString *)getUUID
 {
     CFUUIDRef theUUID = CFUUIDCreate(NULL);
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
@@ -20,7 +20,7 @@
     return (__bridge NSString *)string;
 }
 
-- (NSString*)getStringForKey:(NSString*)key
++ (NSString*)getStringForKey:(NSString*)key
 {
     NSString* val = @"";
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -29,7 +29,7 @@
     return val;
 }
 
-- (void)setStringForKey:(NSString*)value withKey:(NSString*)key
++ (void)setStringForKey:(NSString*)value withKey:(NSString*)key
 {
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	if (standardUserDefaults)
@@ -40,7 +40,7 @@
 }
 
 
-- (void)setIntForKey:(NSInteger)value withKey:(NSString*)key
++ (void)setIntForKey:(NSInteger)value withKey:(NSString*)key
 {
 	NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
 	if (standardUserDefaults)

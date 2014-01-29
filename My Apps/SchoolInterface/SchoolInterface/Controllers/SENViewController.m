@@ -84,7 +84,6 @@
 
 - (void)createViewControllers
 {
-    self.utilities = [[SENUtilities alloc] init];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:
                                 @"Main_iPad" bundle:[NSBundle mainBundle]];
@@ -92,12 +91,11 @@
     [self.view addSubview:self.questionnaireViewController.view];
     self.questionnaireViewController.view.hidden = YES;
     
-    // see if a unique app value has been set before.
-    // if not, set a new unique app value. 
-    if ([[self.utilities getStringForKey:@"appUniqueID"] isEqualToString:@""]) {
-        self.appID = [self.utilities getUUID];
+    // see if a unique app value has been set before. if not, set a new unique app id
+    if ([[SENUtilities getStringForKey:@"appUniqueID"] isEqualToString:@""]) {
+        self.appID = [SENUtilities getUUID];
     } else {
-        self.appID = [self.utilities getStringForKey:@"appUniqueID"];
+        self.appID = [SENUtilities getStringForKey:@"appUniqueID"];
     }
     self.questionnaireViewController.appID = self.appID;
     self.questionnaireViewController.delegate = self;

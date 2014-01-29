@@ -11,11 +11,10 @@
 
 @interface SENUtilities : NSObject
 
-- (NSString *)getUUID;
-
-- (NSString*)getStringForKey:(NSString*)key;
-- (void)setStringForKey:(NSString*)value withKey:(NSString*)key;
-- (void)setIntForKey:(NSInteger)value withKey:(NSString*)key;
++ (NSString *)getUUID;
++ (NSString*)getStringForKey:(NSString*)key;
++ (void)setStringForKey:(NSString*)value withKey:(NSString*)key;
++ (void)setIntForKey:(NSInteger)value withKey:(NSString*)key;
 
 + (float)randomFloatInRange:(float)Min :(float)Max;
 + (CGFloat)randomCGFloatInRange:(float)Min :(float)Max;

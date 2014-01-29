@@ -45,6 +45,8 @@
 		0EC0F156188D64E900D4C7E7 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0EC0F153188D64E900D4C7E7 /* HockeySDKResources.bundle */; };
 		0EC0F15C188D6A6100D4C7E7 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0EC0F15B188D6A6100D4C7E7 /* Settings.bundle */; };
 		0EC0F15F188D6A8600D4C7E7 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EC0F15D188D6A8600D4C7E7 /* Main_iPad.storyboard */; };
+		0EC6A1AA1898BB8D00451249 /* RFduino.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC6A1A51898BB8D00451249 /* RFduino.m */; };
+		0EC6A1AB1898BB8D00451249 /* RfduinoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC6A1A81898BB8D00451249 /* RfduinoManager.m */; };
 		0ED0FAEC18880197003B3136 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAEA18880197003B3136 /* AudioToolbox.framework */; };
 		0ED0FAED18880197003B3136 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ED0FAEB18880197003B3136 /* AVFoundation.framework */; };
 		0ED0FAF5188802DF003B3136 /* BLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FAF3188802DF003B3136 /* BLEDevice.m */; };
@@ -152,6 +154,10 @@
 		0EC0F15B188D6A6100D4C7E7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = SchoolInterface/Settings.bundle; sourceTree = "<group>"; };
 		0EC0F15E188D6A8600D4C7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SchoolInterface/Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		0EC0F165188D716800D4C7E7 /* PdBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PdBase.h; sourceTree = "<group>"; };
+		0EC6A1A41898BB8D00451249 /* RFduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFduino.h; sourceTree = "<group>"; };
+		0EC6A1A51898BB8D00451249 /* RFduino.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFduino.m; sourceTree = "<group>"; };
+		0EC6A1A71898BB8D00451249 /* RfduinoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RfduinoManager.h; sourceTree = "<group>"; };
+		0EC6A1A81898BB8D00451249 /* RfduinoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RfduinoManager.m; sourceTree = "<group>"; };
 		0ED0FAEA18880197003B3136 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0ED0FAEB18880197003B3136 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		0ED0FAF2188802DF003B3136 /* BLEDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDevice.h; path = Controllers/BLEDevice.h; sourceTree = "<group>"; };
@@ -269,8 +275,6 @@
 		0E10AC3E188609BB00765FA1 /* HPV */ = {
 			isa = PBXGroup;
 			children = (
-				0E82B35B1891E91A00FE5B9C /* AFNetworking */,
-				0EC0F164188D715A00D4C7E7 /* LibPD */,
 				0E10ACB718861DFD00765FA1 /* Controllers */,
 				0ED0FB021888057C003B3136 /* Model */,
 				0E10AC3F188609BB00765FA1 /* Supporting Files */,
@@ -339,7 +343,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0E823EF4188CC0390028D65B /* App Settings Data */ = {
+		0E823EF4188CC0390028D65B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				0ED0FB03188805A1003B3136 /* constants.h */,
@@ -348,7 +352,7 @@
 				0E9849661892969A0037E6B5 /* SENUtilities.h */,
 				0E9849671892969A0037E6B5 /* SENUtilities.m */,
 			);
-			name = "App Settings Data";
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		0E823EF5188CC0460028D65B /* Session Data */ = {
@@ -429,12 +433,26 @@
 			name = LibPD;
 			sourceTree = "<group>";
 		};
+		0EC6A1A31898BB5A00451249 /* rfduino */ = {
+			isa = PBXGroup;
+			children = (
+				0EC6A1A41898BB8D00451249 /* RFduino.h */,
+				0EC6A1A51898BB8D00451249 /* RFduino.m */,
+				0EC6A1A71898BB8D00451249 /* RfduinoManager.h */,
+				0EC6A1A81898BB8D00451249 /* RfduinoManager.m */,
+			);
+			name = rfduino;
+			sourceTree = "<group>";
+		};
 		0ED0FB021888057C003B3136 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0EC6A1A31898BB5A00451249 /* rfduino */,
 				0E11363D1897B51000873032 /* Game */,
-				0E823EF4188CC0390028D65B /* App Settings Data */,
+				0E823EF4188CC0390028D65B /* Utilities */,
 				0E823EF5188CC0460028D65B /* Session Data */,
+				0E82B35B1891E91A00FE5B9C /* AFNetworking */,
+				0EC0F164188D715A00D4C7E7 /* LibPD */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -611,11 +629,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ED0FAF5188802DF003B3136 /* BLEDevice.m in Sources */,
+				0EC6A1AA1898BB8D00451249 /* RFduino.m in Sources */,
 				0E06A6C318863DB90018ECDB /* SENViewController.m in Sources */,
 				0E10AC45188609BB00765FA1 /* main.m in Sources */,
 				0E9849681892969A0037E6B5 /* SENUtilities.m in Sources */,
 				0E823EF3188CB8FB0028D65B /* SENUserDefaultsHelper.m in Sources */,
 				0E82B3761891E91A00FE5B9C /* AFURLResponseSerialization.m in Sources */,
+				0EC6A1AB1898BB8D00451249 /* RfduinoManager.m in Sources */,
 				0E82B3741891E91A00FE5B9C /* AFURLConnectionOperation.m in Sources */,
 				0EDFB9AD1890A3B7002909F4 /* SENXmlDataGenerator.m in Sources */,
 				0ED0FAF9188802FB003B3136 /* BLE.m in Sources */,
