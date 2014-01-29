@@ -30,13 +30,9 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 @property (weak, nonatomic) IBOutlet UIButton *lastButton;
 - (IBAction)lastClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
-
 @property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
-
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-
-//@property (strong, nonatomic) SENSessionData * mSesionData;
 
 @property (strong, nonatomic) NSMutableArray *tempDevices;
 @end
@@ -126,9 +122,10 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     for (int i=0;i<[self.knownDevices count];i++) {
         if ([[self.mDevices objectAtIndex:indexPath.row] isEqualToString:[self.knownDevices objectAtIndex:i]]){
             cell.textLabel.text = [self.deviceAliases objectAtIndex:i];
+        } else {
+            cell.textLabel.text = @"New Sensor Device";
         }
     }
-//    cell.textLabel.text = [self.mDevices objectAtIndex:indexPath.row];
     return cell;
 }
 
