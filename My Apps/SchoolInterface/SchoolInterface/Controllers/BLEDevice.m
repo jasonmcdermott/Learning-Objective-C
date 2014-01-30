@@ -22,15 +22,15 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 @interface BLEDevice()
 
-//@synthesize connected_rfduino;
-
 @property (nonatomic) BOOL showTable;
 @property (weak, nonatomic) IBOutlet UITableView *deviceList;
 
+@property (weak, nonatomic) IBOutlet UIButton *connectButton;
 @property (weak, nonatomic) IBOutlet UIButton *scanButton;
+@property (weak, nonatomic) IBOutlet UIButton *disconnectButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *lastButton;
-//- (IBAction)lastClick:(id)sender;
+
+
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
@@ -84,16 +84,17 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     //Retrieve saved UUID from system
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:UUIDPrefKey];
     
-    if (self.lastUUID.length > 0)
-    {
-        self.uuidLabel.text = self.lastUUID;
-        self.scanButton.hidden = true;
-    }
-    else
-    {
-        self.scanButton.hidden = false;
-        self.lastButton.hidden = true;
-    }
+    [self showButtons];
+//    if (self.lastUUID.length > 0)
+//    {
+//        self.uuidLabel.text = self.lastUUID;
+//        self.scanButton.hidden = true;
+//    }
+//    else
+//    {
+//        self.scanButton.hidden = false;
+//        self.connectButton.hidden = true;
+//    }
     [self sendUnsentSesions];
 }
 
@@ -143,39 +144,39 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 #pragma mark - Interface Elements
 
-- (IBAction)touchScan:(UIButton *)sender {
-    if ([sender.titleLabel.text isEqualToString:@"Disconnect"]) {
-        [self.scanButton setTitle:@"Scan for devices" forState:UIControlStateNormal];
-    } else {
-        [self disconnectPeripheralsBeforeScanning];
-        [self.bleShield findBLEPeripherals:3];
-        [self.rfduinoManager startScan];
-        
-        isFindingLast = NO;
-        self.lastButton.hidden = NO;
-        self.scanButton.hidden = NO;
-        [self.spinner startAnimating];
-        
-        [NSTimer scheduledTimerWithTimeInterval:(float)4.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
-    }
+- (IBAction)touchConnect:(UIButton *)sender {
+    self.isFindingLast = YES;
+    [self initiateScan];
 }
 
-- (IBAction)touchConnect:(UIButton *)sender {
-    //    [self disconnectPeripheralsBeforeScanning];
+- (IBAction)touchScan:(UIButton *)sender {
+    self.isFindingLast = NO;
+    [self initiateScan];
+}
+
+- (IBAction)touchDisconnect:(UIButton *)sender {
+    if (self.bleShield.activePeripheral){
+        if(self.bleShield.activePeripheral.state == CBPeripheralStateConnected) [[self.bleShield CM] cancelPeripheralConnection:[self.bleShield activePeripheral]];
+    }
+    if (self.connected_rfduino != NULL) {
+        [self.connected_rfduino disconnect];
+        self.connected_rfduino = NULL;
+    }
+    [self showButtons];
+}
+
+- (void)initiateScan
+{
+    [self disconnectPeripheralsBeforeScanning];
     [self.bleShield findBLEPeripherals:3];
     [self.rfduinoManager startScan];
-    
-    self.lastButton.hidden = YES;
-    self.scanButton.hidden = YES;
-    isFindingLast = YES;
-    [self.spinner startAnimating];
-    
     [NSTimer scheduledTimerWithTimeInterval:(float)4.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
+    [self showButtons];
 }
 
 - (void)didSelected:(NSInteger)index
 {
-    self.scanButton.hidden = true;
+//    self.scanButton.hidden = true;
     // need to add in logic for picking BLEMini or RFDuino
     
     for (id device in self.mDeviceDictionary) {
@@ -196,15 +197,15 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     }
 }
 
--(void) displaySesionStart
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss"];
-    [formatter setTimeZone:[NSTimeZone localTimeZone]];
-    
-    NSString *stringFromDate = [formatter stringFromDate:self.mSesionData.mSesionStart];
-    [self.sessionStartLabel setText:stringFromDate];
-}
+//-(void) displaySesionStart
+//{
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"HH:mm:ss"];
+//    [formatter setTimeZone:[NSTimeZone localTimeZone]];
+//    
+//    NSString *stringFromDate = [formatter stringFromDate:self.mSesionData.mSesionStart];
+//    [self.sessionStartLabel setText:stringFromDate];
+//}
 
 - (void)hideAll
 {
@@ -246,11 +247,14 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     [self.mDevices removeAllObjects];
     self.mDeviceDictionary = [[NSMutableDictionary alloc] init];
     
+    self.finishedScan = NO;
+    self.scanning = YES;
+    self.connected = NO;
     
     if(self.bleShield.peripherals.count > 0) {
 
         //to connect to last known peripheral
-        if(isFindingLast) {
+        if(self.isFindingLast) {
             
             // check last UUID against all BLEMini device UUIDs found
             for (int i = 0; i < self.bleShield.peripherals.count; i++) {
@@ -270,6 +274,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
                     RFduino *rfduino = [[self.rfduinoManager rfduinos] objectAtIndex:i];
                     if (!rfduino.outOfRange) {
                         [self.rfduinoManager connectRFduino:rfduino];
+                        [self.spinner stopAnimating];
                     }
                 }
             }
@@ -286,7 +291,6 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
                     [self.mDeviceDictionary setObject:[NSNumber numberWithInt:i] forKey:@"originalArrayIndex"];
                     
                     [self.mDevices addObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)]];
-//                    [self.mDeviceTypes addObject:@"BLEMini"];
                 } else {
                     [self.mDeviceDictionary setObject:@"NULL" forKey:@"UUID"];
                     [self.mDeviceDictionary setObject:@"BLEMini" forKey:@"deviceType"];
@@ -294,7 +298,6 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
                     [self.mDeviceDictionary setObject:[NSNumber numberWithInt:counter] forKey:@"aggregatedArrayIndex"];
                     
                     [self.mDevices addObject:@"NULL"];
-//                    [self.mDeviceTypes addObject:@"BLEMini"];
                 }
             }
             
@@ -312,22 +315,76 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
             }
             
             //Show the list for user selection
-            [self.spinner stopAnimating];
-            _showTable = YES;
-            self.deviceList.hidden = NO;
+//            [self.spinner stopAnimating];
+//            _showTable = YES;
+//            self.deviceList.hidden = NO;
             [self.deviceList reloadData];
         }
-    } else {
-        [self.spinner stopAnimating];
-        if (self.lastUUID.length == 0) {
-            self.lastButton.hidden = true;
-        } else {
-            self.lastButton.hidden = false;
-        }
-        self.scanButton.hidden = false;
     }
+    
+    self.finishedScan = YES;
+    self.scanning = NO;
+    [self showButtons];
+    
 }
 
+- (void)showButtons
+{
+    if (self.scanning == NO && self.connected == NO && self.finishedScan == NO) {
+        if (self.lastUUID.length > 0) {
+            self.uuidLabel.text = self.lastUUID;
+            self.scanButton.enabled = YES;
+            self.connectButton.enabled = YES;
+        } else {
+            self.scanButton.enabled = NO;
+            self.connectButton.enabled = NO;
+            self.disconnectButton.enabled = NO;
+        }
+//        self.connectButton.enabled = NO;
+//        self.scanButton.enabled = YES;
+//        self.disconnectButton.enabled = YES;
+        self.deviceList.hidden = YES;
+        [self.spinner stopAnimating];
+        
+    } else if (self.scanning == YES && self.connected == NO && self.finishedScan == NO) {
+        self.connectButton.enabled = NO;
+        self.scanButton.enabled = NO;
+        self.disconnectButton.enabled = NO;
+        self.deviceList.hidden = YES;
+        [self.spinner startAnimating];
+        
+    } else if (self.scanning == NO && self.connected == NO && self.finishedScan == YES) {
+        if (self.disconnected == YES) {
+            self.deviceList.hidden = YES;
+            self.connectButton.enabled = YES;
+        } else {
+            self.deviceList.hidden = NO;
+            self.connectButton.enabled = NO;
+        }
+        self.scanButton.enabled = YES;
+        self.disconnectButton.enabled = NO;
+        [self.spinner stopAnimating];
+        
+    } else if (self.scanning == NO && self.connected == YES && self.finishedScan == NO) {
+        self.connectButton.enabled = NO;
+        self.scanButton.enabled = NO;
+        self.disconnectButton.enabled = NO;
+        self.deviceList.hidden = YES;
+        [self.spinner stopAnimating];
+        
+    } else if (self.scanning == NO && self.connected == YES && self.finishedScan == YES) {
+        self.connectButton.enabled = NO;
+        self.scanButton.enabled = NO;
+        self.disconnectButton.enabled = YES;
+        self.deviceList.hidden = YES;
+        [self.spinner stopAnimating];
+        
+    } else {
+        NSLog(@"what should I do?");
+        // figure out what to do.
+    }
+    NSLog(@"%hhd %hhd %hhd",self.scanning, self.connected, self.finishedScan);
+}
 
 // Merge two bytes to integer value
 unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
@@ -347,125 +404,116 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 
 -(void)processBluetoothData:(unsigned char *)data length:(int)length
 {
-    if (self.passedToParent == NO) {
-        for (int i = 0; i < length && _bufferIndex < 4; i++)
-        {
-            unsigned char b = data[i];
-            
-            // we will force resynchronisation
-            if (b == OEM_PULSE || b == SYNC_CHAR || b == OEM_RELIABLE || b == OEM_UNRELIABLE)
-            {
-                _bufferIndex = 0;
-            }
-            
-            _oemBuffer.data[_bufferIndex] = b;
-            _bufferIndex++;
-            
-            switch (_oemBuffer.data[0]) {
-                case OEM_PULSE:
-                    if (_bufferIndex == NUM_PULSE_BYTES)
-                    {
-                        unsigned char lsb = _oemBuffer.data[1];
-                        unsigned char msb = _oemBuffer.data[2];
-                        
-                        unsigned interval = mergeBytes(lsb, msb);
-                        
-                        
-                        if (!_started)
-                            
-                        {
-                            [self.mSesionData clearSesionLists];
-                            [self.mSesionData setStartSesion];
-                            self.mSesionData.mUsername = self.username;
-                            self.mSesionData.mDeviceID = self.lastUUID;
-                            
-                            [self displaySesionStart];
-                            
-                            self.sessionStatusLabel.text = @"Sesion Started";
-                            _started = true;
-                            
-                            // need to get this working.
-                            // [mPDDRiver startSession];
-                            self.generateButton.hidden = true;
-                        }
-
-                        [self.delegate setLabel:[NSString stringWithFormat:@"Interval %d", interval]];
-                        NSLog(@"%u",interval);
-
-                        // need to get this working.
-                        //  [mPDDRiver sendIBI:interval];
-                        _bufferIndex = 0;
-                        _inactivityCount = 0;
-                        
-                        [self.mSesionData addIbi:interval];
-                    }
-                    
-                    break;
-                    
-                case SYNC_CHAR:
-                    _bufferIndex = 0;
-                    
-                    
-                    break;
-                    
-                case OEM_RELIABLE:
-                    _bufferIndex = 0;
-                    _reliable = true;
-//                    [mPDDRiver sendtoPDBaseReliability:1];  // need to get this working.
-                    self.sessionStatusLabel.text = @"Reliable";
-                    _inactivityCount = 0;
-                    
-                    [self.mSesionData addReliability:true];
-                    
-                    break;
-                    
-                case OEM_UNRELIABLE:
-                    _bufferIndex = 0;
-                    _reliable = false;
-//                    [mPDDRiver sendtoPDBaseReliability:0]; // need to get this working
-                    self.sessionStatusLabel.text = @"Unreliable";
-                    _inactivityCount = 0;
-                    
-                    [self.mSesionData addReliability:false];
-                    
-                    
-                    break;
-                    
-                default:
-                    _bufferIndex = 0; // we are not going to accept other values
-                    break;
-            }
-        }
-        _inactivityCount++;
+//    if (self.passedToParent == NO) {
+    for (int i = 0; i < length && _bufferIndex < 4; i++) {
+        unsigned char b = data[i];
         
-        if (_inactivityCount >= _max_inactivity)
-        {
-            self.intervalLabel.text = @"";
-            self.sessionStatusLabel.text = @"session Ended";
-            if (_started)
-            {
-                _started = false;
-//                [mPDDRiver endSession]; // need to get this working.
-                self.generateButton.hidden = true; // JASON
+        // we will force resynchronisation
+        if (b == OEM_PULSE || b == SYNC_CHAR || b == OEM_RELIABLE || b == OEM_UNRELIABLE) _bufferIndex = 0;
+        
+        _oemBuffer.data[_bufferIndex] = b;
+        _bufferIndex++;
+        
+        switch (_oemBuffer.data[0]) {
+            case OEM_PULSE:
+                if (_bufferIndex == NUM_PULSE_BYTES) {
+                    unsigned char lsb = _oemBuffer.data[1];
+                    unsigned char msb = _oemBuffer.data[2];
+                    
+                    unsigned interval = mergeBytes(lsb, msb);
+                    
+                    
+                    if (!_started) {
+                        [self.mSesionData clearSesionLists];
+                        [self.mSesionData setStartSesion];
+                        self.mSesionData.mUsername = self.username;
+                        self.mSesionData.mDeviceID = self.lastUUID;
+                        
+//                        [self displaySesionStart];
+                        
+//                        self.sessionStatusLabel.text = @"Sesion Started";
+                        _started = true;
+                        
+                        [self.mPDDRiver startSession];
+                        self.generateButton.hidden = true;
+                    }
+
+                    [self.delegate setLabel:[NSString stringWithFormat:@"Interval %d", interval]];
+                    NSLog(@"%u",interval);
+
+                    [self.mPDDRiver sendIBI:interval];
+                    _bufferIndex = 0;
+                    _inactivityCount = 0;
+                    
+                    [self.mSesionData addIbi:interval];
+                }
                 
-                [self.mSesionData setSessionEnd];
-                self.sessionStatusLabel.text = @"Uploaded";
+                break;
                 
-    //            XMLDataGenerator* xml = [[XMLDataGenerator alloc]init];
-    //            NSString *uuid = [[NSProcessInfo processInfo] globallyUniqueString];
+            case SYNC_CHAR:
+                _bufferIndex = 0;
                 
-    //            [xml generateXML:self.mSesionData filename: [NSString stringWithFormat:@"%@.xml", uuid]];
-    //            [xml release];
-            }
+                
+                break;
+                
+            case OEM_RELIABLE:
+                _bufferIndex = 0;
+                _reliable = true;
+                
+                [self.mPDDRiver sendtoPDBaseReliability:1];
+                self.sessionStatusLabel.text = @"Reliable";
+                _inactivityCount = 0;
+                
+                [self.mSesionData addReliability:true];
+                
+                break;
+                
+            case OEM_UNRELIABLE:
+                _bufferIndex = 0;
+                _reliable = false;
+                
+                [self.mPDDRiver sendtoPDBaseReliability:0];
+                self.sessionStatusLabel.text = @"Unreliable";
+                _inactivityCount = 0;
+                
+                [self.mSesionData addReliability:false];
+                
+                
+                break;
+                
+            default:
+                _bufferIndex = 0; // we are not going to accept other values
+                break;
         }
     }
+    _inactivityCount++;
+    
+    if (_inactivityCount >= _max_inactivity) {
+        self.intervalLabel.text = @"";
+        self.sessionStatusLabel.text = @"session Ended";
+        if (_started) {
+            _started = false;
+            [self.mPDDRiver endSession];
+            
+            [self.mSesionData setSessionEnd];
+            self.sessionStatusLabel.text = @"Uploaded";
+            
+//            XMLDataGenerator* xml = [[XMLDataGenerator alloc]init];
+//            NSString *uuid = [[NSProcessInfo processInfo] globallyUniqueString];
+            
+//            [xml generateXML:self.mSesionData filename: [NSString stringWithFormat:@"%@.xml", uuid]];
+//            [xml release];
+        }
+    }
+//    }
 }
 
 
 - (void)bleDidDisconnect
 {
-    self.lastButton.hidden = NO;
-    [self.scanButton setTitle:@"Scan for devices" forState:UIControlStateNormal];
+    self.connected = NO;
+    self.disconnected = YES;
+    [self showButtons];
 }
 
 -(void)bleDidConnect
@@ -475,14 +523,8 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     [[NSUserDefaults standardUserDefaults] setObject:self.lastUUID forKey:UUIDPrefKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [self.spinner stopAnimating];
-    self.lastButton.hidden = true;
-    self.scanButton.hidden = false;
-    self.uuidLabel.text = self.lastUUID;
-    self.rssiLabel.text = @"RSSI: ?";
-    self.rssiLabel.hidden = false;
-    [self.scanButton setTitle:@"Disconnect" forState:UIControlStateNormal];
-    
+    self.connected = YES;
+    [self showButtons];
 }
 
 -(void) bleDidUpdateRSSI:(NSNumber *)rssi
@@ -561,12 +603,12 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     [[NSUserDefaults standardUserDefaults] setObject:self.lastUUID forKey:UUIDPrefKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [self.spinner stopAnimating];
-    self.lastButton.hidden = true;
-    self.scanButton.hidden = false;
     self.uuidLabel.text = self.lastUUID;
-    self.sessionStatusLabel.text = @"Device Connected";
-    [self.scanButton setTitle:@"Disconnect" forState:UIControlStateNormal];
+//    self.sessionStatusLabel.text = @"Device Connected";
+//    [self.scanButton setTitle:@"Disconnect" forState:UIControlStateNormal];
+    
+    self.connected = YES;
+    [self showButtons];
     
     //loadService = false;
 }
@@ -583,9 +625,11 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 - (void)didDisconnectRFduino:(RFduino *)rfduino
 {
     self.connected_rfduino = NULL;
-    self.lastButton.hidden = NO;
-    [self.scanButton setTitle:@"Scan for devices" forState:UIControlStateNormal];
     NSLog(@"didDisconnectRFduino");
+    self.connected = NO;
+    self.disconnected = YES;
+    [self showButtons];
+    
     /*
      if (loadService) {
      [[self navigationController] popViewControllerAnimated:YES];

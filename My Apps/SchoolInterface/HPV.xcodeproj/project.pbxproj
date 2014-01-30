@@ -319,8 +319,10 @@
 			children = (
 				0E06A6C118863DB90018ECDB /* SENViewController.h */,
 				0E06A6C218863DB90018ECDB /* SENViewController.m */,
-				0E04A9651888C8B5006C8CF8 /* PD */,
-				0ED29EA91886CB1A0020D478 /* Settings */,
+				0ED0FAF2188802DF003B3136 /* BLEDevice.h */,
+				0ED0FAF3188802DF003B3136 /* BLEDevice.m */,
+				0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */,
+				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -450,6 +452,7 @@
 				0EC6A1A31898BB5A00451249 /* rfduino */,
 				0E11363D1897B51000873032 /* Game */,
 				0E823EF4188CC0390028D65B /* Utilities */,
+				0E04A9651888C8B5006C8CF8 /* PD */,
 				0E823EF5188CC0460028D65B /* Session Data */,
 				0E82B35B1891E91A00FE5B9C /* AFNetworking */,
 				0EC0F164188D715A00D4C7E7 /* LibPD */,
@@ -465,17 +468,6 @@
 				0ED0FAF8188802FB003B3136 /* BLEDefines.h */,
 			);
 			name = BLE_Framework;
-			sourceTree = "<group>";
-		};
-		0ED29EA91886CB1A0020D478 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				0ED0FAF2188802DF003B3136 /* BLEDevice.h */,
-				0ED0FAF3188802DF003B3136 /* BLEDevice.m */,
-				0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */,
-				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
-			);
-			name = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

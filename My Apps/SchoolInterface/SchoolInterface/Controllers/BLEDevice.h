@@ -36,7 +36,7 @@ typedef struct
 
 @interface BLEDevice : UIViewController <BLEDelegate, RFduinoManagerDelegate, RFduinoDelegate>
 {
-    bool isFindingLast;
+//    bool isFindingLast;
     volatile unsigned _bufferIndex;
     charbuff _oemBuffer;
     volatile unsigned _inactivityCount;
@@ -52,6 +52,8 @@ typedef struct
 @property (strong, nonatomic) SENPDDriver *mPDDRiver;
 
 @property (strong, nonatomic) NSMutableDictionary *mDeviceDictionary;
+
+@property (nonatomic) BOOL scanning, connected, isFindingLast, finishedScan, disconnected;
 
 @property (nonatomic) BOOL passedToParent;
 @property (strong, nonatomic) BLE *bleShield;
