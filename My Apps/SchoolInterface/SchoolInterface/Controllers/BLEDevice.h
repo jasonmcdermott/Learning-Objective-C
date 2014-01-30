@@ -36,7 +36,7 @@ typedef struct
 
 @interface BLEDevice : UIViewController <BLEDelegate, RFduinoManagerDelegate, RFduinoDelegate>
 {
-//    bool isFindingLast;
+    int counter;
     volatile unsigned _bufferIndex;
     charbuff _oemBuffer;
     volatile unsigned _inactivityCount;

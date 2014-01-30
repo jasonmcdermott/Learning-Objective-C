@@ -29,11 +29,13 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 @property (weak, nonatomic) IBOutlet UIButton *scanButton;
 @property (weak, nonatomic) IBOutlet UIButton *disconnectButton;
 
-
+@property (weak, nonatomic) IBOutlet UILabel *instructionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ibiLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
-@property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
+
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMutableArray *tempDevices;
@@ -84,18 +86,9 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     //Retrieve saved UUID from system
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:UUIDPrefKey];
     
-    [self showButtons];
-//    if (self.lastUUID.length > 0)
-//    {
-//        self.uuidLabel.text = self.lastUUID;
-//        self.scanButton.hidden = true;
-//    }
-//    else
-//    {
-//        self.scanButton.hidden = false;
-//        self.connectButton.hidden = true;
-//    }
-    [self sendUnsentSesions];
+    [self showButtons:@"Starting Up"];
+
+//    [self sendUnsentSesions];
 }
 
 - (void)didReceiveMemoryWarning
@@ -139,7 +132,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self didSelected:indexPath.row];
-    self.deviceList.hidden = YES;
+    [self showButtons:@"Picked Device From List"];
 }
 
 #pragma mark - Interface Elements
@@ -162,7 +155,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
         [self.connected_rfduino disconnect];
         self.connected_rfduino = NULL;
     }
-    [self showButtons];
+    [self showButtons:@"Disconnect"];
 }
 
 - (void)initiateScan
@@ -170,15 +163,13 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     [self disconnectPeripheralsBeforeScanning];
     [self.bleShield findBLEPeripherals:3];
     [self.rfduinoManager startScan];
-    [NSTimer scheduledTimerWithTimeInterval:(float)4.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
-    [self showButtons];
+    self.disconnected = NO;
+    [NSTimer scheduledTimerWithTimeInterval:(float)3.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
+    self.isFindingLast ? [self showButtons:@"connectPrevious"] : [self showButtons:@"scanDevices"];
 }
 
 - (void)didSelected:(NSInteger)index
 {
-//    self.scanButton.hidden = true;
-    // need to add in logic for picking BLEMini or RFDuino
-    
     for (id device in self.mDeviceDictionary) {
         NSNumber *originalArrayIndex = [self.mDeviceDictionary objectForKey:@"originalArrayIndex"];
         NSNumber *aggregatedArrayIndex = [self.mDeviceDictionary objectForKey:@"aggregatedArrayIndex"];
@@ -246,10 +237,12 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 {
     [self.mDevices removeAllObjects];
     self.mDeviceDictionary = [[NSMutableDictionary alloc] init];
+    [self.deviceList reloadData];
     
     self.finishedScan = NO;
     self.scanning = YES;
     self.connected = NO;
+    self->counter = 0;
     
     if(self.bleShield.peripherals.count > 0) {
 
@@ -281,10 +274,10 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
         // We're scanning for new devices now
         } else {
-            int counter = 0;
+
             for (int i = 0; i < self.bleShield.peripherals.count; i++) {
                 CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
-                counter++;
+                self->counter++;
                 if (p.identifier != NULL) { // is this even necessary?
                     [self.mDeviceDictionary setObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)] forKey:@"UUID"];
                     [self.mDeviceDictionary setObject:@"BLEMini" forKey:@"deviceType"];
@@ -302,7 +295,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
             }
             
             for (int i = 0; i < [[self.rfduinoManager rfduinos] count]; i++) {
-                counter++;
+                self->counter++;
                 RFduino *rfduino = [self.rfduinoManager.rfduinos objectAtIndex:i];
                 
                 [self.mDeviceDictionary setObject:rfduino.UUID forKey:@"UUID"];
@@ -322,67 +315,156 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
         }
     }
     
-    self.finishedScan = YES;
-    self.scanning = NO;
-    [self showButtons];
+    [self showButtons:@"Finished Scan"];
     
 }
 
-- (void)showButtons
+- (void)showButtons:(NSString *)state
 {
-    if (self.scanning == NO && self.connected == NO && self.finishedScan == NO) {
-        if (self.lastUUID.length > 0) {
-            self.uuidLabel.text = self.lastUUID;
-            self.scanButton.enabled = YES;
-            self.connectButton.enabled = YES;
-        } else {
-            self.scanButton.enabled = NO;
-            self.connectButton.enabled = NO;
-            self.disconnectButton.enabled = NO;
-        }
-//        self.connectButton.enabled = NO;
-//        self.scanButton.enabled = YES;
-//        self.disconnectButton.enabled = YES;
+    if ([state isEqualToString:@"Disconnect"]) {
         self.deviceList.hidden = YES;
-        [self.spinner stopAnimating];
-        
-    } else if (self.scanning == YES && self.connected == NO && self.finishedScan == NO) {
-        self.connectButton.enabled = NO;
-        self.scanButton.enabled = NO;
-        self.disconnectButton.enabled = NO;
-        self.deviceList.hidden = YES;
-        [self.spinner startAnimating];
-        
-    } else if (self.scanning == NO && self.connected == NO && self.finishedScan == YES) {
-        if (self.disconnected == YES) {
-            self.deviceList.hidden = YES;
-            self.connectButton.enabled = YES;
-        } else {
-            self.deviceList.hidden = NO;
-            self.connectButton.enabled = NO;
-        }
+        self.connectButton.enabled = YES;
         self.scanButton.enabled = YES;
         self.disconnectButton.enabled = NO;
         [self.spinner stopAnimating];
+        self.instructionLabel.text = @"Disconnecting. Make sure your device is switched on";
+        self.ibiLabel.hidden = YES;
         
-    } else if (self.scanning == NO && self.connected == YES && self.finishedScan == NO) {
+    } else if ([state isEqualToString:@"connectPrevious"]) {
+        self.deviceList.hidden = YES;
         self.connectButton.enabled = NO;
         self.scanButton.enabled = NO;
         self.disconnectButton.enabled = NO;
-        self.deviceList.hidden = YES;
-        [self.spinner stopAnimating];
+        [self.spinner startAnimating];
+        self.instructionLabel.text = @"Trying to connect to previous device";
+        self.ibiLabel.hidden = YES;
         
-    } else if (self.scanning == NO && self.connected == YES && self.finishedScan == YES) {
+    } else if ([state isEqualToString:@"scanDevices"]) {
+        self.deviceList.hidden = YES;
+        self.connectButton.enabled = NO;
+        self.scanButton.enabled = NO;
+        self.disconnectButton.enabled = NO;
+        [self.spinner startAnimating];
+        self.instructionLabel.text = @"Scanning for available devices";
+        self.ibiLabel.hidden = YES;
+        
+    } else if ([state isEqualToString:@"Connected"]) {
+        self.deviceList.hidden = YES;
         self.connectButton.enabled = NO;
         self.scanButton.enabled = NO;
         self.disconnectButton.enabled = YES;
-        self.deviceList.hidden = YES;
         [self.spinner stopAnimating];
+        self.uuidLabel.text = self.lastUUID;
+        self.instructionLabel.text = @"Connected";
+        self.ibiLabel.text = @"Waiting for pulse data";
+        self.ibiLabel.hidden = NO;
+        
+    } else if ([state isEqualToString:@"Disconnected"]) {
+        self.deviceList.hidden = YES;
+        self.connectButton.enabled = YES;
+        self.scanButton.enabled = YES;
+        self.disconnectButton.enabled = NO;
+        [self.spinner stopAnimating];
+        self.instructionLabel.text = @"Disconnected. Make sure your device is switched on";
+        self.ibiLabel.hidden = YES;
+      
+    } else if ([state isEqualToString:@"Starting Up"]) {
+        self.deviceList.hidden = YES;
+        if (self.lastUUID != nil) self.connectButton.enabled = YES;
+        self.scanButton.enabled = YES;
+        self.disconnectButton.enabled = NO;
+        [self.spinner stopAnimating];
+        if (self.lastUUID.length > 0) self.uuidLabel.text = self.lastUUID;
+        self.instructionLabel.text = @"Make sure your device is switched on";
+        self.ibiLabel.hidden = YES;
+        
+    } else if ([state isEqualToString:@"Finished Scan"]) {
+        [self.spinner stopAnimating];
+        self.scanButton.enabled = YES;
+        self.connectButton.enabled = YES;
+        self.disconnectButton.enabled = NO;
+        if (self->counter == 0) {
+            self.deviceList.hidden = YES;
+            self.instructionLabel.text = @"No devices available";
+        } else {
+            self.deviceList.hidden = NO;
+            if (self.isFindingLast) {
+                self.instructionLabel.text = @"Connecting";
+            } else {
+                self.instructionLabel.text = @"Select a device";
+            }
+        }
+        self.ibiLabel.hidden = YES;
+        
+    } else if ([state isEqualToString:@"Picked Device From List"]) {
+        [self.spinner startAnimating];
+        self.scanButton.enabled = NO;
+        self.connectButton.enabled = NO;
+        self.disconnectButton.enabled = NO;
+        self.deviceList.hidden = YES;
+        self.instructionLabel.text = @"Connecting";
+        self.ibiLabel.hidden = YES;
         
     } else {
         NSLog(@"what should I do?");
-        // figure out what to do.
     }
+    
+//    if (self.scanning == NO && self.connected == NO && self.finishedScan == NO) {
+//        if (self.lastUUID.length > 0) {
+//            self.uuidLabel.text = self.lastUUID;
+//            self.scanButton.enabled = YES;
+//            self.connectButton.enabled = YES;
+//        } else {
+//            self.scanButton.enabled = NO;
+//            self.connectButton.enabled = NO;
+//            self.disconnectButton.enabled = NO;
+//        }
+////        self.connectButton.enabled = NO;
+////        self.scanButton.enabled = YES;
+////        self.disconnectButton.enabled = YES;
+//        self.deviceList.hidden = YES;
+//        [self.spinner stopAnimating];
+//        
+//    } else if (self.scanning == YES && self.connected == NO && self.finishedScan == NO) {
+//        self.connectButton.enabled = NO;
+//        self.scanButton.enabled = NO;
+//        self.disconnectButton.enabled = NO;
+//        self.deviceList.hidden = YES;
+//        self.spinner.hidden = NO;
+//        [self.spinner startAnimating];
+//        
+//    } else if (self.scanning == NO && self.connected == NO && self.finishedScan == YES) {
+//        if ([self.mDevices count] > 0) {
+//            if (self.disconnected == NO) {
+//                self.deviceList.hidden = NO;
+//            }
+//        }
+//        self.connectButton.enabled = YES;
+//        self.scanButton.enabled = YES;
+//        self.disconnectButton.enabled = NO;
+////        self.spinner.hidden = YES;
+////        [self.spinner stopAnimating];
+//        
+//    } else if (self.scanning == NO && self.connected == YES && self.finishedScan == NO) {
+//        self.connectButton.enabled = NO;
+//        self.scanButton.enabled = NO;
+//        self.disconnectButton.enabled = NO;
+//        self.deviceList.hidden = YES;
+//        self.spinner.hidden = YES;
+//        [self.spinner stopAnimating];
+//        
+//    } else if (self.scanning == NO && self.connected == YES && self.finishedScan == YES) {
+//        self.connectButton.enabled = NO;
+//        self.scanButton.enabled = NO;
+//        self.disconnectButton.enabled = YES;
+//        self.deviceList.hidden = YES;
+//        self.spinner.hidden = YES;
+//        [self.spinner stopAnimating];
+//        
+//    } else {
+//        NSLog(@"what should I do?");
+//        // figure out what to do.
+//    }
     NSLog(@"%hhd %hhd %hhd",self.scanning, self.connected, self.finishedScan);
 }
 
@@ -437,9 +519,12 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
                         [self.mPDDRiver startSession];
                         self.generateButton.hidden = true;
                     }
+                    
+                    NSString *ibi = [NSString stringWithFormat:@"Interval %d", interval];
+                    self.ibiLabel.text = ibi;
 
-                    [self.delegate setLabel:[NSString stringWithFormat:@"Interval %d", interval]];
-                    NSLog(@"%u",interval);
+                    [self.delegate setLabel:ibi];
+                    NSLog(@"%@",ibi);
 
                     [self.mPDDRiver sendIBI:interval];
                     _bufferIndex = 0;
@@ -513,7 +598,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 {
     self.connected = NO;
     self.disconnected = YES;
-    [self showButtons];
+    [self showButtons:@"Disconnected"];
 }
 
 -(void)bleDidConnect
@@ -522,14 +607,14 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     self.lastUUID = [SENUtilities getUUIDString:CFBridgingRetain(self.bleShield.activePeripheral.identifier)];
     [[NSUserDefaults standardUserDefaults] setObject:self.lastUUID forKey:UUIDPrefKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
+    NSLog(@"%@",self.lastUUID);
     self.connected = YES;
-    [self showButtons];
+    [self showButtons:@"Connected"];
 }
 
 -(void) bleDidUpdateRSSI:(NSNumber *)rssi
 {
-    self.rssiLabel.text = [NSString stringWithFormat:@"RSSI: %@", rssi.stringValue];
+//    self.rssiLabel.text = [NSString stringWithFormat:@"RSSI: %@", rssi.stringValue];
 }
 
 
@@ -608,7 +693,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 //    [self.scanButton setTitle:@"Disconnect" forState:UIControlStateNormal];
     
     self.connected = YES;
-    [self showButtons];
+    [self showButtons:@"Connected"];
     
     //loadService = false;
 }
@@ -628,7 +713,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     NSLog(@"didDisconnectRFduino");
     self.connected = NO;
     self.disconnected = YES;
-    [self showButtons];
+    [self showButtons:@"Disconnected"];
     
     /*
      if (loadService) {
@@ -657,10 +742,10 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 #pragma mark -
 #pragma mark XML
 
--(void) sendUnsentSesions
-{
+//-(void) sendUnsentSesions
+//{
 //    SENXmlDataGenerator* xmlDataGenerator = [[SENXmlDataGenerator alloc]init];
 //    [xmlDataGenerator sendUnsentSesions];
-}
+//}
 
 @end
