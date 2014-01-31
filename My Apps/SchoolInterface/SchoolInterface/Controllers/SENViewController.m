@@ -218,8 +218,7 @@
     self.ibiLabel.text = _chosenMode;
 }
 
-#pragma mark -
-#pragma mark Navigation Interface
+#pragma mark - Navigation Interface
 
 - (void)setLabel:(NSString *)label
 {
@@ -236,7 +235,6 @@
 
 }
 
-
 - (IBAction)clickBluetoothButton:(UIButton *)sender
 {
     NSLog(@"pressed into service");
@@ -244,7 +242,6 @@
     self.glviewIsDisplaying = NO;
     self.link.frameInterval = 3;
     [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-
 }
 
 - (void)startGLView
@@ -263,8 +260,22 @@
     NSLog(@"Entering background, is GL displaying? %hhd",self.glviewIsDisplaying);
 }
 
-#pragma mark -
-#pragma mark Settings Bundle
+#pragma mark - Interface
+
+-(void)viewWillActive:(id)sender{
+    _chosenMode = [[SENUserDefaultsHelper sharedManager] appMode];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self setVisibility];
+    self.glviewIsDisplaying = YES;
+    NSLog(@"num: %@",_chosenMode);
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    self.glviewIsDisplaying = NO;
+}
+
+#pragma mark - Settings
 
 - (void)registerDefaultsFromSettingsBundle {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -310,19 +321,6 @@
     return defaults;
 }
 
--(void)viewWillActive:(id)sender{
-    _chosenMode = [[SENUserDefaultsHelper sharedManager] appMode];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self setVisibility];
-    self.glviewIsDisplaying = YES;
-    NSLog(@"num: %@",_chosenMode);
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    self.glviewIsDisplaying = NO;
-}
-
 - (void)checkAutoUpdateSettingsForNotificaiton:(NSNotification *)aNotification
 {
     self.chosenMode = [self.SENUserDefaultsHelper getStringForKey:@"appMode"];
@@ -338,7 +336,6 @@
 
 - (void)setSettingsValues
 {
-    
     //Get the bundle file
     NSString *bPath = [[NSBundle mainBundle] bundlePath];
     NSString *settingsPath = [bPath stringByAppendingPathComponent:@"Settings.bundle"];

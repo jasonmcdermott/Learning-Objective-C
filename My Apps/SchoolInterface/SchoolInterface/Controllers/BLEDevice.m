@@ -34,8 +34,6 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 @property (weak, nonatomic) IBOutlet UILabel *ibiLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
-//@property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
-
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMutableArray *tempDevices;
@@ -88,6 +86,8 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     
     [self showButtons:@"Starting Up"];
 
+    [NSTimer scheduledTimerWithTimeInterval:(float)10.0 target:self selector:@selector(checkIntervalTime) userInfo:nil repeats:YES];
+    
 //    [self sendUnsentSesions];
 }
 
@@ -95,6 +95,17 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)checkIntervalTime
+{
+    if (self.connected) {
+        CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - self.previousTimestamp;
+        NSLog(@"Frame duration: %f", frameDuration);
+        if (frameDuration > 5) {
+            [self showButtons:@"Connected but no ibi data"];
+        }
+    }
 }
 
 #pragma mark - TableView
@@ -118,20 +129,30 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     static NSString *tableIdentifier = @"BLEDeviceList";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = [self.mDevices objectAtIndex:indexPath.row];
     
-    for (int i=0;i<[self.knownDevices count];i++) {
-        if ([[self.mDevices objectAtIndex:indexPath.row] isEqualToString:[self.knownDevices objectAtIndex:i]]){
-            cell.textLabel.text = [self.deviceAliases objectAtIndex:i];
-        } else {
+//    for (id device in self.mDeviceDictionary) {
+//        NSNumber *aggregatedArrayIndex = [self.mDeviceDictionary objectForKey:@"aggregatedArrayIndex"];
+//        if (indexPath.row == [aggregatedArrayIndex integerValue]) {
+//            NSString *deviceType = [self.mDeviceDictionary objectForKey:@"deviceType"];
+//            NSLog(@"%@, %ld",deviceType, (long)indexPath.row);
+//            cell.textLabel.text = deviceType;
+//        }
+//    }
+//    for (int i=0;i<[self.knownDevices count];i++) {
+//        if ([[self.mDevices objectAtIndex:indexPath.row] isEqualToString:[self.knownDevices objectAtIndex:i]]){
+//            cell.textLabel.text = [self.deviceAliases objectAtIndex:i];
+//        } else {
 //            cell.textLabel.text = @"New Sensor Device";
-            cell.textLabel.text = [self.mDevices objectAtIndex:i]; // for the time being
-        }
-    }
+//            cell.textLabel.text = [self.mDevices objectAtIndex:i]; // for the time being
+//        }
+//    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self didSelected:indexPath.row];
+    NSLog(@"picked %ld",(long)indexPath.row);
     [self showButtons:@"Picked Device From List"];
 }
 
@@ -176,27 +197,23 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
         NSString *deviceType = [self.mDeviceDictionary objectForKey:@"deviceType"];
         
         if (index == [aggregatedArrayIndex integerValue]) {
-            if ([deviceType isEqualToString:@"BLEMini"]) {
+            NSLog(@"-- %ld,%@,%@,%@", (long)index, originalArrayIndex, aggregatedArrayIndex, deviceType);
+            
+            if ([deviceType isEqualToString:@"Redbear"]) {
+                NSLog(@"connecting to redbear");
                 [self.bleShield connectPeripheral:[self.bleShield.peripherals objectAtIndex:[originalArrayIndex integerValue]]];
             } else if ([deviceType isEqualToString:@"RFDuino"]) {
+                
+                NSLog(@"connecting to rfduino");
                 RFduino *rfduino = [[self.rfduinoManager rfduinos] objectAtIndex:[originalArrayIndex integerValue]];
                 if (!rfduino.outOfRange) {
                     [self.rfduinoManager connectRFduino:rfduino];
+                    NSLog(@"did it work?");
                 }
             }
         }
     }
 }
-
-//-(void) displaySesionStart
-//{
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"HH:mm:ss"];
-//    [formatter setTimeZone:[NSTimeZone localTimeZone]];
-//    
-//    NSString *stringFromDate = [formatter stringFromDate:self.mSesionData.mSesionStart];
-//    [self.sessionStartLabel setText:stringFromDate];
-//}
 
 - (void)hideAll
 {
@@ -244,8 +261,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     self.connected = NO;
     self->counter = 0;
     
-    if(self.bleShield.peripherals.count > 0) {
-
+    if(self.bleShield.peripherals.count > 0 || [[self.rfduinoManager rfduinos] count] > 0) {
         //to connect to last known peripheral
         if(self.isFindingLast) {
             
@@ -274,28 +290,19 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
         // We're scanning for new devices now
         } else {
-
             for (int i = 0; i < self.bleShield.peripherals.count; i++) {
                 CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
+                [self.mDeviceDictionary setObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)] forKey:@"UUID"];
+                [self.mDeviceDictionary setObject:@"Redbear" forKey:@"deviceType"];
+                [self.mDeviceDictionary setObject:[NSNumber numberWithInt:i] forKey:@"originalArrayIndex"];
+                
+                [self.mDevices addObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)]];
+
+                NSLog(@"adding BLE item to list %d",self->counter);
                 self->counter++;
-                if (p.identifier != NULL) { // is this even necessary?
-                    [self.mDeviceDictionary setObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)] forKey:@"UUID"];
-                    [self.mDeviceDictionary setObject:@"BLEMini" forKey:@"deviceType"];
-                    [self.mDeviceDictionary setObject:[NSNumber numberWithInt:i] forKey:@"originalArrayIndex"];
-                    
-                    [self.mDevices addObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)]];
-                } else {
-                    [self.mDeviceDictionary setObject:@"NULL" forKey:@"UUID"];
-                    [self.mDeviceDictionary setObject:@"BLEMini" forKey:@"deviceType"];
-                    [self.mDeviceDictionary setObject:[NSNumber numberWithInt:i] forKey:@"originalArrayIndex"];
-                    [self.mDeviceDictionary setObject:[NSNumber numberWithInt:counter] forKey:@"aggregatedArrayIndex"];
-                    
-                    [self.mDevices addObject:@"NULL"];
-                }
             }
-            
+
             for (int i = 0; i < [[self.rfduinoManager rfduinos] count]; i++) {
-                self->counter++;
                 RFduino *rfduino = [self.rfduinoManager.rfduinos objectAtIndex:i];
                 
                 [self.mDeviceDictionary setObject:rfduino.UUID forKey:@"UUID"];
@@ -305,12 +312,11 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
                 
                 [self.mDevices addObject:rfduino.UUID];
                 [self.mDeviceTypes addObject:@"RFDuino"];
+                
+                NSLog(@"adding RFDUINO item to list %d",self->counter);
+                self->counter++;
+
             }
-            
-            //Show the list for user selection
-//            [self.spinner stopAnimating];
-//            _showTable = YES;
-//            self.deviceList.hidden = NO;
             [self.deviceList reloadData];
         }
     }
@@ -347,6 +353,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
         [self.spinner startAnimating];
         self.instructionLabel.text = @"Scanning for available devices";
         self.ibiLabel.hidden = YES;
+        NSLog(@"scanning");
         
     } else if ([state isEqualToString:@"Connected"]) {
         self.deviceList.hidden = YES;
@@ -395,6 +402,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
             }
         }
         self.ibiLabel.hidden = YES;
+        NSLog(@"finished");
         
     } else if ([state isEqualToString:@"Picked Device From List"]) {
         [self.spinner startAnimating];
@@ -404,67 +412,20 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
         self.deviceList.hidden = YES;
         self.instructionLabel.text = @"Connecting";
         self.ibiLabel.hidden = YES;
+        NSLog(@"connecting");
         
+    } else if ([state isEqualToString:@"Connected but no ibi data"]) {
+        self.scanButton.enabled = NO;
+        self.connectButton.enabled = NO;
+        self.disconnectButton.enabled = YES;
+        self.deviceList.hidden = YES;
+        self.instructionLabel.text = @"Connected";
+        self.ibiLabel.hidden = NO;
+        self.ibiLabel.text = @"Waiting for heart beat data";
+
     } else {
         NSLog(@"what should I do?");
     }
-    
-//    if (self.scanning == NO && self.connected == NO && self.finishedScan == NO) {
-//        if (self.lastUUID.length > 0) {
-//            self.uuidLabel.text = self.lastUUID;
-//            self.scanButton.enabled = YES;
-//            self.connectButton.enabled = YES;
-//        } else {
-//            self.scanButton.enabled = NO;
-//            self.connectButton.enabled = NO;
-//            self.disconnectButton.enabled = NO;
-//        }
-////        self.connectButton.enabled = NO;
-////        self.scanButton.enabled = YES;
-////        self.disconnectButton.enabled = YES;
-//        self.deviceList.hidden = YES;
-//        [self.spinner stopAnimating];
-//        
-//    } else if (self.scanning == YES && self.connected == NO && self.finishedScan == NO) {
-//        self.connectButton.enabled = NO;
-//        self.scanButton.enabled = NO;
-//        self.disconnectButton.enabled = NO;
-//        self.deviceList.hidden = YES;
-//        self.spinner.hidden = NO;
-//        [self.spinner startAnimating];
-//        
-//    } else if (self.scanning == NO && self.connected == NO && self.finishedScan == YES) {
-//        if ([self.mDevices count] > 0) {
-//            if (self.disconnected == NO) {
-//                self.deviceList.hidden = NO;
-//            }
-//        }
-//        self.connectButton.enabled = YES;
-//        self.scanButton.enabled = YES;
-//        self.disconnectButton.enabled = NO;
-////        self.spinner.hidden = YES;
-////        [self.spinner stopAnimating];
-//        
-//    } else if (self.scanning == NO && self.connected == YES && self.finishedScan == NO) {
-//        self.connectButton.enabled = NO;
-//        self.scanButton.enabled = NO;
-//        self.disconnectButton.enabled = NO;
-//        self.deviceList.hidden = YES;
-//        self.spinner.hidden = YES;
-//        [self.spinner stopAnimating];
-//        
-//    } else if (self.scanning == NO && self.connected == YES && self.finishedScan == YES) {
-//        self.connectButton.enabled = NO;
-//        self.scanButton.enabled = NO;
-//        self.disconnectButton.enabled = YES;
-//        self.deviceList.hidden = YES;
-//        self.spinner.hidden = YES;
-//        [self.spinner stopAnimating];
-//        
-//    } else {
-//        NSLog(@"what should I do?");
-//        // figure out what to do.
-//    }
     NSLog(@"%hhd %hhd %hhd",self.scanning, self.connected, self.finishedScan);
 }
 
@@ -529,7 +490,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
                     [self.mPDDRiver sendIBI:interval];
                     _bufferIndex = 0;
                     _inactivityCount = 0;
-                    
+                    self.previousTimestamp = CFAbsoluteTimeGetCurrent();
                     [self.mSesionData addIbi:interval];
                 }
                 
@@ -591,6 +552,8 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
         }
     }
 //    }
+    
+    
 }
 
 
@@ -620,64 +583,14 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 
 #pragma mark - RFDUINO
 
-//-(void)connectLastServiceRfduino
-//{
-//    int value = [[self.rfduinoManager rfduinos] count];
-//    for(int i = 0; i < value; i++)
-//    {
-//        RFduino *rfduino = [self.rfduinoManager.rfduinos objectAtIndex:i];
-//        NSString *text = [[NSString alloc] initWithFormat:@"%@", rfduino.name];
-//        
-//        NSString *uuid = rfduino.UUID;
-//        if([self.lastUUID isEqualToString:uuid]) {
-////            [self didSelectRFDuino:i];
-//        }
-//        
-//    }
-//}
-
-//-(void)didSelectRFDuino:(NSInteger)index
-//{
-//    RFduino *rfduino = [[self.rfduinoManager rfduinos] objectAtIndex:index];
-//    
-//    if (!rfduino.outOfRange) {
-//        [self.rfduinoManager connectRFduino:rfduino];
-//    }
-//}
-
 - (void)didDiscoverRFduino:(RFduino *)rfduino
 {
     NSLog(@"didDiscoverRFduino");
 }
 
-- (void)didUpdateDiscoveredRFduino:(RFduino *)rfduino
-{
-    if (self.connected_rfduino != NULL) return;
-    
-//    NSLog(@"didUpdateRFduino");
-//    int numberOfRFDuiunos = [[self.rfduinoManager rfduinos] count];
-    
-//    for(int i = 0; i < numberOfRFDuiunos; i++) {
-//        RFduino *rfduino = [self.rfduinoManager.rfduinos objectAtIndex:i];
-
-        
-//        NSString *uuid = rfduino.UUID;
-//        NSString *text = [[NSString alloc] initWithFormat:@"%@", rfduino.name]; // it has a name?
-//        int rssi = rfduino.advertisementRSSI.intValue;
-        
-//        NSString *advertising = @"";
-//        if (rfduino.advertisementData) {
-//            advertising = [[NSString alloc] initWithData:rfduino.advertisementData encoding:NSUTF8StringEncoding];
-//        }
-//        [self.mDevices addObject:uuid];
-//        [self.mDeviceTypes addObject:@"RFDuino"];
-//    }
-}
-
 - (void)didConnectRFduino:(RFduino *)rfduino
 {
-    NSLog(@"didConnectRFduino");
-    
+    NSLog(@"didConnectRFduino");    
     self.connected_rfduino = rfduino;
     
     [self.rfduinoManager stopScan];
@@ -689,22 +602,9 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     self.uuidLabel.text = self.lastUUID;
-//    self.sessionStatusLabel.text = @"Device Connected";
-//    [self.scanButton setTitle:@"Disconnect" forState:UIControlStateNormal];
-    
     self.connected = YES;
     [self showButtons:@"Connected"];
     
-    //loadService = false;
-}
-
-- (void)didLoadServiceRFduino:(RFduino *)rfduino
-{
-    //AppViewController *viewController = [[AppViewController alloc] init];
-    //viewController.rfduino = rfduino;
-    
-    //loadService = true;
-    //[[self navigationController] pushViewController:viewController animated:YES];
 }
 
 - (void)didDisconnectRFduino:(RFduino *)rfduino
@@ -733,7 +633,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 
 - (void)didReceive:(NSData *)data
 {
-    NSLog(@"RecievedData");
+//    NSLog(@"ReceivedData");
     unsigned char *value = [data bytes];
     int length = [data length];
     [self processBluetoothData:value length:length];

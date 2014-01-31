@@ -160,7 +160,7 @@ float dataFloat(NSData *data)
     receive_uuid = [CBUUID UUIDWithString:@"2221"];
     disconnect_uuid = [CBUUID UUIDWithString:@"2223"];
     
-    NSLog(@"didUpdateValueForCharacteristic");
+//    NSLog(@"didUpdateValueForCharacteristic");  good to know about, but not always necessary
     if ([characteristic.UUID isEqual:receive_uuid]) {
         SEL didReceive = @selector(didReceive:);
         if ([delegate respondsToSelector:didReceive]) {

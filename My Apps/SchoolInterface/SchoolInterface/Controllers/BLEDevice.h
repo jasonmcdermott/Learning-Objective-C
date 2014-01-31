@@ -74,4 +74,7 @@ typedef struct
 
 @property (retain, nonatomic) IBOutlet UIButton *generateButton;
 
+@property (nonatomic) CFTimeInterval previousTimestamp;
 @end
+
+
