@@ -2,8 +2,8 @@
 //  HeartMonitorTests.m
 //  HeartMonitorTests
 //
-//  Created by Main Account on 12/13/13.
-//  Copyright (c) 2013 Razeware LLC. All rights reserved.
+//  Created by GENIESOFT-MBP02 on 21/10/13.
+//  Copyright (c) 2013 GENIESOFT STUDIOS. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>

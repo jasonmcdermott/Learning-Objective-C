@@ -1,18 +1,16 @@
 {
   "images" : [
     {
+      "orientation" : "portrait",
       "idiom" : "iphone",
-      "size" : "29x29",
+      "minimum-system-version" : "7.0",
       "scale" : "2x"
     },
     {
+      "orientation" : "portrait",
       "idiom" : "iphone",
-      "size" : "40x40",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "iphone",
-      "size" : "60x60",
+      "minimum-system-version" : "7.0",
+      "subtype" : "retina4",
       "scale" : "2x"
     }
   ],
