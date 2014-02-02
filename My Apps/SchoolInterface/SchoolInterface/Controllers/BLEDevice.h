@@ -45,7 +45,7 @@ typedef struct
 
 @interface BLEDevice : UIViewController <BLEDelegate, RFduinoManagerDelegate, RFduinoDelegate, CBCentralManagerDelegate, CBPeripheralDelegate>
 {
-    int counter;
+    int counter, BTLECounter, scannedDevices;
     volatile unsigned _bufferIndex;
     charbuff _oemBuffer;
     volatile unsigned _inactivityCount;
@@ -54,7 +54,7 @@ typedef struct
     volatile bool _reliable;
 }
 
-@property (nonatomic, strong) CBCentralManager *centralManager;
+@property (nonatomic, strong) CBCentralManager *BTLEcentralManager;
 @property (nonatomic, strong) CBPeripheral     *heartRateMonitorPeripheral;
 
 // Properties to hold data characteristics for the peripheral device
@@ -63,6 +63,7 @@ typedef struct
 @property (nonatomic, strong) NSString   *BTLEmanufacturer;
 @property (nonatomic, strong) NSString   *BTLEdeviceData;
 @property (assign) uint16_t BTLEheartRate;
+@property (strong, nonatomic) CBPeripheral *BTLEPeripheral;
 
 // Properties to handle storing the BPM and heart beat
 @property (nonatomic, strong) UILabel    *heartRateBPM;
@@ -74,7 +75,7 @@ typedef struct
 // Instance methods to grab device Manufacturer Name, Body Location
 - (void) getManufacturerName:(CBCharacteristic *)characteristic;
 - (void) getBodyLocation:(CBCharacteristic *)characteristic;
-
+@property (strong, nonatomic) NSMutableArray *BTLEDevices;
 
 @property (nonatomic, weak) id <BLEDeviceDelegate> delegate;
 @property(strong, nonatomic) RFduino *connected_rfduino;

@@ -34,6 +34,7 @@
 @property (nonatomic, strong) NSString   *manufacturer;
 @property (nonatomic, strong) NSString   *deviceData;
 @property (assign) uint16_t heartRate;
+@property (strong, nonatomic) NSMutableArray *BTLEDevices;
 
 // Properties to handle storing the BPM and heart beat
 @property (nonatomic, strong) UILabel    *heartRateBPM;

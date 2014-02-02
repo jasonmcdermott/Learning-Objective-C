@@ -23,6 +23,8 @@
 	[self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 	[self.heartImage setImage:[UIImage imageNamed:@"HeartImage"]];
 	
+    self.BTLEDevices = [[NSMutableArray alloc] init];
+    
 	// Clear out textView
 	[self.deviceInfo setText:@""];
 	[self.deviceInfo setTextColor:[UIColor blueColor]];
@@ -95,6 +97,9 @@
 		[self.centralManager stopScan];
 		self.heartRateMonitorPeripheral = peripheral;
 		peripheral.delegate = self;
+//        [self.BTLEDevices addObject:peripheral];
+//        NSLog(@"%@",peripheral.name);
+        
 		[self.centralManager connectPeripheral:peripheral options:nil];
 	}
 }
