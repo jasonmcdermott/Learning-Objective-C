@@ -80,6 +80,7 @@ typedef struct
 @property (strong, nonatomic) NSMutableArray *BTLEDevices;
 
 @property (nonatomic, weak) id <BLEDeviceDelegate> delegate;
+
 @property(strong, nonatomic) RFduino *connected_rfduino;
 @property (strong, nonatomic) RFduinoManager *rfduinoManager;
 
@@ -87,27 +88,20 @@ typedef struct
 
 @property (strong, nonatomic) NSMutableDictionary *mDeviceDictionary;
 
-@property (nonatomic) BOOL scanning, connected, scanForNewDevices, finishedScan, disconnected;
+@property (nonatomic) BOOL scanning, connected, scanForNewDevices, finishedScan, disconnected, passedToParent;
 
-@property (nonatomic) BOOL passedToParent;
 @property (strong, nonatomic) BLE *bleShield;
-@property (strong,nonatomic) NSString *username;
-@property (strong, nonatomic) NSArray *knownDevices;
-@property (strong, nonatomic) NSArray *deviceAliases;
+@property (strong, nonatomic) NSArray *deviceAliases, *knownDevices;
 
-@property (strong,nonatomic) NSMutableArray *mDevices;
-@property (strong,nonatomic) NSMutableArray *mDeviceTypes;
-@property (strong, nonatomic) NSMutableArray *mDeviceNames;
+@property (strong,nonatomic) NSMutableArray *mDevices, *mDeviceTypes, *mDeviceNames;
 
-@property (strong,nonatomic) NSString *lastUUID;
+@property (strong,nonatomic) NSString *username, *lastUUID, *lastName;
 @property (strong, nonatomic) SENSessionData * mSesionData;
 
 @property (retain, nonatomic) IBOutlet UITextField *sessionStatusLabel;
 @property (retain, nonatomic) IBOutlet UILabel *sessionStartLabel;
 @property (retain, nonatomic) IBOutlet UITextField *usernameLabel;
 @property (retain, nonatomic) IBOutlet UITextField *intervalLabel;
-
-@property (retain, nonatomic) IBOutlet UIButton *generateButton;
 
 @property (nonatomic) CFTimeInterval previousTimestamp;
 @end

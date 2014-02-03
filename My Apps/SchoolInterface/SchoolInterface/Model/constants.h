@@ -11,6 +11,11 @@
 
 #define PI 3.14159265359
 #define NUM_RINGS 10
+
+
+// BLE Device constants
+#define NUM_PULSE_BYTES 3
+#define DEF_MAX_INACTIVITY 8
 #define SCAN_TIME 10
 
 #endif

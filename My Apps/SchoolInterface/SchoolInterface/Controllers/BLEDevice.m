@@ -8,17 +8,15 @@
 
 #import "BLEDevice.h"
 
+NSString * const UUIDPrefKey = @"UUIDPrefKey";
+NSString * const NamePrefKey = @"NamePrefKey";
+NSString * const  INACTIVITY_KEY = @"BrightheartsInactivity";
+NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 unsigned char const OEM_RELIABLE = 0xA0;
 unsigned char const OEM_UNRELIABLE = 0xA1;
 unsigned char const OEM_PULSE = 0xB0;
 unsigned char const SYNC_CHAR = 0xF9;
-unsigned const NUM_PULSE_BYTES = 3;
-unsigned const DEF_MAX_INACTIVITY = 8;
-NSString * const  UUIDPrefKey = @"UUIDPrefKey";
-NSString * const  INACTIVITY_KEY = @"BrightheartsInactivity";
-NSString * const  USERNAME_KEY = @"BrightheartsUsername";
-
 
 @interface BLEDevice()
 
@@ -58,7 +56,6 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 {
     [super viewDidLoad];
 
-    
 	// Do any additional setup after loading the view.
     NSLog(@"RBLMainViewController didLoad");
     self.passedToParent = NO;
@@ -87,8 +84,9 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     self.knownDevices = @[@"722D74FC-0359-F949-C771-36C04647C7C2"];
     self.deviceAliases = @[@"Sensor X"];
     
-    //Retrieve saved UUID from system
+    //Retrieve saved properties from system
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:UUIDPrefKey];
+    self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:NamePrefKey];
     
     [self showButtons:@"Starting Up"];
 
@@ -241,7 +239,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
         if (index == [aggregatedArrayIndex integerValue]) {
             NSLog(@"this isn't printing -- %ld,%@,%@,%@", (long)index, originalArrayIndex, aggregatedArrayIndex, deviceType);
             
-            if ([deviceType isEqualToString:@"BLEMini"]) {
+            if ([deviceType isEqualToString:@"BLE Mini"]) {
                 NSLog(@"connecting to redbear");
                 [self.bleShield connectPeripheral:[self.bleShield.peripherals objectAtIndex:[originalArrayIndex integerValue]]];
             } else if ([deviceType isEqualToString:@"RFDuino"]) {
@@ -326,7 +324,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     [self.BTLEPeripheral setDelegate:self];
     [self.BTLEPeripheral discoverServices:nil];
 
-    [self updateUUIDWithString:[SENUtilities getUUIDString:(__bridge CFUUIDRef)(peripheral.identifier)]];
+    [self updateLastDevice:[SENUtilities getUUIDString:(__bridge CFUUIDRef)(peripheral.identifier)] withName:peripheral.name];
     
     [self showButtons:@"Connected"];
     self.BTLEconnected = [NSString stringWithFormat:@"Connected: %@", self.BTLEPeripheral.state == CBPeripheralStateConnected ? @"YES" : @"NO"];
@@ -447,6 +445,11 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     return;
 }
 
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+    NSLog(@"Disconnected from peripheral: %@ with UUID: %@",peripheral,peripheral.identifier);
+    [self showButtons:@"Disconnected"];
+}
+
 // Instance method to get the manufacturer name of the device
 - (void) getManufacturerName:(CBCharacteristic *)characteristic
 {
@@ -536,7 +539,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
         } else if (self.scanForNewDevices == YES) {
             for (int i = 0; i < self.bleShield.peripherals.count; i++) {
                 CBPeripheral *peripheral = [self.bleShield.peripherals objectAtIndex:i];
-                [self logDeviceWithUUID:[SENUtilities getUUIDString:CFBridgingRetain(peripheral.identifier)] withName:peripheral.name withDeviceType:@"BLEMini" withOriginalIndex:i];
+                [self logDeviceWithUUID:[SENUtilities getUUIDString:CFBridgingRetain(peripheral.identifier)] withName:peripheral.name withDeviceType:@"BLE Mini" withOriginalIndex:i];
                 
 //                [self.mDeviceDictionary setObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)] forKey:@"UUID"];
 //                [self.mDeviceDictionary setObject:@"BLEMini" forKey:@"deviceType"];
@@ -742,7 +745,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
                         _started = true;
                         
                         [self.mPDDRiver startSession];
-                        self.generateButton.hidden = true;
+//                        self.generateButton.hidden = true;
                     }
 
                     [self handleIBIData:(unsigned)interval];
@@ -825,6 +828,8 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     [self.mSesionData addIbi:interval];
 }
 
+#pragma mark - BLE Mini
+
 - (void)bleDidDisconnect
 {
     [self showButtons:@"Disconnected"];
@@ -832,7 +837,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 
 -(void)bleDidConnect
 {
-    [self updateUUIDWithString:[SENUtilities getUUIDString:CFBridgingRetain(self.bleShield.activePeripheral.identifier)]];
+    [self updateLastDevice:[SENUtilities getUUIDString:CFBridgingRetain(self.bleShield.activePeripheral.identifier)] withName:@"BLE Mini"];
     [self showButtons:@"Connected"];
 }
 
@@ -847,7 +852,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 - (void)didDiscoverRFduino:(RFduino *)rfduino
 {
     NSLog(@"didDiscoverRFduino");
-    self->scannedDevices++;
+//    self->scannedDevices++;
 }
 
 - (void)didConnectRFduino:(RFduino *)rfduino
@@ -855,9 +860,8 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     NSLog(@"didConnectRFduino");    
     self.connected_rfduino = rfduino;
     [self.connected_rfduino setDelegate:self];
-    [self updateUUIDWithString:rfduino.UUID];
+    [self updateLastDevice:rfduino.UUID withName:@"RFDuino"];
     [self showButtons:@"Connected"];
-    
 }
 
 - (void)didDisconnectRFduino:(RFduino *)rfduino
@@ -865,21 +869,6 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     self.connected_rfduino = NULL;
     NSLog(@"didDisconnectRFduino");
     [self showButtons:@"Disconnected"];
-    
-    /*
-     if (loadService) {
-     [[self navigationController] popViewControllerAnimated:YES];
-     }
-     */
-//    self.intervalLabel.text = @"";
-//    [self displayLastButton];
-    //self.rssiLabel.hidden = true;
-    //self.rssiLabel.text = @"";
-//    self.sessionStatusLabel.text = @"Disconected";
-//    [self.scanButton setTitle:@"Scan All" forState:UIControlStateNormal];
-    
-//    [rfduinoManager startScan];
-    //[self.tableView reloadData];
 }
 
 - (void)didReceive:(NSData *)data
@@ -890,12 +879,14 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     [self processBluetoothData:value length:length];
 }
 
-- (void)updateUUIDWithString:(NSString *)uuid
+- (void)updateLastDevice:(NSString *)uuid withName:(NSString *)name
 {
     self.lastUUID = uuid;
+    self.lastName = name;
+    [[NSUserDefaults standardUserDefaults] setObject:self.lastName forKey:NamePrefKey];
     [[NSUserDefaults standardUserDefaults] setObject:self.lastUUID forKey:UUIDPrefKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    self.uuidLabel.text = self.lastUUID;
+    self.uuidLabel.text = self.lastName;
 }
 
 - (void)addMessageText:(NSString *)text
