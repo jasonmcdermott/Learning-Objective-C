@@ -22,6 +22,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 @interface BLEDevice()
 
+@property (weak, nonatomic) IBOutlet UILabel *statusMessage;
 @property (nonatomic) BOOL showTable;
 @property (weak, nonatomic) IBOutlet UITableView *deviceList;
 
@@ -37,6 +38,7 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @property (strong, nonatomic) NSMutableArray *tempDevices;
+@property (strong, nonatomic) NSMutableString *statusString;
 @end
 
 @implementation BLEDevice
@@ -75,8 +77,12 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     self.mDevices = [[NSMutableArray alloc] init];
     self.tempDevices = [[NSMutableArray alloc] init];
     self.BTLEDevices = [[NSMutableArray alloc] init];
+    self.mDeviceNames = [[NSMutableArray alloc] init];
     
     _max_inactivity = DEF_MAX_INACTIVITY;
+    
+    self.statusString = [[NSMutableString alloc] init];
+    [self addMessageText:@"starting up"];
     
     self.knownDevices = @[@"722D74FC-0359-F949-C771-36C04647C7C2"];
     self.deviceAliases = @[@"Sensor X"];
@@ -129,7 +135,30 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     static NSString *tableIdentifier = @"BLEDeviceList";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = [self.mDevices objectAtIndex:indexPath.row];
+    cell.textLabel.text = [self.mDeviceNames objectAtIndex:indexPath.row];
+    
+//    NSLog(@"is this doing anything?");
+//    for (int i=0;i<[self.mDeviceDictionary count];i++) {
+//        if (indexPath.row == i) {
+//            cell.textLabel.text = [self.mDeviceDictionary objectForKey:@"deviceName"];
+//            NSLog(@"%@",[self.mDeviceDictionary objectForKey:@"deviceName"]);
+//        }
+//    }
+//    
+//    NSArray *keyArray =  [self.mDeviceDictionary allKeys];
+//    int count = [keyArray count];
+//    for (int i=0; i < count; i++) {
+//        NSDictionary *tmp = [self.mDeviceDictionary objectForKey:[ keyArray objectAtIndex:i]];
+//        for (id key in tmp) {
+//            NSLog(@"key: %@, value: %@ \n", key, [tmp objectForKey:key]);
+//        }
+//        if (i == indexPath.row) {
+//            NSLog(@"row row your boat");
+//        }
+//    }
+    
+    
+//    NSLog(@"key is status, value is %@",[self.mDeviceDictionary objectForKey:@"name"]);
     
 //    for (id device in self.mDeviceDictionary) {
 //        NSNumber *aggregatedArrayIndex = [self.mDeviceDictionary objectForKey:@"aggregatedArrayIndex"];
@@ -153,38 +182,27 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self didSelected:indexPath.row];
     NSLog(@"picked %ld",(long)indexPath.row);
+    [self addMessageText:@"picked"];
     [self showButtons:@"Picked Device From List"];
 }
 
 #pragma mark - Interface Elements
 
 - (IBAction)touchConnect:(UIButton *)sender {
-    self.isFindingLast = YES;
+    self.scanForNewDevices = YES;
     [self initiateScan];
 }
 
 - (IBAction)touchScan:(UIButton *)sender {
-    self.isFindingLast = NO;
+    self.scanForNewDevices = YES;
     [self initiateScan];
 }
 
 - (IBAction)touchDisconnect:(UIButton *)sender {
     
-    [self disconnectPeripheralsBeforeScanning];
-//    if (self.bleShield.activePeripheral){
-//        if(self.bleShield.activePeripheral.state == CBPeripheralStateConnected) [[self.bleShield CM] cancelPeripheralConnection:[self.bleShield activePeripheral]];
-//    }
-//    
-//    if (self.connected_rfduino != NULL) {
-//        [self.connected_rfduino disconnect];
-//        self.connected_rfduino = NULL;
-//    }
-//        
-//    if(self.BTLEPeripheral && (self.BTLEPeripheral.state == CBPeripheralStateConnected)) {
-//        [self.BTLEcentralManager cancelPeripheralConnection:self.BTLEPeripheral];
-//        self.BTLEConnectionFlag = NO;
-//        NSLog(@"disconnecting from BTLE device");
-//    }
+//    self.BTLEConnectionFlag = NO;
+    [self disconnectPeripherals];
+    [self addMessageText:@"trying to disconnect"];
     
     self->scannedDevices = 0;
     self->counter = 0;
@@ -193,29 +211,35 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
 - (void)initiateScan
 {
-    [self disconnectPeripheralsBeforeScanning];
+//    self.BTLEConnectionFlag = YES;
+    [self disconnectPeripherals];
     self.disconnected = NO;
     
-    [self.mDevices removeAllObjects];
+    self.mDevices = [[NSMutableArray alloc] init];
+    self.mDeviceNames = [[NSMutableArray alloc] init];
     self.mDeviceDictionary = [[NSMutableDictionary alloc] init];
     
-    [self.bleShield findBLEPeripherals:3];
+    [self.bleShield findBLEPeripherals:SCAN_TIME];
     [self.rfduinoManager startScan];
     [self scanForBTLEDevices];
     
-    [NSTimer scheduledTimerWithTimeInterval:(float)6.0 target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
-    self.isFindingLast ? [self showButtons:@"connectPrevious"] : [self showButtons:@"scanDevices"];
+    [self addMessageText:@"scan initiated"];
+    [NSTimer scheduledTimerWithTimeInterval:SCAN_TIME target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
+    self.scanForNewDevices ? [self showButtons:@"scanDevices"] : [self showButtons:@"connectPrevious"];
 }
 
 - (void)didSelected:(NSInteger)index
 {
+    NSLog(@"the integer is %ld",(long)index);
     for (id device in self.mDeviceDictionary) {
+//        NSLog(@"are we here?");
         NSNumber *originalArrayIndex = [self.mDeviceDictionary objectForKey:@"originalArrayIndex"];
         NSNumber *aggregatedArrayIndex = [self.mDeviceDictionary objectForKey:@"aggregatedArrayIndex"];
         NSString *deviceType = [self.mDeviceDictionary objectForKey:@"deviceType"];
+        NSString *deviceName = [self.mDeviceDictionary objectForKey:@"deviceName"];
         
         if (index == [aggregatedArrayIndex integerValue]) {
-            NSLog(@"-- %ld,%@,%@,%@", (long)index, originalArrayIndex, aggregatedArrayIndex, deviceType);
+            NSLog(@"this isn't printing -- %ld,%@,%@,%@", (long)index, originalArrayIndex, aggregatedArrayIndex, deviceType);
             
             if ([deviceType isEqualToString:@"BLEMini"]) {
                 NSLog(@"connecting to redbear");
@@ -227,18 +251,19 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
                     [self.rfduinoManager connectRFduino:rfduino];
                     NSLog(@"did it work?");
                 }
-            } else if ([deviceType isEqualToString:@"BTLE_VENDOR"]) {
+            } else if ([deviceName isEqualToString:@"MIO GLOBAL"]) {
                 NSLog(@"connecting to BTLE Device");
                 
                 NSLog(@"%@, %lu",originalArrayIndex, (unsigned long)[self.BTLEDevices count]);
-                CBPeripheral *peripheral = [self.BTLEDevices objectAtIndex:[originalArrayIndex integerValue]];
+                CBPeripheral *p = [self.BTLEDevices objectAtIndex:[originalArrayIndex integerValue]];
+                NSLog(@"the name is %@",p.name);
+                
+                [self addMessageText:@"selected peripheral"];
+                [self addMessageText:p.name];
 
-//                self.heartRateMonitorPeripheral = peripheral;
-                NSLog(@"the name is %@",peripheral.name);
-                self.BTLEConnectionFlag = YES;
-                peripheral.delegate = self;
-                [self.BTLEcentralManager connectPeripheral:peripheral options:nil];
-                self.heartRateMonitorPeripheral = peripheral;
+                p.delegate = self;
+                [self.BTLEcentralManager connectPeripheral:p options:nil];
+                self.heartRateMonitorPeripheral = p;
             }
         }
     }
@@ -286,101 +311,86 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 	}
 	else if ([central state] == CBCentralManagerStateUnsupported) {
 		NSLog(@"CoreBluetooth BLE hardware is unsupported on this platform");
-	}
+	} else {
+        NSLog(@"Not sure what's going on");
+    }
 }
 
 // method called whenever we have successfully connected to the BLE peripheral
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
+    [self addMessageText:@"did connect"];
     NSLog(@"---- Connected");
     self.BTLEPeripheral = peripheral;
     
-	[self.BTLEPeripheral setDelegate:self];
+    [self.BTLEPeripheral setDelegate:self];
     [self.BTLEPeripheral discoverServices:nil];
-
-    self.BTLEConnectionFlag = YES;
 
     [self updateUUIDWithString:[SENUtilities getUUIDString:(__bridge CFUUIDRef)(peripheral.identifier)]];
     
     [self showButtons:@"Connected"];
-	self.BTLEconnected = [NSString stringWithFormat:@"Connected: %@", self.BTLEPeripheral.state == CBPeripheralStateConnected ? @"YES" : @"NO"];
+    self.BTLEconnected = [NSString stringWithFormat:@"Connected: %@", self.BTLEPeripheral.state == CBPeripheralStateConnected ? @"YES" : @"NO"];
     NSLog(@"%@",self.BTLEconnected);
-
 }
 
 // CBPeripheralDelegate - Invoked when you discover the peripheral's available services.
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
+    NSLog(@"says we've discovered device %hhd",self.BTLEConnectionFlag);
+    [self addMessageText:@"discovered service"];
     NSLog(@"---- didDiscoverServices");
-	for (CBService *service in peripheral.services) {
-		[peripheral discoverCharacteristics:nil forService:service];
-	}
+    for (CBService *service in peripheral.services) {
+        [peripheral discoverCharacteristics:nil forService:service];
+    }
 }
 
 // CBCentralManagerDelegate - This is called with the CBPeripheral class as its main input parameter. This contains most of the information there is to know about a BLE peripheral.
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
+    NSLog(@"says we've discovered device %hhd",self.BTLEConnectionFlag);
     NSLog(@"---- didDiscoverPeripheral");
-	NSString *localName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
-	if (![localName isEqual:@""]) {
-        NSLog(@"%@",localName);
-		// We found the Heart Rate Monitor
+    NSString *localName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
+    if (![localName isEqual:@""]) {
+//        NSLog(@"%@",localName);
         /* need to do the following;
         
 //         6. also allow user to disconnect.
          
         */
         
+        [self logDeviceWithUUID:[SENUtilities getUUIDString:CFBridgingRetain(peripheral.identifier)] withName:peripheral.name withDeviceType:@"BTLE_VENDOR" withOriginalIndex:[self.BTLEDevices count]];
         [self.BTLEDevices addObject:peripheral];
-        CBPeripheral *test = [self.BTLEDevices objectAtIndex:0];
         
-        NSLog(@"this is the name of %@",test.name);
-        
-        NSLog(@"%lu",(unsigned long)[self.BTLEDevices count]);
-
-        // can probably place the following line into it's own function.
-        NSString *devUUID = [SENUtilities getUUIDString:CFBridgingRetain(peripheral.identifier)];
-        [self.mDeviceDictionary setObject:devUUID forKey:@"UUID"];
-        [self.mDeviceDictionary setObject:@"BTLE_VENDOR" forKey:@"deviceType"];
-        [self.mDeviceDictionary setObject:[NSNumber numberWithInt:[self.BTLEDevices count]-1] forKey:@"originalArrayIndex"];
-        [self.mDeviceDictionary setObject:[NSNumber numberWithInt:counter] forKey:@"aggregatedArrayIndex"];
-        
-        [self.mDevices addObject:devUUID];
-        [self.mDeviceTypes addObject:@"BTLE_VENDOR"];
-        
-        NSLog(@"adding BLE item to list %d, %d, %@",self->BTLECounter, self->counter, devUUID);
         self->scannedDevices++;
         self->BTLECounter++;
-        self->counter++;
-	}
+    }
 }
 
 // Invoked when you discover the characteristics of a specified service.
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if (self.BTLEConnectionFlag) {
-        NSLog(@"---- didDiscoverCharacteristicsForServices");
-        if ([service.UUID isEqual:[CBUUID UUIDWithString:HRM_HEART_RATE_SERVICE_UUID]])  {  // 1
-            for (CBCharacteristic *aChar in service.characteristics)
-            {
-                // Request heart rate notifications
-                if ([aChar.UUID isEqual:[CBUUID UUIDWithString:HRM_NOTIFICATIONS_SERVICE_UUID]]) { // 2
-                    [self.heartRateMonitorPeripheral setNotifyValue:YES forCharacteristic:aChar];
-                }
-                // Request body sensor location
-                else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:HRM_BODY_LOCATION_UUID]]) { // 3
-                    [self.heartRateMonitorPeripheral readValueForCharacteristic:aChar];
-                }
+    NSLog(@"says we've discovered characteristics %hhd",self.BTLEConnectionFlag);
+    NSLog(@"---- didDiscoverCharacteristicsForServices");
+    if ([service.UUID isEqual:[CBUUID UUIDWithString:HRM_HEART_RATE_SERVICE_UUID]])  {  // 1
+        for (CBCharacteristic *aChar in service.characteristics)
+        {
+            // Request heart rate notifications
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:HRM_NOTIFICATIONS_SERVICE_UUID]]) { // 2
+                [self.heartRateMonitorPeripheral setNotifyValue:YES forCharacteristic:aChar];
+            }
+            // Request body sensor location
+            else if ([aChar.UUID isEqual:[CBUUID UUIDWithString:HRM_BODY_LOCATION_UUID]]) { // 3
+                [self.heartRateMonitorPeripheral readValueForCharacteristic:aChar];
             }
         }
-        // Retrieve Device Information Services for the Manufacturer Name
-        if ([service.UUID isEqual:[CBUUID UUIDWithString:HRM_DEVICE_INFO_SERVICE_UUID]])  { // 5
-            for (CBCharacteristic *aChar in service.characteristics)
-            {
-                if ([aChar.UUID isEqual:[CBUUID UUIDWithString:HRM_MANUFACTURER_NAME_UUID]]) {
-                    [self.heartRateMonitorPeripheral readValueForCharacteristic:aChar];
-                    NSLog(@"Found a Device Manufacturer Name Characteristic");
-                }
+    }
+    // Retrieve Device Information Services for the Manufacturer Name
+    if ([service.UUID isEqual:[CBUUID UUIDWithString:HRM_DEVICE_INFO_SERVICE_UUID]])  { // 5
+        for (CBCharacteristic *aChar in service.characteristics)
+        {
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:HRM_MANUFACTURER_NAME_UUID]]) {
+                [self.heartRateMonitorPeripheral readValueForCharacteristic:aChar];
+                NSLog(@"Found a Device Manufacturer Name Characteristic");
             }
         }
     }
@@ -389,91 +399,87 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 // Invoked when you retrieve a specified characteristic's value, or when the peripheral device notifies your app that the characteristic's value has changed.
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.BTLEConnectionFlag) {
-        NSLog(@"---- didUpdateValueForCharacteristics");
-        // Updated value for heart rate measurement received
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HRM_NOTIFICATIONS_SERVICE_UUID]]) { // 1
-            // Get the Heart Rate Monitor BPM
-            NSLog(@"getting bpm");
-            [self getHeartBPMData:characteristic error:error];
-        }
-        // Retrieve the characteristic value for manufacturer name received
-        if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HRM_MANUFACTURER_NAME_UUID]]) {  // 2
-            [self getManufacturerName:characteristic];
-        }
-        // Retrieve the characteristic value for the body sensor location received
-        else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HRM_BODY_LOCATION_UUID]]) {  // 3
-            [self getBodyLocation:characteristic];
-        }
-        
-        // Add our constructed device information to our UITextView
-        
-    //	self.BTLEdeviceInfo.text = [NSString stringWithFormat:@"%@\n%@\n%@\n", self.connected, self.bodyData, self.manufacturer];  // 4
+    NSLog(@"says we've updated values %hhd",self.BTLEConnectionFlag);
+    NSLog(@"---- didUpdateValueForCharacteristics");
+    // Updated value for heart rate measurement received
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HRM_NOTIFICATIONS_SERVICE_UUID]]) { // 1
+        // Get the Heart Rate Monitor BPM
+        NSLog(@"getting bpm");
+        [self getHeartBPMData:characteristic error:error];
     }
+    // Retrieve the characteristic value for manufacturer name received
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HRM_MANUFACTURER_NAME_UUID]]) {  // 2
+        [self getManufacturerName:characteristic];
+    }
+    // Retrieve the characteristic value for the body sensor location received
+    else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:HRM_BODY_LOCATION_UUID]]) {  // 3
+        [self getBodyLocation:characteristic];
+    }
+    // Add our constructed device information to our UITextView
+    //	self.BTLEdeviceInfo.text = [NSString stringWithFormat:@"%@\n%@\n%@\n", self.connected, self.bodyData, self.manufacturer];  // 4
 }
 
 // Instance method to get the heart rate BPM information
 - (void) getHeartBPMData:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    if (self.BTLEConnectionFlag){
-        NSLog(@"---- getHeartBPMData");
-        // Get the Heart Rate Monitor BPM
-        NSData *data = [characteristic value];      // 1
-        const uint8_t *reportData = [data bytes];
-        uint16_t bpm = 0;
-        
-        if ((reportData[0] & 0x01) == 0) {          // 2
-            // Retrieve the BPM value for the Heart Rate Monitor
-            bpm = reportData[1];
-        }
-        else {
-            bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));  // 3
-        }
-        // Display the heart rate value to the UI if no error occurred
-        if( (characteristic.value)  || !error ) {   // 4
-            self.BTLEheartRate = bpm;
-            NSLog(@"%hu",self.BTLEheartRate);
-            //		self.heartRateBPM.text = [NSString stringWithFormat:@"%i bpm", bpm];
-            //		self.heartRateBPM.font = [UIFont fontWithName:@"Futura-CondensedMedium" size:28];
-            //		[self doHeartBeat];
-            //		self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:(60. / self.heartRate) target:self selector:@selector(doHeartBeat) userInfo:nil repeats:NO];
-        }
-        return;
+    NSLog(@"---- getHeartBPMData");
+    // Get the Heart Rate Monitor BPM
+    NSData *data = [characteristic value];      // 1
+    const uint8_t *reportData = [data bytes];
+    uint16_t bpm = 0;
+    
+    if ((reportData[0] & 0x01) == 0) {          // 2
+        // Retrieve the BPM value for the Heart Rate Monitor
+        bpm = reportData[1];
     }
+    else {
+        bpm = CFSwapInt16LittleToHost(*(uint16_t *)(&reportData[1]));  // 3
+    }
+    // Display the heart rate value to the UI if no error occurred
+    if( (characteristic.value)  || !error ) {   // 4
+        [self handleIBIData:bpm];
+        //        NSLog(@"%hu",self.BTLEheartRate);
+        //		self.heartRateBPM.text = [NSString stringWithFormat:@"%i bpm", bpm];
+        //		self.heartRateBPM.font = [UIFont fontWithName:@"Futura-CondensedMedium" size:28];
+        //		[self doHeartBeat];
+        //		self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:(60. / self.heartRate) target:self selector:@selector(doHeartBeat) userInfo:nil repeats:NO];
+    }
+    return;
 }
 
 // Instance method to get the manufacturer name of the device
 - (void) getManufacturerName:(CBCharacteristic *)characteristic
 {
     NSLog(@"---- getManName");
-	NSString *manufacturerName = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-	self.BTLEmanufacturer = [NSString stringWithFormat:@"Manufacturer: %@", manufacturerName];
-	return;
+    NSString *manufacturerName = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+    self.BTLEmanufacturer = [NSString stringWithFormat:@"Manufacturer: %@", manufacturerName];
+    return;
 }
 
 // Instance method to get the body location of the device
 - (void) getBodyLocation:(CBCharacteristic *)characteristic
 {
     NSLog(@"---- getBodyLoc");
-	NSData *sensorData = [characteristic value];
-	uint8_t *bodyData = (uint8_t *)[sensorData bytes];
-	if (bodyData ) {
-		uint8_t bodyLocation = bodyData[0];
-		self.BTLEbodyData = [NSString stringWithFormat:@"Body Location: %@", bodyLocation == 1 ? @"Chest" : @"Undefined"];
-	}
-	else {
-		self.BTLEbodyData = [NSString stringWithFormat:@"Body Location: N/A"];
-	}
-	return;
+    NSData *sensorData = [characteristic value];
+    uint8_t *bodyData = (uint8_t *)[sensorData bytes];
+    if (bodyData ) {
+        uint8_t bodyLocation = bodyData[0];
+        self.BTLEbodyData = [NSString stringWithFormat:@"Body Location: %@", bodyLocation == 1 ? @"Chest" : @"Undefined"];
+    }
+    else {
+        self.BTLEbodyData = [NSString stringWithFormat:@"Body Location: N/A"];
+    }
+    return;
 }
 
 #pragma mark - Redbear & RFduino Periphery
 
-- (void)disconnectPeripheralsBeforeScanning
+- (void)disconnectPeripherals
 {
-    
     if (self.bleShield.activePeripheral){
-        if(self.bleShield.activePeripheral.state == CBPeripheralStateConnected) [[self.bleShield CM] cancelPeripheralConnection:[self.bleShield activePeripheral]];
+        if(self.bleShield.activePeripheral.state == CBPeripheralStateConnected) {
+            [[self.bleShield CM] cancelPeripheralConnection:[self.bleShield activePeripheral]];
+        }
     }
     
     if (self.connected_rfduino != NULL) {
@@ -482,32 +488,24 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     }
     
     if(self.BTLEPeripheral && (self.BTLEPeripheral.state == CBPeripheralStateConnected)) {
-        self.BTLEConnectionFlag = NO;
         [self.BTLEcentralManager cancelPeripheralConnection:self.BTLEPeripheral];
-        self.BTLEcentralManager = [[CBCentralManager alloc] init];
-        self.BTLEPeripheral = [[CBPeripheral alloc] init];
-        self.BTLEDevices = [[NSMutableArray alloc] init];
+        NSLog(@"does this happen? %d", self.BTLEcentralManager.state);
     }
 }
 
 // Called when scan period is over 
 -(void)connectionTimer:(NSTimer *)timer
 {
+    [self addMessageText:@"scan finished"];
+    [self.BTLEcentralManager stopScan];
 
-//    [self.deviceList reloadData];
-    
     self.finishedScan = NO;
     self.scanning = YES;
     self.connected = NO;
 
     [self.rfduinoManager stopScan];
-    [self.BTLEcentralManager stopScan];
-    
     if (self->counter > 0) {
-//    if(self.bleShield.peripherals.count > 0 || [[self.rfduinoManager rfduinos] count] > 0) {
-        //to connect to last known peripheral
-        if(self.isFindingLast) {
-            
+        if (self.scanForNewDevices == NO) {
             // check last UUID against all BLEMini device UUIDs found
             for (int i = 0; i < self.bleShield.peripherals.count; i++) {
                 CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
@@ -530,43 +528,60 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
                     }
                 }
             }
+            for (int i=0;i<[self.BTLEDevices count];i++) {
+                // this needs to be done.
+            }
 
         // We're scanning for new devices now
-        } else {
+        } else if (self.scanForNewDevices == YES) {
             for (int i = 0; i < self.bleShield.peripherals.count; i++) {
-                CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
-                [self.mDeviceDictionary setObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)] forKey:@"UUID"];
-                [self.mDeviceDictionary setObject:@"BLEMini" forKey:@"deviceType"];
-                [self.mDeviceDictionary setObject:[NSNumber numberWithInt:i] forKey:@"originalArrayIndex"];
-                [self.mDeviceDictionary setObject:[NSNumber numberWithInt:counter] forKey:@"aggregatedArrayIndex"];
+                CBPeripheral *peripheral = [self.bleShield.peripherals objectAtIndex:i];
+                [self logDeviceWithUUID:[SENUtilities getUUIDString:CFBridgingRetain(peripheral.identifier)] withName:peripheral.name withDeviceType:@"BLEMini" withOriginalIndex:i];
                 
-                [self.mDevices addObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)]];
-                [self.mDeviceTypes addObject:@"BLEMini"];
-
-                NSLog(@"adding BLE item to list %d",self->counter);
-                self->counter++;
+//                [self.mDeviceDictionary setObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)] forKey:@"UUID"];
+//                [self.mDeviceDictionary setObject:@"BLEMini" forKey:@"deviceType"];
+//                [self.mDeviceDictionary setObject:[NSNumber numberWithInt:i] forKey:@"originalArrayIndex"];
+//                [self.mDeviceDictionary setObject:[NSNumber numberWithInt:counter] forKey:@"aggregatedArrayIndex"];
+                
+//                [self.mNames addObject:p.name];
+//                [self.mDevices addObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)]];
+//                [self.mDeviceTypes addObject:@"BLEMini"];
+//                NSLog(@"adding BLE item to list %d",self->counter);
             }
 
             for (int i = 0; i < [[self.rfduinoManager rfduinos] count]; i++) {
                 RFduino *rfduino = [self.rfduinoManager.rfduinos objectAtIndex:i];
-                
-                [self.mDeviceDictionary setObject:rfduino.UUID forKey:@"UUID"];
-                [self.mDeviceDictionary setObject:@"RFDuino" forKey:@"deviceType"];
-                [self.mDeviceDictionary setObject:[NSNumber numberWithInt:i] forKey:@"originalArrayIndex"];
-                [self.mDeviceDictionary setObject:[NSNumber numberWithInt:counter] forKey:@"aggregatedArrayIndex"];
-                
-                [self.mDevices addObject:rfduino.UUID];
-                [self.mDeviceTypes addObject:@"RFDuino"];
-                
-                NSLog(@"adding RFDUINO item to list %d",self->counter);
-                self->counter++;
-
+                [self logDeviceWithUUID:rfduino.UUID withName:rfduino.name withDeviceType:@"RFDuino" withOriginalIndex:i];
+//                [self.mDeviceDictionary setObject:rfduino.UUID forKey:@"UUID"];
+//                [self.mDeviceDictionary setObject:@"RFDuino" forKey:@"deviceType"];
+//                [self.mDeviceDictionary setObject:[NSNumber numberWithInt:i] forKey:@"originalArrayIndex"];
+//                [self.mDeviceDictionary setObject:[NSNumber numberWithInt:counter] forKey:@"aggregatedArrayIndex"];
+//                
+//                [self.mDevices addObject:rfduino.UUID];
+//                [self.mDeviceTypes addObject:@"RFDuino"];
+//                
+//                NSLog(@"adding RFDUINO item to list %d",self->counter);
             }
         }
     }
     [self.deviceList reloadData];
     [self showButtons:@"Finished Scan"];
+}
+
+- (void)logDeviceWithUUID:(NSString *)uuid withName:(NSString *)name withDeviceType:(NSString *)type withOriginalIndex:(int)originalIndex
+{
+//        CBPeripheral *peripheral = (__bridge CBPeripheral *)((void*)&device);  // cool, but not worthwhile
+
+    [self.mDeviceDictionary setObject:uuid forKey:@"UUID"];
+    [self.mDeviceDictionary setObject:name forKey:@"deviceName"];
+    [self.mDeviceDictionary setObject:type forKey:@"deviceType"];
+    [self.mDeviceDictionary setObject:[NSNumber numberWithInt:originalIndex] forKey:@"originalArrayIndex"];
+    [self.mDeviceDictionary setObject:[NSNumber numberWithInt:counter] forKey:@"aggregatedArrayIndex"];
     
+    [self.mDevices addObject:uuid];
+    [self.mDeviceNames addObject:name];
+    
+    self->counter++;    
 }
 
 - (void)showButtons:(NSString *)state
@@ -644,14 +659,14 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
             self.instructionLabel.text = @"No devices available";
         } else {
             self.deviceList.hidden = NO;
-            if (self.isFindingLast) {
-                self.instructionLabel.text = @"Connecting";
-            } else {
+            if (self.scanForNewDevices == YES) {
                 self.instructionLabel.text = @"Select a device";
+                [self.deviceList reloadData];
+            } else {
+                self.instructionLabel.text = @"Connecting";
             }
         }
         self.ibiLabel.hidden = YES;
-        NSLog(@"finished");
         
     } else if ([state isEqualToString:@"Picked Device From List"]) {
         [self.spinner startAnimating];
@@ -729,18 +744,8 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
                         [self.mPDDRiver startSession];
                         self.generateButton.hidden = true;
                     }
-                    
-                    NSString *ibi = [NSString stringWithFormat:@"Interval %d", interval];
-                    self.ibiLabel.text = ibi;
 
-                    [self.delegate setLabel:ibi];
-                    NSLog(@"%@",ibi);
-
-                    [self.mPDDRiver sendIBI:interval];
-                    _bufferIndex = 0;
-                    _inactivityCount = 0;
-                    self.previousTimestamp = CFAbsoluteTimeGetCurrent();
-                    [self.mSesionData addIbi:interval];
+                    [self handleIBIData:(unsigned)interval];
                 }
                 
                 break;
@@ -805,6 +810,20 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     
 }
 
+- (void)handleIBIData:(unsigned)interval
+{
+    NSString *ibi = [NSString stringWithFormat:@"Interval %u", interval];
+    self.ibiLabel.text = ibi;
+    
+    [self.delegate setLabel:ibi];
+    NSLog(@"%@",ibi);
+    
+    [self.mPDDRiver sendIBI:interval];
+    _bufferIndex = 0;
+    _inactivityCount = 0;
+    self.previousTimestamp = CFAbsoluteTimeGetCurrent();
+    [self.mSesionData addIbi:interval];
+}
 
 - (void)bleDidDisconnect
 {
@@ -878,6 +897,15 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
     [[NSUserDefaults standardUserDefaults] synchronize];
     self.uuidLabel.text = self.lastUUID;
 }
+
+- (void)addMessageText:(NSString *)text
+{
+    [self.statusString appendString:text];
+    [self.statusString appendString:@"\r\n"];
+    self.statusMessage.text = self.statusString;
+    self.statusMessage.hidden = NO;
+}
+
 
 #pragma mark -
 #pragma mark XML

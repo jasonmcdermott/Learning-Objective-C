@@ -11,5 +11,6 @@
 
 #define PI 3.14159265359
 #define NUM_RINGS 10
+#define SCAN_TIME 10
 
 #endif

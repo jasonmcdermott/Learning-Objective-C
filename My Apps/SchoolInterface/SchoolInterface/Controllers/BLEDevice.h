@@ -12,6 +12,7 @@
 #import "SENSessionData.h"
 #import "SENPDDriver.h"
 #import "SENXmlDataGenerator.h"
+#import "constants.h"
 
 #import <CoreBluetooth/CoreBluetooth.h>
 
@@ -86,7 +87,7 @@ typedef struct
 
 @property (strong, nonatomic) NSMutableDictionary *mDeviceDictionary;
 
-@property (nonatomic) BOOL scanning, connected, isFindingLast, finishedScan, disconnected;
+@property (nonatomic) BOOL scanning, connected, scanForNewDevices, finishedScan, disconnected;
 
 @property (nonatomic) BOOL passedToParent;
 @property (strong, nonatomic) BLE *bleShield;
@@ -96,6 +97,7 @@ typedef struct
 
 @property (strong,nonatomic) NSMutableArray *mDevices;
 @property (strong,nonatomic) NSMutableArray *mDeviceTypes;
+@property (strong, nonatomic) NSMutableArray *mDeviceNames;
 
 @property (strong,nonatomic) NSString *lastUUID;
 @property (strong, nonatomic) SENSessionData * mSesionData;
