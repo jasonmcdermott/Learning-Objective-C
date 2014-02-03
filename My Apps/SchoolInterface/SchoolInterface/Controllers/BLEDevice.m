@@ -648,7 +648,7 @@ unsigned char const SYNC_CHAR = 0xF9;
         self.scanButton.enabled = YES;
         self.disconnectButton.enabled = NO;
         [self.spinner stopAnimating];
-        if (self.lastUUID.length > 0) self.uuidLabel.text = self.lastUUID;
+        if (self.lastUUID.length > 0) self.uuidLabel.text = self.lastName;
         self.instructionLabel.text = @"Make sure your device is switched on";
         self.ibiLabel.hidden = YES;
         
