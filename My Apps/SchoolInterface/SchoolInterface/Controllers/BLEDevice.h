@@ -64,6 +64,7 @@ typedef struct
 @property (nonatomic, strong) NSString   *BTLEdeviceData;
 @property (assign) uint16_t BTLEheartRate;
 @property (strong, nonatomic) CBPeripheral *BTLEPeripheral;
+@property (nonatomic) BOOL BTLEConnectionFlag;
 
 // Properties to handle storing the BPM and heart beat
 @property (nonatomic, strong) UILabel    *heartRateBPM;
