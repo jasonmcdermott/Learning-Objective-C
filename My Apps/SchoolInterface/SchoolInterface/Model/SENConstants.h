@@ -16,6 +16,6 @@
 // BLE Device constants
 #define NUM_PULSE_BYTES 3
 #define DEF_MAX_INACTIVITY 8
-#define SCAN_TIME 10
+#define SCAN_TIME 5
 
 #endif

@@ -12,7 +12,7 @@
 #import "SENSessionData.h"
 #import "SENPDDriver.h"
 #import "SENXmlDataGenerator.h"
-#import "constants.h"
+#import "SENConstants.h"
 
 #import <CoreBluetooth/CoreBluetooth.h>
 

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "constants.h"
+#import "SENConstants.h"
 #import "SENQuestionnaire.h"
+
 //#import "SENXmlDataGenerator.h"
 #import "AFNetworking.h"
 #import "SENUtilities.h"

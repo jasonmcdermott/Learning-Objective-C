@@ -349,13 +349,6 @@ unsigned char const SYNC_CHAR = 0xF9;
     NSLog(@"---- didDiscoverPeripheral");
     NSString *localName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
     if (![localName isEqual:@""]) {
-//        NSLog(@"%@",localName);
-        /* need to do the following;
-        
-//         6. also allow user to disconnect.
-         
-        */
-        
         [self logDeviceWithUUID:[SENUtilities getUUIDString:CFBridgingRetain(peripheral.identifier)] withName:peripheral.name withDeviceType:@"BTLE_VENDOR" withOriginalIndex:[self.BTLEDevices count]];
         [self.BTLEDevices addObject:peripheral];
         
@@ -507,8 +500,11 @@ unsigned char const SYNC_CHAR = 0xF9;
     self.connected = NO;
 
     [self.rfduinoManager stopScan];
-    if (self->counter > 0) {
+    
+//    if (self->counter > 0) {
+        NSLog(@"---- we've made it this far");
         if (self.scanForNewDevices == NO) {
+            NSLog(@"---- not scanning for new devices");
             // check last UUID against all BLEMini device UUIDs found
             for (int i = 0; i < self.bleShield.peripherals.count; i++) {
                 CBPeripheral *p = [self.bleShield.peripherals objectAtIndex:i];
@@ -537,9 +533,11 @@ unsigned char const SYNC_CHAR = 0xF9;
 
         // We're scanning for new devices now
         } else if (self.scanForNewDevices == YES) {
+            NSLog(@"---- we are scanning for new devices");
             for (int i = 0; i < self.bleShield.peripherals.count; i++) {
                 CBPeripheral *peripheral = [self.bleShield.peripherals objectAtIndex:i];
                 [self logDeviceWithUUID:[SENUtilities getUUIDString:CFBridgingRetain(peripheral.identifier)] withName:peripheral.name withDeviceType:@"BLE Mini" withOriginalIndex:i];
+                NSLog(@"found this guy %@",peripheral);
                 
 //                [self.mDeviceDictionary setObject:[SENUtilities getUUIDString:CFBridgingRetain(p.identifier)] forKey:@"UUID"];
 //                [self.mDeviceDictionary setObject:@"BLEMini" forKey:@"deviceType"];
@@ -566,7 +564,8 @@ unsigned char const SYNC_CHAR = 0xF9;
 //                NSLog(@"adding RFDUINO item to list %d",self->counter);
             }
         }
-    }
+//    }
+    NSLog(@"here you go");
     [self.deviceList reloadData];
     [self showButtons:@"Finished Scan"];
 }

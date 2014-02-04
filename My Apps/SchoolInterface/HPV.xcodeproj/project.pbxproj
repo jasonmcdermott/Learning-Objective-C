@@ -167,7 +167,7 @@
 		0ED0FAF8188802FB003B3136 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDefines.h; path = SchoolInterface/Frameworks/BLE_framework/BLEDefines.h; sourceTree = "<group>"; };
 		0ED0FAFE188804C8003B3136 /* SENPDDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENPDDriver.h; path = Controllers/SENPDDriver.h; sourceTree = "<group>"; };
 		0ED0FAFF188804C8003B3136 /* SENPDDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENPDDriver.m; path = Controllers/SENPDDriver.m; sourceTree = "<group>"; };
-		0ED0FB03188805A1003B3136 /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = constants.h; path = Model/constants.h; sourceTree = "<group>"; };
+		0ED0FB03188805A1003B3136 /* SENConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SENConstants.h; path = Model/SENConstants.h; sourceTree = "<group>"; };
 		0ED0FB041888081C003B3136 /* SENSessionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENSessionData.h; path = Model/SENSessionData.h; sourceTree = "<group>"; };
 		0ED0FB051888081C003B3136 /* SENSessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENSessionData.m; path = Model/SENSessionData.m; sourceTree = "<group>"; };
 		0ED0FB071888089E003B3136 /* SENPulseReliability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENPulseReliability.h; path = Model/SENPulseReliability.h; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 		0E823EF4188CC0390028D65B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				0ED0FB03188805A1003B3136 /* constants.h */,
+				0ED0FB03188805A1003B3136 /* SENConstants.h */,
 				0E823EF1188CB8FB0028D65B /* SENUserDefaultsHelper.h */,
 				0E823EF2188CB8FB0028D65B /* SENUserDefaultsHelper.m */,
 				0E9849661892969A0037E6B5 /* SENUtilities.h */,

@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "BLE.h"
-#import "constants.h"
+#import "SENConstants.h"
 #import "SENPDDriver.h"
 #import "BLEDevice.h"
 #import "SENQuestionnaireTabViewController.h"
