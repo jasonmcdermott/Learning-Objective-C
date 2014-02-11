@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
+#include <sys/time.h>
 
 @interface SENUtilities : NSObject
 
@@ -25,6 +26,8 @@
 
 + (unsigned int)mergeBytes:(unsigned char)lsb :(unsigned char)msb;
 
++ (double)doubletime;
++ (unsigned long long)microtime;
 @property (strong, nonatomic) NSString *school;
 
 @end

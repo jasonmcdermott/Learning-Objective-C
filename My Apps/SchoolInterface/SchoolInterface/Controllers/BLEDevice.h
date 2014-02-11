@@ -18,7 +18,6 @@
 
 #import "RFduinoManager.h"
 #import "RFduino.h"
-
 #import "SENUtilities.h"
 
 #define HRM_DEVICE_INFO_SERVICE_UUID @"180A"       // 180A = Device Information
@@ -104,6 +103,13 @@ typedef struct
 @property (retain, nonatomic) IBOutlet UITextField *intervalLabel;
 
 @property (nonatomic) CFTimeInterval previousTimestamp;
+
+@property (assign) double heartRate;
+@property (assign) double r2r;
+@property (assign) double lastBeatTime;
+@property (assign) BOOL lastBeatTimeValid;
+@property double lastHRDataReceived;
+
 @end
 
 

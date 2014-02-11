@@ -136,6 +136,21 @@
 
 #pragma mark - random utes
 
++ (double)doubletime
+{
+    unsigned long long x = [self microtime];
+    x /= 1000000.0;
+    return x;
+}
+
++ (unsigned long long)microtime
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return ((long long) tv.tv_sec * (long long) 1000000 +
+            (long long) tv.tv_usec);
+}
+
 + (unsigned int)mergeBytes:(unsigned char)lsb :(unsigned char)msb
 {
     unsigned int ret = msb & 0xFF;
