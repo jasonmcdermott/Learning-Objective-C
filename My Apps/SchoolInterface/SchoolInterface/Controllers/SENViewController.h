@@ -20,7 +20,13 @@
 #import "SENUtilities.h"
 #include "SENPDDriver.h"
 
-@interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate, GLKViewDelegate, QuestionnaireDelegate>
+#import "PdBase.h"
+#import "PdAudioController.h"
+//#import "PdDispatcher.h"
+//#import "SampleListener.h"
+
+
+@interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate, GLKViewDelegate, QuestionnaireDelegate, PdReceiverDelegate>
 {
     
 }
@@ -35,5 +41,9 @@
 @property (strong, nonatomic) NSMutableArray *rings;
 @property (nonatomic) BOOL glviewIsDisplaying;
 @property (strong, nonatomic) CADisplayLink *link;
+//@property (strong, nonatomic) PdDispatcher *dispatcher;
+@property (nonatomic, retain) PdAudioController *audioController;
 
 @end
+
+

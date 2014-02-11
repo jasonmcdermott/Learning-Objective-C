@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PdBase.h"
 
 @interface SENPDDriver : NSObject
 

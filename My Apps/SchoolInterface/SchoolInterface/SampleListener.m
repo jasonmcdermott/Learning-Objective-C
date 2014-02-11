@@ -13,40 +13,36 @@
 
 @implementation SampleListener
 
-- (id)initWithLabel:(UILabel *)s {
-    self = [super init];
-    if (self) {
-        label = s;
-        [label retain];
-    }
-    return self;
-}
-
-- (void)dealloc {
-    [label release];
-    [super dealloc];
-}
+//- (id)initWithLabel:(UILabel *)s {
+//    self = [super init];
+//    if (self) {
+////        label = s;
+////        [label retain];
+//    }
+//    return self;
+//}
 
 - (void)receiveBangFromSource:(NSString *)source {
-    NSLog(@"Listener %@: bang\n", label);
+    NSLog(@"Listener %@: bang\n", source);
+    NSLog(@"something");
 }
 
 - (void)receiveFloat:(float)val fromSource:(NSString *)source {
-    NSLog(@"Listener %@: float %f\n", label, val);
-    NSString *s = [NSString stringWithFormat:@"%f", val];
-    [label setText:s];
+    NSLog(@"Listener %@: float %f\n", source, val);
+//    NSString *s = [NSString stringWithFormat:@"%f", val];
+//    [label setText:s];
 }
 
 - (void)receiveSymbol:(NSString *)s fromSource:(NSString *)source {
-    NSLog(@"Listener %@: symbol %@\n", label, s);
+    NSLog(@"Listener %@: symbol %@\n", source, s);
 }
 
 - (void)receiveList:(NSArray *)v fromSource:(NSString *)source {
-    NSLog(@"Listener %@: list %@\n", label, v);
+    NSLog(@"Listener %@: list %@\n", source, v);
 }
 
 - (void)receiveMessage:(NSString *)message withArguments:(NSArray *)arguments fromSource:(NSString *)source {
-    NSLog(@"Listener %@: message %@,  %@\n", label, message, arguments);
+    NSLog(@"Listener %@: message %@,  %@\n", source, message, arguments);
 }
 
 @end

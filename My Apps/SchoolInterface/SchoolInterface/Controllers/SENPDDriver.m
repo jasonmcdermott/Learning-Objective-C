@@ -7,7 +7,7 @@
 //
 
 #import "SENPDDriver.h"
-#include "PdBase.h"
+
 
 @implementation SENPDDriver
 
@@ -16,7 +16,10 @@
     //Send to PD - "session-start"
     //Send bang.
     @autoreleasepool {
-        [PdBase sendBangToReceiver:@"session-start"];
+//        [PdBase sendBangToReceiver:@"session-start"];
+        [PdBase sendBangToReceiver:@"hello"];
+        //[PdBase sendFloat:(outputLeftToggle.on ? 1. : 0.) toReceiver: @"left" ];
+        
     }
 }
 
@@ -25,30 +28,30 @@
     //Send a message to "session-end"
     //Send bang.
     @autoreleasepool {
-        [PdBase sendBangToReceiver:@"session-end"];
+//        [PdBase sendBangToReceiver:@"session-end"];
     }
 }
 
 -(void) rawPulse
 {
-    //Send a message to "heart-ibi"
+    // Send a message to "heart-ibi"
     // We know this is the RAW_PULSE event.
-    //Send bang.
+    // Send bang.
     @autoreleasepool {
-        [PdBase sendBangToReceiver:@"pulse-raw"];
+//        [PdBase sendBangToReceiver:@"pulse-raw"];
     }
 }
 
 -(void) sendtoPDBaseReliability:(int) signal
 {
-    NSNumber *value = [NSNumber numberWithInt:signal];
-    [PdBase sendFloat:[value floatValue] toReceiver:@"sensor-reliability"];
+//    NSNumber *value = [NSNumber numberWithInt:signal];
+//    [PdBase sendFloat:[value floatValue] toReceiver:@"sensor-reliability"];
 }
 
 -(void) sendIBI:(int) signal
 {
-    NSNumber *value = [NSNumber numberWithInt:signal];
-    [PdBase sendFloat:[value floatValue] toReceiver:@"heart-ibi"];
+//    NSNumber *value = [NSNumber numberWithInt:signal];
+//    [PdBase sendFloat:[value floatValue] toReceiver:@"heart-ibi"];
 }
 
 @end

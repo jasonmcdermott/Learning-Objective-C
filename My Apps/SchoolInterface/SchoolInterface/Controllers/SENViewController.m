@@ -35,7 +35,6 @@
 {
     [super viewDidLoad];
     [self setupOpenGL];
-
     
     [self registerDefaultsFromSettingsBundle];
     self.SENUserDefaultsHelper = [[SENUserDefaultsHelper alloc] init];
@@ -57,7 +56,62 @@
     [self setSettingsValues];
     [self createViewControllers];
     [self setVisibility];
+    [self setupPD];
 }
+
+#pragma mark - LibPd
+
+- (void)setupPD
+{
+    self.audioController = [[PdAudioController alloc] init];
+	PdAudioStatus status = [self.audioController configurePlaybackWithSampleRate:44100
+																  numberChannels:2
+																	inputEnabled:NO
+																   mixingEnabled:NO];
+    
+    if (status == PdAudioError) {
+		NSLog(@"Error! Could not configure PdAudioController");
+	} else if (status == PdAudioPropertyChanged) {
+		NSLog(@"Warning: some of the audio parameters were not accceptable.");
+	} else {
+		NSLog(@"Audio Configuration successful.");
+	}
+    // log actual settings
+	[self.audioController print];
+    self.audioController.active = YES;
+    [PdBase setDelegate:self];
+    //    self.dispatcher = (PdDispatcher *)[PdBase delegate];
+    //    SampleListener *goodbyeListener = [[SampleListener alloc] init];
+    //    [self.dispatcher addListener:goodbyeListener forSource:@"goodbye"];
+    
+//    [PdBase subscribe:@"goodbye"];
+//    [PdBase subscribe:@"load-meter"];
+//    [PdBase openFile:@"test.pd" path:[[NSBundle mainBundle] bundlePath]];
+    [PdBase openFile:@"brighthearts-pd-master.pd" path:[[NSBundle mainBundle] bundlePath]];
+
+    //    [PdBase sendBangToReceiver:@"hello"];    // we know this works.
+}
+
+- (void)receiveFloat:(float)received fromSource:(NSString *)source {
+	if ([source isEqualToString:@"load-meter"]) {
+        NSLog(@"%f",received);
+	}
+}
+
+- (void)receiveBangFromSource:(NSString *)source
+{
+    if ([source isEqualToString:@"goodbye"]) {
+        NSLog(@"have received goodbye");
+    }
+}
+
+// receivePrint delegate method to receive "print" messages from Libpd
+// for simplicity we are just sending print messages to the debugging console
+- (void)receivePrint:(NSString *)message {
+	NSLog(@"(pd) %@", message);
+}
+
+#pragma mark - OpenGL
 
 - (void)setupOpenGL
 {
@@ -202,6 +256,8 @@
     glDrawArrays( GL_TRIANGLE_STRIP, 0, vertexArrayLength);
 }
 
+#pragma mark - Show/Hide
+
 - (void)setVisibility
 {
     if ([self.chosenMode isEqualToString:@"Questionnaire"] || [self.chosenMode isEqualToString:@"Both"]) {
@@ -217,8 +273,6 @@
     }
     self.ibiLabel.text = _chosenMode;
 }
-
-#pragma mark - Navigation Interface
 
 - (void)setLabel:(NSString *)label
 {

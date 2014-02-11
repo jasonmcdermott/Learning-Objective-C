@@ -12,9 +12,10 @@
 #import "PdBase.h"
 #import "PdDispatcher.h"
 
-@interface SampleListener : NSObject<PdListener> {
-    UILabel *label;
+@interface SampleListener : NSObject <PdListener>
+{
+//    UILabel *label;
 }
 
-- (id)initWithLabel:(UILabel *)label;
+//- (id)initWithLabel:(UILabel *)label;
 @end

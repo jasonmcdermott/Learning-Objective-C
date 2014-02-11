@@ -89,6 +89,7 @@ unsigned char const SYNC_CHAR = 0xF9;
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:NamePrefKey];
     
     [self showButtons:@"Starting Up"];
+    [self.mPDDRiver startSession];
 
     [NSTimer scheduledTimerWithTimeInterval:(float)10.0 target:self selector:@selector(checkIntervalTime) userInfo:nil repeats:YES];
     
@@ -774,7 +775,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
                 _bufferIndex = 0;
                 _reliable = false;
                 
-                [self.mPDDRiver sendtoPDBaseReliability:0];
+//                [self.mPDDRiver sendtoPDBaseReliability:0];
                 self.sessionStatusLabel.text = @"Unreliable";
                 _inactivityCount = 0;
                 

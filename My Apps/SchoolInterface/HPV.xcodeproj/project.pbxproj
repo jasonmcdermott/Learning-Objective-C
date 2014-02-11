@@ -24,6 +24,52 @@
 		0E1136411897B53400873032 /* SENRing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1136401897B53400873032 /* SENRing.m */; };
 		0E1136441897B59300873032 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1136421897B59300873032 /* GLKit.framework */; };
 		0E1136451897B59300873032 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1136431897B59300873032 /* OpenGLES.framework */; };
+		0E630C0F18A9EB7500F42387 /* test.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E630C0E18A9EB7500F42387 /* test.pd */; };
+		0E7BAB0718A9F5F10036A2EA /* SampleListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7BAB0618A9F5F10036A2EA /* SampleListener.m */; };
+		0E7BAB1218AA07E40036A2EA /* Notes in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB1118AA07E40036A2EA /* Notes */; };
+		0E7BABC518AA12B90036A2EA /* brighthearts-pd-master.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB9618AA12B90036A2EA /* brighthearts-pd-master.pd */; };
+		0E7BABC618AA12B90036A2EA /* curve.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB9718AA12B90036A2EA /* curve.pd */; };
+		0E7BABC718AA12B90036A2EA /* exponential_sigmoid.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB9818AA12B90036A2EA /* exponential_sigmoid.pd */; };
+		0E7BABC818AA12B90036A2EA /* float_argument.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB9918AA12B90036A2EA /* float_argument.pd */; };
+		0E7BABC918AA12B90036A2EA /* gk.adsr.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB9A18AA12B90036A2EA /* gk.adsr.pd */; };
+		0E7BABCA18AA12B90036A2EA /* gk.bang-thinner.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB9B18AA12B90036A2EA /* gk.bang-thinner.pd */; };
+		0E7BABCB18AA12B90036A2EA /* gk.counter.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB9C18AA12B90036A2EA /* gk.counter.pd */; };
+		0E7BABCC18AA12B90036A2EA /* gk.edge.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB9D18AA12B90036A2EA /* gk.edge.pd */; };
+		0E7BABCD18AA12B90036A2EA /* gk.float-thinner.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB9E18AA12B90036A2EA /* gk.float-thinner.pd */; };
+		0E7BABCE18AA12B90036A2EA /* gk.format-timeseries.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB9F18AA12B90036A2EA /* gk.format-timeseries.pd */; };
+		0E7BABCF18AA12B90036A2EA /* gk.graph-data.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABA018AA12B90036A2EA /* gk.graph-data.pd */; };
+		0E7BABD018AA12B90036A2EA /* gk.grapher.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABA118AA12B90036A2EA /* gk.grapher.pd */; };
+		0E7BABD118AA12B90036A2EA /* gk.mean.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABA218AA12B90036A2EA /* gk.mean.pd */; };
+		0E7BABD218AA12B90036A2EA /* gk.onebang.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABA318AA12B90036A2EA /* gk.onebang.pd */; };
+		0E7BABD318AA12B90036A2EA /* gk.peak.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABA418AA12B90036A2EA /* gk.peak.pd */; };
+		0E7BABD418AA12B90036A2EA /* gk.range.gate.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABA518AA12B90036A2EA /* gk.range.gate.pd */; };
+		0E7BABD518AA12B90036A2EA /* gk.resample.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABA618AA12B90036A2EA /* gk.resample.pd */; };
+		0E7BABD618AA12B90036A2EA /* gk.sampler-w-trigger.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABA718AA12B90036A2EA /* gk.sampler-w-trigger.pd */; };
+		0E7BABD718AA12B90036A2EA /* gk.scale-n-ease.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABA818AA12B90036A2EA /* gk.scale-n-ease.pd */; };
+		0E7BABD818AA12B90036A2EA /* gk.scale.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABA918AA12B90036A2EA /* gk.scale.pd */; };
+		0E7BABD918AA12B90036A2EA /* gk.sines.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABAA18AA12B90036A2EA /* gk.sines.pd */; };
+		0E7BABDA18AA12B90036A2EA /* gk.skeptic.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABAB18AA12B90036A2EA /* gk.skeptic.pd */; };
+		0E7BABDB18AA12B90036A2EA /* gk.split.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABAC18AA12B90036A2EA /* gk.split.pd */; };
+		0E7BABDC18AA12B90036A2EA /* gk.spring2.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABAD18AA12B90036A2EA /* gk.spring2.pd */; };
+		0E7BABDD18AA12B90036A2EA /* gk.trigger.dec.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABAE18AA12B90036A2EA /* gk.trigger.dec.pd */; };
+		0E7BABDE18AA12B90036A2EA /* gk.trigger.inc.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABAF18AA12B90036A2EA /* gk.trigger.inc.pd */; };
+		0E7BABDF18AA12B90036A2EA /* gk.trough.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABB018AA12B90036A2EA /* gk.trough.pd */; };
+		0E7BABE018AA12B90036A2EA /* gkpd.mix-from-stereo.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABB118AA12B90036A2EA /* gkpd.mix-from-stereo.pd */; };
+		0E7BABE118AA12B90036A2EA /* gkpd.mix-to-stereo.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABB218AA12B90036A2EA /* gkpd.mix-to-stereo.pd */; };
+		0E7BABE218AA12B90036A2EA /* last-x-help.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABB318AA12B90036A2EA /* last-x-help.pd */; };
+		0E7BABE318AA12B90036A2EA /* last-x.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABB418AA12B90036A2EA /* last-x.pd */; };
+		0E7BABE418AA12B90036A2EA /* list-drip-help.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABB518AA12B90036A2EA /* list-drip-help.pd */; };
+		0E7BABE518AA12B90036A2EA /* list-drip.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABB618AA12B90036A2EA /* list-drip.pd */; };
+		0E7BABE618AA12B90036A2EA /* list-lastx-help.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABB718AA12B90036A2EA /* list-lastx-help.pd */; };
+		0E7BABE718AA12B90036A2EA /* list-lastx.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABB818AA12B90036A2EA /* list-lastx.pd */; };
+		0E7BABE818AA12B90036A2EA /* list-len-help.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABB918AA12B90036A2EA /* list-len-help.pd */; };
+		0E7BABE918AA12B90036A2EA /* list-len.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABBA18AA12B90036A2EA /* list-len.pd */; };
+		0E7BABEA18AA12B90036A2EA /* list-mean.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABBB18AA12B90036A2EA /* list-mean.pd */; };
+		0E7BABEB18AA12B90036A2EA /* list-stream.mmb.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABBC18AA12B90036A2EA /* list-stream.mmb.pd */; };
+		0E7BABEC18AA12B90036A2EA /* LoopWithExtern.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BABBD18AA12B90036A2EA /* LoopWithExtern.pd */; };
+		0E7BB0F518AA1AA90036A2EA /* adsr.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BB0F418AA1AA90036A2EA /* adsr.pd */; };
+		0E7BB0F818AA1ACC0036A2EA /* Banjo_B3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BB0F618AA1ACC0036A2EA /* Banjo_B3.wav */; };
+		0E7BB0F918AA1ACC0036A2EA /* Tingsha0006.aif in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BB0F718AA1ACC0036A2EA /* Tingsha0006.aif */; };
 		0E823EE9188CA5FB0028D65B /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E823EE6188CA5F60028D65B /* libpd-ios.a */; };
 		0E823EF3188CB8FB0028D65B /* SENUserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E823EF2188CB8FB0028D65B /* SENUserDefaultsHelper.m */; };
 		0E823F0A188D53700028D65B /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E823F09188D53700028D65B /* CoreText.framework */; };
@@ -117,6 +163,53 @@
 		0E1136401897B53400873032 /* SENRing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENRing.m; sourceTree = "<group>"; };
 		0E1136421897B59300873032 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		0E1136431897B59300873032 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		0E630C0E18A9EB7500F42387 /* test.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test.pd; path = SchoolInterface/Controllers/PD/test.pd; sourceTree = "<group>"; };
+		0E7BAB0518A9F5F10036A2EA /* SampleListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleListener.h; sourceTree = "<group>"; };
+		0E7BAB0618A9F5F10036A2EA /* SampleListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleListener.m; sourceTree = "<group>"; };
+		0E7BAB1118AA07E40036A2EA /* Notes */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Notes; path = SchoolInterface/Notes; sourceTree = "<group>"; };
+		0E7BAB9618AA12B90036A2EA /* brighthearts-pd-master.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "brighthearts-pd-master.pd"; path = "SchoolInterface/Controllers/PD/brighthearts-pd-master.pd"; sourceTree = "<group>"; };
+		0E7BAB9718AA12B90036A2EA /* curve.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = curve.pd; path = SchoolInterface/Controllers/PD/curve.pd; sourceTree = "<group>"; };
+		0E7BAB9818AA12B90036A2EA /* exponential_sigmoid.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = exponential_sigmoid.pd; path = SchoolInterface/Controllers/PD/exponential_sigmoid.pd; sourceTree = "<group>"; };
+		0E7BAB9918AA12B90036A2EA /* float_argument.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = float_argument.pd; path = SchoolInterface/Controllers/PD/float_argument.pd; sourceTree = "<group>"; };
+		0E7BAB9A18AA12B90036A2EA /* gk.adsr.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.adsr.pd; path = SchoolInterface/Controllers/PD/gk.adsr.pd; sourceTree = "<group>"; };
+		0E7BAB9B18AA12B90036A2EA /* gk.bang-thinner.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "gk.bang-thinner.pd"; path = "SchoolInterface/Controllers/PD/gk.bang-thinner.pd"; sourceTree = "<group>"; };
+		0E7BAB9C18AA12B90036A2EA /* gk.counter.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.counter.pd; path = SchoolInterface/Controllers/PD/gk.counter.pd; sourceTree = "<group>"; };
+		0E7BAB9D18AA12B90036A2EA /* gk.edge.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.edge.pd; path = SchoolInterface/Controllers/PD/gk.edge.pd; sourceTree = "<group>"; };
+		0E7BAB9E18AA12B90036A2EA /* gk.float-thinner.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "gk.float-thinner.pd"; path = "SchoolInterface/Controllers/PD/gk.float-thinner.pd"; sourceTree = "<group>"; };
+		0E7BAB9F18AA12B90036A2EA /* gk.format-timeseries.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "gk.format-timeseries.pd"; path = "SchoolInterface/Controllers/PD/gk.format-timeseries.pd"; sourceTree = "<group>"; };
+		0E7BABA018AA12B90036A2EA /* gk.graph-data.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "gk.graph-data.pd"; path = "SchoolInterface/Controllers/PD/gk.graph-data.pd"; sourceTree = "<group>"; };
+		0E7BABA118AA12B90036A2EA /* gk.grapher.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.grapher.pd; path = SchoolInterface/Controllers/PD/gk.grapher.pd; sourceTree = "<group>"; };
+		0E7BABA218AA12B90036A2EA /* gk.mean.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.mean.pd; path = SchoolInterface/Controllers/PD/gk.mean.pd; sourceTree = "<group>"; };
+		0E7BABA318AA12B90036A2EA /* gk.onebang.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.onebang.pd; path = SchoolInterface/Controllers/PD/gk.onebang.pd; sourceTree = "<group>"; };
+		0E7BABA418AA12B90036A2EA /* gk.peak.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.peak.pd; path = SchoolInterface/Controllers/PD/gk.peak.pd; sourceTree = "<group>"; };
+		0E7BABA518AA12B90036A2EA /* gk.range.gate.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.range.gate.pd; path = SchoolInterface/Controllers/PD/gk.range.gate.pd; sourceTree = "<group>"; };
+		0E7BABA618AA12B90036A2EA /* gk.resample.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.resample.pd; path = SchoolInterface/Controllers/PD/gk.resample.pd; sourceTree = "<group>"; };
+		0E7BABA718AA12B90036A2EA /* gk.sampler-w-trigger.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "gk.sampler-w-trigger.pd"; path = "SchoolInterface/Controllers/PD/gk.sampler-w-trigger.pd"; sourceTree = "<group>"; };
+		0E7BABA818AA12B90036A2EA /* gk.scale-n-ease.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "gk.scale-n-ease.pd"; path = "SchoolInterface/Controllers/PD/gk.scale-n-ease.pd"; sourceTree = "<group>"; };
+		0E7BABA918AA12B90036A2EA /* gk.scale.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.scale.pd; path = SchoolInterface/Controllers/PD/gk.scale.pd; sourceTree = "<group>"; };
+		0E7BABAA18AA12B90036A2EA /* gk.sines.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.sines.pd; path = SchoolInterface/Controllers/PD/gk.sines.pd; sourceTree = "<group>"; };
+		0E7BABAB18AA12B90036A2EA /* gk.skeptic.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.skeptic.pd; path = SchoolInterface/Controllers/PD/gk.skeptic.pd; sourceTree = "<group>"; };
+		0E7BABAC18AA12B90036A2EA /* gk.split.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.split.pd; path = SchoolInterface/Controllers/PD/gk.split.pd; sourceTree = "<group>"; };
+		0E7BABAD18AA12B90036A2EA /* gk.spring2.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.spring2.pd; path = SchoolInterface/Controllers/PD/gk.spring2.pd; sourceTree = "<group>"; };
+		0E7BABAE18AA12B90036A2EA /* gk.trigger.dec.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.trigger.dec.pd; path = SchoolInterface/Controllers/PD/gk.trigger.dec.pd; sourceTree = "<group>"; };
+		0E7BABAF18AA12B90036A2EA /* gk.trigger.inc.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.trigger.inc.pd; path = SchoolInterface/Controllers/PD/gk.trigger.inc.pd; sourceTree = "<group>"; };
+		0E7BABB018AA12B90036A2EA /* gk.trough.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gk.trough.pd; path = SchoolInterface/Controllers/PD/gk.trough.pd; sourceTree = "<group>"; };
+		0E7BABB118AA12B90036A2EA /* gkpd.mix-from-stereo.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "gkpd.mix-from-stereo.pd"; path = "SchoolInterface/Controllers/PD/gkpd.mix-from-stereo.pd"; sourceTree = "<group>"; };
+		0E7BABB218AA12B90036A2EA /* gkpd.mix-to-stereo.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "gkpd.mix-to-stereo.pd"; path = "SchoolInterface/Controllers/PD/gkpd.mix-to-stereo.pd"; sourceTree = "<group>"; };
+		0E7BABB318AA12B90036A2EA /* last-x-help.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "last-x-help.pd"; path = "SchoolInterface/Controllers/PD/last-x-help.pd"; sourceTree = "<group>"; };
+		0E7BABB418AA12B90036A2EA /* last-x.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "last-x.pd"; path = "SchoolInterface/Controllers/PD/last-x.pd"; sourceTree = "<group>"; };
+		0E7BABB518AA12B90036A2EA /* list-drip-help.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "list-drip-help.pd"; path = "SchoolInterface/Controllers/PD/list-drip-help.pd"; sourceTree = "<group>"; };
+		0E7BABB618AA12B90036A2EA /* list-drip.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "list-drip.pd"; path = "SchoolInterface/Controllers/PD/list-drip.pd"; sourceTree = "<group>"; };
+		0E7BABB718AA12B90036A2EA /* list-lastx-help.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "list-lastx-help.pd"; path = "SchoolInterface/Controllers/PD/list-lastx-help.pd"; sourceTree = "<group>"; };
+		0E7BABB818AA12B90036A2EA /* list-lastx.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "list-lastx.pd"; path = "SchoolInterface/Controllers/PD/list-lastx.pd"; sourceTree = "<group>"; };
+		0E7BABB918AA12B90036A2EA /* list-len-help.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "list-len-help.pd"; path = "SchoolInterface/Controllers/PD/list-len-help.pd"; sourceTree = "<group>"; };
+		0E7BABBA18AA12B90036A2EA /* list-len.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "list-len.pd"; path = "SchoolInterface/Controllers/PD/list-len.pd"; sourceTree = "<group>"; };
+		0E7BABBB18AA12B90036A2EA /* list-mean.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "list-mean.pd"; path = "SchoolInterface/Controllers/PD/list-mean.pd"; sourceTree = "<group>"; };
+		0E7BABBC18AA12B90036A2EA /* list-stream.mmb.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "list-stream.mmb.pd"; path = "SchoolInterface/Controllers/PD/list-stream.mmb.pd"; sourceTree = "<group>"; };
+		0E7BABBD18AA12B90036A2EA /* LoopWithExtern.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LoopWithExtern.pd; path = SchoolInterface/Controllers/PD/LoopWithExtern.pd; sourceTree = "<group>"; };
+		0E7BB0F418AA1AA90036A2EA /* adsr.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = adsr.pd; path = SchoolInterface/Controllers/PD/adsr.pd; sourceTree = "<group>"; };
+		0E7BB0F618AA1ACC0036A2EA /* Banjo_B3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = Banjo_B3.wav; path = SchoolInterface/Resources/Banjo_B3.wav; sourceTree = "<group>"; };
+		0E7BB0F718AA1ACC0036A2EA /* Tingsha0006.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = Tingsha0006.aif; path = SchoolInterface/Resources/Tingsha0006.aif; sourceTree = "<group>"; };
 		0E823EE0188CA5F50028D65B /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = "../../../C-Libraries/libpd/libpd.xcodeproj"; sourceTree = "<group>"; };
 		0E823EF1188CB8FB0028D65B /* SENUserDefaultsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENUserDefaultsHelper.h; path = Model/SENUserDefaultsHelper.h; sourceTree = "<group>"; };
 		0E823EF2188CB8FB0028D65B /* SENUserDefaultsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENUserDefaultsHelper.m; path = Model/SENUserDefaultsHelper.m; sourceTree = "<group>"; };
@@ -153,7 +246,6 @@
 		0EC0F153188D64E900D4C7E7 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		0EC0F15B188D6A6100D4C7E7 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = SchoolInterface/Settings.bundle; sourceTree = "<group>"; };
 		0EC0F15E188D6A8600D4C7E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SchoolInterface/Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		0EC0F165188D716800D4C7E7 /* PdBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PdBase.h; sourceTree = "<group>"; };
 		0EC6A1A41898BB8D00451249 /* RFduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFduino.h; sourceTree = "<group>"; };
 		0EC6A1A51898BB8D00451249 /* RFduino.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFduino.m; sourceTree = "<group>"; };
 		0EC6A1A71898BB8D00451249 /* RfduinoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RfduinoManager.h; sourceTree = "<group>"; };
@@ -220,6 +312,8 @@
 		0E04A9651888C8B5006C8CF8 /* PD */ = {
 			isa = PBXGroup;
 			children = (
+				0E7BAB0518A9F5F10036A2EA /* SampleListener.h */,
+				0E7BAB0618A9F5F10036A2EA /* SampleListener.m */,
 				0ED0FAFE188804C8003B3136 /* SENPDDriver.h */,
 				0ED0FAFF188804C8003B3136 /* SENPDDriver.m */,
 			);
@@ -229,12 +323,6 @@
 		0E10AC2C188609BB00765FA1 = {
 			isa = PBXGroup;
 			children = (
-				0E10AC53188609BB00765FA1 /* Images.xcassets */,
-				0EDFB9B91890AD83002909F4 /* Model.xcdatamodeld */,
-				0EC0F15D188D6A8600D4C7E7 /* Main_iPad.storyboard */,
-				0EC0F15B188D6A6100D4C7E7 /* Settings.bundle */,
-				0E823EF7188D530F0028D65B /* Vendor */,
-				0E823EE0188CA5F50028D65B /* libpd.xcodeproj */,
 				0E10AC3E188609BB00765FA1 /* HPV */,
 				0E10AC60188609BB00765FA1 /* SchoolInterfaceTests */,
 				0E10AC37188609BB00765FA1 /* Frameworks */,
@@ -254,6 +342,8 @@
 		0E10AC37188609BB00765FA1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E823EE0188CA5F50028D65B /* libpd.xcodeproj */,
+				0E823EF7188D530F0028D65B /* Vendor */,
 				0E1136421897B59300873032 /* GLKit.framework */,
 				0E1136431897B59300873032 /* OpenGLES.framework */,
 				0E823F0F188D538E0028D65B /* SystemConfiguration.framework */,
@@ -275,6 +365,7 @@
 		0E10AC3E188609BB00765FA1 /* HPV */ = {
 			isa = PBXGroup;
 			children = (
+				0E630C1918A9F0E400F42387 /* Resources */,
 				0E10ACB718861DFD00765FA1 /* Controllers */,
 				0ED0FB021888057C003B3136 /* Model */,
 				0E10AC3F188609BB00765FA1 /* Supporting Files */,
@@ -334,6 +425,71 @@
 				0E1136401897B53400873032 /* SENRing.m */,
 			);
 			name = Game;
+			sourceTree = "<group>";
+		};
+		0E630C1918A9F0E400F42387 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0E7BB0F618AA1ACC0036A2EA /* Banjo_B3.wav */,
+				0E7BB0F718AA1ACC0036A2EA /* Tingsha0006.aif */,
+				0E7BAB8E18AA126E0036A2EA /* PD Files */,
+				0E10AC53188609BB00765FA1 /* Images.xcassets */,
+				0EDFB9B91890AD83002909F4 /* Model.xcdatamodeld */,
+				0EC0F15D188D6A8600D4C7E7 /* Main_iPad.storyboard */,
+				0EC0F15B188D6A6100D4C7E7 /* Settings.bundle */,
+				0E7BAB1118AA07E40036A2EA /* Notes */,
+			);
+			name = Resources;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		0E7BAB8E18AA126E0036A2EA /* PD Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E7BB0F418AA1AA90036A2EA /* adsr.pd */,
+				0E7BAB9618AA12B90036A2EA /* brighthearts-pd-master.pd */,
+				0E7BAB9718AA12B90036A2EA /* curve.pd */,
+				0E7BAB9818AA12B90036A2EA /* exponential_sigmoid.pd */,
+				0E7BAB9918AA12B90036A2EA /* float_argument.pd */,
+				0E7BAB9A18AA12B90036A2EA /* gk.adsr.pd */,
+				0E7BAB9B18AA12B90036A2EA /* gk.bang-thinner.pd */,
+				0E7BAB9C18AA12B90036A2EA /* gk.counter.pd */,
+				0E7BAB9D18AA12B90036A2EA /* gk.edge.pd */,
+				0E7BAB9E18AA12B90036A2EA /* gk.float-thinner.pd */,
+				0E7BAB9F18AA12B90036A2EA /* gk.format-timeseries.pd */,
+				0E7BABA018AA12B90036A2EA /* gk.graph-data.pd */,
+				0E7BABA118AA12B90036A2EA /* gk.grapher.pd */,
+				0E7BABA218AA12B90036A2EA /* gk.mean.pd */,
+				0E7BABA318AA12B90036A2EA /* gk.onebang.pd */,
+				0E7BABA418AA12B90036A2EA /* gk.peak.pd */,
+				0E7BABA518AA12B90036A2EA /* gk.range.gate.pd */,
+				0E7BABA618AA12B90036A2EA /* gk.resample.pd */,
+				0E7BABA718AA12B90036A2EA /* gk.sampler-w-trigger.pd */,
+				0E7BABA818AA12B90036A2EA /* gk.scale-n-ease.pd */,
+				0E7BABA918AA12B90036A2EA /* gk.scale.pd */,
+				0E7BABAA18AA12B90036A2EA /* gk.sines.pd */,
+				0E7BABAB18AA12B90036A2EA /* gk.skeptic.pd */,
+				0E7BABAC18AA12B90036A2EA /* gk.split.pd */,
+				0E7BABAD18AA12B90036A2EA /* gk.spring2.pd */,
+				0E7BABAE18AA12B90036A2EA /* gk.trigger.dec.pd */,
+				0E7BABAF18AA12B90036A2EA /* gk.trigger.inc.pd */,
+				0E7BABB018AA12B90036A2EA /* gk.trough.pd */,
+				0E7BABB118AA12B90036A2EA /* gkpd.mix-from-stereo.pd */,
+				0E7BABB218AA12B90036A2EA /* gkpd.mix-to-stereo.pd */,
+				0E7BABB318AA12B90036A2EA /* last-x-help.pd */,
+				0E7BABB418AA12B90036A2EA /* last-x.pd */,
+				0E7BABB518AA12B90036A2EA /* list-drip-help.pd */,
+				0E7BABB618AA12B90036A2EA /* list-drip.pd */,
+				0E7BABB718AA12B90036A2EA /* list-lastx-help.pd */,
+				0E7BABB818AA12B90036A2EA /* list-lastx.pd */,
+				0E7BABB918AA12B90036A2EA /* list-len-help.pd */,
+				0E7BABBA18AA12B90036A2EA /* list-len.pd */,
+				0E7BABBB18AA12B90036A2EA /* list-mean.pd */,
+				0E7BABBC18AA12B90036A2EA /* list-stream.mmb.pd */,
+				0E7BABBD18AA12B90036A2EA /* LoopWithExtern.pd */,
+				0E630C0E18A9EB7500F42387 /* test.pd */,
+			);
+			name = "PD Files";
 			sourceTree = "<group>";
 		};
 		0E823EE1188CA5F50028D65B /* Products */ = {
@@ -427,14 +583,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		0EC0F164188D715A00D4C7E7 /* LibPD */ = {
-			isa = PBXGroup;
-			children = (
-				0EC0F165188D716800D4C7E7 /* PdBase.h */,
-			);
-			name = LibPD;
-			sourceTree = "<group>";
-		};
 		0EC6A1A31898BB5A00451249 /* rfduino */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,7 +603,6 @@
 				0E04A9651888C8B5006C8CF8 /* PD */,
 				0E823EF5188CC0460028D65B /* Session Data */,
 				0E82B35B1891E91A00FE5B9C /* AFNetworking */,
-				0EC0F164188D715A00D4C7E7 /* LibPD */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -580,12 +727,57 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E7BABD418AA12B90036A2EA /* gk.range.gate.pd in Resources */,
+				0E7BABE118AA12B90036A2EA /* gkpd.mix-to-stereo.pd in Resources */,
+				0E7BABCD18AA12B90036A2EA /* gk.float-thinner.pd in Resources */,
+				0E7BABD318AA12B90036A2EA /* gk.peak.pd in Resources */,
+				0E7BABDD18AA12B90036A2EA /* gk.trigger.dec.pd in Resources */,
+				0E7BABD818AA12B90036A2EA /* gk.scale.pd in Resources */,
+				0E7BABD118AA12B90036A2EA /* gk.mean.pd in Resources */,
+				0E7BABD618AA12B90036A2EA /* gk.sampler-w-trigger.pd in Resources */,
+				0E7BABCE18AA12B90036A2EA /* gk.format-timeseries.pd in Resources */,
 				0EC0F155188D64E900D4C7E7 /* HockeySDK.xcconfig in Resources */,
+				0E630C0F18A9EB7500F42387 /* test.pd in Resources */,
+				0E7BB0F518AA1AA90036A2EA /* adsr.pd in Resources */,
+				0E7BABDA18AA12B90036A2EA /* gk.skeptic.pd in Resources */,
 				0E10AC54188609BB00765FA1 /* Images.xcassets in Resources */,
+				0E7BABDC18AA12B90036A2EA /* gk.spring2.pd in Resources */,
 				0E10AC43188609BB00765FA1 /* InfoPlist.strings in Resources */,
+				0E7BABC618AA12B90036A2EA /* curve.pd in Resources */,
 				0EC0F15F188D6A8600D4C7E7 /* Main_iPad.storyboard in Resources */,
+				0E7BABDB18AA12B90036A2EA /* gk.split.pd in Resources */,
 				0EC0F15C188D6A6100D4C7E7 /* Settings.bundle in Resources */,
+				0E7BABCC18AA12B90036A2EA /* gk.edge.pd in Resources */,
+				0E7BABD518AA12B90036A2EA /* gk.resample.pd in Resources */,
+				0E7BABD218AA12B90036A2EA /* gk.onebang.pd in Resources */,
+				0E7BABEB18AA12B90036A2EA /* list-stream.mmb.pd in Resources */,
+				0E7BABD918AA12B90036A2EA /* gk.sines.pd in Resources */,
+				0E7BABDF18AA12B90036A2EA /* gk.trough.pd in Resources */,
+				0E7BABC918AA12B90036A2EA /* gk.adsr.pd in Resources */,
+				0E7BABD718AA12B90036A2EA /* gk.scale-n-ease.pd in Resources */,
+				0E7BABCF18AA12B90036A2EA /* gk.graph-data.pd in Resources */,
+				0E7BABE418AA12B90036A2EA /* list-drip-help.pd in Resources */,
+				0E7BABDE18AA12B90036A2EA /* gk.trigger.inc.pd in Resources */,
+				0E7BABD018AA12B90036A2EA /* gk.grapher.pd in Resources */,
+				0E7BABE818AA12B90036A2EA /* list-len-help.pd in Resources */,
+				0E7BAB1218AA07E40036A2EA /* Notes in Resources */,
+				0E7BABC818AA12B90036A2EA /* float_argument.pd in Resources */,
+				0E7BABCA18AA12B90036A2EA /* gk.bang-thinner.pd in Resources */,
+				0E7BABEC18AA12B90036A2EA /* LoopWithExtern.pd in Resources */,
+				0E7BABE018AA12B90036A2EA /* gkpd.mix-from-stereo.pd in Resources */,
+				0E7BABE518AA12B90036A2EA /* list-drip.pd in Resources */,
+				0E7BABE918AA12B90036A2EA /* list-len.pd in Resources */,
 				0EC0F156188D64E900D4C7E7 /* HockeySDKResources.bundle in Resources */,
+				0E7BABE618AA12B90036A2EA /* list-lastx-help.pd in Resources */,
+				0E7BABC718AA12B90036A2EA /* exponential_sigmoid.pd in Resources */,
+				0E7BB0F918AA1ACC0036A2EA /* Tingsha0006.aif in Resources */,
+				0E7BABCB18AA12B90036A2EA /* gk.counter.pd in Resources */,
+				0E7BABC518AA12B90036A2EA /* brighthearts-pd-master.pd in Resources */,
+				0E7BABE718AA12B90036A2EA /* list-lastx.pd in Resources */,
+				0E7BB0F818AA1ACC0036A2EA /* Banjo_B3.wav in Resources */,
+				0E7BABEA18AA12B90036A2EA /* list-mean.pd in Resources */,
+				0E7BABE218AA12B90036A2EA /* last-x-help.pd in Resources */,
+				0E7BABE318AA12B90036A2EA /* last-x.pd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,6 +831,7 @@
 				0ED0FB00188804C8003B3136 /* SENPDDriver.m in Sources */,
 				0E82B3751891E91A00FE5B9C /* AFURLRequestSerialization.m in Sources */,
 				0E82B3721891E91A00FE5B9C /* AFNetworkReachabilityManager.m in Sources */,
+				0E7BAB0718A9F5F10036A2EA /* SampleListener.m in Sources */,
 				0E10AC49188609BB00765FA1 /* SENAppDelegate.m in Sources */,
 				0EDFB9BE1890AEEA002909F4 /* SENQuestionnaire.m in Sources */,
 				0ED0FB0C18880917003B3136 /* SENIBIData.m in Sources */,
