@@ -1,0 +1,6 @@
+#N canvas 476 189 450 300 10;
+#X obj 104 65 r hello;
+#X obj 111 140 delay 1000;
+#X obj 154 206 s goodbye;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;

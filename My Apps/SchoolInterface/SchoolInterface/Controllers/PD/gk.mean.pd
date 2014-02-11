@@ -1,0 +1,30 @@
+#N canvas 498 22 970 500 10;
+#X obj 42 -33 inlet;
+#X obj 42 397 outlet;
+#X obj 185 -34 r session-start;
+#X obj 93 44 f;
+#X obj 163 51 + 1;
+#X text 216 76 (note the counter goes to 1 less than the value here)
+;
+#X obj 93 11 t b;
+#X msg 138 3 0;
+#X text 168 5 (resets counter to zero);
+#X obj 93 140 min \$1;
+#X obj 161 82 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 42 255 list-mean;
+#X obj 225 24 t b;
+#X obj 42 186 list-stream.mmb 5;
+#X connect 0 0 6 0;
+#X connect 0 0 13 0;
+#X connect 2 0 7 0;
+#X connect 2 0 12 0;
+#X connect 3 0 4 0;
+#X connect 3 0 9 0;
+#X connect 3 0 10 0;
+#X connect 4 0 3 1;
+#X connect 6 0 3 0;
+#X connect 7 0 3 0;
+#X connect 9 0 13 1;
+#X connect 11 0 1 0;
+#X connect 13 0 11 0;

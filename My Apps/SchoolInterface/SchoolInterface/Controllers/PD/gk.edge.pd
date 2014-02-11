@@ -1,0 +1,18 @@
+#N canvas 191 323 871 354 10;
+#X obj 35 22 inlet;
+#X obj 35 57 < 0;
+#X obj 35 112 select 0 1;
+#X obj 35 86 change;
+#X obj 35 146 t b;
+#X obj 91 146 t b;
+#X text 189 102 report transitions from positive to negative numbers
+left outlet is from neg to pos \, right outlet is from pos to neg;
+#X obj 35 180 outlet;
+#X obj 91 180 outlet;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 2 0 4 0;
+#X connect 2 1 5 0;
+#X connect 3 0 2 0;
+#X connect 4 0 7 0;
+#X connect 5 0 8 0;

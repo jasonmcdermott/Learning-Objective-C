@@ -1,0 +1,20 @@
+#N canvas 0 22 653 378 10;
+#X obj 126 173 f;
+#X obj 196 180 + 1;
+#X text 249 205 (note the counter goes to 1 less than the value here)
+;
+#X obj 126 76 inlet;
+#X obj 126 106 t b;
+#X obj 172 77 inlet;
+#X msg 171 107 0;
+#X text 201 109 (resets counter to zero);
+#X obj 196 202 mod \$1;
+#X obj 126 260 outlet;
+#X connect 0 0 1 0;
+#X connect 0 0 9 0;
+#X connect 1 0 8 0;
+#X connect 3 0 4 0;
+#X connect 4 0 0 0;
+#X connect 5 0 0 0;
+#X connect 6 0 0 0;
+#X connect 8 0 0 1;

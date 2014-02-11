@@ -1,0 +1,13 @@
+#N canvas 0 22 593 169 10;
+#X obj -27 -164 min;
+#X floatatom 17 -162 5 0 0 0 - - -;
+#X obj -27 -215 inlet;
+#X obj 17 -215 inlet;
+#X obj -27 -101 outlet;
+#X text 66 -169 report the lowest number so far \, reset with number
+higher than the highest expectd value;
+#X connect 0 0 1 0;
+#X connect 0 0 4 0;
+#X connect 1 0 0 1;
+#X connect 2 0 0 0;
+#X connect 3 0 1 0;
