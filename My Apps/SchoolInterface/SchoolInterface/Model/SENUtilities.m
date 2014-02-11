@@ -56,8 +56,7 @@
 	}
 }
 
-#pragma mark -
-#pragma mark Random Number Generators
+#pragma mark - Random Number Generators
 
 + (float)randomFloatInRange:(float)Min :(float)Max;
 {
@@ -94,8 +93,7 @@
     return result;
 }
 
-#pragma mark -
-#pragma mark Methods Not Currently In Use
+#pragma mark - Methods Not Currently In Use
 
 
 
@@ -134,6 +132,16 @@
     else if (error != nil){
         NSLog(@"An error happened = %@", error);
     }
+}
+
+#pragma mark - random utes
+
++ (unsigned int)mergeBytes:(unsigned char)lsb :(unsigned char)msb
+{
+    unsigned int ret = msb & 0xFF;
+    ret = ret << 7;
+    ret = ret + lsb;
+    return ret;
 }
 
 

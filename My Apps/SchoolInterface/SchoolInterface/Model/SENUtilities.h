@@ -23,7 +23,7 @@
 + (int)randomIntInRange:(int)Min :(int)Max;
 + (BOOL)randomBool;
 
-
++ (unsigned int)mergeBytes:(unsigned char)lsb :(unsigned char)msb;
 
 @property (strong, nonatomic) NSString *school;
 

@@ -114,6 +114,15 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 #pragma mark - TableView
 
+- (IBAction)sensorSelector:(UISegmentedControl *)sender
+{
+    self.lastUUID =  [@(sender.selectedSegmentIndex+1) stringValue];
+    self.lastName = [NSString stringWithFormat:@"Sensor %i", sender.selectedSegmentIndex+1];
+    [[NSUserDefaults standardUserDefaults] setObject:self.lastName forKey:NamePrefKey];
+    [[NSUserDefaults standardUserDefaults] setObject:self.lastUUID forKey:UUIDPrefKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    self.uuidLabel.text = self.lastName;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -695,15 +704,6 @@ unsigned char const SYNC_CHAR = 0xF9;
     NSLog(@"%hhd %hhd %hhd",self.scanning, self.connected, self.finishedScan);
 }
 
-// Merge two bytes to integer value
-unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
-{
-    unsigned int ret = msb & 0xFF;
-    ret = ret << 7;
-    ret = ret + lsb;
-    return ret;
-}
-
 // we received data from BLE - process it
 -(void)bleDidReceiveData:(unsigned char *)data length:(int)length
 {
@@ -729,8 +729,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
                     unsigned char lsb = _oemBuffer.data[1];
                     unsigned char msb = _oemBuffer.data[2];
                     
-                    unsigned interval = mergeBytes(lsb, msb);
-                    
+                    unsigned interval = [SENUtilities mergeBytes:lsb :msb];
                     
                     if (!_started) {
                         [self.mSesionData clearSesionLists];
