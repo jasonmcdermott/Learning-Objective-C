@@ -53,6 +53,7 @@ static NSString *getNickname(CBPeripheral *peripheral) {
     // Otherwise, give it a nickname according to UUID, if possible
     if (peripheral.UUID) {
         CFUUIDBytes uuid  = CFUUIDGetUUIDBytes(peripheral.UUID);
+        
         return [NSString stringWithFormat:@"%@ (%s)", peripheral.name, computeNickname(&uuid, sizeof(uuid)).c_str()];
     } else {
         if (sizeof(peripheral) == 4) {

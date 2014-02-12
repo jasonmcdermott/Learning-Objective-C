@@ -24,7 +24,7 @@ unsigned char const SYNC_CHAR = 0xF9;
 @interface BLEDevice()
 
 @property (weak, nonatomic) IBOutlet UILabel *statusMessage;
-@property (nonatomic) BOOL showTable;
+
 @property (weak, nonatomic) IBOutlet UITableView *deviceList;
 
 @property (weak, nonatomic) IBOutlet UIButton *connectButton;
@@ -37,9 +37,6 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
-
-@property (strong, nonatomic) NSMutableArray *tempDevices;
-@property (strong, nonatomic) NSMutableString *statusString;
 
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *buildLabel;
@@ -55,14 +52,75 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 #pragma mark - Init
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        self.autoConnect = YES;
+        self.discoveredPeripherals = [[NSMutableArray alloc] init];
+        self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+        if (self.autoConnect) [self tryConnect];
     }
     return self;
 }
+
+
+#pragma mark - BLE
+
+- (void)tryConnect {
+    if (!self.peripheral) {
+        [self.discoveredPeripherals removeAllObjects];
+        [self startScan];
+    }
+}
+
+/*
+ * Request CBCentralManager to scan for heart rate peripherals using service UUID 0x180D
+ */
+- (void) startScan
+{
+    self.state = BTPulseTrackerScanState;
+    self.peripheral = nil;
+    self.manufacturer = @"";
+    self.heartRate = 0;
+    
+    if (self.connectMode == kConnectBestSignalMode) {
+        self.waitingForBestRSSI = YES;
+        self.bestPeripheral = nil;
+        self.bestRSSI = -1e100;
+        double waitTime = 3;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (waitTime * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(),
+                       ^{ [self connectToBestSignal]; });
+    } else {
+        self.waitingForBestRSSI = NO;
+    }
+    [self.manager scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"180D"]] options:nil];
+}
+
+- (void) connectToBestSignal
+{
+    self.waitingForBestRSSI = NO;
+    if (!self.peripheral && self.bestPeripheral) {
+//        [self.logger logVerbose:@"Best signal is %@", getNickname(self.bestPeripheral)];
+        [self connectPeripheral: self.bestPeripheral];
+    } else if (!self.bestPeripheral) {
+        NSLog(@"No devices found by best signal collection timeout");
+    }
+}
+
+/*
+ * Request connection to peripheral
+ */
+- (void) connectPeripheral:(CBPeripheral*)peripheral
+{
+    if (!self.peripheral) {
+        self.peripheral = peripheral;
+        self.state = BTPulseTrackerConnectingState;
+        [self.manager connectPeripheral:peripheral options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
+    }
+}
+
 
 - (void)viewDidLoad
 {

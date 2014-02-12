@@ -104,6 +104,42 @@ typedef struct
 @property (retain, nonatomic) IBOutlet UITextField *intervalLabel;
 
 @property (nonatomic) CFTimeInterval previousTimestamp;
+
+@property (strong, nonatomic) NSMutableArray *tempDevices;
+@property (strong, nonatomic) NSMutableString *statusString;
+
+@property (nonatomic) BOOL showTable;
+
+
+#pragma mark - fluxtream code
+
+typedef enum {
+    kConnectBestSignalMode = 0,
+    kConnectUUIDMode = 1
+} BTPulseTrackerConnectMode;
+
+typedef enum {
+    BTPulseTrackerScanState = 0,
+    BTPulseTrackerConnectingState = 1,
+    BTPulseTrackerConnectedState = 2,
+    BTPulseTrackerStoppedState = 3
+} BTPulseTrackerState;
+
+@property (assign) BOOL autoConnect;
+@property (strong) NSMutableArray *discoveredPeripherals;
+@property (strong) CBCentralManager *manager;
+@property (strong, nonatomic) CBPeripheral *peripheral;
+@property (strong) CBPeripheral *bestPeripheral;
+
+@property (nonatomic) BTPulseTrackerState state;
+@property (copy) NSString *manufacturer;
+@property (assign) double heartRate;
+@property double bestRSSI;
+
+@property BTPulseTrackerConnectMode connectMode;
+@property BOOL waitingForBestRSSI;
+
+
 @end
 
 

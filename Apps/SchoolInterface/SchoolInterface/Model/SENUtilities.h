@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#include <CommonCrypto/CommonDigest.h>
 #import "AFNetworking.h"
 
 @interface SENUtilities : NSObject
@@ -23,8 +24,8 @@
 + (int)randomIntInRange:(int)Min :(int)Max;
 + (BOOL)randomBool;
 
-//+ (NSString *)computeNickname:(const void*) data :(size_t) len;
-//+ (NSString *)computeNickname:(NSString *)data;
++ (NSString *)computeNickname:(const void*) data :(size_t) len;
++ (NSString *)computeNickname:(NSString *)data;
 
 @property (strong, nonatomic) NSString *school;
 
