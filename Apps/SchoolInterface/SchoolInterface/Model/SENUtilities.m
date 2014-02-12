@@ -136,5 +136,23 @@
     }
 }
 
+//std::string computeNickname(const void *data, size_t len) {
+//    unsigned long long hash = computeHash(data, len);
+//    const char *placename = placenames[hash % placenameCount];
+//    int n = (hash / placenameCount) % 10000;
+//    return string_printf("%s-%04d", placename, n);
+//}
+//
+//std::string computeNickname(std::string data);
+//
+//std::string computeNickname(std::string data) {
+//    return computeNickname(data.c_str(), data.length());
+//}
+//
+//+ (NSString*)computeNickname:(NSString *)data
+//{
+//    return computeNickname(data.c_str(), data.length());
+//}
+
 
 @end

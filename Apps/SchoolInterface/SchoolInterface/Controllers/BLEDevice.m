@@ -40,6 +40,15 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 @property (strong, nonatomic) NSMutableArray *tempDevices;
 @property (strong, nonatomic) NSMutableString *statusString;
+
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *buildLabel;
+@property (weak, nonatomic) IBOutlet UILabel *branchLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tagLabel;
+@property (weak, nonatomic) IBOutlet UILabel *buildDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commitCommentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *repositoryLabel;
+
 @end
 
 @implementation BLEDevice
@@ -80,11 +89,13 @@ unsigned char const SYNC_CHAR = 0xF9;
 
     [NSTimer scheduledTimerWithTimeInterval:(float)10.0 target:self selector:@selector(checkIntervalTime) userInfo:nil repeats:YES];
     
-    
-    NSLog(@"%@",BUILD_DATE);
-//    programBuildDate.text = BUILD_DATE;
-//    programCreateDate.text = GIT_LAST_COMMIT_DATE;
-//    programVersion.text = [NSString stringWithFormat:@"%@%@%@", GIT_LAST_REPO_TAG,([GIT_LAST_REPO_TAG length]>0?@".":@"") , [GIT_LAST_COMMIT_HASH uppercaseString]];
+    self.versionLabel.text = [self.versionLabel.text stringByAppendingString:[[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]];
+    self.buildLabel.text = [self.buildLabel.text stringByAppendingString:[[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey]];
+    self.branchLabel.text = [self.branchLabel.text stringByAppendingString:GIT_CURRENT_BRANCH];
+    self.tagLabel.text = [self.tagLabel.text stringByAppendingString:GIT_LAST_REPO_TAG] ;
+    self.buildDateLabel.text = [self.buildDateLabel.text stringByAppendingString:GIT_LAST_COMMIT_DATE];
+    self.commitCommentLabel.text = [self.commitCommentLabel.text stringByAppendingString:GIT_LAST_COMMIT_COMMENT];
+    self.repositoryLabel.text = [self.repositoryLabel.text stringByAppendingString:GIT_REPO_TAG];
 
 }
 
