@@ -237,7 +237,10 @@ static NSString *getNickname(CBPeripheral *peripheral) {
     } else {
         self.waitingForBestRSSI = NO;
     }
-    [self.manager scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"180D"]] options:nil];
+    
+    NSArray *serviceTypes = @[[CBUUID UUIDWithString:@"713D0000-503E-4C75-BA94-3148F18D941E"], [CBUUID UUIDWithString:@"180D"]];
+    
+    [self.manager scanForPeripheralsWithServices:serviceTypes options:nil];
 }
 
 /*
