@@ -136,6 +136,8 @@
     }
 }
 
+#pragma mark - Nickname Creation
+
 + (NSString*)computeNickname:(NSString *)data
 {
     return [self computeNickname:(__bridge const void *)(data) :data.length];
