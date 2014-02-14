@@ -6,8 +6,8 @@
 //
 
 #import "SENPulseTracker.h"
-#include <vector>
-#include <string>
+//#include <vector>
+//#include <string>
 #include <deque>
 #include <sys/time.h>
 #import "Utils.h"

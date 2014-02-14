@@ -16,10 +16,8 @@
 #else
 #import <IOBluetooth/IOBluetooth.h>
 #endif
-#import "FluxtreamUploaderObjc.h"
-#import "Logger.h"
 
-#include "UUID.h"
+//#include "UUID.h"
 
 #define BT_NOTIFICATION_PULSE @"bt_pulse_notification"
 #define BT_NOTIFICATION_HR_DATA @"bt_hr_data_notification"
@@ -28,9 +26,8 @@
 
 @interface BTPulseTracker : NSObject <CBCentralManagerDelegate, CBPeripheralDelegate>
 
-@property (strong) FluxtreamUploaderObjc *uploader;
+
 @property (weak) id<BTPulseTrackerDelegate> delegate;  /// Delegate receives notifications on peripheral connection changes, as well as pulse changes.
-@property (strong) Logger *logger;
 
 @property (strong) NSTimer *pulseTimer;
 
