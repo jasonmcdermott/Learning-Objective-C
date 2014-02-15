@@ -67,6 +67,13 @@ typedef enum {
     BTPulseTrackerStoppedState = 3
 } BTPulseTrackerState;
 
+typedef enum {
+    scanModeAuto = 0,
+    scanModeNewDevice = 1,
+    scanModePreviousDevice = 2,
+    scanModeOff = 3
+} scanMode;
+
 @property (nonatomic, strong) CBCentralManager *bleManager;
 @property (nonatomic, strong) CBPeripheral     *blePeripheral;
 @property (copy) NSString *manufacturer;
@@ -86,11 +93,13 @@ typedef enum {
 @property (readonly) NSString *receivedStatusWithDuration;
 @property (readonly) BOOL connected;
 @property (readonly) NSString *peripheralNickname;
+@property (strong, nonatomic)NSString *nickname;
 
 @property BTPulseTrackerConnectMode connectMode;
+@property scanMode mode;
 @property (strong, nonatomic) NSUUID *connectIdentifier;
 
-
+@property (nonatomic) BOOL connectToPrevious;
 
 
 

@@ -20,12 +20,12 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 @interface BLEDevice()
 @property (weak, nonatomic) IBOutlet UITableView *deviceList;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *scanModeSelector;
 
 @property (weak, nonatomic) IBOutlet UIButton *connectionButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *instructionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
-//@property (weak, nonatomic) IBOutlet UILabel *ibiLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UITextView *statusTextView;
@@ -74,12 +74,19 @@ unsigned char const SYNC_CHAR = 0xF9;
     [self.statusTextView scrollRangeToVisible:range];
 }
 
-- (IBAction)touchConnectionButton:(UIButton *)sender {
-    if ([sender.currentTitle isEqualToString:@"Scan"]){
-        self.autoConnect = YES;
+- (IBAction)selectScanMode:(UISegmentedControl *)sender
+{
+    if (sender.selectedSegmentIndex == 0) {
+        self.mode = scanModeAuto;
         [self tryConnect];
-    } else {
-        self.autoConnect = NO;
+    } else if (sender.selectedSegmentIndex == 1) {
+        self.mode = scanModeNewDevice;
+        [self tryConnect];
+    } else if (sender.selectedSegmentIndex == 2) {
+        self.mode = scanModePreviousDevice;
+        [self tryConnect];
+    } else if (sender.selectedSegmentIndex == 3) {
+        self.mode = scanModeOff;
         [self disconnectPeripheral];
     }
 }
@@ -94,7 +101,7 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 - (void)tryConnect
 {
-    if (self.autoConnect) {
+    if (self.mode == scanModeAuto) {
         if (self.state != BTPulseTrackerConnectedState){
             self.connectionButton.enabled = NO;
             [self.discoveredPeripherals removeAllObjects];
@@ -265,7 +272,7 @@ unsigned char const SYNC_CHAR = 0xF9;
     
     double rssi = [RSSI doubleValue];
     if (self.waitingForBestRSSI) {
-        [SENUtilities getNickname:peripheral];
+        self.nickname = [SENUtilities getNickname:peripheral];
         [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Found %@ with signal strength %g", peripheral.identifier.UUIDString, rssi] :self.statusTextView];
         if (!self.bestPeripheral || rssi > self.bestRSSI) {
             self.bestPeripheral = peripheral;
