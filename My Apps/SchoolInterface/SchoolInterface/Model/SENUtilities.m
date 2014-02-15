@@ -144,7 +144,7 @@
             (long long) tv.tv_usec);
 }
 
-+ (double) doubleTime
++ (double)doubleTime
 {
     return [self microTime] / 1000000.0;
 }
@@ -158,26 +158,36 @@
 
 + (NSString *)getNickname:(CBPeripheral *)peripheral
 {
-//    if (peripheral.identifier) {
-//        CFUUIDBytes uuid  = CFUUIDGetUUIDBytes((__bridge CFUUIDRef)(peripheral.identifier));
-//        return [NSString stringWithFormat:@"%@ (%s)", peripheral.name, computeNickname(&uuid, sizeof(uuid)).c_str()];
-//    } else {
-//        if (sizeof(peripheral) == 4) {
-//            return [NSString stringWithFormat:@"%@ %08lX", peripheral.name, (unsigned long) peripheral];
-//        } else {
-//            return [NSString stringWithFormat:@"%@ %016llX", peripheral.name, (unsigned long long) peripheral];
-//        }
-//    }
-    return @"hello";
+    if (peripheral.identifier) {
+        CFUUIDBytes uuid  = CFUUIDGetUUIDBytes((__bridge CFUUIDRef)(peripheral.identifier));
+        return [NSString stringWithFormat:@"%@ %@",peripheral.name, [SENUtilities computeNickname:&uuid :sizeof(uuid)]];
+    } else {
+        if (sizeof(peripheral) == 4) {
+            return [NSString stringWithFormat:@"%@ %08lX", peripheral.name, (unsigned long) peripheral];
+        } else {
+            return [NSString stringWithFormat:@"%@ %016llX", peripheral.name, (unsigned long long) peripheral];
+        }
+    }
 }
 
+const int placenameCount = sizeof(placenames) / sizeof(placenames[0]);
 
-//std::string computeNickname(const void *data, size_t len) {
-//    unsigned long long hash = computeHash(data, len);
-//    const char *placename = placenames[hash % placenameCount];
-//    int n = (hash / placenameCount) % 10000;
-//    return string_printf("%s-%04d", placename, n);
-//}
+static unsigned long long computeHash(const void *data, size_t len) {
+    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(data, len, digest);
+    unsigned long long hash = 0;
+    for (unsigned i = 0; i < sizeof(digest); i++) {
+        hash ^= (digest[i] << (i % 8));
+    }
+    return hash;
+}
 
++ (NSString *)computeNickname:(const void *)data :(size_t)len
+{
+    unsigned long long hash = computeHash(data, len);
+    const char *placename = placenames[hash % placenameCount];
+    int n = (hash / placenameCount) % 10000;
+    return [NSString stringWithFormat:@"%s-%d",placename,n];
+}
 
 @end

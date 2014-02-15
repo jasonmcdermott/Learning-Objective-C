@@ -10,6 +10,8 @@
 #import "AFNetworking.h"
 #include <sys/time.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "SENConstants.h"
+#include <CommonCrypto/CommonDigest.h>
 
 @interface SENUtilities : NSObject
 
@@ -30,6 +32,7 @@
 + (void)addMessageText:(NSMutableString *)mutableString :(NSString *)text :(UITextView *)textView;
 
 + (NSString *)getNickname:(CBPeripheral *)peripheral;
++ (NSString *)computeNickname:(const void *)data :(size_t)len;
 
 @property (strong, nonatomic) NSString *school;
 
