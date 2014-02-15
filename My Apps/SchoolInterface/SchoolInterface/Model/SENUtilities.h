@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 #include <sys/time.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
 @interface SENUtilities : NSObject
 
@@ -27,6 +28,8 @@
 + (double) doubleTime;
 + (unsigned long long)microTime;
 + (void)addMessageText:(NSMutableString *)mutableString :(NSString *)text :(UITextView *)textView;
+
++ (NSString *)getNickname:(CBPeripheral *)peripheral;
 
 @property (strong, nonatomic) NSString *school;
 

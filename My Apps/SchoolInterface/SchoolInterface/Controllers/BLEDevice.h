@@ -104,7 +104,7 @@ typedef enum {
 @property (nonatomic, strong) NSString   *BTLEdeviceData;
 @property (assign) uint16_t BTLEheartRate;
 @property (strong, nonatomic) CBPeripheral *BTLEPeripheral;
-@property (nonatomic) BOOL BTLEConnectionFlag;
+@property (nonatomic) BOOL BTLEConnectionFlag, autoConnect;
 
 // Properties to handle storing the BPM and heart beat
 @property (nonatomic, strong) UILabel    *heartRateBPM;

@@ -19,20 +19,15 @@ unsigned char const OEM_PULSE = 0xB0;
 unsigned char const SYNC_CHAR = 0xF9;
 
 @interface BLEDevice()
-
-@property (weak, nonatomic) IBOutlet UILabel *statusMessage;
 @property (weak, nonatomic) IBOutlet UITableView *deviceList;
 
-@property (weak, nonatomic) IBOutlet UIButton *connectButton;
-@property (weak, nonatomic) IBOutlet UIButton *scanButton;
-@property (weak, nonatomic) IBOutlet UIButton *disconnectButton;
+@property (weak, nonatomic) IBOutlet UIButton *connectionButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *instructionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ibiLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *ibiLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UITextView *statusTextView;
 
 @end
@@ -53,41 +48,40 @@ unsigned char const SYNC_CHAR = 0xF9;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    NSLog(@"RBLMainViewController didLoad");
     
-//    self.BTLEdeviceData = nil;
-    
-    //Retrieve saved properties from system
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:UUIDPrefKey];
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:NamePrefKey];
     
     self.mPDDRiver = [[SENPDDriver alloc] init];
     [self.mPDDRiver startSession];
-
-    //    self.mSesionData = [[SENSessionData alloc] init];
     
     self.discoveredPeripherals = [[NSMutableArray alloc] init];
     self.bleManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    
+    self.connectionButton.enabled = NO;
+    self.autoConnect = YES;
+    self.statusString = [[NSMutableString alloc] init];
     [self tryConnect];
 
-    
-    
-    self.tempDevices = [[NSMutableArray alloc] init];
-    self.BTLEDevices = [[NSMutableArray alloc] init];
-    self.mDeviceNames = [[NSMutableArray alloc] init];
-    
-    
-    
-    self.statusString = [[NSMutableString alloc] init];
-    [SENUtilities addMessageText:self.statusString :@"Starting up" :self.statusTextView];
-    
-    
-
-    
     [NSTimer scheduledTimerWithTimeInterval:SCAN_TIME target:self selector:@selector(tryConnect) userInfo:nil repeats:YES];
-//    [self showButtons:@"Starting Up"];
     [NSTimer scheduledTimerWithTimeInterval:(float)10.0 target:self selector:@selector(checkIntervalTime) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:SCAN_TIME target:self selector:@selector(scrollTextViewToBottom) userInfo:nil repeats:YES];
+}
+
+- (void)scrollTextViewToBottom
+{
+    NSRange range = NSMakeRange(self.statusTextView.text.length - 1, 1);
+    [self.statusTextView scrollRangeToVisible:range];
+}
+
+- (IBAction)touchConnectionButton:(UIButton *)sender {
+    if ([sender.currentTitle isEqualToString:@"Scan"]){
+        self.autoConnect = YES;
+        [self tryConnect];
+    } else {
+        self.autoConnect = NO;
+        [self disconnectPeripheral];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,134 +90,18 @@ unsigned char const SYNC_CHAR = 0xF9;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)checkIntervalTime
-{
-    if (self.connected) {
-        CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - self.previousTimestamp;
-        NSLog(@"Frame duration: %f", frameDuration);
-//        if (frameDuration > 5) {
-//            [self showButtons:@"Connected but no ibi data"];
-//        }
-    }
-}
-
-#pragma mark - TableView
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.discoveredPeripherals.count;
-    NSLog(@"%lu",(unsigned long)self.discoveredPeripherals.count);
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-	return @"Available Devices";
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *tableIdentifier = @"BLEDeviceList";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = [self.mDeviceNames objectAtIndex:indexPath.row];
-    
-//    NSLog(@"is this doing anything?");
-//    for (int i=0;i<[self.mDeviceDictionary count];i++) {
-//        if (indexPath.row == i) {
-//            cell.textLabel.text = [self.mDeviceDictionary objectForKey:@"deviceName"];
-//            NSLog(@"%@",[self.mDeviceDictionary objectForKey:@"deviceName"]);
-//        }
-//    }
-//    
-//    NSArray *keyArray =  [self.mDeviceDictionary allKeys];
-//    int count = [keyArray count];
-//    for (int i=0; i < count; i++) {
-//        NSDictionary *tmp = [self.mDeviceDictionary objectForKey:[ keyArray objectAtIndex:i]];
-//        for (id key in tmp) {
-//            NSLog(@"key: %@, value: %@ \n", key, [tmp objectForKey:key]);
-//        }
-//        if (i == indexPath.row) {
-//            NSLog(@"row row your boat");
-//        }
-//    }
-    
-    
-//    NSLog(@"key is status, value is %@",[self.mDeviceDictionary objectForKey:@"name"]);
-    
-//    for (id device in self.mDeviceDictionary) {
-//        NSNumber *aggregatedArrayIndex = [self.mDeviceDictionary objectForKey:@"aggregatedArrayIndex"];
-//        if (indexPath.row == [aggregatedArrayIndex integerValue]) {
-//            NSString *deviceType = [self.mDeviceDictionary objectForKey:@"deviceType"];
-//            NSLog(@"%@, %ld",deviceType, (long)indexPath.row);
-//            cell.textLabel.text = deviceType;
-//        }
-//    }
-//    for (int i=0;i<[self.knownDevices count];i++) {
-//        if ([[self.mDevices objectAtIndex:indexPath.row] isEqualToString:[self.knownDevices objectAtIndex:i]]){
-//            cell.textLabel.text = [self.deviceAliases objectAtIndex:i];
-//        } else {
-//            cell.textLabel.text = @"New Sensor Device";
-//            cell.textLabel.text = [self.mDevices objectAtIndex:i]; // for the time being
-//        }
-//    }
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [self didSelected:indexPath.row];
-//    NSLog(@"picked %ld",(long)indexPath.row);
-//    [self addMessageText:@"picked"];
-//    [self showButtons:@"Picked Device From List"];
-}
-
-#pragma mark - Interface Elements
-
-//- (IBAction)touchConnect:(UIButton *)sender {
-//    self.scanForNewDevices = YES;
-//    [self tryConnect];
-//}
-//
-//- (IBAction)touchScan:(UIButton *)sender {
-//    self.scanForNewDevices = YES;
-//    [self tryConnect];
-//}
-
-- (IBAction)touchDisconnect:(UIButton *)sender {
-    
-//    self.BTLEConnectionFlag = NO;
-//    [self disconnectPeripherals];
-//    [self addMessageText:@"trying to disconnect"];
-//    self->scannedDevices = 0;
-//    self->counter = 0;
-//    [self showButtons:@"Disconnect"];
-    [self disconnectPeripheral];
-}
+#pragma mark - Scan
 
 - (void)tryConnect
 {
-    if (!self.blePeripheral) {
-        [self.discoveredPeripherals removeAllObjects];
-        [self startScan];
-        [SENUtilities addMessageText:self.statusString :@"Starting Scan" :self.statusTextView];
+    if (self.autoConnect) {
+        if (self.state != BTPulseTrackerConnectedState){
+            self.connectionButton.enabled = NO;
+            [self.discoveredPeripherals removeAllObjects];
+            [self startScan];
+            [SENUtilities addMessageText:self.statusString :@"Starting Scan" :self.statusTextView];
+        }
     }
-
-//    [self disconnectPeripherals];
-//    self.disconnected = NO;
-//    
-//    self.mDevices = [[NSMutableArray alloc] init];
-//    self.mDeviceNames = [[NSMutableArray alloc] init];
-//    self.mDeviceDictionary = [[NSMutableDictionary alloc] init];
-//    
-//    [self.bleShield findBLEPeripherals:SCAN_TIME];
-//    [self.rfduinoManager startScan];
-//    [self scanForBTLEDevices];
-//    
-//    [self addMessageText:@"scan initiated"];
-//    [NSTimer scheduledTimerWithTimeInterval:SCAN_TIME target:self selector:@selector(connectionTimer:) userInfo:nil repeats:NO];
-//    self.scanForNewDevices ? [self showButtons:@"scanDevices"] : [self showButtons:@"connectPrevious"];
 }
 
 - (void)startScan
@@ -248,15 +126,12 @@ unsigned char const SYNC_CHAR = 0xF9;
 {
     if (self.state == BTPulseTrackerScanState) {
         self.waitingForBestRSSI = NO;
-        [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"%@", self.bestPeripheral] :self.statusTextView];
-        
         if (!self.blePeripheral && self.bestPeripheral) {
-            [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Best signal is %@", self.bestPeripheral.identifier] :self.statusTextView];
-            [self connectPeripheral: self.bestPeripheral];
-            self.bestPeripheral = nil;
+            [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Best signal is %@", self.bestPeripheral.identifier.UUIDString] :self.statusTextView];
+            [self connectPeripheral:self.bestPeripheral];
         
         } else if (!self.bestPeripheral) {
-            [SENUtilities addMessageText:self.statusString :@"No devices found by best signal collection timeout" :self.statusTextView];
+            [SENUtilities addMessageText:self.statusString :@"No devices found" :self.statusTextView];
             self.bestPeripheral = nil;
         }
     }
@@ -268,15 +143,13 @@ unsigned char const SYNC_CHAR = 0xF9;
         self.blePeripheral = peripheral;
         self.state = BTPulseTrackerConnectingState;
         [self.bleManager connectPeripheral:peripheral options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
-        self.disconnectButton.enabled = YES;
+        self.bestPeripheral = nil;
     }
 }
 
 - (void) disconnectPeripheral
 {
     [self.bleManager cancelPeripheralConnection:self.blePeripheral];
-    [SENUtilities addMessageText:self.statusString :@"Disconnecting" :self.statusTextView];
-    self.disconnectButton.enabled = NO;
 }
 
 - (void) stopScan
@@ -320,47 +193,6 @@ unsigned char const SYNC_CHAR = 0xF9;
     }
 }
 
-//- (void)didSelected:(NSInteger)index
-//{
-//    NSLog(@"the integer is %ld",(long)index);
-//    for (id device in self.mDeviceDictionary) {
-////        NSLog(@"are we here?");
-//        NSNumber *originalArrayIndex = [self.mDeviceDictionary objectForKey:@"originalArrayIndex"];
-//        NSNumber *aggregatedArrayIndex = [self.mDeviceDictionary objectForKey:@"aggregatedArrayIndex"];
-//        NSString *deviceType = [self.mDeviceDictionary objectForKey:@"deviceType"];
-//        NSString *deviceName = [self.mDeviceDictionary objectForKey:@"deviceName"];
-//        
-//        if (index == [aggregatedArrayIndex integerValue]) {
-//            NSLog(@"this isn't printing -- %ld,%@,%@,%@", (long)index, originalArrayIndex, aggregatedArrayIndex, deviceType);
-//            
-//            if ([deviceType isEqualToString:@"BLE Mini"]) {
-//                NSLog(@"connecting to redbear");
-//                [self.bleShield connectPeripheral:[self.bleShield.peripherals objectAtIndex:[originalArrayIndex integerValue]]];
-//            } else if ([deviceType isEqualToString:@"RFDuino"]) {
-//                NSLog(@"connecting to rfduino");
-//                RFduino *rfduino = [[self.rfduinoManager rfduinos] objectAtIndex:[originalArrayIndex integerValue]];
-//                if (!rfduino.outOfRange) {
-//                    [self.rfduinoManager connectRFduino:rfduino];
-//                    NSLog(@"did it work?");
-//                }
-//            } else if ([deviceName isEqualToString:@"MIO GLOBAL"]) {
-//                NSLog(@"connecting to BTLE Device");
-//                
-//                NSLog(@"%@, %lu",originalArrayIndex, (unsigned long)[self.BTLEDevices count]);
-//                CBPeripheral *p = [self.BTLEDevices objectAtIndex:[originalArrayIndex integerValue]];
-//                NSLog(@"the name is %@",p.name);
-//                
-//                [self addMessageText:@"selected peripheral"];
-//                [self addMessageText:p.name];
-//
-//                p.delegate = self;
-//                [self.BTLEcentralManager connectPeripheral:p options:nil];
-//                self.heartRateMonitorPeripheral = p;
-//            }
-//        }
-//    }
-//}
-
 - (void)hideAll
 {
     NSLog(@"hiding");
@@ -375,83 +207,57 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 #pragma mark - BTLE Utilities
 
-//- (void)scanForBTLEDevices
+//- (void)centralManagerDidUpdateState:(CBCentralManager *)central
 //{
-//    NSLog(@"---- Started scan");
-//    NSArray *services = @[[CBUUID UUIDWithString:HRM_HEART_RATE_SERVICE_UUID], [CBUUID UUIDWithString:HRM_DEVICE_INFO_SERVICE_UUID]];
-//	CBCentralManager *centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-//	[centralManager scanForPeripheralsWithServices:services options:nil];
-//	self.BTLEcentralManager = centralManager;
+//    NSLog(@"---- device state changed");
+//	// Determine the state of the peripheral
+//	if ([central state] == CBCentralManagerStatePoweredOff) {
+//		NSLog(@"CoreBluetooth BLE hardware is powered off");
+//	}
+//	else if ([central state] == CBCentralManagerStatePoweredOn) {
+//		NSLog(@"CoreBluetooth BLE hardware is powered on and ready");
+//	}
+//	else if ([central state] == CBCentralManagerStateUnauthorized) {
+//		NSLog(@"CoreBluetooth BLE state is unauthorized");
+//	}
+//	else if ([central state] == CBCentralManagerStateUnknown) {
+//		NSLog(@"CoreBluetooth BLE state is unknown");
+//	}
+//	else if ([central state] == CBCentralManagerStateUnsupported) {
+//		NSLog(@"CoreBluetooth BLE hardware is unsupported on this platform");
+//	} else {
+//        NSLog(@"Not sure what's going on");
+//    }
 //}
 
-// method called whenever the device state changes.
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    NSLog(@"---- device state changed");
-	// Determine the state of the peripheral
-	if ([central state] == CBCentralManagerStatePoweredOff) {
-		NSLog(@"CoreBluetooth BLE hardware is powered off");
-	}
-	else if ([central state] == CBCentralManagerStatePoweredOn) {
-		NSLog(@"CoreBluetooth BLE hardware is powered on and ready");
-	}
-	else if ([central state] == CBCentralManagerStateUnauthorized) {
-		NSLog(@"CoreBluetooth BLE state is unauthorized");
-	}
-	else if ([central state] == CBCentralManagerStateUnknown) {
-		NSLog(@"CoreBluetooth BLE state is unknown");
-	}
-	else if ([central state] == CBCentralManagerStateUnsupported) {
-		NSLog(@"CoreBluetooth BLE hardware is unsupported on this platform");
-	} else {
-        NSLog(@"Not sure what's going on");
-    }
+    [self checkBluetooth];
 }
 
-// method called whenever we have successfully connected to the BLE peripheral
-- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
+- (BOOL) checkBluetooth
 {
-    [SENUtilities addMessageText:self.statusString :@"Connected to Peripheral" :self.statusTextView];
-    self.lastBeatTimeValid = false;
-    if (self.connectMode == kConnectUUIDMode && self.connectIdentifier != peripheral.identifier) {
-        [self disconnectPeripheral];
-    } else if (peripheral != self.blePeripheral) {
-//        [self.logger logVerbose:@"(Disconnecting from unexpected device %@)", getNickname(peripheral)];
-        [self disconnectPeripheral];
-    } else {
-        self.state = BTPulseTrackerConnectedState;
-//        [self.logger logVerbose:@"Peripheral UUID=%@", hex(peripheral.UUID)];
-        [peripheral discoverServices:nil];
+    NSString * state = nil;
+    switch ([self.bleManager state])
+    {
+        case CBCentralManagerStateUnsupported:
+            state = @"The platform/hardware doesn't support Bluetooth Low Energy.";
+            break;
+        case CBCentralManagerStateUnauthorized:
+            state = @"The app is not authorized to use Bluetooth Low Energy.";
+            break;
+        case CBCentralManagerStatePoweredOff:
+            state = @"Bluetooth is currently powered off.";
+            break;
+        case CBCentralManagerStatePoweredOn:
+            return TRUE;
+        case CBCentralManagerStateUnknown:
+        default:
+            state = @"Something is wrong with Bluetooth Low Energy support.";
     }
-    [self stopScan];
-
-//    NSLog(@"---- Connected");
-//    self.BTLEPeripheral = peripheral;
-//    
-//    [self.BTLEPeripheral setDelegate:self];
-//    [self.BTLEPeripheral discoverServices:nil];
-//
-//    [self updateLastDevice:[SENUtilities getUUIDString:(__bridge CFUUIDRef)(peripheral.identifier)] withName:peripheral.name];
-//    
-//    [self showButtons:@"Connected"];
-//    self.BTLEconnected = [NSString stringWithFormat:@"Connected: %@", self.BTLEPeripheral.state == CBPeripheralStateConnected ? @"YES" : @"NO"];
-//    NSLog(@"%@",self.BTLEconnected);
+    NSLog(@"Central manager state: %@", state);
+    return FALSE;
 }
-
-
-
-// CBPeripheralDelegate - Invoked when you discover the peripheral's available services.
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
-{
-    NSLog(@"says we've discovered device %hhd",self.BTLEConnectionFlag);
-    [SENUtilities addMessageText:self.statusString :@"Discovered Service" :self.statusTextView];
-    NSLog(@"---- didDiscoverServices");
-    for (CBService *service in peripheral.services) {
-        [peripheral discoverCharacteristics:nil forService:service];
-    }
-}
-
-
 
 // CBCentralManagerDelegate - This is called with the CBPeripheral class as its main input parameter. This contains most of the information there is to know about a BLE peripheral.
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
@@ -459,11 +265,11 @@ unsigned char const SYNC_CHAR = 0xF9;
     
     double rssi = [RSSI doubleValue];
     if (self.waitingForBestRSSI) {
-        [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Found %@ with signal strength %g", peripheral.identifier, rssi] :self.statusTextView];
+        [SENUtilities getNickname:peripheral];
+        [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Found %@ with signal strength %g", peripheral.identifier.UUIDString, rssi] :self.statusTextView];
         if (!self.bestPeripheral || rssi > self.bestRSSI) {
             self.bestPeripheral = peripheral;
             self.bestRSSI = rssi;
-//            [SENUtilities addMessageText:self.statusString :@"set peripheral val" :self.statusTextView];
         }
     } else {
         if (self.connectMode == kConnectUUIDMode && peripheral.identifier && peripheral.identifier != self.connectIdentifier) {
@@ -473,17 +279,48 @@ unsigned char const SYNC_CHAR = 0xF9;
             [self connectPeripheral:peripheral];
         }
     }
+}
 
-//    NSLog(@"says we've discovered device %hhd",self.BTLEConnectionFlag);
-//    NSLog(@"---- didDiscoverPeripheral");
-//    NSString *localName = [advertisementData objectForKey:CBAdvertisementDataLocalNameKey];
-//    if (![localName isEqual:@""]) {
-//        [self logDeviceWithUUID:[SENUtilities getUUIDString:CFBridgingRetain(peripheral.identifier)] withName:peripheral.name withDeviceType:@"BTLE_VENDOR" withOriginalIndex:[self.BTLEDevices count]];
-//        [self.BTLEDevices addObject:peripheral];
-//        
-//        self->scannedDevices++;
-//        self->BTLECounter++;
-//    }
+// method called whenever we have successfully connected to the BLE peripheral
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
+{
+    self.lastBeatTimeValid = false;
+    if (self.connectMode == kConnectUUIDMode && self.connectIdentifier != peripheral.identifier) {
+        [self disconnectPeripheral];
+    } else if (peripheral != self.blePeripheral) {
+        [self disconnectPeripheral];
+    } else {
+        self.state = BTPulseTrackerConnectedState;
+        self.connectionButton.enabled = YES;
+        [self.connectionButton setTitle:@"Disconnect" forState:UIControlStateNormal];
+        [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Connected to %@", peripheral.identifier.UUIDString] :self.statusTextView];
+        [peripheral discoverServices:nil];
+    }
+    [self stopScan];
+    
+    self.lastUUID = peripheral.identifier.UUIDString;
+    self.lastName = peripheral.name;
+    [[NSUserDefaults standardUserDefaults] setObject:self.lastName forKey:NamePrefKey];
+    [[NSUserDefaults standardUserDefaults] setObject:self.lastUUID forKey:UUIDPrefKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    self.uuidLabel.text = self.lastName;
+}
+
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+    self.state = BTPulseTrackerScanState;
+    [self.connectionButton setTitle:@"Scan" forState:UIControlStateNormal];
+    [SENUtilities addMessageText:self.statusString :@"Disconnected" :self.statusTextView];
+}
+
+
+// CBPeripheralDelegate - Invoked when you discover the peripheral's available services.
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
+{
+    [SENUtilities addMessageText:self.statusString :@"Discovered Service" :self.statusTextView];
+    NSLog(@"---- didDiscoverServices");
+    for (CBService *service in peripheral.services) {
+        [peripheral discoverCharacteristics:nil forService:service];
+    }
 }
 
 // Invoked when you discover the characteristics of a specified service.
@@ -567,10 +404,7 @@ unsigned char const SYNC_CHAR = 0xF9;
 //    return;
 }
 
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-//    NSLog(@"Disconnected from peripheral: %@ with UUID: %@",peripheral,peripheral.identifier);
-//    [self showButtons:@"Disconnected"];
-}
+
 
 // Instance method to get the manufacturer name of the device
 - (void) getManufacturerName:(CBCharacteristic *)characteristic
@@ -989,5 +823,87 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 //    SENXmlDataGenerator* xmlDataGenerator = [[SENXmlDataGenerator alloc]init];
 //    [xmlDataGenerator sendUnsentSesions];
 //}
+
+#pragma mark - TableView
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.discoveredPeripherals.count;
+    NSLog(@"%lu",(unsigned long)self.discoveredPeripherals.count);
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	return @"Available Devices";
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *tableIdentifier = @"BLEDeviceList";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = [self.mDeviceNames objectAtIndex:indexPath.row];
+    
+    //    NSLog(@"is this doing anything?");
+    //    for (int i=0;i<[self.mDeviceDictionary count];i++) {
+    //        if (indexPath.row == i) {
+    //            cell.textLabel.text = [self.mDeviceDictionary objectForKey:@"deviceName"];
+    //            NSLog(@"%@",[self.mDeviceDictionary objectForKey:@"deviceName"]);
+    //        }
+    //    }
+    //
+    //    NSArray *keyArray =  [self.mDeviceDictionary allKeys];
+    //    int count = [keyArray count];
+    //    for (int i=0; i < count; i++) {
+    //        NSDictionary *tmp = [self.mDeviceDictionary objectForKey:[ keyArray objectAtIndex:i]];
+    //        for (id key in tmp) {
+    //            NSLog(@"key: %@, value: %@ \n", key, [tmp objectForKey:key]);
+    //        }
+    //        if (i == indexPath.row) {
+    //            NSLog(@"row row your boat");
+    //        }
+    //    }
+    
+    
+    //    NSLog(@"key is status, value is %@",[self.mDeviceDictionary objectForKey:@"name"]);
+    
+    //    for (id device in self.mDeviceDictionary) {
+    //        NSNumber *aggregatedArrayIndex = [self.mDeviceDictionary objectForKey:@"aggregatedArrayIndex"];
+    //        if (indexPath.row == [aggregatedArrayIndex integerValue]) {
+    //            NSString *deviceType = [self.mDeviceDictionary objectForKey:@"deviceType"];
+    //            NSLog(@"%@, %ld",deviceType, (long)indexPath.row);
+    //            cell.textLabel.text = deviceType;
+    //        }
+    //    }
+    //    for (int i=0;i<[self.knownDevices count];i++) {
+    //        if ([[self.mDevices objectAtIndex:indexPath.row] isEqualToString:[self.knownDevices objectAtIndex:i]]){
+    //            cell.textLabel.text = [self.deviceAliases objectAtIndex:i];
+    //        } else {
+    //            cell.textLabel.text = @"New Sensor Device";
+    //            cell.textLabel.text = [self.mDevices objectAtIndex:i]; // for the time being
+    //        }
+    //    }
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //    [self didSelected:indexPath.row];
+    //    NSLog(@"picked %ld",(long)indexPath.row);
+    //    [self addMessageText:@"picked"];
+    //    [self showButtons:@"Picked Device From List"];
+}
+
+- (void)checkIntervalTime
+{
+    if (self.connected) {
+        CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - self.previousTimestamp;
+        NSLog(@"Frame duration: %f", frameDuration);
+        //        if (frameDuration > 5) {
+        //            [self showButtons:@"Connected but no ibi data"];
+        //        }
+    }
+}
 
 @end

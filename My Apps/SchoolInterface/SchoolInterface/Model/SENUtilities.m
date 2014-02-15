@@ -154,8 +154,30 @@
     [mutableString appendString:[NSString stringWithFormat:@"%@\r\n",text]];
     NSLog(@"%@",text);
     textView.text = mutableString;
-    NSRange range = NSMakeRange(textView.text.length - 1, 1);
-    [textView scrollRangeToVisible:range];
 }
+
++ (NSString *)getNickname:(CBPeripheral *)peripheral
+{
+//    if (peripheral.identifier) {
+//        CFUUIDBytes uuid  = CFUUIDGetUUIDBytes((__bridge CFUUIDRef)(peripheral.identifier));
+//        return [NSString stringWithFormat:@"%@ (%s)", peripheral.name, computeNickname(&uuid, sizeof(uuid)).c_str()];
+//    } else {
+//        if (sizeof(peripheral) == 4) {
+//            return [NSString stringWithFormat:@"%@ %08lX", peripheral.name, (unsigned long) peripheral];
+//        } else {
+//            return [NSString stringWithFormat:@"%@ %016llX", peripheral.name, (unsigned long long) peripheral];
+//        }
+//    }
+    return @"hello";
+}
+
+
+//std::string computeNickname(const void *data, size_t len) {
+//    unsigned long long hash = computeHash(data, len);
+//    const char *placename = placenames[hash % placenameCount];
+//    int n = (hash / placenameCount) % 10000;
+//    return string_printf("%s-%04d", placename, n);
+//}
+
 
 @end

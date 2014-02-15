@@ -139,11 +139,25 @@
 - (void)createViewControllers
 {
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:
-                                @"Main_iPad" bundle:[NSBundle mainBundle]];
-    self.questionnaireViewController = [storyboard instantiateViewControllerWithIdentifier:@"questionnaire"];
-    [self.view addSubview:self.questionnaireViewController.view];
-    self.questionnaireViewController.view.hidden = YES;
+    
+    
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+        NSLog(@"so far so good?");
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle mainBundle]];
+        self.questionnaireViewController = [storyboard instantiateViewControllerWithIdentifier:@"questionnaire"];
+        [self.view addSubview:self.questionnaireViewController.view];
+        self.questionnaireViewController.view.hidden = YES;
+        self.questionnaireViewController.appID = self.appID;
+        self.questionnaireViewController.delegate = self;
+        self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Bluetooth"];
+    } else {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
+        self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Bluetooth"];
+    }
+
+    [self.view addSubview:self.BLEDevice.view];
+    self.BLEDevice.view.hidden = YES;
+    self.BLEDevice.delegate = self;
     
     // see if a unique app value has been set before. if not, set a new unique app id
     if ([[SENUtilities getStringForKey:@"appUniqueID"] isEqualToString:@""]) {
@@ -151,13 +165,11 @@
     } else {
         self.appID = [SENUtilities getStringForKey:@"appUniqueID"];
     }
-    self.questionnaireViewController.appID = self.appID;
-    self.questionnaireViewController.delegate = self;
+
     
-    self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Redbear"];
-    [self.view addSubview:self.BLEDevice.view];
-    self.BLEDevice.view.hidden = YES;
-    self.BLEDevice.delegate = self;
+    
+    
+
     self.glviewIsDisplaying = YES;
 }
 

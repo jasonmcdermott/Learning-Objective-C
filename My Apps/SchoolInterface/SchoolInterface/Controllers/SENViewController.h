@@ -44,6 +44,8 @@
 //@property (strong, nonatomic) PdDispatcher *dispatcher;
 @property (nonatomic, retain) PdAudioController *audioController;
 
+@property (strong, nonatomic) UIStoryboard *storyboard;
+
 @end
 
 

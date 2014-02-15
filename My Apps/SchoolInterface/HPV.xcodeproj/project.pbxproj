@@ -1000,7 +1000,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = HPV;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "../../../C-Libraries/libpd/**";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1023,7 +1023,7 @@
 				INFOPLIST_FILE = "SchoolInterface/HPV-Info.plist";
 				PRODUCT_NAME = HPV;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "../../../C-Libraries/libpd/**";
 				WRAPPER_EXTENSION = app;
 			};
