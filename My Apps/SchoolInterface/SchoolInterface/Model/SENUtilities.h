@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 #include <CommonCrypto/CommonDigest.h>
+#include <sys/time.h>
 
 @interface SENUtilities : NSObject
 
@@ -24,9 +25,13 @@
 + (int)randomIntInRange:(int)Min :(int)Max;
 + (BOOL)randomBool;
 
-+ (NSString *)computeNickname:(const void*) data :(size_t) len;
-+ (NSString *)computeNickname:(NSString *)data;
+//+ (NSString *)computeNickname:(const void*) data :(size_t) len;
+//+ (NSString *)computeNickname:(NSString *)data;
 
++ (NSString *)printDuration:(double) duration;
+
++ (double)doubletime;
++ (unsigned long long) microtime;
 
 @property (strong, nonatomic) NSString *school;
 

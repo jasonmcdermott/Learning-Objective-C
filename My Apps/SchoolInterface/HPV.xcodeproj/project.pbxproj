@@ -85,7 +85,9 @@
 		0E82B3761891E91A00FE5B9C /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E82B36C1891E91A00FE5B9C /* AFURLResponseSerialization.m */; };
 		0E82B3771891E91A00FE5B9C /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E82B36E1891E91A00FE5B9C /* AFURLSessionManager.m */; };
 		0E9849681892969A0037E6B5 /* SENUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9849671892969A0037E6B5 /* SENUtilities.m */; };
-		0E9F87B218ADEA0200AF6C8F /* SENPulseTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9F87B118ADEA0200AF6C8F /* SENPulseTracker.m */; };
+		0E9F87BD18ADF3B600AF6C8F /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E9F87BA18ADF3B600AF6C8F /* Utils.cpp */; };
+		0E9F87BE18ADF3B600AF6C8F /* UUID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E9F87BB18ADF3B600AF6C8F /* UUID.cpp */; };
+		0E9F87C218ADF44B00AF6C8F /* Nickname.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E9F87C018ADF44B00AF6C8F /* Nickname.cpp */; };
 		0EC0F154188D64E900D4C7E7 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC0F150188D64E900D4C7E7 /* HockeySDK.framework */; };
 		0EC0F155188D64E900D4C7E7 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0EC0F152188D64E900D4C7E7 /* HockeySDK.xcconfig */; };
 		0EC0F156188D64E900D4C7E7 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0EC0F153188D64E900D4C7E7 /* HockeySDKResources.bundle */; };
@@ -237,8 +239,12 @@
 		0E984963189286100037E6B5 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
 		0E9849661892969A0037E6B5 /* SENUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENUtilities.h; path = Model/SENUtilities.h; sourceTree = "<group>"; };
 		0E9849671892969A0037E6B5 /* SENUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENUtilities.m; path = Model/SENUtilities.m; sourceTree = "<group>"; };
-		0E9F87B018ADEA0200AF6C8F /* SENPulseTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENPulseTracker.h; path = Controllers/SENPulseTracker.h; sourceTree = "<group>"; };
-		0E9F87B118ADEA0200AF6C8F /* SENPulseTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENPulseTracker.m; path = Controllers/SENPulseTracker.m; sourceTree = "<group>"; };
+		0E9F87B918ADF3B600AF6C8F /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		0E9F87BA18ADF3B600AF6C8F /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		0E9F87BB18ADF3B600AF6C8F /* UUID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UUID.cpp; sourceTree = "<group>"; };
+		0E9F87BC18ADF3B600AF6C8F /* UUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUID.h; sourceTree = "<group>"; };
+		0E9F87C018ADF44B00AF6C8F /* Nickname.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Nickname.cpp; sourceTree = "<group>"; };
+		0E9F87C118ADF44B00AF6C8F /* Nickname.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nickname.h; sourceTree = "<group>"; };
 		0EAB03191891367D0076E906 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		0EAB031B189155B60076E906 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		0EC0F150188D64E900D4C7E7 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
@@ -410,8 +416,6 @@
 				0E06A6C218863DB90018ECDB /* SENViewController.m */,
 				0ED0FAF2188802DF003B3136 /* BLEDevice.h */,
 				0ED0FAF3188802DF003B3136 /* BLEDevice.m */,
-				0E9F87B018ADEA0200AF6C8F /* SENPulseTracker.h */,
-				0E9F87B118ADEA0200AF6C8F /* SENPulseTracker.m */,
 				0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */,
 				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
 			);
@@ -504,11 +508,17 @@
 		0E823EF4188CC0390028D65B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				0E9F87B918ADF3B600AF6C8F /* Utils.h */,
+				0E9F87BA18ADF3B600AF6C8F /* Utils.cpp */,
+				0E9F87BC18ADF3B600AF6C8F /* UUID.h */,
+				0E9F87BB18ADF3B600AF6C8F /* UUID.cpp */,
 				0ED0FB03188805A1003B3136 /* SENConstants.h */,
 				0E823EF1188CB8FB0028D65B /* SENUserDefaultsHelper.h */,
 				0E823EF2188CB8FB0028D65B /* SENUserDefaultsHelper.m */,
 				0E9849661892969A0037E6B5 /* SENUtilities.h */,
 				0E9849671892969A0037E6B5 /* SENUtilities.m */,
+				0E9F87C018ADF44B00AF6C8F /* Nickname.cpp */,
+				0E9F87C118ADF44B00AF6C8F /* Nickname.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -828,6 +838,7 @@
 				0E10ACB618861DFA00765FA1 /* SENQuestionnaireTabViewController.m in Sources */,
 				0E82B3731891E91A00FE5B9C /* AFSecurityPolicy.m in Sources */,
 				0ED0FB061888081C003B3136 /* SENSessionData.m in Sources */,
+				0E9F87BD18ADF3B600AF6C8F /* Utils.cpp in Sources */,
 				0ED0FB00188804C8003B3136 /* SENPDDriver.m in Sources */,
 				0E82B3751891E91A00FE5B9C /* AFURLRequestSerialization.m in Sources */,
 				0E82B3721891E91A00FE5B9C /* AFNetworkReachabilityManager.m in Sources */,
@@ -835,11 +846,12 @@
 				0EDFB9BE1890AEEA002909F4 /* SENQuestionnaire.m in Sources */,
 				0ED0FB0C18880917003B3136 /* SENIBIData.m in Sources */,
 				0E82B36F1891E91A00FE5B9C /* AFHTTPRequestOperation.m in Sources */,
+				0E9F87BE18ADF3B600AF6C8F /* UUID.cpp in Sources */,
 				0EDFB9BB1890AD83002909F4 /* Model.xcdatamodeld in Sources */,
 				0E82B3711891E91A00FE5B9C /* AFHTTPSessionManager.m in Sources */,
+				0E9F87C218ADF44B00AF6C8F /* Nickname.cpp in Sources */,
 				0ED0FB091888089E003B3136 /* SENPulseReliability.m in Sources */,
 				0E82B3771891E91A00FE5B9C /* AFURLSessionManager.m in Sources */,
-				0E9F87B218ADEA0200AF6C8F /* SENPulseTracker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
