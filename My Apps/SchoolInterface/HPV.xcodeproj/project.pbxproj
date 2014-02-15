@@ -86,6 +86,7 @@
 		0E82B3761891E91A00FE5B9C /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E82B36C1891E91A00FE5B9C /* AFURLResponseSerialization.m */; };
 		0E82B3771891E91A00FE5B9C /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E82B36E1891E91A00FE5B9C /* AFURLSessionManager.m */; };
 		0E9849681892969A0037E6B5 /* SENUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9849671892969A0037E6B5 /* SENUtilities.m */; };
+		0EB5247018AF786D00CCAF87 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EB5246E18AF786D00CCAF87 /* Main_iPhone.storyboard */; };
 		0EC0F154188D64E900D4C7E7 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC0F150188D64E900D4C7E7 /* HockeySDK.framework */; };
 		0EC0F155188D64E900D4C7E7 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0EC0F152188D64E900D4C7E7 /* HockeySDK.xcconfig */; };
 		0EC0F156188D64E900D4C7E7 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0EC0F153188D64E900D4C7E7 /* HockeySDKResources.bundle */; };
@@ -241,6 +242,7 @@
 		0E9849671892969A0037E6B5 /* SENUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENUtilities.m; path = Model/SENUtilities.m; sourceTree = "<group>"; };
 		0EAB03191891367D0076E906 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		0EAB031B189155B60076E906 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
+		0EB5246F18AF786D00CCAF87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SchoolInterface/Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		0EC0F150188D64E900D4C7E7 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		0EC0F152188D64E900D4C7E7 /* HockeySDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HockeySDK.xcconfig; sourceTree = "<group>"; };
 		0EC0F153188D64E900D4C7E7 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				0E10AC53188609BB00765FA1 /* Images.xcassets */,
 				0EDFB9B91890AD83002909F4 /* Model.xcdatamodeld */,
 				0EC0F15D188D6A8600D4C7E7 /* Main_iPad.storyboard */,
+				0EB5246E18AF786D00CCAF87 /* Main_iPhone.storyboard */,
 				0EC0F15B188D6A6100D4C7E7 /* Settings.bundle */,
 				0E7BAB1118AA07E40036A2EA /* Notes */,
 			);
@@ -731,6 +734,7 @@
 				0E7BABE118AA12B90036A2EA /* gkpd.mix-to-stereo.pd in Resources */,
 				0E7BABCD18AA12B90036A2EA /* gk.float-thinner.pd in Resources */,
 				0E7BABD318AA12B90036A2EA /* gk.peak.pd in Resources */,
+				0EB5247018AF786D00CCAF87 /* Main_iPhone.storyboard in Resources */,
 				0E7BABDD18AA12B90036A2EA /* gk.trigger.dec.pd in Resources */,
 				0E7BABD818AA12B90036A2EA /* gk.scale.pd in Resources */,
 				0E7BABD118AA12B90036A2EA /* gk.mean.pd in Resources */,
@@ -881,6 +885,14 @@
 				0E10AC64188609BB00765FA1 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0EB5246E18AF786D00CCAF87 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0EB5246F18AF786D00CCAF87 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 		0EC0F15D188D6A8600D4C7E7 /* Main_iPad.storyboard */ = {

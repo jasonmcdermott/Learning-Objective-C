@@ -244,7 +244,7 @@ unsigned char const SYNC_CHAR = 0xF9;
     
 }
 
-- (void) connectToBestSignal
+- (void)connectToBestSignal
 {
     if (self.state == BTPulseTrackerScanState) {
         self.waitingForBestRSSI = NO;
@@ -268,7 +268,20 @@ unsigned char const SYNC_CHAR = 0xF9;
         self.blePeripheral = peripheral;
         self.state = BTPulseTrackerConnectingState;
         [self.bleManager connectPeripheral:peripheral options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
+        self.disconnectButton.enabled = YES;
     }
+}
+
+- (void) disconnectPeripheral
+{
+    [self.bleManager cancelPeripheralConnection:self.blePeripheral];
+    [SENUtilities addMessageText:self.statusString :@"Disconnecting" :self.statusTextView];
+    self.disconnectButton.enabled = NO;
+}
+
+- (void) stopScan
+{
+    [self.bleManager stopScan];
 }
 
 - (NSString *)connectionStatus {
@@ -425,16 +438,7 @@ unsigned char const SYNC_CHAR = 0xF9;
 //    NSLog(@"%@",self.BTLEconnected);
 }
 
-- (void) stopScan
-{
-    [self.bleManager stopScan];
-}
 
-- (void) disconnectPeripheral
-{
-    [self.bleManager cancelPeripheralConnection:self.blePeripheral];
-    [SENUtilities addMessageText:self.statusString :@"Disconnecting" :self.statusTextView];
-}
 
 // CBPeripheralDelegate - Invoked when you discover the peripheral's available services.
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
