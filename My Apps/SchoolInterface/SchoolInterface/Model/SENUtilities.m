@@ -136,5 +136,26 @@
     }
 }
 
++ (unsigned long long)microTime
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return ((long long) tv.tv_sec * (long long) 1000000 +
+            (long long) tv.tv_usec);
+}
+
++ (double) doubleTime
+{
+    return [self microTime] / 1000000.0;
+}
+
++ (void)addMessageText:(NSMutableString *)mutableString :(NSString *)text :(UITextView *)textView
+{
+    [mutableString appendString:[NSString stringWithFormat:@"%@\r\n",text]];
+    NSLog(@"%@",text);
+    textView.text = mutableString;
+    NSRange range = NSMakeRange(textView.text.length - 1, 1);
+    [textView scrollRangeToVisible:range];
+}
 
 @end

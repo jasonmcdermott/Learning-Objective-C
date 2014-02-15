@@ -16,8 +16,8 @@
 
 #import <CoreBluetooth/CoreBluetooth.h>
 
-#import "RFduinoManager.h"
-#import "RFduino.h"
+//#import "RFduinoManager.h"
+//#import "RFduino.h"
 
 #import "SENUtilities.h"
 
@@ -28,8 +28,8 @@
 #define HRM_BODY_LOCATION_UUID @"2A38"
 #define HRM_MANUFACTURER_NAME_UUID @"2A29"
 
-@class RFduinoManager;
-@class RFduino;
+//@class RFduinoManager;
+//@class RFduino;
 
 
 typedef struct
@@ -44,7 +44,7 @@ typedef struct
 
 @end
 
-@interface BLEDevice : UIViewController <BLEDelegate, RFduinoManagerDelegate, RFduinoDelegate, CBCentralManagerDelegate, CBPeripheralDelegate>
+@interface BLEDevice : UIViewController <BLEDelegate, CBCentralManagerDelegate, CBPeripheralDelegate>
 {
     int counter, BTLECounter, scannedDevices;
     volatile unsigned _bufferIndex;
@@ -55,8 +55,47 @@ typedef struct
     volatile bool _reliable;
 }
 
-@property (nonatomic, strong) CBCentralManager *BTLEcentralManager;
-@property (nonatomic, strong) CBPeripheral     *heartRateMonitorPeripheral;
+typedef enum {
+    kConnectBestSignalMode = 0,
+    kConnectUUIDMode = 1
+} BTPulseTrackerConnectMode;
+
+typedef enum {
+    BTPulseTrackerScanState = 0,
+    BTPulseTrackerConnectingState = 1,
+    BTPulseTrackerConnectedState = 2,
+    BTPulseTrackerStoppedState = 3
+} BTPulseTrackerState;
+
+@property (nonatomic, strong) CBCentralManager *bleManager;
+@property (nonatomic, strong) CBPeripheral     *blePeripheral;
+@property (copy) NSString *manufacturer;
+@property (assign) double heartRate;
+@property BOOL waitingForBestRSSI;
+@property double bestRSSI;
+@property (strong) CBPeripheral *bestPeripheral;
+
+@property (assign) double r2r;
+@property (assign) double lastBeatTime;
+@property (assign) BOOL lastBeatTimeValid;
+@property double lastHRDataReceived;
+
+
+@property (readonly) NSString *connectionStatus;
+@property (readonly) NSString *connectionStatusWithDuration;
+@property (readonly) NSString *receivedStatusWithDuration;
+@property (readonly) BOOL connected;
+@property (readonly) NSString *peripheralNickname;
+
+@property BTPulseTrackerConnectMode connectMode;
+@property (strong, nonatomic) NSUUID *connectIdentifier;
+
+
+
+
+
+
+
 
 // Properties to hold data characteristics for the peripheral device
 @property (nonatomic, strong) NSString   *BTLEconnected;
@@ -81,19 +120,16 @@ typedef struct
 
 @property (nonatomic, weak) id <BLEDeviceDelegate> delegate;
 
-@property(strong, nonatomic) RFduino *connected_rfduino;
-@property (strong, nonatomic) RFduinoManager *rfduinoManager;
-
 @property (strong, nonatomic) SENPDDriver *mPDDRiver;
 
 @property (strong, nonatomic) NSMutableDictionary *mDeviceDictionary;
 
-@property (nonatomic) BOOL scanning, connected, scanForNewDevices, finishedScan, disconnected, passedToParent;
+@property (nonatomic) BOOL showTable, scanning, scanForNewDevices, finishedScan, disconnected, passedToParent;
 
 @property (strong, nonatomic) BLE *bleShield;
 @property (strong, nonatomic) NSArray *deviceAliases, *knownDevices;
 
-@property (strong,nonatomic) NSMutableArray *mDevices, *mDeviceTypes, *mDeviceNames;
+@property (strong,nonatomic) NSMutableArray *discoveredPeripherals, *mDeviceTypes, *mDeviceNames;
 
 @property (strong,nonatomic) NSString *username, *lastUUID, *lastName;
 @property (strong, nonatomic) SENSessionData * mSesionData;
@@ -103,7 +139,19 @@ typedef struct
 @property (retain, nonatomic) IBOutlet UITextField *usernameLabel;
 @property (retain, nonatomic) IBOutlet UITextField *intervalLabel;
 
+@property (strong, nonatomic) NSMutableArray *tempDevices;
+@property (strong, nonatomic) NSMutableString *statusString;
+
+
+
 @property (nonatomic) CFTimeInterval previousTimestamp;
+
+
+
+
+@property (nonatomic) BTPulseTrackerState state;
+@property double lastStateChangeTime;
+
 @end
 
 

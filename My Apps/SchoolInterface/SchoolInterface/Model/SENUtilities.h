@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
+#include <sys/time.h>
 
 @interface SENUtilities : NSObject
 
@@ -23,7 +24,9 @@
 + (int)randomIntInRange:(int)Min :(int)Max;
 + (BOOL)randomBool;
 
-
++ (double) doubleTime;
++ (unsigned long long)microTime;
++ (void)addMessageText:(NSMutableString *)mutableString :(NSString *)text :(UITextView *)textView;
 
 @property (strong, nonatomic) NSString *school;
 
