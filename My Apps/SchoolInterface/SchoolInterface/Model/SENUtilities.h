@@ -13,7 +13,9 @@
 #import "SENConstants.h"
 #include <CommonCrypto/CommonDigest.h>
 
-@interface SENUtilities : NSObject
+@interface SENUtilities : NSObject {
+    int newLine;
+}
 
 + (NSString *)getUUID;
 + (NSString*)getUUIDString:(CFUUIDRef)ref;
@@ -34,6 +36,9 @@
 + (NSString *)getNickname:(CBPeripheral *)peripheral;
 + (NSString *)computeNickname:(const void *)data :(size_t)len;
 
+
 @property (strong, nonatomic) NSString *school;
+
+
 
 @end

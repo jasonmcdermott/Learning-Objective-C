@@ -80,7 +80,7 @@ typedef enum {
 @property (assign) double heartRate;
 @property BOOL waitingForBestRSSI;
 @property double bestRSSI;
-@property (strong) CBPeripheral *bestPeripheral;
+@property (strong) CBPeripheral *bestPeripheral, *lastPeripheral;
 
 @property (assign) double r2r;
 @property (assign) double lastBeatTime;
@@ -99,7 +99,7 @@ typedef enum {
 @property scanMode mode;
 @property (strong, nonatomic) NSUUID *connectIdentifier;
 
-@property (nonatomic) BOOL connectToPrevious;
+@property (nonatomic) BOOL connectToPrevious, textViewDidChange;
 
 
 

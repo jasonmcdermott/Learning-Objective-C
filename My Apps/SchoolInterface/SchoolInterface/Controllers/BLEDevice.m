@@ -10,6 +10,7 @@
 
 NSString * const UUIDPrefKey = @"UUIDPrefKey";
 NSString * const NamePrefKey = @"NamePrefKey";
+NSString * const scanModePrefKey = @"scanModePrefKey";
 NSString * const  INACTIVITY_KEY = @"BrightheartsInactivity";
 NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 
@@ -49,8 +50,17 @@ unsigned char const SYNC_CHAR = 0xF9;
 {
     [super viewDidLoad];
     
+    self.mode = [[NSUserDefaults standardUserDefaults] integerForKey:scanModePrefKey];
     self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:UUIDPrefKey];
-    self.lastUUID = [[NSUserDefaults standardUserDefaults] objectForKey:NamePrefKey];
+    self.lastName = [[NSUserDefaults standardUserDefaults] objectForKey:NamePrefKey];
+    
+//    if (!self.lastName) {
+//        self.uuidLabel.text = @"Previous device: none";
+//    } else {
+//        self.uuidLabel.text = @"Previous device: none";
+//    }
+    
+    [self.scanModeSelector setSelectedSegmentIndex:(int)self.mode];
     
     self.mPDDRiver = [[SENPDDriver alloc] init];
     [self.mPDDRiver startSession];
@@ -58,36 +68,60 @@ unsigned char const SYNC_CHAR = 0xF9;
     self.discoveredPeripherals = [[NSMutableArray alloc] init];
     self.bleManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     
-    self.connectionButton.enabled = NO;
-    self.autoConnect = YES;
     self.statusString = [[NSMutableString alloc] init];
-    [self tryConnect];
 
-    [NSTimer scheduledTimerWithTimeInterval:SCAN_TIME target:self selector:@selector(tryConnect) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:SCAN_TIME target:self selector:@selector(checkBluetoothScanMode) userInfo:nil repeats:YES];
     [NSTimer scheduledTimerWithTimeInterval:(float)10.0 target:self selector:@selector(checkIntervalTime) userInfo:nil repeats:YES];
-    [NSTimer scheduledTimerWithTimeInterval:SCAN_TIME target:self selector:@selector(scrollTextViewToBottom) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(scrollTextViewToBottom) userInfo:nil repeats:YES];
 }
 
 - (void)scrollTextViewToBottom
 {
-    NSRange range = NSMakeRange(self.statusTextView.text.length - 1, 1);
-    [self.statusTextView scrollRangeToVisible:range];
+    // not happy with that
+}
+
+- (void)checkBluetoothScanMode
+{
+    if (self.mode == scanModeAuto) {
+        if (self.state != BTPulseTrackerConnectedState) {
+            [self tryConnect];
+        } else {
+            // do nothing
+        }
+
+    } else if (self.mode == scanModeNewDevice) {
+        [self tryConnect];
+    } else if (self.mode == scanModePreviousDevice) {
+        [self tryConnect];
+    } else if (self.mode == scanModeOff) {
+        if (self.blePeripheral) {
+            [self disconnectPeripheral];
+            [self.discoveredPeripherals removeAllObjects];
+            [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Bluetooth Off"] :self.statusTextView];
+        }
+    }
 }
 
 - (IBAction)selectScanMode:(UISegmentedControl *)sender
 {
+    self.mode = sender.selectedSegmentIndex;
+    [[NSUserDefaults standardUserDefaults] setInteger:self.mode forKey:scanModePrefKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSLog(@"blah again %ld",(long)[[NSUserDefaults standardUserDefaults] integerForKey:scanModePrefKey]);
+    self.deviceList.hidden = YES;
+    
     if (sender.selectedSegmentIndex == 0) {
-        self.mode = scanModeAuto;
-        [self tryConnect];
+        [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Connecting to nearest device"] :self.statusTextView];
+        self.instructionLabel.text = @"Connect to nearest Bluetooth device";
     } else if (sender.selectedSegmentIndex == 1) {
-        self.mode = scanModeNewDevice;
-        [self tryConnect];
+        [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Scanning for new devices"] :self.statusTextView];
+        self.instructionLabel.text = @"Scanning for new devices";
     } else if (sender.selectedSegmentIndex == 2) {
-        self.mode = scanModePreviousDevice;
-        [self tryConnect];
+        [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Trying to connect to previous sensor"] :self.statusTextView];
+        self.instructionLabel.text = @"Connect to previous device";
     } else if (sender.selectedSegmentIndex == 3) {
-        self.mode = scanModeOff;
-        [self disconnectPeripheral];
+        [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Bluetooth off"] :self.statusTextView];
+        self.instructionLabel.text = @"Bluetooth off";
     }
 }
 
@@ -101,13 +135,11 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 - (void)tryConnect
 {
-    if (self.mode == scanModeAuto) {
-        if (self.state != BTPulseTrackerConnectedState){
-            self.connectionButton.enabled = NO;
-            [self.discoveredPeripherals removeAllObjects];
-            [self startScan];
-            [SENUtilities addMessageText:self.statusString :@"Starting Scan" :self.statusTextView];
-        }
+    if (self.state == BTPulseTrackerConnectedState) {
+        [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Already connected"] :self.statusTextView];
+    } else {
+        [self startScan];
+        [SENUtilities addMessageText:self.statusString :@"Starting Scan" :self.statusTextView];
     }
 }
 
@@ -117,12 +149,22 @@ unsigned char const SYNC_CHAR = 0xF9;
     self.blePeripheral = nil;
     self.manufacturer = @"";
     self.heartRate = 0;
-    self.waitingForBestRSSI = YES;
 
-    self.bestRSSI = -1e100;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
-                   dispatch_get_main_queue(),
-                   ^{ [self connectToBestSignal]; });
+    if (self.mode == scanModeAuto) {
+        self.bestRSSI = -1e100;
+        self.waitingForBestRSSI = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(),
+                       ^{ [self connectToBestSignal]; });
+    } else if (self.mode == scanModeNewDevice) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(),
+                       ^{ [self showTableOfDevices]; });
+    } else if (self.mode == scanModePreviousDevice) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(),
+                       ^{ [self connectToPreviousDevice]; });
+    }
     
     NSArray *serviceTypes = @[[CBUUID UUIDWithString:@"713D0000-503E-4C75-BA94-3148F18D941E"], [CBUUID UUIDWithString:@"180D"]];
     [self.bleManager scanForPeripheralsWithServices:serviceTypes options:nil];
@@ -144,7 +186,28 @@ unsigned char const SYNC_CHAR = 0xF9;
     }
 }
 
-- (void) connectPeripheral:(CBPeripheral*)peripheral
+- (void)connectToPreviousDevice
+{
+    if (self.state == BTPulseTrackerScanState) {
+        if (!self.lastPeripheral) {
+            [SENUtilities addMessageText:self.statusString :@"No previous device" :self.statusTextView];
+            
+        } else if (self.lastPeripheral) {
+            [SENUtilities addMessageText:self.statusString :@"Connecting to previous device" :self.statusTextView];
+            [self connectPeripheral:self.lastPeripheral];
+        }
+    }
+}
+
+- (void)showTableOfDevices
+{
+    if ([self.discoveredPeripherals count] > 0) {
+        self.deviceList.hidden = NO;
+        [self.deviceList reloadData];
+    }
+}
+
+- (void)connectPeripheral:(CBPeripheral*)peripheral
 {
     if (!self.blePeripheral) {
         self.blePeripheral = peripheral;
@@ -269,23 +332,59 @@ unsigned char const SYNC_CHAR = 0xF9;
 // CBCentralManagerDelegate - This is called with the CBPeripheral class as its main input parameter. This contains most of the information there is to know about a BLE peripheral.
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
+    BOOL addToList = NO;
     
     double rssi = [RSSI doubleValue];
     if (self.waitingForBestRSSI) {
         self.nickname = [SENUtilities getNickname:peripheral];
-        [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Found %@ with signal strength %g", peripheral.identifier.UUIDString, rssi] :self.statusTextView];
-        if (!self.bestPeripheral || rssi > self.bestRSSI) {
-            self.bestPeripheral = peripheral;
-            self.bestRSSI = rssi;
-        }
+        
+//        for (CBPeripheral *p in self.discoveredPeripherals) {
+//            NSLog(@"%@ and %@",peripheral.identifier.UUIDString,p.identifier.UUIDString);
+//            
+//            if ([peripheral.identifier.UUIDString isEqualToString:p.identifier.UUIDString]){
+//                NSLog(@"%@ and %@",peripheral.identifier.UUIDString,p.identifier.UUIDString);
+//                addToList = NO;
+//            } else {
+//                NSLog(@"%@ and %@",peripheral.identifier.UUIDString,p.identifier.UUIDString);
+//                addToList = YES;
+//            }
+//        }
+//        if (addToList) {
+            [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Found %@ with signal strength %g", peripheral.identifier.UUIDString, rssi] :self.statusTextView];
+            if (!self.bestPeripheral || rssi > self.bestRSSI) {
+                self.bestPeripheral = peripheral;
+                self.bestRSSI = rssi;
+            }
+//        }
+
     } else {
-        if (self.connectMode == kConnectUUIDMode && peripheral.identifier && peripheral.identifier != self.connectIdentifier) {
-            // Not the device we're looking for
-            [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Found device %@", peripheral.identifier] :self.statusTextView];
-        } else {
-            [self connectPeripheral:peripheral];
+        if (self.mode == scanModePreviousDevice) {
+            if ([peripheral.identifier.UUIDString isEqualToString:self.lastUUID]) {
+                self.lastPeripheral = peripheral;
+            }
+        } else if (self.mode == scanModeNewDevice) {
+            for (CBPeripheral *p in self.discoveredPeripherals) {
+                NSLog(@"%@ and %@",peripheral.identifier.UUIDString,p.identifier.UUIDString);
+                
+                if ([peripheral.identifier.UUIDString isEqualToString:p.identifier.UUIDString]){
+                    NSLog(@"%@ and %@",peripheral.identifier.UUIDString,p.identifier.UUIDString);
+                    addToList = NO;
+                } else {
+                    NSLog(@"%@ and %@",peripheral.identifier.UUIDString,p.identifier.UUIDString);
+                    addToList = YES;
+                }
+            }
+            if (addToList) [self.discoveredPeripherals addObject:peripheral];
         }
+        
+//        if (self.connectMode == kConnectUUIDMode && peripheral.identifier && peripheral.identifier != self.connectIdentifier) {
+//            // Not the device we're looking for
+//            [SENUtilities addMessageText:self.statusString :[NSString stringWithFormat:@"Found device %@", peripheral.identifier] :self.statusTextView];
+//        } else {
+//            [self connectPeripheral:peripheral];
+//        }
     }
+
 }
 
 // method called whenever we have successfully connected to the BLE peripheral
@@ -310,13 +409,14 @@ unsigned char const SYNC_CHAR = 0xF9;
     [[NSUserDefaults standardUserDefaults] setObject:self.lastName forKey:NamePrefKey];
     [[NSUserDefaults standardUserDefaults] setObject:self.lastUUID forKey:UUIDPrefKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    self.uuidLabel.text = self.lastName;
+    self.uuidLabel.text = [NSString stringWithFormat:@"Connected to: %@", self.lastName];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     self.state = BTPulseTrackerScanState;
     [self.connectionButton setTitle:@"Scan" forState:UIControlStateNormal];
     [SENUtilities addMessageText:self.statusString :@"Disconnected" :self.statusTextView];
+    self.uuidLabel.text = [NSString stringWithFormat:@"Last device: %@", self.lastName];
 }
 
 
@@ -538,115 +638,6 @@ unsigned char const SYNC_CHAR = 0xF9;
 //    self->counter++;    
 }
 
-- (void)showButtons:(NSString *)state
-{
-//    if ([state isEqualToString:@"Disconnect"]) {
-//        self.deviceList.hidden = YES;
-//        self.connectButton.enabled = YES;
-//        self.scanButton.enabled = YES;
-//        self.disconnectButton.enabled = NO;
-//        [self.spinner stopAnimating];
-//        self.instructionLabel.text = @"Disconnecting. Make sure your device is switched on";
-//        self.ibiLabel.hidden = YES;
-//        
-//    } else if ([state isEqualToString:@"connectPrevious"]) {
-//        self.deviceList.hidden = YES;
-//        self.connectButton.enabled = NO;
-//        self.scanButton.enabled = NO;
-//        self.disconnectButton.enabled = NO;
-//        [self.spinner startAnimating];
-//        self.instructionLabel.text = @"Trying to connect to previous device";
-//        self.ibiLabel.hidden = YES;
-//        
-//    } else if ([state isEqualToString:@"scanDevices"]) {
-//        self.deviceList.hidden = YES;
-//        self.connectButton.enabled = NO;
-//        self.scanButton.enabled = NO;
-//        self.disconnectButton.enabled = NO;
-//        [self.spinner startAnimating];
-//        self.instructionLabel.text = @"Scanning for available devices";
-//        self.ibiLabel.hidden = YES;
-//        NSLog(@"scanning");
-//        
-//    } else if ([state isEqualToString:@"Connected"]) {
-//        self.connected = YES;
-//        
-//        self.deviceList.hidden = YES;
-//        self.connectButton.enabled = NO;
-//        self.scanButton.enabled = NO;
-//        self.disconnectButton.enabled = YES;
-//        [self.spinner stopAnimating];
-//        self.uuidLabel.text = self.lastUUID;
-//        self.instructionLabel.text = @"Connected";
-//        self.ibiLabel.text = @"Waiting for pulse data";
-//        self.ibiLabel.hidden = NO;
-//        
-//    } else if ([state isEqualToString:@"Disconnected"]) {
-//        self.connected = NO;
-//        self.disconnected = YES;
-//        
-//        self.deviceList.hidden = YES;
-//        self.connectButton.enabled = YES;
-//        self.scanButton.enabled = YES;
-//        self.disconnectButton.enabled = NO;
-//        [self.spinner stopAnimating];
-//        self.instructionLabel.text = @"Disconnected. Make sure your device is switched on";
-//        self.ibiLabel.hidden = YES;
-//      
-//    } else if ([state isEqualToString:@"Starting Up"]) {
-//        self.deviceList.hidden = YES;
-//        if (self.lastUUID != nil) self.connectButton.enabled = YES;
-//        self.scanButton.enabled = YES;
-//        self.disconnectButton.enabled = NO;
-//        [self.spinner stopAnimating];
-//        if (self.lastUUID.length > 0) self.uuidLabel.text = self.lastName;
-//        self.instructionLabel.text = @"Make sure your device is switched on";
-//        self.ibiLabel.hidden = YES;
-//        
-//    } else if ([state isEqualToString:@"Finished Scan"]) {
-//        [self.spinner stopAnimating];
-//        self.scanButton.enabled = YES;
-//        self.connectButton.enabled = YES;
-//        self.disconnectButton.enabled = NO;
-//        if (self->counter == 0) {
-//            self.deviceList.hidden = YES;
-//            self.instructionLabel.text = @"No devices available";
-//        } else {
-//            self.deviceList.hidden = NO;
-//            if (self.scanForNewDevices == YES) {
-//                self.instructionLabel.text = @"Select a device";
-//                [self.deviceList reloadData];
-//            } else {
-//                self.instructionLabel.text = @"Connecting";
-//            }
-//        }
-//        self.ibiLabel.hidden = YES;
-//        
-//    } else if ([state isEqualToString:@"Picked Device From List"]) {
-//        [self.spinner startAnimating];
-//        self.scanButton.enabled = NO;
-//        self.connectButton.enabled = NO;
-//        self.disconnectButton.enabled = NO;
-//        self.deviceList.hidden = YES;
-//        self.instructionLabel.text = @"Connecting";
-//        self.ibiLabel.hidden = YES;
-//        NSLog(@"connecting");
-//        
-//    } else if ([state isEqualToString:@"Connected but no ibi data"]) {
-//        self.scanButton.enabled = NO;
-//        self.connectButton.enabled = NO;
-//        self.disconnectButton.enabled = YES;
-//        self.deviceList.hidden = YES;
-//        self.instructionLabel.text = @"Connected";
-//        self.ibiLabel.hidden = NO;
-//        self.ibiLabel.text = @"Waiting for heart beat data";
-//
-//    } else {
-//        NSLog(@"what should I do?");
-//    }
-//    NSLog(@"%hhd %hhd %hhd",self.scanning, self.connected, self.finishedScan);
-}
-
 // Merge two bytes to integer value
 unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 {
@@ -819,18 +810,6 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 //    self.uuidLabel.text = self.lastName;
 }
 
-
-
-
-#pragma mark -
-#pragma mark XML
-
-//-(void) sendUnsentSesions
-//{
-//    SENXmlDataGenerator* xmlDataGenerator = [[SENXmlDataGenerator alloc]init];
-//    [xmlDataGenerator sendUnsentSesions];
-//}
-
 #pragma mark - TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -839,7 +818,7 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.discoveredPeripherals.count;
-    NSLog(@"%lu",(unsigned long)self.discoveredPeripherals.count);
+    NSLog(@"%lu discovered peripherals",(unsigned long)self.discoveredPeripherals.count);
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -849,49 +828,14 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *tableIdentifier = @"BLEDeviceList";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = [self.mDeviceNames objectAtIndex:indexPath.row];
-    
-    //    NSLog(@"is this doing anything?");
-    //    for (int i=0;i<[self.mDeviceDictionary count];i++) {
-    //        if (indexPath.row == i) {
-    //            cell.textLabel.text = [self.mDeviceDictionary objectForKey:@"deviceName"];
-    //            NSLog(@"%@",[self.mDeviceDictionary objectForKey:@"deviceName"]);
-    //        }
-    //    }
-    //
-    //    NSArray *keyArray =  [self.mDeviceDictionary allKeys];
-    //    int count = [keyArray count];
-    //    for (int i=0; i < count; i++) {
-    //        NSDictionary *tmp = [self.mDeviceDictionary objectForKey:[ keyArray objectAtIndex:i]];
-    //        for (id key in tmp) {
-    //            NSLog(@"key: %@, value: %@ \n", key, [tmp objectForKey:key]);
-    //        }
-    //        if (i == indexPath.row) {
-    //            NSLog(@"row row your boat");
-    //        }
-    //    }
-    
-    
-    //    NSLog(@"key is status, value is %@",[self.mDeviceDictionary objectForKey:@"name"]);
-    
-    //    for (id device in self.mDeviceDictionary) {
-    //        NSNumber *aggregatedArrayIndex = [self.mDeviceDictionary objectForKey:@"aggregatedArrayIndex"];
-    //        if (indexPath.row == [aggregatedArrayIndex integerValue]) {
-    //            NSString *deviceType = [self.mDeviceDictionary objectForKey:@"deviceType"];
-    //            NSLog(@"%@, %ld",deviceType, (long)indexPath.row);
-    //            cell.textLabel.text = deviceType;
-    //        }
-    //    }
-    //    for (int i=0;i<[self.knownDevices count];i++) {
-    //        if ([[self.mDevices objectAtIndex:indexPath.row] isEqualToString:[self.knownDevices objectAtIndex:i]]){
-    //            cell.textLabel.text = [self.deviceAliases objectAtIndex:i];
-    //        } else {
-    //            cell.textLabel.text = @"New Sensor Device";
-    //            cell.textLabel.text = [self.mDevices objectAtIndex:i]; // for the time being
-    //        }
-    //    }
+//
+    if ([self.discoveredPeripherals count] > 0) {
+        CBPeripheral *peripheral = [self.discoveredPeripherals objectAtIndex:indexPath.row];
+        cell.textLabel.text = peripheral.identifier.UUIDString;
+    } else {
+        cell.textLabel.text = @"";
+    }
     return cell;
 }
 
