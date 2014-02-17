@@ -21,11 +21,11 @@
 //    [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeDevice];
 //    [[BITHockeyManager sharedHockeyManager] startManager];
 
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a34f08894c9a2cb5a85a62e7a914de63" delegate:nil];
-    [[BITHockeyManager sharedHockeyManager].authenticator setAuthenticationSecret:@"2638c1a5ab2da35580a1586d825919e8"];
-    [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeHockeyAppEmail];
-    [[BITHockeyManager sharedHockeyManager] startManager];
-    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+//    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"a34f08894c9a2cb5a85a62e7a914de63" delegate:nil];
+//    [[BITHockeyManager sharedHockeyManager].authenticator setAuthenticationSecret:@"2638c1a5ab2da35580a1586d825919e8"];
+//    [[BITHockeyManager sharedHockeyManager].authenticator setIdentificationType:BITAuthenticatorIdentificationTypeHockeyAppEmail];
+//    [[BITHockeyManager sharedHockeyManager] startManager];
+//    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     return YES;
 }
 

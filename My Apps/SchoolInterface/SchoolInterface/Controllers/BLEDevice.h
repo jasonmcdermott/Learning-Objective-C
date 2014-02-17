@@ -119,11 +119,12 @@ typedef enum {
 @property (nonatomic, retain) NSTimer    *pulseTimer;
 
 // Instance method to get the heart rate BPM information
-- (void) getHeartBPMData:(CBCharacteristic *)characteristic error:(NSError *)error;
+//- (void) getHeartBPMData:(CBCharacteristic *)characteristic error:(NSError *)error;
 
 // Instance methods to grab device Manufacturer Name, Body Location
-- (void) getManufacturerName:(CBCharacteristic *)characteristic;
-- (void) getBodyLocation:(CBCharacteristic *)characteristic;
+//- (void) getManufacturerName:(CBCharacteristic *)characteristic;
+//- (void) getBodyLocation:(CBCharacteristic *)characteristic;
+
 @property (strong, nonatomic) NSMutableArray *BTLEDevices;
 
 @property (nonatomic, weak) id <BLEDeviceDelegate> delegate;
