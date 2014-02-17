@@ -80,7 +80,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Auto"/>
-                                    <segment title="New" enabled="NO"/>
                                     <segment title="Previous"/>
                                     <segment title="Off"/>
                                 </segments>

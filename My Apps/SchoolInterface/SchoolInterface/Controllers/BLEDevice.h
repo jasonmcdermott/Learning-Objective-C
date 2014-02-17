@@ -69,9 +69,8 @@ typedef enum {
 
 typedef enum {
     scanModeAuto = 0,
-    scanModeNewDevice = 1,
-    scanModePreviousDevice = 2,
-    scanModeOff = 3
+    scanModePreviousDevice = 1,
+    scanModeOff = 2
 } scanMode;
 
 @property (nonatomic, strong) CBCentralManager *bleManager;

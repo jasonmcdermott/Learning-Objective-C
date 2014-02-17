@@ -88,9 +88,6 @@ unsigned char const SYNC_CHAR = 0xF9;
         } else {
             // do nothing
         }
-
-    } else if (self.mode == scanModeNewDevice) {
-        [self tryConnect];
     } else if (self.mode == scanModePreviousDevice) {
         [self tryConnect];
     } else if (self.mode == scanModeOff) {
@@ -156,18 +153,20 @@ unsigned char const SYNC_CHAR = 0xF9;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
                        dispatch_get_main_queue(),
                        ^{ [self connectToBestSignal]; });
-    } else if (self.mode == scanModeNewDevice) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
-                       dispatch_get_main_queue(),
-                       ^{ [self showTableOfDevices]; });
     } else if (self.mode == scanModePreviousDevice) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
                        dispatch_get_main_queue(),
                        ^{ [self connectToPreviousDevice]; });
     }
     
-    NSArray *serviceTypes = @[[CBUUID UUIDWithString:@"713D0000-503E-4C75-BA94-3148F18D941E"], [CBUUID UUIDWithString:@"180D"]];
-    [self.bleManager scanForPeripheralsWithServices:serviceTypes options:nil];
+    UIDevice *currentDevice = [UIDevice currentDevice];
+    if ([currentDevice.model rangeOfString:@"Simulator"].location == NSNotFound) {
+        NSArray *serviceTypes = @[[CBUUID UUIDWithString:@"713D0000-503E-4C75-BA94-3148F18D941E"], [CBUUID UUIDWithString:@"180D"]];
+        [self.bleManager scanForPeripheralsWithServices:serviceTypes options:nil];
+    } else {
+        // running in Simulator
+    }
+    
     
 }
 
@@ -255,11 +254,10 @@ unsigned char const SYNC_CHAR = 0xF9;
     if (self.state != state) {
         NSLog(@"changing state from %d to %d", _state, state);
         if (self.lastStateChangeTime != 0 && [SENUtilities doubleTime] - self.lastStateChangeTime > 2.0) {
-//            [self.logger log:@"%@", self.connectionStatusWithDuration];
+            // should I do something here?
         }
         _state = state;
         self.lastStateChangeTime = [SENUtilities doubleTime];
-//        [self.logger log:@"%@", self.connectionStatus];
     }
 }
 
@@ -277,29 +275,6 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 #pragma mark - BTLE Utilities
 
-//- (void)centralManagerDidUpdateState:(CBCentralManager *)central
-//{
-//    NSLog(@"---- device state changed");
-//	// Determine the state of the peripheral
-//	if ([central state] == CBCentralManagerStatePoweredOff) {
-//		NSLog(@"CoreBluetooth BLE hardware is powered off");
-//	}
-//	else if ([central state] == CBCentralManagerStatePoweredOn) {
-//		NSLog(@"CoreBluetooth BLE hardware is powered on and ready");
-//	}
-//	else if ([central state] == CBCentralManagerStateUnauthorized) {
-//		NSLog(@"CoreBluetooth BLE state is unauthorized");
-//	}
-//	else if ([central state] == CBCentralManagerStateUnknown) {
-//		NSLog(@"CoreBluetooth BLE state is unknown");
-//	}
-//	else if ([central state] == CBCentralManagerStateUnsupported) {
-//		NSLog(@"CoreBluetooth BLE hardware is unsupported on this platform");
-//	} else {
-//        NSLog(@"Not sure what's going on");
-//    }
-//}
-
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     [self checkBluetooth];
@@ -308,8 +283,7 @@ unsigned char const SYNC_CHAR = 0xF9;
 - (BOOL) checkBluetooth
 {
     NSString * state = nil;
-    switch ([self.bleManager state])
-    {
+    switch ([self.bleManager state]) {
         case CBCentralManagerStateUnsupported:
             state = @"The platform/hardware doesn't support Bluetooth Low Energy.";
             break;
@@ -331,9 +305,7 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 // CBCentralManagerDelegate - This is called with the CBPeripheral class as its main input parameter. This contains most of the information there is to know about a BLE peripheral.
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
-{
-    BOOL addToList = NO;
-    
+{    
     double rssi = [RSSI doubleValue];
     if (self.waitingForBestRSSI) {
         self.nickname = [SENUtilities getNickname:peripheral];
@@ -362,19 +334,6 @@ unsigned char const SYNC_CHAR = 0xF9;
             if ([peripheral.identifier.UUIDString isEqualToString:self.lastUUID]) {
                 self.lastPeripheral = peripheral;
             }
-        } else if (self.mode == scanModeNewDevice) {
-            for (CBPeripheral *p in self.discoveredPeripherals) {
-                NSLog(@"%@ and %@",peripheral.identifier.UUIDString,p.identifier.UUIDString);
-                
-                if ([peripheral.identifier.UUIDString isEqualToString:p.identifier.UUIDString]){
-                    NSLog(@"%@ and %@",peripheral.identifier.UUIDString,p.identifier.UUIDString);
-                    addToList = NO;
-                } else {
-                    NSLog(@"%@ and %@",peripheral.identifier.UUIDString,p.identifier.UUIDString);
-                    addToList = YES;
-                }
-            }
-            if (addToList) [self.discoveredPeripherals addObject:peripheral];
         }
         
 //        if (self.connectMode == kConnectUUIDMode && peripheral.identifier && peripheral.identifier != self.connectIdentifier) {
@@ -511,31 +470,27 @@ unsigned char const SYNC_CHAR = 0xF9;
 //    return;
 }
 
-
-
-// Instance method to get the manufacturer name of the device
 - (void) getManufacturerName:(CBCharacteristic *)characteristic
 {
-//    NSLog(@"---- getManName");
-//    NSString *manufacturerName = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-//    self.BTLEmanufacturer = [NSString stringWithFormat:@"Manufacturer: %@", manufacturerName];
-//    return;
+    NSLog(@"---- getManName");
+    NSString *manufacturerName = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+    self.BTLEmanufacturer = [NSString stringWithFormat:@"Manufacturer: %@", manufacturerName];
+    return;
 }
 
-// Instance method to get the body location of the device
 - (void) getBodyLocation:(CBCharacteristic *)characteristic
 {
-//    NSLog(@"---- getBodyLoc");
-//    NSData *sensorData = [characteristic value];
-//    uint8_t *bodyData = (uint8_t *)[sensorData bytes];
-//    if (bodyData ) {
-//        uint8_t bodyLocation = bodyData[0];
-//        self.BTLEbodyData = [NSString stringWithFormat:@"Body Location: %@", bodyLocation == 1 ? @"Chest" : @"Undefined"];
-//    }
-//    else {
-//        self.BTLEbodyData = [NSString stringWithFormat:@"Body Location: N/A"];
-//    }
-//    return;
+    NSLog(@"---- getBodyLoc");
+    NSData *sensorData = [characteristic value];
+    uint8_t *bodyData = (uint8_t *)[sensorData bytes];
+    if (bodyData ) {
+        uint8_t bodyLocation = bodyData[0];
+        self.BTLEbodyData = [NSString stringWithFormat:@"Body Location: %@", bodyLocation == 1 ? @"Chest" : @"Undefined"];
+    }
+    else {
+        self.BTLEbodyData = [NSString stringWithFormat:@"Body Location: N/A"];
+    }
+    return;
 }
 
 #pragma mark - Redbear & RFduino Periphery
@@ -624,18 +579,15 @@ unsigned char const SYNC_CHAR = 0xF9;
 
 - (void)logDeviceWithUUID:(NSString *)uuid withName:(NSString *)name withDeviceType:(NSString *)type withOriginalIndex:(int)originalIndex
 {
-////        CBPeripheral *peripheral = (__bridge CBPeripheral *)((void*)&device);  // cool, but not worthwhile
-//
+//    CBPeripheral *peripheral = (__bridge CBPeripheral *)((void*)&device);  // cool, but not worthwhile
 //    [self.mDeviceDictionary setObject:uuid forKey:@"UUID"];
 //    [self.mDeviceDictionary setObject:name forKey:@"deviceName"];
 //    [self.mDeviceDictionary setObject:type forKey:@"deviceType"];
 //    [self.mDeviceDictionary setObject:[NSNumber numberWithInt:originalIndex] forKey:@"originalArrayIndex"];
 //    [self.mDeviceDictionary setObject:[NSNumber numberWithInt:counter] forKey:@"aggregatedArrayIndex"];
-//    
 //    [self.mDevices addObject:uuid];
 //    [self.mDeviceNames addObject:name];
-//    
-//    self->counter++;    
+//    self->counter++;
 }
 
 // Merge two bytes to integer value
@@ -751,8 +703,6 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 //        }
 //    }
 ////    }
-    
-    
 }
 
 - (void)handleIBIData:(unsigned)interval
@@ -771,7 +721,6 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 }
 
 #pragma mark - BLE Mini
-
 - (void)bleDidDisconnect
 {
 //    [self showButtons:@"Disconnected"];
@@ -790,8 +739,6 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 
 
 #pragma mark - RFDUINO
-
-
 - (void)didReceive:(NSData *)data
 {
 ////    NSLog(@"ReceivedData");
@@ -829,7 +776,6 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *tableIdentifier = @"BLEDeviceList";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:tableIdentifier forIndexPath:indexPath];
-//
     if ([self.discoveredPeripherals count] > 0) {
         CBPeripheral *peripheral = [self.discoveredPeripherals objectAtIndex:indexPath.row];
         cell.textLabel.text = peripheral.identifier.UUIDString;
@@ -840,10 +786,10 @@ unsigned int mergeBytes (unsigned char lsb, unsigned char msb)
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    [self didSelected:indexPath.row];
-    //    NSLog(@"picked %ld",(long)indexPath.row);
-    //    [self addMessageText:@"picked"];
-    //    [self showButtons:@"Picked Device From List"];
+//    [self didSelected:indexPath.row];
+//    NSLog(@"picked %ld",(long)indexPath.row);
+//    [self addMessageText:@"picked"];
+//    [self showButtons:@"Picked Device From List"];
 }
 
 - (void)checkIntervalTime
