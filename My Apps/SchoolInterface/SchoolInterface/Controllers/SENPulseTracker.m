@@ -225,103 +225,133 @@
  Docs at http://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.heart_rate_measurement.xml
  */
 
+
 - (void) updateWithHRMData:(NSData *)data
 {
-//    double now = [SENUtilities doubleTime];
-//    self.lastHRDataReceived = now;
-//    const uint8_t *reportData = (const uint8_t*) [data bytes];
-//    const uint8_t *reportDataEnd = reportData + [data length];
-//    
-//    uint8_t flags = *reportData++;
-//    
-//    uint16_t bpm = 0;
-//    
-//    if (flags & 0x01) {
-//        /* uint16 bpm */
-//        bpm = CFSwapInt16LittleToHost(*(uint16_t *)reportData);
-//        reportData += 2;
-//    } else {
-//        /* uint8 bpm */
-//        bpm = *reportData++;
-//    }
-//    
-//    uint16_t energyExpended = 0;
-//    boolean_t energyExpendedValid = false;
-//    
-//    if (flags & 0x08) {
-//        energyExpended = CFSwapInt16LittleToHost(*(uint16_t*) reportData);
-//        energyExpendedValid = true;
-//        reportData += 2;
-//    }
-//    
-//    std::vector<double> r2rs;
-//    std::vector<double> beatTimes;
-//    if (flags & 0x10) {
-//        double totalDuration = 0;
-//        while (reportData < reportDataEnd) {
-//            double an_r2r = CFSwapInt16LittleToHost(*(uint16_t*) reportData)/1024.0;
-//            r2rs.push_back(an_r2r);
-//            totalDuration += an_r2r;
-//            reportData += 2;
-//        }
-//        if (!self.lastBeatTimeValid) {
-//            self.lastBeatTime = now - totalDuration;
-//            self.lastBeatTimeValid = true;
-//        }
-//        for (unsigned i = 0; i < r2rs.size(); i++) {
-//            self.lastBeatTime += r2rs[i];
-//            beatTimes.push_back(self.lastBeatTime);
-//        }
-//        double error = now - self.lastBeatTime;
-//        double maxError = 5.0;
-//        if (fabs(error) > maxError) {
-//            double correction = (error > 0 ? 0.1 : -0.1) * (fabs(error) - maxError);
-//            std::string msg = string_printf("Error = %.3f, correcting beatTimes by %.3f", error, correction);
-//            NSLog(@"%@", [NSString stringWithUTF8String:msg.c_str()]);
-//            self.lastBeatTime += correction;
-//        }
-//    }
-//    
-//    bool log = false;
-//    std::string msg;
-//    
-//    if (log) msg = string_printf("Time: %.3f, BPM: %d", now, bpm);
-//    if (r2rs.size()) {
-//        if (log) msg += ", R2R: [";
-//        for (unsigned i = 0; i < r2rs.size(); i++) {
-//            if (log) if (i) msg += ", ";
-//            if (log) msg += string_printf("%.3f:%.3f", beatTimes[i]-now, r2rs[i]);
-//            [self.uploader addSample:beatTimes[i] ch0:bpm ch1:r2rs[i]];
-//        }
-//        if (log) msg += "]";
-//    }
-//    
-//    if (log) msg += string_printf(" (now %ld samples stored)", (long) [self.uploader sampleCount]);
-//    
-//    if (log) NSLog(@"HRM received: %@", [NSString stringWithUTF8String:msg.c_str()]);
-//    
-//    double oldBpm = self.heartRate;
-//    self.heartRate = bpm;
-//    if(r2rs.size()) {
-//        self.r2r = r2rs[r2rs.size() - 1];
-//    } else if (bpm == 0) {
-//        self.r2r = 0;
-//    }
-//    if (oldBpm == 0) {
-//        [self pulse];
-//    }
-//    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:BT_NOTIFICATION_HR_DATA object:self];
+    double now = [SENUtilities doubleTime];
+    self.lastHRDataReceived = now;
+    const uint8_t *reportData = (const uint8_t*) [data bytes];
+    const uint8_t *reportDataEnd = reportData + [data length];
+    
+    uint8_t flags = *reportData++;
+    
+    uint16_t bpm = 0;
+    
+    if (flags & 0x01) {
+        /* uint16 bpm */
+        bpm = CFSwapInt16LittleToHost(*(uint16_t *)reportData);
+        reportData += 2;
+    } else {
+        /* uint8 bpm */
+        bpm = *reportData++;
+    }
+    
+    uint16_t energyExpended = 0;
+    boolean_t energyExpendedValid = false;
+    
+    if (flags & 0x08) {
+        energyExpended = CFSwapInt16LittleToHost(*(uint16_t*) reportData);
+        energyExpendedValid = true;
+        reportData += 2;
+    }
+    
+    //    std::vector<double> r2rs;
+    //    std::vector<double> beatTimes;
+    
+    NSMutableArray *r2rsMutableArray = [[NSMutableArray alloc] init];
+    NSMutableArray *beatTimesArray = [[NSMutableArray alloc] init];
+    
+    if (flags & 0x10) {
+        double totalDuration = 0;
+        while (reportData < reportDataEnd) {
+            double an_r2r = CFSwapInt16LittleToHost(*(uint16_t*) reportData)/1024.0;
+            [r2rsMutableArray addObject:[NSNumber numberWithDouble:an_r2r]];
+            //            r2rs.push_back(an_r2r);
+            totalDuration += an_r2r;
+            reportData += 2;
+        }
+        if (!self.lastBeatTimeValid) {
+            self.lastBeatTime = now - totalDuration;
+            self.lastBeatTimeValid = true;
+        }
+        
+        for (int i=0;i<[r2rsMutableArray count];i++) {
+            double beatTimeDouble = [[r2rsMutableArray objectAtIndex:i]doubleValue];
+            self.lastBeatTime += beatTimeDouble;
+            [beatTimesArray addObject:[NSNumber numberWithDouble:self.lastBeatTime]];
+        }
+        
+        //        for (unsigned i = 0; i < r2rs.size(); i++) {
+        //            self.lastBeatTime += r2rs[i];
+        //            beatTimes.push_back(self.lastBeatTime);
+        //        }
+        
+        double error = now - self.lastBeatTime;
+        double maxError = 5.0;
+        if (fabs(error) > maxError) {
+            double correction = (error > 0 ? 0.1 : -0.1) * (fabs(error) - maxError);
+            NSLog(@"Error = %.3f, correcting beatTimes by %.3f",error, correction);
+            //            std::string msg = string_printf("Error = %.3f, correcting beatTimes by %.3f", error, correction);
+            //            NSLog(@"%@", [NSString stringWithUTF8String:msg.c_str()]);
+            self.lastBeatTime += correction;
+        }
+    }
+    
+    bool log = false;
+    //    std::string msg;
+    NSMutableString *msg = [[NSMutableString alloc] init];
+    
+    if (log) NSLog(@"Time: %.3f, BPM: %d", now, bpm);
+    
+    //    if (log) msg = string_printf("Time: %.3f, BPM: %d", now, bpm);
+    
+    if ([r2rsMutableArray count] > 0)
+    {
+        if (log) [msg appendString:@", R2R: ["];
+        for (int i=0;i<[r2rsMutableArray count];i++) {
+            //            if (log)
+            
+        }
+    }
+    
+    //    if (r2rs.size()) {
+    //        if (log) msg += ", R2R: [";
+    //        for (unsigned i = 0; i < r2rs.size(); i++) {
+    //            if (log) if (i) msg += ", ";
+    //            if (log) msg += string_printf("%.3f:%.3f", beatTimes[i]-now, r2rs[i]);
+    //            [self.uploader addSample:beatTimes[i] ch0:bpm ch1:r2rs[i]];
+    //        }
+    //        if (log) msg += "]";
+    //    }
+    
+    //    if (log) msg += string_printf(" (now %ld samples stored)", (long) [self.uploader sampleCount]);
+    //    if (log) NSLog(@"HRM received: %@", [NSString stringWithUTF8String:msg.c_str()]);
+    
+    double oldBpm = self.heartRate;
+    self.heartRate = bpm;
+    
+    if([r2rsMutableArray count] > 0) {
+        self.r2r = [[r2rsMutableArray objectAtIndex:[r2rsMutableArray count]-1]doubleValue];
+        //        self.r2r = r2rs[r2rs.size() - 1];
+    } else if (bpm == 0) {
+        self.r2r = 0;
+    }
+    if (oldBpm == 0) {
+        [self pulse];
+    }
+    
+    //    [[NSNotificationCenter defaultCenter] postNotificationName:BT_NOTIFICATION_HR_DATA object:self];
 }
 
 - (void)pulse {
-//    if([self.delegate respondsToSelector:@selector(onPulse:)])
-//        [self.delegate onPulse:self];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:BT_NOTIFICATION_PULSE object:self];
-//    //NSLog(@"Got heart rate: %d", self.heartRate);
-//    if (self.heartRate != 0) {
-//        self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:(60. / self.heartRate) target:self selector:@selector(pulse) userInfo:nil repeats:NO];
-//    }
+    //    if([self.delegate respondsToSelector:@selector(onPulse:)])
+    //        [self.delegate onPulse:self];
+    //    [[NSNotificationCenter defaultCenter] postNotificationName:BT_NOTIFICATION_PULSE object:self];
+    //NSLog(@"Got heart rate: %d", self.heartRate);
+    if (self.heartRate != 0) {
+        self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:(60. / self.heartRate) target:self selector:@selector(pulse) userInfo:nil repeats:NO];
+        NSLog(@"pulse");
+    }
 }
 
 
