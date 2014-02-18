@@ -182,6 +182,14 @@
     }
 }
 
++ (NSString *)utf8:(NSData *)data
+{
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
+//+ (NSString *)utf8:(const string &str) {
+//    return [NSString stringWithUTF8String:str.c_str()];
+//}
 
 
 static unsigned long long computeHash(const void *data, size_t len) {

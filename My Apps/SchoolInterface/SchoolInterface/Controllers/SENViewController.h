@@ -19,6 +19,7 @@
 #import "SENRing.h"
 #import "SENUtilities.h"
 #include "SENPDDriver.h"
+#import "SENPulseTracker.h"
 
 #import "PdBase.h"
 #import "PdAudioController.h"
@@ -26,17 +27,20 @@
 //#import "SampleListener.h"
 
 
-@interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate, GLKViewDelegate, QuestionnaireDelegate, PdReceiverDelegate>
+//@interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate, GLKViewDelegate, QuestionnaireDelegate, PdReceiverDelegate>
+@interface SENViewController : UIViewController <BLEDelegate, GLKViewDelegate, QuestionnaireDelegate, PdReceiverDelegate>
 {
     
 }
 
 @property (strong, nonatomic) SENUserDefaultsHelper *SENUserDefaultsHelper;
-@property (strong, nonatomic) BLE *bleShield;
+//@property (strong, nonatomic) BLE *bleShield;
 
-@property (strong, nonatomic) BLEDevice *BLEDevice;
+//@property (strong, nonatomic) BLEDevice *BLEDevice;
 @property (strong, nonatomic) SENQuestionnaireTabViewController *questionnaireViewController;
 @property (strong, nonatomic) NSString *appID;
+
+@property (strong, nonatomic) SENPulseTracker *pulseTracker;
 
 @property (strong, nonatomic) NSMutableArray *rings;
 @property (nonatomic) BOOL glviewIsDisplaying;

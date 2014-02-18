@@ -35,7 +35,7 @@
 
 + (NSString *)getNickname:(CBPeripheral *)peripheral;
 + (NSString *)computeNickname:(const void *)data :(size_t)len;
-
++ (NSString *)utf8:(NSData *)data;
 
 @property (strong, nonatomic) NSString *school;
 

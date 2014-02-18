@@ -149,15 +149,17 @@
         self.questionnaireViewController.view.hidden = YES;
         self.questionnaireViewController.appID = self.appID;
         self.questionnaireViewController.delegate = self;
-        self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Bluetooth"];
+//        self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Bluetooth"];
     } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-        self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Bluetooth"];
+//        self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Bluetooth"];
     }
 
-    [self.view addSubview:self.BLEDevice.view];
-    self.BLEDevice.view.hidden = YES;
-    self.BLEDevice.delegate = self;
+//    [self.view addSubview:self.BLEDevice.view];
+//    self.BLEDevice.view.hidden = YES;
+//    self.BLEDevice.delegate = self;
+    
+    self.pulseTracker = [[SENPulseTracker alloc] init];
     
     // see if a unique app value has been set before. if not, set a new unique app id
     if ([[SENUtilities getStringForKey:@"appUniqueID"] isEqualToString:@""]) {
@@ -304,7 +306,7 @@
 - (IBAction)clickBluetoothButton:(UIButton *)sender
 {
     NSLog(@"pressed into service");
-    self.BLEDevice.view.hidden = NO;
+//    self.BLEDevice.view.hidden = NO;
     self.glviewIsDisplaying = NO;
     self.link.frameInterval = 3;
     [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];

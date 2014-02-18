@@ -24,6 +24,7 @@
 		0E1136411897B53400873032 /* SENRing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1136401897B53400873032 /* SENRing.m */; };
 		0E1136441897B59300873032 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1136421897B59300873032 /* GLKit.framework */; };
 		0E1136451897B59300873032 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1136431897B59300873032 /* OpenGLES.framework */; };
+		0E20E64318B380AF00C6EABB /* SENPulseTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E20E64218B380AF00C6EABB /* SENPulseTracker.m */; };
 		0E630C0F18A9EB7500F42387 /* test.pd in Resources */ = {isa = PBXBuildFile; fileRef = 0E630C0E18A9EB7500F42387 /* test.pd */; };
 		0E7BAB0718A9F5F10036A2EA /* SampleListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7BAB0618A9F5F10036A2EA /* SampleListener.m */; };
 		0E7BAB1218AA07E40036A2EA /* Notes in Resources */ = {isa = PBXBuildFile; fileRef = 0E7BAB1118AA07E40036A2EA /* Notes */; };
@@ -164,6 +165,8 @@
 		0E1136401897B53400873032 /* SENRing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SENRing.m; sourceTree = "<group>"; };
 		0E1136421897B59300873032 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		0E1136431897B59300873032 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		0E20E64118B380AF00C6EABB /* SENPulseTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SENPulseTracker.h; path = Controllers/SENPulseTracker.h; sourceTree = "<group>"; };
+		0E20E64218B380AF00C6EABB /* SENPulseTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SENPulseTracker.m; path = Controllers/SENPulseTracker.m; sourceTree = "<group>"; };
 		0E630C0E18A9EB7500F42387 /* test.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = test.pd; path = SchoolInterface/Controllers/PD/test.pd; sourceTree = "<group>"; };
 		0E7BAB0518A9F5F10036A2EA /* SampleListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleListener.h; sourceTree = "<group>"; };
 		0E7BAB0618A9F5F10036A2EA /* SampleListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleListener.m; sourceTree = "<group>"; };
@@ -416,6 +419,8 @@
 				0ED0FAF3188802DF003B3136 /* BLEDevice.m */,
 				0E10ACB418861DFA00765FA1 /* SENQuestionnaireTabViewController.h */,
 				0E10ACB518861DFA00765FA1 /* SENQuestionnaireTabViewController.m */,
+				0E20E64118B380AF00C6EABB /* SENPulseTracker.h */,
+				0E20E64218B380AF00C6EABB /* SENPulseTracker.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -817,6 +822,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ED0FAF5188802DF003B3136 /* BLEDevice.m in Sources */,
+				0E20E64318B380AF00C6EABB /* SENPulseTracker.m in Sources */,
 				0EC6A1AA1898BB8D00451249 /* RFduino.m in Sources */,
 				0E06A6C318863DB90018ECDB /* SENViewController.m in Sources */,
 				0E10AC45188609BB00765FA1 /* main.m in Sources */,
