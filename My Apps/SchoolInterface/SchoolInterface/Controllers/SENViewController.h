@@ -52,7 +52,8 @@
 - (void)onPulse:(NSNotification *)note;
 - (void)onHRDataReceived:(NSNotification *)note;
 - (void)sendMessageForBLEInterface:(NSString *)string;
-
+@property (nonatomic) CFTimeInterval *previousPulseTimestamp;
+@property (strong, nonatomic) NSDate *date;
 @end
 
 

@@ -245,20 +245,25 @@
     uint8_t flags = *reportData++;
     
     uint16_t bpm = 0;
+//    NSLog(@"log 1 %s",reportData);
+//    NSLog(@"flags %hhu",flags);
     
-    if (flags & 0x01) {
+    if (flags &0x01) {
         /* uint16 bpm */
         bpm = CFSwapInt16LittleToHost(*(uint16_t *)reportData);
         reportData += 2;
+//        NSLog(@"log 2 %s",reportData);
     } else {
         /* uint8 bpm */
         bpm = *reportData++;
+//        NSLog(@"log 2 %s",reportData);
     }
     
     uint16_t energyExpended = 0;
     boolean_t energyExpendedValid = false;
     
     if (flags & 0x08) {
+        // energy expended. Mio doesn't report this.
         energyExpended = CFSwapInt16LittleToHost(*(uint16_t*) reportData);
         energyExpendedValid = true;
         reportData += 2;
@@ -271,17 +276,27 @@
     NSMutableArray *beatTimesArray = [[NSMutableArray alloc] init];
     
     if (flags & 0x10) {
+        // interbeat interval
+        int count = 0;
         double totalDuration = 0;
         while (reportData < reportDataEnd) {
+
             double an_r2r = CFSwapInt16LittleToHost(*(uint16_t*) reportData)/1024.0;
             [r2rsMutableArray addObject:[NSNumber numberWithDouble:an_r2r]];
-            //            r2rs.push_back(an_r2r);
+            NSString *log = [NSString stringWithFormat:@"ibi is: %f and this is item no. %d",an_r2r, count];
+            NSLog(log);
+            count++;
             totalDuration += an_r2r;
             reportData += 2;
+//            NSLog(@"totalduration %f",totalDuration);
+//            NSLog(@"totalduration %s",reportData);
+//            NSLog(@"log 4 %s",reportData);
         }
         if (!self.lastBeatTimeValid) {
             self.lastBeatTime = now - totalDuration;
             self.lastBeatTimeValid = true;
+            
+            NSLog(@"last beat time %f",self.lastBeatTime);
         }
         
         for (int i=0;i<[r2rsMutableArray count];i++) {
@@ -359,8 +374,6 @@
         [self.delegate sendMessageForBLEInterface:[NSString stringWithFormat:@"got heart rate: %f", self.heartRate]];
     if (self.heartRate != 0) {
         self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:(60. / self.heartRate) target:self selector:@selector(pulse) userInfo:nil repeats:NO];
-
-//        NSLog(@"pulse");
     }
 }
 

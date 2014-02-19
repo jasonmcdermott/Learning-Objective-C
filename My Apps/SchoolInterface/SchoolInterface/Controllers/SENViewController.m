@@ -179,6 +179,8 @@
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
 //    CFTimeInterval previousTimestamp = CFAbsoluteTimeGetCurrent();
+//    CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - previousTimestamp;
+//    NSLog(@"Frame duration: %f ms", frameDuration * 1000.0);
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
@@ -274,9 +276,18 @@
 }
 
 - (void)onPulse:(NSNotification *)note {
+
+    double timePassed_ms = [self.date timeIntervalSinceNow] * -1000.0;
+//    CFTimeInterval now = CFAbsoluteTimeGetCurrent();
+//    
+//    self.pulseDuration = now - self.previousPulseTimestamp;
+    
+    NSLog(@"time since last pulse: %f ms", timePassed_ms);
+
 //    SENPulseTracker *pulseTracker = [(BTAppDelegate *)[[UIApplication sharedApplication] delegate] pulseTracker];
 //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 //    double PULSESCALE = 1.5;
+    
     double PULSEDURATION = 0.2 * 60.0 / self.pulseTracker.heartRate;
     [UIView animateWithDuration:PULSEDURATION delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
 //        if ([defaults boolForKey:DEFAULTS_HEARTBEAT_SOUND] == YES) AudioServicesPlaySystemSound(heartbeatS1Sound);
@@ -289,6 +300,7 @@
 //            self.heartImage.transform = CGAffineTransformIdentity;
         } completion:nil];
     }];
+    self.date = [NSDate date];
 }
 
 - (void)onHRDataReceived:(NSNotification *)note {
