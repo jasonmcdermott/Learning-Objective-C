@@ -82,12 +82,12 @@ typedef struct
 @property scanMode mode;
 @property (strong, nonatomic) NSUUID *connectIdentifier;
 
-@property (nonatomic) BOOL connectToPrevious, textViewDidChange;
+@property (nonatomic) BOOL connectToPrevious, textViewDidChange, touched;
 
 @property (nonatomic) BTPulseTrackerState state;
 
 
-
+- (void)addStringToInterface:(NSNotification *)note;
 
 // Properties to hold data characteristics for the peripheral device
 @property (nonatomic, strong) NSString   *BTLEconnected;

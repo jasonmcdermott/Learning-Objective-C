@@ -51,6 +51,11 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     self.lastName = [[NSUserDefaults standardUserDefaults] objectForKey:NamePrefKey];
     [self.scanModeSelector setSelectedSegmentIndex:(int)self.mode];
     [self.delegate changeBTMode:self.mode];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addStringToInterface:)
+                                                 name:UI_NOTIFICATION_STRING
+                                               object:nil];
     
     // want to move this back into the mainViewController
     self.mPDDRiver = [[SENPDDriver alloc] init];
@@ -58,15 +63,19 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     
     self.discoveredPeripherals = [[NSMutableArray alloc] init];
     self.statusString = [[NSMutableString alloc] init];
-
-//    [NSTimer scheduledTimerWithTimeInterval:SCAN_TIME target:self selector:@selector(checkBluetoothScanMode) userInfo:nil repeats:YES];
-//    [NSTimer scheduledTimerWithTimeInterval:(float)10.0 target:self selector:@selector(checkIntervalTime) userInfo:nil repeats:YES];
-//    [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(scrollTextViewToBottom) userInfo:nil repeats:YES];
 }
+
+#pragma mark - Messaging
 
 - (void)addStringToTextView:(NSString *)string
 {
-    [SENUtilities addMessageTextToString:self.statusString withString:string toTextView:self.statusTextView];
+    [SENUtilities addMessageTextToString:self.statusString withString:string toTextView:self.statusTextView withGesture:self.touched];
+}
+
+- (void)addStringToInterface:(NSNotification *)note
+{
+    NSString *text = [[note userInfo] objectForKey:@"textConsole"];
+    [self addStringToTextView:text];
 }
 
 #pragma mark - TODO connect BT connection state between BLEDevice and SENPulseTracker
@@ -84,31 +93,54 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
     }
 }
 
+#pragma mark - Interface
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    self.touched = YES;
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    self.touched = NO;
+}
+
+- (void)hideAll
+{
+    NSLog(@"hiding");
+    self.view.hidden = YES;
+}
+
+- (IBAction)touchCloseButton:(UIButton *)sender
+{
+    [self hideAll];
+    [self.delegate startGLView];
+}
+
 - (IBAction)selectScanMode:(UISegmentedControl *)sender
 {
     self.mode = sender.selectedSegmentIndex;
-    NSLog(@"the mode is %u",self.mode);
     [[NSUserDefaults standardUserDefaults] setInteger:self.mode forKey:scanModePrefKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self.delegate changeBTMode:self.mode];
     
     if (self.mode == scanModeAuto) {
-        self.instructionLabel.text = @"Connect to the nearest Bluetooth device";
+//        self.instructionLabel.text = @"Connect to the nearest Bluetooth device";
         if (self.state != BTPulseTrackerConnectedState) {
-            [SENUtilities addMessageTextToString:self.statusString withString:[NSString stringWithFormat:@"Connecting to nearest device"] toTextView:self.statusTextView];
+            [self addStringToTextView:@"Connecting to nearest device"];
         } else {
-            [SENUtilities addMessageTextToString:self.statusString withString:[NSString stringWithFormat:@"Connected to %@", self.lastName] toTextView:self.statusTextView];
+            [self addStringToTextView:[NSString stringWithFormat:@"Connected to %@", self.lastName]];
         }
     } else if (self.mode == scanModePreviousDevice) {
-        self.instructionLabel.text = @"Connect to previous device";
+//        self.instructionLabel.text = @"Connect to previous device";
         if (self.state != BTPulseTrackerConnectedState) {
-            [SENUtilities addMessageTextToString:self.statusString withString:[NSString stringWithFormat:@"Trying to connect to the previous device"] toTextView:self.statusTextView];
+            [self addStringToTextView:@"Trying to connect to the previous device"];
         } else {
-            [SENUtilities addMessageTextToString:self.statusString withString:[NSString stringWithFormat:@"Connected to %@", self.lastName] toTextView:self.statusTextView];
+            [self addStringToTextView:[NSString stringWithFormat:@"Connected to %@", self.lastName]];
         }
     } else if (self.mode == scanModeOff) {
-        [SENUtilities addMessageTextToString:self.statusString withString:@"Bluetooth off" toTextView:self.statusTextView];
-        self.instructionLabel.text = @"Bluetooth off";
+        [self addStringToTextView:@"Bluetooth off"];
+//        self.instructionLabel.text = @"Bluetooth off";
     }
 }
 
@@ -256,17 +288,6 @@ NSString * const  USERNAME_KEY = @"BrightheartsUsername";
 //    }
 //}
 
-- (void)hideAll
-{
-    NSLog(@"hiding");
-    self.view.hidden = YES;
-}
-
-- (IBAction)touchCloseButton:(UIButton *)sender
-{
-    [self hideAll];
-    [self.delegate startGLView];
-}
 
 #pragma mark - BTLE Utilities
 

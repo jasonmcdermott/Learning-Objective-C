@@ -282,7 +282,7 @@
 //    
 //    self.pulseDuration = now - self.previousPulseTimestamp;
     
-    NSLog(@"time since last pulse: %f ms", timePassed_ms);
+//    NSLog(@"time since last pulse: %f ms", timePassed_ms);
 
 //    SENPulseTracker *pulseTracker = [(BTAppDelegate *)[[UIApplication sharedApplication] delegate] pulseTracker];
 //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

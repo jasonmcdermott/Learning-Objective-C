@@ -138,13 +138,13 @@
 
 - (void)setState:(BTPulseTrackerState)state {
     if (_state != state) {
-        NSLog(@"changing state from %d to %d", _state, state);
+        [self sendMessageToUIConsole:[NSString stringWithFormat:@"changing state from %d to %d", _state, state]];
         if (self.lastStateChangeTime != 0 && [SENUtilities doubleTime] - self.lastStateChangeTime > 2.0) {
-            NSLog(@"%@",self.connectionStatusWithDuration);
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"%@",self.connectionStatusWithDuration]];
         }
         _state = state;
         self.lastStateChangeTime = [SENUtilities doubleTime];
-        NSLog(@"%@", self.connectionStatus);
+        [self sendMessageToUIConsole:[NSString stringWithFormat:@"%@",self.connectionStatus]];
     }
 }
 
@@ -174,7 +174,9 @@
         default:
             state = @"Something is wrong with Bluetooth Low Energy support.";
     }
-    NSLog(@"Central manager state: %@", state);
+    [self sendMessageToUIConsole:[NSString stringWithFormat:@"Central manager state: %@", state]];
+    //    NSLog(@"Central manager state: %@", state);
+
     if([self.delegate respondsToSelector:@selector(onPulseTrackerNoBluetooth:reason:)])
         [self.delegate onPulseTrackerNoBluetooth:self reason:state];
     return FALSE;
@@ -185,14 +187,13 @@
  */
 - (void)startScan
 {
-    NSLog(@"the mood currently is %u",self.mode);
     self.state = BTPulseTrackerScanState;
-    if (self.state != BTPulseTrackerConnectedState) {
-        if (self.mode == scanModeAuto) {
+    if (self.mode != scanModeOff) {
+        if (self.state != BTPulseTrackerConnectedState) {
             self.peripheral = nil;
             self.manufacturer = @"";
             self.heartRate = 0;
-           
+            
             if (self.mode == scanModeAuto) {
                 self.waitingForBestRSSI = YES;
                 self.bestPeripheral = nil;
@@ -200,14 +201,12 @@
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
                                dispatch_get_main_queue(),
                                ^{ [self connectToBestSignal]; });
+            } else if (self.mode == scanModePreviousDevice) {
+                self.waitingForBestRSSI = NO;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
+                               dispatch_get_main_queue(),
+                               ^{ [self connectToPreviousDevice]; });
             }
-        } else if (self.mode == scanModePreviousDevice) {
-            self.waitingForBestRSSI = NO;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
-                           dispatch_get_main_queue(),
-                           ^{ [self connectToPreviousDevice]; });
-        }
-        if (self.mode != scanModeOff) {
             [self runScan];
         }
     }
@@ -243,20 +242,15 @@
     const uint8_t *reportDataEnd = reportData + [data length];
     
     uint8_t flags = *reportData++;
-    
     uint16_t bpm = 0;
-//    NSLog(@"log 1 %s",reportData);
-//    NSLog(@"flags %hhu",flags);
-    
+
     if (flags &0x01) {
         /* uint16 bpm */
         bpm = CFSwapInt16LittleToHost(*(uint16_t *)reportData);
         reportData += 2;
-//        NSLog(@"log 2 %s",reportData);
     } else {
         /* uint8 bpm */
         bpm = *reportData++;
-//        NSLog(@"log 2 %s",reportData);
     }
     
     uint16_t energyExpended = 0;
@@ -269,9 +263,6 @@
         reportData += 2;
     }
     
-    //    std::vector<double> r2rs;
-    //    std::vector<double> beatTimes;
-    
     NSMutableArray *r2rsMutableArray = [[NSMutableArray alloc] init];
     NSMutableArray *beatTimesArray = [[NSMutableArray alloc] init];
     
@@ -283,20 +274,17 @@
 
             double an_r2r = CFSwapInt16LittleToHost(*(uint16_t*) reportData)/1024.0;
             [r2rsMutableArray addObject:[NSNumber numberWithDouble:an_r2r]];
-            NSString *log = [NSString stringWithFormat:@"ibi is: %f and this is item no. %d",an_r2r, count];
-            NSLog(log);
+//            NSString *log = [NSString stringWithFormat:@"ibi is: %f and this is item no. %d",an_r2r, count];
+//            [self sendMessageToUIConsole:log];
             count++;
             totalDuration += an_r2r;
             reportData += 2;
-//            NSLog(@"totalduration %f",totalDuration);
-//            NSLog(@"totalduration %s",reportData);
-//            NSLog(@"log 4 %s",reportData);
         }
         if (!self.lastBeatTimeValid) {
             self.lastBeatTime = now - totalDuration;
             self.lastBeatTimeValid = true;
             
-            NSLog(@"last beat time %f",self.lastBeatTime);
+            //            NSLog(@"last beat time %f",self.lastBeatTime);
         }
         
         for (int i=0;i<[r2rsMutableArray count];i++) {
@@ -313,11 +301,12 @@
         double error = now - self.lastBeatTime;
         double maxError = 5.0;
         if (fabs(error) > maxError) {
-//            double correction = (error > 0 ? 0.1 : -0.1) * (fabs(error) - maxError);
-//            NSLog(@"Error = %.3f, correcting beatTimes by %.3f",error, correction);
+            double correction = (error > 0 ? 0.1 : -0.1) * (fabs(error) - maxError);
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Error = %.3f, correcting beatTimes by %.3f",error, correction]];
+            //            NSLog(@"Error = %.3f, correcting beatTimes by %.3f",error, correction);
             //            std::string msg = string_printf("Error = %.3f, correcting beatTimes by %.3f", error, correction);
             //            NSLog(@"%@", [NSString stringWithUTF8String:msg.c_str()]);
-//            self.lastBeatTime += correction;
+            self.lastBeatTime += correction;
         }
     }
     
@@ -368,15 +357,26 @@
 }
 
 - (void)pulse {
-    if([self.delegate respondsToSelector:@selector(onPulse:)])
-        [self.delegate onPulse:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:BT_NOTIFICATION_PULSE object:self];
-        [self.delegate sendMessageForBLEInterface:[NSString stringWithFormat:@"got heart rate: %f", self.heartRate]];
-    if (self.heartRate != 0) {
-        self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:(60. / self.heartRate) target:self selector:@selector(pulse) userInfo:nil repeats:NO];
+    if (self.state == BTPulseTrackerConnectedState) {
+        if([self.delegate respondsToSelector:@selector(onPulse:)])
+            [self.delegate onPulse:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:BT_NOTIFICATION_PULSE object:self];
+//            [self sendMessageToUIConsole:@"pulse"];
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"bpm: %f", self.heartRate]];
+//            [self.delegate sendMessageForBLEInterface:[NSString stringWithFormat:@"got heart rate: %f", self.heartRate]];
+        if (self.heartRate != 0) {
+            self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:(60. / self.heartRate) target:self selector:@selector(pulse) userInfo:nil repeats:NO];
+        }
     }
 }
 
+
+- (void)sendMessageToUIConsole:(NSString *)text
+{
+    NSDictionary *dataDict = [NSDictionary dictionaryWithObject:text
+                                                         forKey:@"textConsole"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UI_NOTIFICATION_STRING object:self userInfo:dataDict];
+}
 
 #pragma mark - CBCentralManager delegate methods
 /*
@@ -390,10 +390,13 @@
 - (void)changeMode:(scanMode)mode
 {
     self.mode = mode;
-    NSLog(@"mode is now %u",self.mode);
-//    if (self.mode == scanModeOff) {
-//        [self disconnect];
-//    }
+    //    NSLog(@"mode is now %u",self.mode);
+    [self sendMessageToUIConsole:[NSString stringWithFormat:@"mode is now %u",self.mode]];
+    if (self.mode == scanModeOff) {
+        [self disconnect];
+    } else {
+        [self startScan];
+    }
 }
 
 /*
@@ -443,7 +446,8 @@
 {
     double rssi = [nsRSSI doubleValue];
     if (self.waitingForBestRSSI) {
-        NSLog(@"%@",[NSString stringWithFormat:@"Found %@ with signal strength %g", [SENUtilities getNickname:peripheral], rssi]);
+        [self sendMessageToUIConsole:[NSString stringWithFormat:@"Found %@ with signal strength %g", [SENUtilities getNickname:peripheral], rssi]];
+        //        NSLog(@"%@",[NSString stringWithFormat:@"Found %@ with signal strength %g", [SENUtilities getNickname:peripheral], rssi]);
         if (!self.bestPeripheral || rssi > self.bestRSSI) {
             self.bestPeripheral = peripheral;
             self.bestRSSI = rssi;
@@ -468,10 +472,12 @@
 {
     self.waitingForBestRSSI = NO;
     if (!self.peripheral && self.bestPeripheral) {
-        NSLog(@"%@",[NSString stringWithFormat:@"Best signal is %@", [SENUtilities getNickname:self.bestPeripheral]]);
+        [self sendMessageToUIConsole:[NSString stringWithFormat:@"Best signal is %@", [SENUtilities getNickname:self.bestPeripheral]]];
+        //        NSLog(@"%@",[NSString stringWithFormat:@"Best signal is %@", [SENUtilities getNickname:self.bestPeripheral]]);
         [self connectPeripheral: self.bestPeripheral];
     } else if (!self.bestPeripheral) {
-        NSLog(@"No devices found by best signal collection timeout");
+        [self sendMessageToUIConsole:@"No devices found by best signal collection timeout"];
+        //        NSLog(@"No devices found by best signal collection timeout");
     }
 }
 
@@ -522,7 +528,8 @@
     } else {
         self.state = BTPulseTrackerConnectedState;
         self.lastUUID = peripheral.identifier.UUIDString;
-        NSLog(@"%@",[NSString stringWithFormat:@"Peripheral UUID=%@", hex(CFBridgingRetain(peripheral.identifier))]);
+        [self sendMessageToUIConsole:[NSString stringWithFormat:@"Peripheral UUID=%@", hex(CFBridgingRetain(peripheral.identifier))]];
+        //        NSLog(@"%@",[NSString stringWithFormat:@"Peripheral UUID=%@", hex(CFBridgingRetain(peripheral.identifier))]);
         [peripheral discoverServices:nil];
     }
     [self stopScan];
@@ -683,37 +690,48 @@ unsigned long long lsbFirst(NSData *data) {
             [self updateWithHRMData:ch.value];
             break;
         case 0x2A19: // Battery level
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Battery level is %d%%", (int)lsbFirst(ch.value)]];
             NSLog(@"%@",[NSString stringWithFormat:@"Battery level is %d%%", (int)lsbFirst(ch.value)]);
             break;
         case 0x2A00: // Device name
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Device name: %@", [SENUtilities utf8:ch.value]]];
             NSLog(@"%@",[NSString stringWithFormat:@"Device name: %@", [SENUtilities utf8:ch.value]]);
             break;
         case 0x2A23: // System ID
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Device UUID: %llX", lsbFirst(ch.value)]];
             NSLog(@"%@",[NSString stringWithFormat:@"Device UUID: %llX", lsbFirst(ch.value)]);
             break;
         case 0x2A24: // Model number
+             [self sendMessageToUIConsole:[NSString stringWithFormat:@"Model: %@", [SENUtilities utf8:ch.value]]];
             NSLog(@"%@",[NSString stringWithFormat:@"Model: %@", [SENUtilities utf8:ch.value]]);
             break;
         case 0x2A25: // Serial number
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Serial number: %@", [SENUtilities utf8:ch.value]]];
             NSLog(@"%@",[NSString stringWithFormat:@"Serial number: %@", [SENUtilities utf8:ch.value]]);
             break;
         case 0x2A26: // Firmware revision
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Firmware version: %@", [SENUtilities utf8:ch.value]]];
             NSLog(@"%@",[NSString stringWithFormat:@"Firmware version: %@", [SENUtilities utf8:ch.value]]);
             break;
         case 0x2A27: // Hardware revision
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Hardware version: %@", [SENUtilities utf8:ch.value]]];
             NSLog(@"%@",[NSString stringWithFormat:@"Hardware version: %@", [SENUtilities utf8:ch.value]]);
             break;
         case 0x2A28: // Software revision
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Software version: %@", [SENUtilities utf8:ch.value]]];
             NSLog(@"%@",[NSString stringWithFormat:@"Software version: %@", [SENUtilities utf8:ch.value]]);
             break;
         case 0x2A29: // Manufacturer
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Manufacturer: %@", [SENUtilities utf8:ch.value]]];
             NSLog(@"%@",[NSString stringWithFormat:@"Manufacturer: %@", [SENUtilities utf8:ch.value]]);
 //            self.manufacturer = utf8(ch.value);
             break;
         case 0x2A38: // Body sensor location
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Body sensor location: %d", (int)lsbFirst(ch.value)]];
             NSLog(@"%@",[NSString stringWithFormat:@"Body sensor location: %d", (int)lsbFirst(ch.value)]);
             break;
         default:
+            [self sendMessageToUIConsole:[NSString stringWithFormat:@"Characteristic %X: %@", (int)u64(ch.UUID), ch.value]];
             NSLog(@"%@",[NSString stringWithFormat:@"Characteristic %X: %@", (int)u64(ch.UUID), ch.value]);
             break;
     }

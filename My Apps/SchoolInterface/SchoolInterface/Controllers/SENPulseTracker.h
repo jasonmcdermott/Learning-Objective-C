@@ -18,6 +18,7 @@
 
 #define BT_NOTIFICATION_PULSE @"bt_pulse_notification"
 #define BT_NOTIFICATION_HR_DATA @"bt_hr_data_notification"
+#define UI_NOTIFICATION_STRING @"ui_notification_string"
 
 @protocol SENPulseTrackerDelegate;
 

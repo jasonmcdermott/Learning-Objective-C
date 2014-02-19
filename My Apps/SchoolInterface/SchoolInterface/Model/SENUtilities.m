@@ -149,21 +149,16 @@
     return [self microTime] / 1000000.0;
 }
 
-+ (void)addMessageTextToString:(NSMutableString *)mutableString withString:(NSString *)text toTextView:(UITextView *)textView
++ (void)addMessageTextToString:(NSMutableString *)mutableString withString:(NSString *)text toTextView:(UITextView *)textView withGesture:(BOOL)touched
 {
     
-    NSLog(@"%@",text);
-
-//    NSString *responseString = [NSString stringWithFormat:@"%@\r\n%@", text, mutableString];
+    CGPoint p = [textView contentOffset];
     [mutableString appendString:[NSString stringWithFormat:@"%@\r\n",text]];
-    
     textView.text = mutableString;
-    
-//    int numLines = textView.contentSize.height/textView.font.lineHeight;
-//    [textView scrollRangeToVisible:NSMakeRange(textView.text.length, 0)];
-//    if (numLines - previousNumLines > 2){
-//        [textView setContentOffset:CGPointMake(0, numLines * textView.font.lineHeight) animated:NO];
-//    }
+    if (!touched) {
+        [textView setContentOffset:p animated:NO];
+        [textView scrollRangeToVisible:NSMakeRange([textView.text length], 0)];
+    }
 }
 
 + (NSString *)getNickname:(CBPeripheral *)peripheral

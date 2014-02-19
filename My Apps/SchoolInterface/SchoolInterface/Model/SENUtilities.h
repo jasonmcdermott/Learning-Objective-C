@@ -31,7 +31,7 @@
 
 + (double) doubleTime;
 + (unsigned long long)microTime;
-+ (void)addMessageTextToString:(NSMutableString *)mutableString withString:(NSString *)text toTextView:(UITextView *)textView;
++ (void)addMessageTextToString:(NSMutableString *)mutableString withString:(NSString *)text toTextView:(UITextView *)textView withGesture:(BOOL)touched;
 
 + (NSString *)getNickname:(CBPeripheral *)peripheral;
 + (NSString *)computeNickname:(const void *)data :(size_t)len;
