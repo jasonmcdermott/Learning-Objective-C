@@ -52,11 +52,12 @@
                                              selector:@selector(appHasGoneInBackground)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];
-    
     [self setSettingsValues];
     [self createViewControllers];
     [self setVisibility];
     [self setupPD];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPulse:) name:BT_NOTIFICATION_PULSE object:[self pulseTracker]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onHRDataReceived:) name:BT_NOTIFICATION_HR_DATA object:[self pulseTracker]];
 }
 
 #pragma mark - LibPd
@@ -68,7 +69,6 @@
 																  numberChannels:2
 																	inputEnabled:NO
 																   mixingEnabled:NO];
-    
     if (status == PdAudioError) {
 		NSLog(@"Error! Could not configure PdAudioController");
 	} else if (status == PdAudioPropertyChanged) {
@@ -138,9 +138,6 @@
 
 - (void)createViewControllers
 {
-    
-    
-    
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
         NSLog(@"so far so good?");
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle mainBundle]];
@@ -149,17 +146,20 @@
         self.questionnaireViewController.view.hidden = YES;
         self.questionnaireViewController.appID = self.appID;
         self.questionnaireViewController.delegate = self;
-//        self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Bluetooth"];
+        self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Bluetooth"];
     } else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-//        self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Bluetooth"];
+        self.BLEDevice = [storyboard instantiateViewControllerWithIdentifier:@"Bluetooth"];
     }
 
-//    [self.view addSubview:self.BLEDevice.view];
-//    self.BLEDevice.view.hidden = YES;
-//    self.BLEDevice.delegate = self;
-    
     self.pulseTracker = [[SENPulseTracker alloc] init];
+    self.pulseTracker.delegate = self;
+    
+    [self.view addSubview:self.BLEDevice.view];
+    self.BLEDevice.view.hidden = YES;
+    self.BLEDevice.delegate = self;
+    
+
     
     // see if a unique app value has been set before. if not, set a new unique app id
     if ([[SENUtilities getStringForKey:@"appUniqueID"] isEqualToString:@""]) {
@@ -167,11 +167,6 @@
     } else {
         self.appID = [SENUtilities getStringForKey:@"appUniqueID"];
     }
-
-    
-    
-    
-
     self.glviewIsDisplaying = YES;
 }
 
@@ -264,10 +259,49 @@
         ver_cols[i*8+6] = Blue;
         ver_cols[i*8+7] = Alpha;
     }
-    
     glVertexPointer( 2, GL_FLOAT, 0, ver_coords);
     glColorPointer(4, GL_FLOAT, 0, ver_cols);
     glDrawArrays( GL_TRIANGLE_STRIP, 0, vertexArrayLength);
+}
+
+#pragma mark - Data Glue
+
+- (void)changeBTMode:(scanMode)mode
+{
+    self.pulseTracker.mode = mode;
+    [self.pulseTracker changeMode:mode];
+//    NSLog(@"selected %u mode",self.pulseTracker.mode);
+}
+
+- (void)onPulse:(NSNotification *)note {
+//    SENPulseTracker *pulseTracker = [(BTAppDelegate *)[[UIApplication sharedApplication] delegate] pulseTracker];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    double PULSESCALE = 1.5;
+    double PULSEDURATION = 0.2 * 60.0 / self.pulseTracker.heartRate;
+    [UIView animateWithDuration:PULSEDURATION delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//        if ([defaults boolForKey:DEFAULTS_HEARTBEAT_SOUND] == YES) AudioServicesPlaySystemSound(heartbeatS1Sound);
+//        self.heartImage.transform = CGAffineTransformMakeScale(PULSESCALE, PULSESCALE);
+//        NSLog(@"lub");
+    } completion:^(BOOL finished){
+        [UIView animateWithDuration:PULSEDURATION delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//            NSLog(@"dub");
+//            if ([defaults boolForKey:DEFAULTS_HEARTBEAT_SOUND] == YES) AudioServicesPlaySystemSound(heartbeatS2Sound);
+//            self.heartImage.transform = CGAffineTransformIdentity;
+        } completion:nil];
+    }];
+}
+
+- (void)onHRDataReceived:(NSNotification *)note {
+//    BTPulseTracker *pulseTracker = [(BTAppDelegate *)[[UIApplication sharedApplication] delegate] pulseTracker];
+//    self.heartRateLabel.text = [NSString stringWithFormat:@"%.0f BPM", pulseTracker.heartRate];
+//    self.variabilityLabel.text = [NSString stringWithFormat:@"%d ms", (int) (0.5 + pulseTracker.r2r * 1000)];
+//    self.BLEdevice
+//    NSLog(@"heart rate received");
+}
+
+- (void)sendMessageForBLEInterface:(NSString *)string
+{
+    [self.BLEDevice addStringToTextView:string];
 }
 
 #pragma mark - Show/Hide
@@ -306,7 +340,7 @@
 - (IBAction)clickBluetoothButton:(UIButton *)sender
 {
     NSLog(@"pressed into service");
-//    self.BLEDevice.view.hidden = NO;
+    self.BLEDevice.view.hidden = NO;
     self.glviewIsDisplaying = NO;
     self.link.frameInterval = 3;
     [self.link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];

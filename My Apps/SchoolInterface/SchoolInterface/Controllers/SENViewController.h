@@ -28,15 +28,14 @@
 
 
 //@interface SENViewController : UIViewController <BLEDelegate, BLEDeviceDelegate, GLKViewDelegate, QuestionnaireDelegate, PdReceiverDelegate>
-@interface SENViewController : UIViewController <BLEDelegate, GLKViewDelegate, QuestionnaireDelegate, PdReceiverDelegate>
+@interface SENViewController : UIViewController <BLEDeviceDelegate, GLKViewDelegate, QuestionnaireDelegate, PdReceiverDelegate, SENPulseTrackerDelegate>
 {
     
 }
 
 @property (strong, nonatomic) SENUserDefaultsHelper *SENUserDefaultsHelper;
-//@property (strong, nonatomic) BLE *bleShield;
 
-//@property (strong, nonatomic) BLEDevice *BLEDevice;
+@property (strong, nonatomic) BLEDevice *BLEDevice;
 @property (strong, nonatomic) SENQuestionnaireTabViewController *questionnaireViewController;
 @property (strong, nonatomic) NSString *appID;
 
@@ -49,6 +48,10 @@
 @property (nonatomic, retain) PdAudioController *audioController;
 
 @property (strong, nonatomic) UIStoryboard *storyboard;
+
+- (void)onPulse:(NSNotification *)note;
+- (void)onHRDataReceived:(NSNotification *)note;
+- (void)sendMessageForBLEInterface:(NSString *)string;
 
 @end
 

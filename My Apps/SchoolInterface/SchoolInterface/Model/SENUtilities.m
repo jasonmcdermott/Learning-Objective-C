@@ -149,7 +149,7 @@
     return [self microTime] / 1000000.0;
 }
 
-+ (void)addMessageText:(NSMutableString *)mutableString :(NSString *)text :(UITextView *)textView
++ (void)addMessageTextToString:(NSMutableString *)mutableString withString:(NSString *)text toTextView:(UITextView *)textView
 {
     
     NSLog(@"%@",text);

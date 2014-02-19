@@ -46,11 +46,12 @@
 - (id)init {
     if(self = [super init]) {
         self.lastStateChangeTime = 0;
-        self.autoConnect = YES;
+        self.mode = [[NSUserDefaults standardUserDefaults] integerForKey:@"scanModePrefKey"];
         self.discoveredPeripherals = [[NSMutableArray alloc] init];
         
+        [NSTimer scheduledTimerWithTimeInterval:SCAN_TIME target:self selector:@selector(tryConnect) userInfo:nil repeats:YES];
         self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-        if (self.autoConnect) [self tryConnect];
+        if (self.mode == scanModeAuto) [self tryConnect];
     }
     return self;
 }
@@ -64,7 +65,6 @@
 #pragma mark - Public connection stuff
 
 - (void)disconnect {
-    self.autoConnect = NO;
     if (self.peripheral) {
         [self disconnectPeripheral: self.peripheral];
     }
@@ -119,17 +119,13 @@
     if (_peripheral) {
         [_peripheral setDelegate:nil];
     }
-    
     if (_peripheral && [self.delegate respondsToSelector:@selector(onPulseTrackerDisconnected:)]) {
         [self.delegate onPulseTrackerDisconnected:self];
     }
-    
     _peripheral = peripheral;
-    
     if (peripheral && [self.delegate respondsToSelector:@selector(onPulseTrackerConnected:)]) {
         [self.delegate onPulseTrackerConnected:self];
     }
-    
     if (peripheral) {
         [peripheral setDelegate:self];
     }
@@ -187,26 +183,39 @@
 /*
  * Request CBCentralManager to scan for heart rate peripherals using service UUID 0x180D
  */
-- (void) startScan
+- (void)startScan
 {
+    NSLog(@"the mood currently is %u",self.mode);
     self.state = BTPulseTrackerScanState;
-    self.peripheral = nil;
-    self.manufacturer = @"";
-    self.heartRate = 0;
-    
-    if (self.connectMode == kConnectBestSignalMode) {
-        self.waitingForBestRSSI = YES;
-        self.bestPeripheral = nil;
-        self.bestRSSI = -1e100;
-//        double waitTime = 3;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
-                       dispatch_get_main_queue(),
-                       ^{ [self connectToBestSignal]; });
-    } else {
-        self.waitingForBestRSSI = NO;
+    if (self.state != BTPulseTrackerConnectedState) {
+        if (self.mode == scanModeAuto) {
+            self.peripheral = nil;
+            self.manufacturer = @"";
+            self.heartRate = 0;
+           
+            if (self.mode == scanModeAuto) {
+                self.waitingForBestRSSI = YES;
+                self.bestPeripheral = nil;
+                self.bestRSSI = -1e100;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
+                               dispatch_get_main_queue(),
+                               ^{ [self connectToBestSignal]; });
+            }
+        } else if (self.mode == scanModePreviousDevice) {
+            self.waitingForBestRSSI = NO;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) (SCAN_TIME * NSEC_PER_SEC)),
+                           dispatch_get_main_queue(),
+                           ^{ [self connectToPreviousDevice]; });
+        }
+        if (self.mode != scanModeOff) {
+            [self runScan];
+        }
     }
+}
+
+- (void)runScan
+{
     NSArray *serviceTypes = @[[CBUUID UUIDWithString:@"713D0000-503E-4C75-BA94-3148F18D941E"], [CBUUID UUIDWithString:@"180D"], [CBUUID UUIDWithString:@"180A"]];
-//    NSArray *serviceTypes = @[[CBUUID UUIDWithString:@"713D0000-503E-4C75-BA94-3148F18D941E"], [CBUUID UUIDWithString:@"180D"]];
     [self.manager scanForPeripheralsWithServices:serviceTypes options:nil];
 }
 
@@ -226,7 +235,7 @@
  */
 
 
-- (void) updateWithHRMData:(NSData *)data
+- (void)updateWithHRMData:(NSData *)data
 {
     double now = [SENUtilities doubleTime];
     self.lastHRDataReceived = now;
@@ -289,11 +298,11 @@
         double error = now - self.lastBeatTime;
         double maxError = 5.0;
         if (fabs(error) > maxError) {
-            double correction = (error > 0 ? 0.1 : -0.1) * (fabs(error) - maxError);
-            NSLog(@"Error = %.3f, correcting beatTimes by %.3f",error, correction);
+//            double correction = (error > 0 ? 0.1 : -0.1) * (fabs(error) - maxError);
+//            NSLog(@"Error = %.3f, correcting beatTimes by %.3f",error, correction);
             //            std::string msg = string_printf("Error = %.3f, correcting beatTimes by %.3f", error, correction);
             //            NSLog(@"%@", [NSString stringWithUTF8String:msg.c_str()]);
-            self.lastBeatTime += correction;
+//            self.lastBeatTime += correction;
         }
     }
     
@@ -344,13 +353,14 @@
 }
 
 - (void)pulse {
-    //    if([self.delegate respondsToSelector:@selector(onPulse:)])
-    //        [self.delegate onPulse:self];
-    //    [[NSNotificationCenter defaultCenter] postNotificationName:BT_NOTIFICATION_PULSE object:self];
-    //NSLog(@"Got heart rate: %d", self.heartRate);
+    if([self.delegate respondsToSelector:@selector(onPulse:)])
+        [self.delegate onPulse:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:BT_NOTIFICATION_PULSE object:self];
+        [self.delegate sendMessageForBLEInterface:[NSString stringWithFormat:@"got heart rate: %f", self.heartRate]];
     if (self.heartRate != 0) {
         self.pulseTimer = [NSTimer scheduledTimerWithTimeInterval:(60. / self.heartRate) target:self selector:@selector(pulse) userInfo:nil repeats:NO];
-        NSLog(@"pulse");
+
+//        NSLog(@"pulse");
     }
 }
 
@@ -364,6 +374,14 @@
     [self checkBluetooth];
 }
 
+- (void)changeMode:(scanMode)mode
+{
+    self.mode = mode;
+    NSLog(@"mode is now %u",self.mode);
+//    if (self.mode == scanModeOff) {
+//        [self disconnect];
+//    }
+}
 
 /*
  * Connecting to Bluetooth Smart / Bluetooth Low Energy devices is interesting
@@ -425,6 +443,12 @@
             [self connectPeripheral:peripheral];
         }
     }
+    
+    if (self.mode == scanModePreviousDevice) {
+        if ([peripheral.identifier.UUIDString isEqualToString:self.lastUUID]) {
+            self.lastPeripheral = peripheral;
+        }
+    }
 }
 
 - (void) connectToBestSignal
@@ -435,6 +459,26 @@
         [self connectPeripheral: self.bestPeripheral];
     } else if (!self.bestPeripheral) {
         NSLog(@"No devices found by best signal collection timeout");
+    }
+}
+
+- (void)connectToPreviousDevice
+{
+//    self.waitingForBestRSSI = NO;
+//    if (!self.peripheral && self.bestPeripheral) {
+//        NSLog(@"%@",[NSString stringWithFormat:@"Best signal is %@", [SENUtilities getNickname:self.bestPeripheral]]);
+//        [self connectPeripheral: self.bestPeripheral];
+//    } else if (!self.bestPeripheral) {
+//        NSLog(@"No devices found by best signal collection timeout");
+//    }
+    
+    if (self.state == BTPulseTrackerScanState) {
+        if (!self.lastPeripheral) {
+//            [SENUtilities addMessageText:self.statusString :@"No previous device" :self.statusTextView];
+        } else if (self.lastPeripheral) {
+//            [SENUtilities addMessageText:self.statusString :@"Connecting to previous device" :self.statusTextView];
+            [self connectPeripheral:self.lastPeripheral];
+        }
     }
 }
 
@@ -464,6 +508,7 @@
         [self disconnectPeripheral:peripheral];
     } else {
         self.state = BTPulseTrackerConnectedState;
+        self.lastUUID = peripheral.identifier.UUIDString;
         NSLog(@"%@",[NSString stringWithFormat:@"Peripheral UUID=%@", hex(CFBridgingRetain(peripheral.identifier))]);
         [peripheral discoverServices:nil];
     }
@@ -478,6 +523,7 @@
 {
     NSLog(@"%@",[NSString stringWithFormat:@"Requesting disconnect from %@", [SENUtilities getNickname:peripheral]]);
     [self.manager cancelPeripheralConnection:self.peripheral];
+    NSLog(@"disconnected");
 }
 
 /*
