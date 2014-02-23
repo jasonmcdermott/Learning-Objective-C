@@ -1,6 +1,5 @@
 #N canvas 476 189 854 557 10;
-#X obj 134 74 r hello;
-#X obj 117 253 s goodbye;
+#X obj 105 71 r hello;
 #X obj 105 187 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X floatatom 329 283 0 0 0 0 - - -;
@@ -9,7 +8,7 @@
 #X obj 368 225 int;
 #X text 301 312 CPU load in percent;
 #X obj 368 284 s load-meter;
-#X obj 249 154 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 320 110 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 371 122 metro 1000;
 #X msg 371 66 1;
@@ -18,19 +17,23 @@
 #X text 416 94 <-- on/off;
 #X msg 408 68 0;
 #X obj 540 114 loadbang;
-#X connect 0 0 2 0;
-#X connect 2 0 1 0;
-#X connect 4 0 6 0;
-#X connect 5 0 3 0;
-#X connect 5 0 8 0;
-#X connect 6 0 5 0;
-#X connect 9 0 4 1;
-#X connect 9 0 4 0;
-#X connect 10 0 13 0;
-#X connect 10 0 2 0;
-#X connect 11 0 12 0;
-#X connect 12 0 10 0;
-#X connect 13 0 4 0;
-#X connect 13 1 4 1;
-#X connect 15 0 12 0;
-#X connect 16 0 11 0;
+#X obj 120 370 print;
+#X obj 105 248 s goodbye;
+#X obj 120 295 r goodbye;
+#X connect 0 0 1 0;
+#X connect 1 0 17 0;
+#X connect 3 0 5 0;
+#X connect 4 0 2 0;
+#X connect 4 0 7 0;
+#X connect 5 0 4 0;
+#X connect 8 0 3 1;
+#X connect 8 0 3 0;
+#X connect 9 0 12 0;
+#X connect 9 0 1 0;
+#X connect 10 0 11 0;
+#X connect 11 0 9 0;
+#X connect 12 0 3 0;
+#X connect 12 1 3 1;
+#X connect 14 0 11 0;
+#X connect 15 0 10 0;
+#X connect 18 0 16 0;

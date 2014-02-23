@@ -57,31 +57,31 @@ void displayAlertView(void *paramContext){
     
 }
 
-//- (BOOL)            application:(UIApplication *)application
-//  didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-//    
-//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-//    
-//    AlertViewData *context = (AlertViewData *)
-//    malloc(sizeof(AlertViewData));
-//    
-//    if (context != NULL){
-//        context->title = "GCD";
-//        context->message = "GCD is amazing.";
-//        context->cancelButtonTitle = "OK";
-//        
-//        dispatch_async_f(mainQueue,
-//                         (void *)context,
-//                         displayAlertView);
-//    }
-//    
-//    self.window = [[UIWindow alloc] initWithFrame:
-//                   [[UIScreen mainScreen] bounds]];
-//    
-//    self.window.backgroundColor = [UIColor whiteColor];
-//    [self.window makeKeyAndVisible];
-//    return YES;
-//}
+- (BOOL)            application:(UIApplication *)application
+  didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+    
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    
+    AlertViewData *context = (AlertViewData *)
+    malloc(sizeof(AlertViewData));
+    
+    if (context != NULL){
+        context->title = "GCD";
+        context->message = "GCD is amazing.";
+        context->cancelButtonTitle = "OK";
+        
+        dispatch_async_f(mainQueue,
+                         (void *)context,
+                         displayAlertView);
+    }
+    
+    self.window = [[UIWindow alloc] initWithFrame:
+                   [[UIScreen mainScreen] bounds]];
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    return YES;
+}
 
 //- (BOOL)            application:(UIApplication *)application
 //  didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
@@ -105,22 +105,22 @@ void displayAlertView(void *paramContext){
 //    return YES;
 //}
 
-- (BOOL)            application:(UIApplication *)application
-  didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    
-    dispatch_async(mainQueue, ^(void) {
-        NSLog(@"Current thread = %@", [NSThread currentThread]);
-        NSLog(@"Main thread = %@", [NSThread mainThread]);
-    });
-    
-    self.window = [[UIWindow alloc] initWithFrame:
-                   [[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    return YES;
-}
+//- (BOOL)            application:(UIApplication *)application
+//  didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+//    
+//    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//    
+//    dispatch_async(mainQueue, ^(void) {
+//        NSLog(@"Current thread = %@", [NSThread currentThread]);
+//        NSLog(@"Main thread = %@", [NSThread mainThread]);
+//    });
+//    
+//    self.window = [[UIWindow alloc] initWithFrame:
+//                   [[UIScreen mainScreen] bounds]];
+//    self.window.backgroundColor = [UIColor whiteColor];
+//    [self.window makeKeyAndVisible];
+//    return YES;
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

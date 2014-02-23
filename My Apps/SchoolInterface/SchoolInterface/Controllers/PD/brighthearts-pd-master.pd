@@ -1,105 +1,105 @@
-#N canvas 85 41 1440 796 10;
-#X floatatom 520 -559 5 0 0 0 - - -;
-#X obj 536 -910 t f f;
-#X obj 538 -883 -;
-#X floatatom 538 -830 5 0 0 0 - - -;
-#X text 641 -975 raw pulse;
-#X obj 797 -973 r sensor-reliability;
-#X obj 952 -973 r session-start;
-#X obj 1078 -973 r session-end;
-#X obj 536 -974 r heart-ibi;
-#X obj 457 -907 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#N canvas 0 41 1436 796 10;
+#X floatatom 782 -569 5 0 0 0 - - -;
+#X obj 798 -920 t f f;
+#X obj 800 -893 -;
+#X floatatom 800 -840 5 0 0 0 - - -;
+#X text 903 -985 raw pulse;
+#X obj 1059 -983 r sensor-reliability;
+#X obj 1214 -983 r session-start;
+#X obj 1340 -983 r session-end;
+#X obj 798 -984 r heart-ibi;
+#X obj 719 -917 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 692 -917 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+#X obj 954 -927 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
 0 1;
-#X floatatom 485 -909 5 0 0 0 - - -;
-#X obj 511 -735 s ibi-difference;
-#X obj 646 -801 abs;
-#X obj 647 -735 s ibi-difference-abs;
-#X obj 519 -641 r session-start;
-#X floatatom 853 -540 5 0 0 0 - - -;
-#X msg 859 -796 0;
-#X floatatom 813 -735 5 0 0 0 - - -;
-#X obj 853 -413 send ibi-session-shortest;
-#X obj 529 -414 send ibi-session-longest;
-#X floatatom 834 -91 5 0 0 0 - - -;
-#X obj 859 -822 r session-start;
-#X obj 392 -414 send ibi-mean-32;
-#X obj 834 -180 receive ibi-mean-32;
-#X obj 528 -527 change;
-#X obj 853 -514 change;
-#X obj 710 -500 t b;
-#X obj 710 -414 send ibi-new-longest;
-#X obj 1055 -491 t b;
-#X obj 1053 -412 send ibi-new-shortest;
-#X obj 266 -414 send ibi-mean-16;
-#X obj 157 -413 send ibi-mean-4;
-#X obj 722 -437 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X floatatom 747 -919 5 0 0 0 - - -;
+#X obj 773 -745 s ibi-difference;
+#X obj 908 -811 abs;
+#X obj 909 -745 s ibi-difference-abs;
+#X obj 781 -651 r session-start;
+#X floatatom 1115 -550 5 0 0 0 - - -;
+#X msg 1121 -806 0;
+#X floatatom 1075 -745 5 0 0 0 - - -;
+#X obj 1115 -423 send ibi-session-shortest;
+#X obj 791 -424 send ibi-session-longest;
+#X floatatom 1096 -101 5 0 0 0 - - -;
+#X obj 1121 -832 r session-start;
+#X obj 654 -424 send ibi-mean-32;
+#X obj 1096 -190 receive ibi-mean-32;
+#X obj 790 -537 change;
+#X obj 1115 -524 change;
+#X obj 972 -510 t b;
+#X obj 972 -424 send ibi-new-longest;
+#X obj 1317 -501 t b;
+#X obj 1315 -422 send ibi-new-shortest;
+#X obj 528 -424 send ibi-mean-16;
+#X obj 419 -423 send ibi-mean-4;
+#X obj 984 -447 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 1098 -440 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 1360 -450 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 765 -498 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 1027 -508 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 672 -496 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 934 -506 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj -6 -249 receive ibi-mean-32;
-#X obj 14 -493 expr 60000/$f1;
-#X floatatom 14 -466 5 0 0 0 - - -;
-#X floatatom 486 103 10 0 0 0 - - -;
-#X msg 546 17 50000;
-#X obj 15 -413 send ibi-as-bpm;
-#X obj 1120 14 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 1222 17 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 1126 109 timer;
-#X obj 1398 107 timer;
-#X obj 1118 -132 r ibi-mean-4;
-#X obj 1118 -102 t f f;
-#X obj 1120 -75 -;
-#X floatatom 1185 -34 5 0 0 0 - - -;
-#X floatatom 1148 152 10 0 0 0 - - -;
-#X floatatom 1418 148 10 0 0 0 - - -;
-#X obj 1103 42 t b b b;
-#X obj 1227 40 t b b b;
-#X obj 25 -140 - 0;
-#X obj 25 -85 / 1;
-#X obj 25 -49 * 1000;
-#X obj 631 -50 r session-start;
-#X floatatom 608 105 10 0 0 0 - - -;
-#X msg 629 18 -5000;
-#X obj 455 18 t f f f;
-#X floatatom 75 -112 10 0 0 0 - - -;
-#X floatatom 73 -63 10 0 0 0 - - -;
-#X obj 617 200 send ibi-dev-4-32-nml-smooth;
-#X obj 455 201 send ibi-dev-4-32-nml;
-#X floatatom 49 -11 5 0 0 0 - - -;
-#X obj 831 225 send how-slow-32;
-#X obj 649 -578 r heart-ibi;
-#X obj 833 -57 scale 500 800 0.001 1;
-#X obj 649 -547 t b b;
-#X obj 529 -480 float;
-#X obj 853 -469 float;
-#X floatatom 399 -478 5 0 0 0 - - -;
-#X obj 833 163 clip 0 1;
-#X obj 127 1194 dac~ 1 2;
-#X obj 451 -698 gk.split 100 1200;
-#X obj 850 -567 gk.trough;
-#X obj 483 -591 gk.peak;
-#X obj 813 -770 gk.peak;
-#X obj 710 -461 gk.onebang 3000;
-#X obj 1053 -464 gk.onebang 3000;
-#X obj 486 51 gk.trough;
-#X obj 608 53 gk.peak;
-#X floatatom 166 -469 5 0 0 0 - - -;
-#X obj 1120 -17 gk.edge;
-#X floatatom 782 159 5 0 0 0 - - -;
-#X obj 61 -170 float;
-#X obj 13 -198 t f f b;
-#X obj 131 962 t b;
-#X obj 38 1146 clip~ -1 1;
-#X obj 179 1149 clip~ -1 1;
-#X obj 310 1101 catch~ pulse~;
+#X obj 256 -259 receive ibi-mean-32;
+#X obj 276 -503 expr 60000/$f1;
+#X floatatom 276 -476 5 0 0 0 - - -;
+#X floatatom 748 93 10 0 0 0 - - -;
+#X msg 808 7 50000;
+#X obj 277 -423 send ibi-as-bpm;
+#X obj 1382 4 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 1484 7 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 1388 99 timer;
+#X obj 1660 97 timer;
+#X obj 1380 -142 r ibi-mean-4;
+#X obj 1380 -112 t f f;
+#X obj 1382 -85 -;
+#X floatatom 1447 -44 5 0 0 0 - - -;
+#X floatatom 1410 142 10 0 0 0 - - -;
+#X floatatom 1680 138 10 0 0 0 - - -;
+#X obj 1365 32 t b b b;
+#X obj 1489 30 t b b b;
+#X obj 287 -150 - 0;
+#X obj 287 -95 / 1;
+#X obj 287 -59 * 1000;
+#X obj 893 -60 r session-start;
+#X floatatom 870 95 10 0 0 0 - - -;
+#X msg 891 8 -5000;
+#X obj 717 8 t f f f;
+#X floatatom 337 -122 10 0 0 0 - - -;
+#X floatatom 335 -73 10 0 0 0 - - -;
+#X obj 879 190 send ibi-dev-4-32-nml-smooth;
+#X obj 717 191 send ibi-dev-4-32-nml;
+#X floatatom 311 -21 5 0 0 0 - - -;
+#X obj 1093 215 send how-slow-32;
+#X obj 911 -588 r heart-ibi;
+#X obj 1095 -67 scale 500 800 0.001 1;
+#X obj 911 -557 t b b;
+#X obj 791 -490 float;
+#X obj 1115 -479 float;
+#X floatatom 661 -488 5 0 0 0 - - -;
+#X obj 1095 153 clip 0 1;
+#X obj 389 1184 dac~ 1 2;
+#X obj 713 -708 gk.split 100 1200;
+#X obj 1112 -577 gk.trough;
+#X obj 745 -601 gk.peak;
+#X obj 1075 -780 gk.peak;
+#X obj 972 -471 gk.onebang 3000;
+#X obj 1315 -474 gk.onebang 3000;
+#X obj 748 41 gk.trough;
+#X obj 870 43 gk.peak;
+#X floatatom 428 -479 5 0 0 0 - - -;
+#X obj 1382 -27 gk.edge;
+#X floatatom 1044 149 5 0 0 0 - - -;
+#X obj 323 -180 float;
+#X obj 275 -208 t f f b;
+#X obj 393 952 t b;
+#X obj 300 1136 clip~ -1 1;
+#X obj 441 1139 clip~ -1 1;
+#X obj 572 1091 catch~ pulse~;
 #N canvas 51 135 980 672 pulse-sound 0;
 #X obj 452 107 inlet;
 #X obj 76 113 noise~;
@@ -139,7 +139,7 @@
 #X connect 15 0 7 0;
 #X connect 16 0 17 0;
 #X connect 17 0 6 0;
-#X restore 50 986 pd pulse-sound;
+#X restore 312 976 pd pulse-sound;
 #N canvas 220 142 1220 758 3-beeps 0;
 #X obj -100 11 inlet;
 #X obj -37 398 vline~;
@@ -188,10 +188,10 @@
 #X connect 20 0 17 0;
 #X connect 20 1 18 0;
 #X connect 20 2 7 0;
-#X restore 937 -896 pd 3-beeps;
-#X obj 909 -932 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 1199 -906 pd 3-beeps;
+#X obj 1171 -942 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj -94 1101 catch~ test-beeps;
+#X obj 168 1091 catch~ test-beeps;
 #N canvas 220 142 1220 758 3-beeps 0;
 #X obj -100 11 inlet;
 #X obj -37 398 vline~;
@@ -240,8 +240,8 @@
 #X connect 20 0 15 0;
 #X connect 20 1 16 0;
 #X connect 20 2 7 0;
-#X restore 1073 -903 pd 3-beeps;
-#X obj 1053 -934 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 1335 -913 pd 3-beeps;
+#X obj 1315 -944 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #N canvas 0 22 1425 743 samples-01 0;
 #N canvas 0 22 450 300 (subpatch) 0;
@@ -397,10 +397,10 @@ Hz;
 #X connect 52 0 29 0;
 #X connect 53 0 52 0;
 #X connect 54 0 4 0;
-#X restore 436 1062 pd samples-01;
-#X obj 131 918 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 698 1052 pd samples-01;
+#X obj 393 908 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X text -92 1038 NOTE: this patch loads and plays sound samples from
+#X text 170 1028 NOTE: this patch loads and plays sound samples from
 the hard drive - need to check search-path settings;
 #N canvas 0 22 1360 820 sine-tones-triggered-from-slowingdown-thresholds
 0;
@@ -555,7 +555,7 @@ the hard drive - need to check search-path settings;
 #X connect 58 0 26 0;
 #X connect 60 0 19 0;
 #X connect 61 0 58 0;
-#X restore 436 1098 pd sine-tones-triggered-from-slowingdown-thresholds
+#X restore 698 1088 pd sine-tones-triggered-from-slowingdown-thresholds
 ;
 #N canvas 123 22 1133 800 samples-triggered-from-slowingdown-thresholds
 0;
@@ -790,7 +790,7 @@ after 36 beats;
 #X connect 103 0 105 0;
 #X connect 104 0 102 1;
 #X connect 105 0 104 0;
-#X restore 535 1061 pd samples-triggered-from-slowingdown-thresholds
+#X restore 797 1051 pd samples-triggered-from-slowingdown-thresholds
 ;
 #N canvas 220 142 1220 758 3-beeps 0;
 #X obj -100 11 inlet;
@@ -840,8 +840,8 @@ after 36 beats;
 #X connect 20 0 14 0;
 #X connect 20 1 15 0;
 #X connect 20 2 7 0;
-#X restore 754 -861 pd 3-beeps;
-#X obj 735 -911 select 1;
+#X restore 1016 -871 pd 3-beeps;
+#X obj 997 -921 select 1;
 #N canvas 220 142 1220 758 3-beeps 0;
 #X obj -100 11 inlet;
 #X obj -37 398 vline~;
@@ -890,19 +890,19 @@ after 36 beats;
 #X connect 20 0 14 0;
 #X connect 20 1 15 0;
 #X connect 20 2 7 0;
-#X restore 837 -861 pd 3-beeps;
-#X obj 816 -911 select 0;
-#X obj 852 -885 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 1099 -871 pd 3-beeps;
+#X obj 1078 -921 select 0;
+#X obj 1114 -895 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 766 -888 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 1028 -898 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 803 -944 change;
-#X obj 950 -926 onebang;
-#X obj 173 919 r TEST-heart-ibi;
-#X obj 586 -892 s TEST-heart-ibi;
-#X obj 584 -611 f 5000;
-#X obj 520 -614 f 0;
-#X floatatom 480 -657 5 0 0 0 - - -;
+#X obj 1065 -954 change;
+#X obj 1212 -936 onebang;
+#X obj 435 909 r TEST-heart-ibi;
+#X obj 848 -902 s TEST-heart-ibi;
+#X obj 846 -621 f 5000;
+#X obj 782 -624 f 0;
+#X floatatom 742 -667 5 0 0 0 - - -;
 #N canvas 0 22 608 561 cyclone-drone 0;
 #X floatatom 104 130 5 0 0 0 - - -;
 #X obj 80 333 *~;
@@ -943,29 +943,29 @@ after 36 beats;
 #X connect 16 0 17 0;
 #X connect 17 0 0 0;
 #X connect 18 0 1 0;
-#X restore -91 990 pd cyclone-drone;
-#X obj 180 1102 catch~ main-R;
-#X obj 38 1105 catch~ main-L;
-#X floatatom -80 957 5 0 0 0 - - -;
-#X obj -89 898 r session-start;
-#X floatatom 49 962 5 0 0 0 - - -;
-#X floatatom 445 1036 7 0 0 0 - - -;
-#X obj 834 56 spigot;
-#X floatatom 278 -757 5 0 0 0 - - -;
-#X obj 362 -861 r session-start;
-#X obj 197 -722 send beat-count;
-#X obj 908 -27 r beat-count;
-#X obj 908 20 t 1;
-#X obj 908 -6 > 32;
-#X floatatom 860 -5 5 0 0 0 - - -;
-#X obj 750 -14 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 171 980 pd cyclone-drone;
+#X obj 442 1092 catch~ main-R;
+#X obj 300 1095 catch~ main-L;
+#X floatatom 182 947 5 0 0 0 - - -;
+#X obj 173 888 r session-start;
+#X floatatom 311 952 5 0 0 0 - - -;
+#X floatatom 707 1026 7 0 0 0 - - -;
+#X obj 1096 46 spigot;
+#X floatatom 540 -767 5 0 0 0 - - -;
+#X obj 624 -871 r session-start;
+#X obj 459 -732 send beat-count;
+#X obj 1170 -37 r beat-count;
+#X obj 1170 10 t 1;
+#X obj 1170 -16 > 32;
+#X floatatom 1122 -15 5 0 0 0 - - -;
+#X obj 1012 -24 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 739 26 t b b;
-#X msg 792 28 0;
-#X msg 780 69 0;
-#X msg 483 1011 0;
-#X obj 446 988 r session-start;
-#X obj 1405 192 s rsa-wavelength-ms;
+#X obj 1001 16 t b b;
+#X msg 1054 18 0;
+#X msg 1042 59 0;
+#X msg 745 1001 0;
+#X obj 708 978 r session-start;
+#X obj 1667 182 s rsa-wavelength-ms;
 #N canvas 0 22 450 300 exhale-sound 0;
 #X obj 179 45 r rsa-down-smooth;
 #X obj 97 105 *~;
@@ -979,7 +979,7 @@ after 36 beats;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
 #X connect 4 2 1 0;
-#X restore 845 1063 pd exhale-sound;
+#X restore 1107 1053 pd exhale-sound;
 #N canvas 71 29 1071 574 rsa-wavelength 0;
 #X obj -232 41 r rsa-wavelength-ms;
 #X floatatom -98 170 5 0 0 0 - - -;
@@ -1020,13 +1020,13 @@ after 36 beats;
 #X connect 11 0 18 0;
 #X connect 13 0 12 0;
 #X connect 13 0 19 0;
-#X restore 1125 264 pd rsa-wavelength;
-#X text 1124 243 how slow and steady is breathing;
-#X obj 486 77 gk.split -1000 0;
-#X obj 608 79 gk.split 0 1000;
-#X obj 617 169 gk.spring2 5 0.25;
-#X obj -90 69 gk.spring2 5 0.25;
-#X obj 119 112 gk.spring2 5 0.25;
+#X restore 1387 254 pd rsa-wavelength;
+#X text 1386 233 how slow and steady is breathing;
+#X obj 748 67 gk.split -1000 0;
+#X obj 870 69 gk.split 0 1000;
+#X obj 879 159 gk.spring2 5 0.25;
+#X obj 172 59 gk.spring2 5 0.25;
+#X obj 381 102 gk.spring2 5 0.25;
 #N canvas 0 22 314 495 pulsing 0;
 #X obj 119 169 outlet;
 #X obj 119 52 line;
@@ -1050,27 +1050,27 @@ after 36 beats;
 #X connect 8 0 1 0;
 #X connect 9 0 2 0;
 #X connect 10 0 4 0;
-#X restore 311 -933 pd pulsing;
-#X obj 254 -874 send pulse-out;
-#X obj 321 -902 send pulse-in;
-#X msg 446 1011 0.75;
-#X msg -88 932 0.5;
-#X msg 50 936 1;
-#X text -85 236 VISUALS VISUALS VISUALS VISUALS!;
-#X text 149 237 VISUALS VISUALS VISUALS VISUALS!;
-#X obj 90 925 udpsend;
-#X obj -90 815 packOSC;
-#X msg 12 799 disconnect;
-#X obj 160 697 loadbang;
-#X obj -95 698 receive packOSC;
-#X obj 307 897 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 573 -943 pd pulsing;
+#X obj 516 -884 send pulse-out;
+#X obj 583 -912 send pulse-in;
+#X msg 708 1001 0.75;
+#X msg 174 922 0.5;
+#X msg 312 926 1;
+#X text 177 226 VISUALS VISUALS VISUALS VISUALS!;
+#X text 411 227 VISUALS VISUALS VISUALS VISUALS!;
+#X obj 352 915 udpsend;
+#X obj 172 800 packOSC;
+#X msg 274 789 disconnect;
+#X obj 422 687 loadbang;
+#X obj 167 688 receive packOSC;
+#X obj 569 887 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 966 344 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 1228 334 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 968 492 send packOSC;
-#X msg 967 370 /gfx/World/Functions 0 1;
-#X obj 160 751 t b b;
-#X obj 14 698 r session-start;
+#X obj 1230 482 send packOSC;
+#X msg 1229 360 /gfx/World/Functions 0 1;
+#X obj 422 741 t b b;
+#X obj 276 688 r session-start;
 #N canvas 0 22 1440 852 init-shape-messages 0;
 #X obj -9306 -795 inlet;
 #X obj -9656 -587 s init-world;
@@ -1201,31 +1201,31 @@ after 36 beats;
 #X connect 52 0 50 0;
 #X connect 53 0 55 0;
 #X connect 54 0 53 0;
-#X restore 301 919 pd init-shape-messages;
-#X obj 160 833 delay 250;
-#X text 374 238 VISUALS VISUALS VISUALS VISUALS!;
-#X text -229 867 SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS;
-#X text 710 967 SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS;
-#X text 445 964 SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS;
-#X obj 1036 426 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 563 909 pd init-shape-messages;
+#X obj 422 823 delay 250;
+#X text 636 228 VISUALS VISUALS VISUALS VISUALS!;
+#X text 33 857 SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS;
+#X text 972 957 SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS;
+#X text 707 954 SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS SOUNDS;
+#X obj 1298 416 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X msg 1037 452 /gfx/World/Functions 1 0;
-#X obj 248 846 s start-stop-refresh;
-#X obj 249 825 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X msg 1299 442 /gfx/World/Functions 1 0;
+#X obj 510 836 s start-stop-refresh;
+#X obj 511 815 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 481 455 send packOSC;
-#X obj 571 455 prepend set;
-#X floatatom 481 355 5 0 1 1 Debug_on_(1)_or_off_(2) - -;
-#X msg 571 488 /gfx/World/Debug 1;
-#X msg 481 420 /gfx/World/Debug \$1;
-#X msg 249 803 1;
-#X obj 249 781 t b;
-#X msg 75 858 connect 127.0.0.1 58008;
-#X obj -90 775 spigot 0;
-#X msg 14 735 1;
-#X obj 736 490 send packOSC;
-#X obj 736 429 receive /gfx/Shapes/Graphics;
-#X msg 736 458 /gfx/Shapes/Graphics \$1 \$2 \$3 \$4 \$5;
+#X obj 743 445 send packOSC;
+#X obj 833 445 prepend set;
+#X floatatom 743 345 5 0 1 1 Debug_on_(1)_or_off_(2) - -;
+#X msg 833 478 /gfx/World/Debug 1;
+#X msg 743 410 /gfx/World/Debug \$1;
+#X msg 511 793 1;
+#X obj 511 771 t b;
+#X msg 337 848 connect 127.0.0.1 58008;
+#X obj 172 765 spigot 0;
+#X msg 276 725 1;
+#X obj 998 480 send packOSC;
+#X obj 998 419 receive /gfx/Shapes/Graphics;
+#X msg 998 448 /gfx/Shapes/Graphics \$1 \$2 \$3 \$4 \$5;
 #N canvas 526 115 768 724 exhale-blows-bubbles 0;
 #X obj 11 618 s start-exhale-bubble;
 #X obj 29 497 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
@@ -1261,7 +1261,7 @@ after 36 beats;
 #X connect 13 1 14 1;
 #X connect 14 0 9 0;
 #X connect 15 0 0 0;
-#X restore 1355 274 pd exhale-blows-bubbles;
+#X restore 1617 264 pd exhale-blows-bubbles;
 #N canvas 99 105 1440 744 shape-0-glow-in-middle 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -1744,7 +1744,7 @@ It's like linear crossfading or panning.;
 #X connect 62 0 61 0;
 #X connect 63 0 3 0;
 #X connect 64 0 58 1;
-#X restore -85 274 pd shape-0-glow-in-middle;
+#X restore 177 264 pd shape-0-glow-in-middle;
 #N canvas 0 22 1440 744 shape-1-pulsing-warm-glow-lower 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -2228,7 +2228,7 @@ It's like linear crossfading or panning.;
 #X connect 60 0 58 0;
 #X connect 61 0 7 0;
 #X connect 62 0 52 1;
-#X restore -86 295 pd shape-1-pulsing-warm-glow-lower;
+#X restore 176 285 pd shape-1-pulsing-warm-glow-lower;
 #N canvas 0 22 1204 662 shape-8-green-ring-exhale-contraction 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -2741,7 +2741,7 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 59 0 58 1;
 #X connect 60 0 1 0;
 #X connect 61 0 44 0;
-#X restore -128 434 pd shape-8-green-ring-exhale-contraction;
+#X restore 134 424 pd shape-8-green-ring-exhale-contraction;
 #N canvas 0 22 1440 744 shape-4-exhale-glow-spreading-light 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -3271,8 +3271,8 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 59 0 43 0;
 #X connect 60 0 1 0;
 #X connect 61 0 54 1;
-#X restore -6 361 pd shape-4-exhale-glow-spreading-light;
-#X obj 176 772 spigot 1;
+#X restore 256 351 pd shape-4-exhale-glow-spreading-light;
+#X obj 438 762 spigot 1;
 #N canvas 0 22 1440 800 shape-11-pearl-glow-in-middle-lower 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -3863,7 +3863,7 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 60 0 32 0;
 #X connect 61 0 7 0;
 #X connect 62 0 57 1;
-#X restore -90 507 pd shape-11-pearl-glow-in-middle-lower;
+#X restore 172 497 pd shape-11-pearl-glow-in-middle-lower;
 #N canvas 158 22 744 831 splits 0;
 #X obj -130 -46 select 0;
 #X msg 17 134 0.0001;
@@ -3949,10 +3949,10 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 39 0 20 0;
 #X connect 39 0 21 0;
 #X connect 39 0 27 0;
-#X restore 25 19 pd splits;
-#X obj 455 149 scale -100 100 0 1;
-#X obj 833 139 gk.spring2 10 0.25;
-#X obj 481 391 pack 0;
+#X restore 287 9 pd splits;
+#X obj 717 139 scale -100 100 0 1;
+#X obj 1095 129 gk.spring2 10 0.25;
+#X obj 743 381 pack 0;
 #N canvas 79 22 1122 849 WORLD 0;
 #X floatatom 25 -361 8 0 1 0 inner_gradient_colour_-_red_(float_0-1)
 - -;
@@ -4096,66 +4096,66 @@ It's like linear crossfading or panning.;
 #X connect 38 0 8 0;
 #X connect 40 0 18 0;
 #X connect 42 0 20 0;
-#X restore -85 253 pd WORLD;
-#X obj 301 -805 f;
-#X obj 349 -798 + 1;
-#X msg 358 -833 0;
-#X msg 333 708 0;
-#X msg 331 681 1;
-#X text 359 708 TURN OFF connection to internal IP address;
-#X text 360 679 connect to internal IP address (ON by default);
-#X obj 391 -453 select 0;
-#X obj 272 -446 select 0;
-#X obj 158 -440 select 0;
-#X obj 13 -442 select 0;
-#X obj 333 741 t b;
-#X obj 408 775 delay 250;
-#X msg -45 736 0;
-#X obj 392 -501 gk.mean 32;
-#X obj 265 -496 gk.mean 16;
-#X obj 157 -495 gk.mean 4;
-#X text -105 -953 gk.skeptic.pd;
-#X text -104 -937 gk.split.pd;
-#X text -103 -921 gk.mean.pd;
-#X text -102 -905 gk.spring2.pd;
-#X text -101 -888 gk.trough.pd;
-#X text -101 -870 gk.peak.pd;
-#X text -102 -854 gk.onebang.pd;
-#X text -102 -838 gk.sines.pd;
-#X text -103 -822 gk.resample.pd;
-#X text -102 -806 gk.edge.pd;
-#X text -103 -790 gk.scale-n-ease;
-#X text -104 -1005 NOTE FOR LIBPD BUILD;
-#X text -106 -985 PD 'abstraction' files refered to in this patch that
+#X restore 177 243 pd WORLD;
+#X obj 563 -815 f;
+#X obj 611 -808 + 1;
+#X msg 620 -843 0;
+#X msg 595 698 0;
+#X msg 593 671 1;
+#X text 621 698 TURN OFF connection to internal IP address;
+#X text 622 669 connect to internal IP address (ON by default);
+#X obj 653 -463 select 0;
+#X obj 534 -456 select 0;
+#X obj 420 -450 select 0;
+#X obj 275 -452 select 0;
+#X obj 595 731 t b;
+#X obj 670 765 delay 250;
+#X msg 217 726 0;
+#X obj 654 -511 gk.mean 32;
+#X obj 527 -506 gk.mean 16;
+#X obj 419 -505 gk.mean 4;
+#X text 157 -963 gk.skeptic.pd;
+#X text 158 -947 gk.split.pd;
+#X text 159 -931 gk.mean.pd;
+#X text 160 -915 gk.spring2.pd;
+#X text 161 -898 gk.trough.pd;
+#X text 161 -880 gk.peak.pd;
+#X text 160 -864 gk.onebang.pd;
+#X text 160 -848 gk.sines.pd;
+#X text 159 -832 gk.resample.pd;
+#X text 160 -816 gk.edge.pd;
+#X text 159 -800 gk.scale-n-ease;
+#X text 158 -1015 NOTE FOR LIBPD BUILD;
+#X text 156 -995 PD 'abstraction' files refered to in this patch that
 need to be added to libPD search path...;
-#X text -105 -741 list-mean.pd;
-#X text -108 -727 list-len.pd;
-#X text -100 -685 http://puredata.info/downloads/list-abs;
-#X text -103 -756 list-abs;
-#X text -105 -669 PD 'objects' (from 3rd party libraries);
-#X text -103 -615 http://puredata.info/downloads/cyclone;
-#X text -107 -647 'scale' - is from cyclone library;
-#X text -103 -631 use the whole cyclone library!;
-#X text -185 -506 'hsv2rgb' is from 'markEx';
-#X text -183 -490 http://puredata.info/downloads/markex;
-#X text 346 887 OPENSOUNDCONTROL MESSAGES TO CONTROL GRAPHICS;
-#X obj 580 810 delay 1000;
-#X obj 579 833 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X text 157 -751 list-mean.pd;
+#X text 154 -737 list-len.pd;
+#X text 162 -695 http://puredata.info/downloads/list-abs;
+#X text 159 -766 list-abs;
+#X text 157 -679 PD 'objects' (from 3rd party libraries);
+#X text 159 -625 http://puredata.info/downloads/cyclone;
+#X text 155 -657 'scale' - is from cyclone library;
+#X text 159 -641 use the whole cyclone library!;
+#X text 77 -516 'hsv2rgb' is from 'markEx';
+#X text 79 -500 http://puredata.info/downloads/markex;
+#X text 608 877 OPENSOUNDCONTROL MESSAGES TO CONTROL GRAPHICS;
+#X obj 842 800 delay 1000;
+#X obj 841 823 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 579 856 send session-start;
-#X obj 1150 -348 expr 60000/$f1;
-#X obj 674 -348 -;
-#X floatatom 725 -282 5 0 0 0 - - -;
-#X obj 674 -369 bondo;
-#X obj 1150 -372 r ibi-session-longest;
-#X obj 1003 -371 r ibi-session-shortest;
-#X obj 1002 -348 expr 60000/$f1;
-#X obj 1071 -284 -;
-#X floatatom 1071 -260 5 0 0 0 - - -;
-#X obj 1070 -310 bondo;
-#X obj 1062 -237 s hrv-range-bpm;
-#X obj 661 -234 s hrv-range-ms;
-#X text 1187 -238 responance training can produce hrv range of between
+#X obj 841 846 send session-start;
+#X obj 1412 -358 expr 60000/$f1;
+#X obj 936 -358 -;
+#X floatatom 987 -292 5 0 0 0 - - -;
+#X obj 936 -379 bondo;
+#X obj 1412 -382 r ibi-session-longest;
+#X obj 1265 -381 r ibi-session-shortest;
+#X obj 1264 -358 expr 60000/$f1;
+#X obj 1333 -294 -;
+#X floatatom 1333 -270 5 0 0 0 - - -;
+#X obj 1332 -320 bondo;
+#X obj 1324 -247 s hrv-range-bpm;
+#X obj 923 -244 s hrv-range-ms;
+#X text 1449 -248 responance training can produce hrv range of between
 20 BPM (200ms) to 50 bpm (680 ms);
 #N canvas 0 22 1362 681 shape-12 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
@@ -4579,13 +4579,13 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 60 0 55 1;
 #X connect 61 0 4 0;
 #X connect 61 0 41 0;
-#X restore -109 528 pd shape-12 white-ring-dev-4-32-breathing;
-#X obj 498 -377 r ibi-session-longest;
-#X obj 340 -378 r ibi-session-shortest;
-#X obj 307 -182 send ibi-normalized;
-#X text 239 359 ripple;
-#X text -104 -582 float_argument;
-#X text -102 -566 curve;
+#X restore 153 518 pd shape-12 white-ring-dev-4-32-breathing;
+#X obj 760 -387 r ibi-session-longest;
+#X obj 602 -388 r ibi-session-shortest;
+#X obj 569 -192 send ibi-normalized;
+#X text 501 349 ripple;
+#X text 158 -592 float_argument;
+#X text 160 -576 curve;
 #N canvas 0 22 1401 717 shape-15-indigo-ring-exhale-contraction 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -5156,18 +5156,18 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 58 0 20 0;
 #X connect 59 0 2 0;
 #X connect 60 0 47 1;
-#X restore -114 594 pd shape-15-indigo-ring-exhale-contraction;
-#X obj 212 -586 send ibi-ms-skeptic;
-#X obj 123 -244 receive ibi-ms-skeptic;
-#X obj 26 153 s rsa-down;
-#X obj 121 148 s rsa-up-smooth;
-#X obj -92 95 s rsa-down-smooth;
-#X obj 129 81 s rsa-up;
-#X obj 967 226 s hr-bang-going-down;
-#X obj 1115 226 s rsa-ms-downward;
-#X obj 1383 226 s rsa-ms-upward;
-#X obj 1241 226 s hr-bang-going-up;
-#X obj 1069 182 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 148 584 pd shape-15-indigo-ring-exhale-contraction;
+#X obj 474 -596 send ibi-ms-skeptic;
+#X obj 385 -254 receive ibi-ms-skeptic;
+#X obj 288 143 s rsa-down;
+#X obj 383 138 s rsa-up-smooth;
+#X obj 170 85 s rsa-down-smooth;
+#X obj 391 71 s rsa-up;
+#X obj 1229 216 s hr-bang-going-down;
+#X obj 1377 216 s rsa-ms-downward;
+#X obj 1645 216 s rsa-ms-upward;
+#X obj 1503 216 s hr-bang-going-up;
+#X obj 1331 172 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #N canvas 0 22 1440 744 shape-2-halo-around-pearl-contracts-w-hr-how-slow
 0;
@@ -5631,7 +5631,7 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 61 0 50 0;
 #X connect 62 0 42 0;
 #X coords 0 0 1 1 85 60 0;
-#X restore -179 316 pd shape-2-halo-around-pearl-contracts-w-hr-how-slow
+#X restore 83 306 pd shape-2-halo-around-pearl-contracts-w-hr-how-slow
 ;
 #N canvas 0 22 1365 796 shape-3-light-blue-glow-in-middle- 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
@@ -6147,7 +6147,7 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 63 0 1 0;
 #X connect 66 0 42 0;
 #X connect 67 0 39 0;
-#X restore -4 339 pd shape-3-light-blue-glow-in-middle-;
+#X restore 258 329 pd shape-3-light-blue-glow-in-middle-;
 #N canvas 0 22 1440 744 shape-10-soft-gradient-at-bottom 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -6669,7 +6669,7 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 61 0 56 1;
 #X connect 62 0 42 0;
 #X connect 63 0 7 0;
-#X restore -90 486 pd shape-10-soft-gradient-at-bottom;
+#X restore 172 476 pd shape-10-soft-gradient-at-bottom;
 #N canvas 447 73 1204 662 shape-9-pink-ring-exhale-contraction 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -7152,10 +7152,10 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 54 0 17 1;
 #X connect 55 0 12 0;
 #X connect 56 0 55 0;
-#X restore -89 465 pd shape-9-pink-ring-exhale-contraction;
-#X text -23 252 maybe remove this;
-#X text 77 273 white;
-#X text 151 597 alpha set by exhalation;
+#X restore 173 455 pd shape-9-pink-ring-exhale-contraction;
+#X text 239 242 maybe remove this;
+#X text 339 263 white;
+#X text 413 587 alpha set by exhalation;
 #N canvas 182 62 1362 681 shape-14 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -7606,7 +7606,7 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 55 0 42 0;
 #X connect 56 0 41 0;
 #X connect 57 0 56 1;
-#X restore -92 569 pd shape-14 pulsing-blue-ring-inside-hr-nmlzd;
+#X restore 170 559 pd shape-14 pulsing-blue-ring-inside-hr-nmlzd;
 #N canvas 212 24 1179 599 shape-7-magenta-ring-how-slow-32 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -8206,7 +8206,7 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 60 0 1 0;
 #X connect 61 0 4 0;
 #X connect 61 0 43 0;
-#X restore -181 406 pd shape-7-magenta-ring-how-slow-32;
+#X restore 81 396 pd shape-7-magenta-ring-how-slow-32;
 #N canvas 60 54 802 662 shape-5 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -8757,10 +8757,10 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 60 0 61 1;
 #X connect 61 0 47 0;
 #X connect 62 0 1 0;
-#X restore -114 381 pd shape-5 pulsing-blue-ring-ibi-normalised;
-#X obj 260 86 r ibi-as-bpm;
-#X obj 260 148 send bpm-mean-32;
-#X obj 260 117 gk.mean 32;
+#X restore 148 371 pd shape-5 pulsing-blue-ring-ibi-normalised;
+#X obj 522 76 r ibi-as-bpm;
+#X obj 522 138 send bpm-mean-32;
+#X obj 522 107 gk.mean 32;
 #N canvas 148 22 874 620 shape-16-pulsing-blue-ring-ibi-normalised
 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
@@ -9366,38 +9366,38 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 60 0 43 0;
 #X connect 61 0 42 0;
 #X connect 63 0 57 1;
-#X restore -128 619 pd shape-16-pulsing-blue-ring-ibi-normalised;
-#X symbolatom 702 865 10 0 0 0 - - -;
-#X msg 708 823 connect 192.168.1.2 58008;
-#X obj -102 273 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj -105 295 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj -202 314 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj -22 340 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X restore 134 609 pd shape-16-pulsing-blue-ring-ibi-normalised;
+#X symbolatom 964 855 10 0 0 0 - - -;
+#X msg 970 813 connect 192.168.1.2 58008;
+#X obj 160 263 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj -32 360 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 157 285 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj -134 382 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj -200 407 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj -152 434 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj -115 464 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj -118 485 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj -109 508 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj -132 530 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X msg 393 846 connect 192.168.89.209 58008;
-#X obj 111 548 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 60 304 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj -113 570 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 240 330 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 230 350 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 128 372 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 62 397 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 110 424 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 147 454 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 144 475 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 153 498 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 130 520 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 655 836 connect 192.168.89.209 58008;
+#X obj 373 538 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 149 560 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
 #N canvas 449 22 915 809 shape-13-cool-glow-upper 0;
 #X floatatom 585 141 5 3 120 1 [numSides]_from_triangle_to_sphere_(int_3-60)
 - -;
@@ -9923,18 +9923,18 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 62 0 7 0;
 #X connect 63 0 57 1;
 #X coords 0 0 1 1 85 60 0;
-#X restore 135 547 pd shape-13-cool-glow-upper;
-#X obj -136 594 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X obj -150 620 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
-#X text 155 381 expands with exhale \, then contracts back;
-#X text 278 343 **;
-#X text -111 -705 list-stream.mmb.pd;
-#X obj 278 677 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X restore 397 537 pd shape-13-cool-glow-upper;
+#X obj 126 584 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 112 610 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 417 371 expands with exhale \, then contracts back;
+#X text 540 333 **;
+#X text 151 -715 list-stream.mmb.pd;
+#X obj 540 667 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj -214 240 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
-0 1;
+#X obj 48 230 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
 #N canvas 855 66 581 718 exhalations 0;
 #X obj 214 165 bucket 2;
 #X floatatom 249 98 5 0 0 0 - - -;
@@ -9987,35 +9987,35 @@ to enable layer visibility to be switched on( (1) or off (0);
 #X connect 19 0 20 0;
 #X connect 20 0 21 0;
 #X connect 21 0 22 0;
-#X restore 445 -181 pd exhalations;
-#X obj 936 -137 r ibi-session-longest;
-#X obj 860 -157 r ibi-session-shortest;
-#X floatatom 792 -23 5 0 0 0 - - -;
-#X floatatom 944 -82 5 0 0 0 - - -;
-#X floatatom 887 -94 5 0 0 0 - - -;
-#X obj 172 -361 r ibi-mean-4;
-#X floatatom 998 -102 5 0 0 0 - - -;
-#X floatatom 848 -123 5 0 0 0 - - -;
-#X obj 884 -118 * 1.05;
-#X obj 929 -102 * 1;
-#X obj 972 -953 r session-start;
-#X obj 776 -354 expr 60000/$f1;
-#X obj 776 -376 r ibi-ms-skeptic;
-#X obj 851 -230 send bpm-normalized;
-#X floatatom 331 -205 5 0 0 0 - - -;
-#X obj 309 -294 scale 500 800 0 1;
-#X obj 310 -273 clip 0 1;
-#X obj 381 -726 gk.skeptic 90;
-#X obj 310 -252 * -1;
-#X obj 308 -228 + 1;
-#X obj 1078 -496 r bpm-session-shortest;
-#X obj 1036 -195 s bpm-session-fastest;
-#X obj 1184 -196 s bpm-session-slowest;
-#X obj 861 -327 r bpm-session-slowest;
-#X obj 892 -305 r bpm-session-fastest;
-#X obj 853 -254 clip 0 1;
-#X obj 855 -281 scale 50 70 0 1;
-#X text 476 631 connect to internal IP address (ON by default);
+#X restore 707 -191 pd exhalations;
+#X obj 1198 -147 r ibi-session-longest;
+#X obj 1122 -167 r ibi-session-shortest;
+#X floatatom 1054 -33 5 0 0 0 - - -;
+#X floatatom 1206 -92 5 0 0 0 - - -;
+#X floatatom 1149 -104 5 0 0 0 - - -;
+#X obj 434 -371 r ibi-mean-4;
+#X floatatom 1260 -112 5 0 0 0 - - -;
+#X floatatom 1110 -133 5 0 0 0 - - -;
+#X obj 1146 -128 * 1.05;
+#X obj 1191 -112 * 1;
+#X obj 1234 -963 r session-start;
+#X obj 1038 -364 expr 60000/$f1;
+#X obj 1038 -386 r ibi-ms-skeptic;
+#X obj 1113 -240 send bpm-normalized;
+#X floatatom 593 -215 5 0 0 0 - - -;
+#X obj 571 -304 scale 500 800 0 1;
+#X obj 572 -283 clip 0 1;
+#X obj 643 -736 gk.skeptic 90;
+#X obj 572 -262 * -1;
+#X obj 570 -238 + 1;
+#X obj 1340 -506 r bpm-session-shortest;
+#X obj 1298 -205 s bpm-session-fastest;
+#X obj 1446 -206 s bpm-session-slowest;
+#X obj 1123 -337 r bpm-session-slowest;
+#X obj 1154 -315 r bpm-session-fastest;
+#X obj 1115 -264 clip 0 1;
+#X obj 1117 -291 scale 50 70 0 1;
+#X text 738 621 connect to internal IP address (ON by default);
 #N canvas 367 128 941 489 format-messages-for-graphs-on-iPad-touchscreen
 0;
 #X obj 25 -32 r session-start;
@@ -10079,7 +10079,7 @@ graph-bpm-session-fastest \, graph-hrv-range-bpm;
 #X connect 26 0 16 0;
 #X connect 26 0 23 0;
 #X connect 27 0 21 1;
-#X restore 476 607 pd format-messages-for-graphs-on-iPad-touchscreen
+#X restore 738 597 pd format-messages-for-graphs-on-iPad-touchscreen
 ;
 #N canvas 282 22 499 433 dynamic-padding 0;
 #X obj 291 5 * 0.97;
@@ -10101,11 +10101,12 @@ graph-bpm-session-fastest \, graph-hrv-range-bpm;
 #X connect 8 0 7 0;
 #X connect 8 0 9 0;
 #X connect 9 0 0 1;
-#X restore 351 -345 pd dynamic-padding;
-#X msg 829 649 /gfx/Shapes/GradientSlow 9 \$2 \$3 0 0 \$4;
-#X text 829 668 last 4 variables are rotaion x y z;
-#X text 828 687 only send z!!;
-#X text 832 626 Rotation Z - for rotating polygons etc.;
+#X restore 613 -355 pd dynamic-padding;
+#X msg 1091 639 /gfx/Shapes/GradientSlow 9 \$2 \$3 0 0 \$4;
+#X text 1091 658 last 4 variables are rotaion x y z;
+#X text 1090 677 only send z!!;
+#X text 1094 616 Rotation Z - for rotating polygons etc.;
+#X obj 24 826 s ringGraphics;
 #X connect 0 0 25 0;
 #X connect 1 0 2 1;
 #X connect 1 1 2 0;
@@ -10258,6 +10259,7 @@ graph-bpm-session-fastest \, graph-hrv-range-bpm;
 #X connect 151 0 120 0;
 #X connect 152 0 122 0;
 #X connect 156 0 155 0;
+#X connect 156 0 351 0;
 #X connect 157 0 155 0;
 #X connect 158 0 164 0;
 #X connect 159 0 184 0;
